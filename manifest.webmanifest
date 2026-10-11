@@ -1,6 +1,6 @@
 {
-  "name": "Bedside H&P",
-  "short_name": "Bedside H&P",
+  "name": "Bedside H&E",
+  "short_name": "Bedside H&E",
   "description": "History, examination and differential companion for medical students",
   "start_url": "./",
   "scope": "./",
