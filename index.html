@@ -2833,7 +2833,7 @@ function viewEnc(e){
   var P=getP(e.pid),pr=progress(e);
   var h='';
   var rf=redFlags(e);
-  h+='<div class="row" style="justify-content:space-between;margin-block-end:8px"><div class="grow"><div class="eyebrow">'+esc(P.g)+' / '+esc(P.sys)+'</div><h2>'+esc(P.name)+'</h2></div><div class="row"><button class="btn small" data-act="ddxToggle" aria-pressed="'+(!DB.hideDdx)+'">DDx: '+(DB.hideDdx?'Hidden':'Shown')+'</button><button class="btn small" data-act="pickOpen" data-m="change">Change</button><button class="btn small" data-act="newEnc">New patient</button></div></div>';
+  h+='<div style="margin-block-end:8px"><div style="margin-block-end:8px"><div class="eyebrow">'+esc(P.g)+' / '+esc(P.sys)+'</div><h2>'+esc(P.name)+'</h2></div><div class="row" style="flex-wrap:wrap;gap:8px"><button class="btn small" data-act="ddxToggle" aria-pressed="'+(!DB.hideDdx)+'">DDx: '+(DB.hideDdx?'Hidden':'Shown')+'</button><button class="btn small" data-act="pickOpen" data-m="change">Change</button><button class="btn small" data-act="newEnc">New patient</button></div></div>';
   h+=infoCard(e);
   h+='<div class="stages" role="tablist">'+[['hist','History'],['exam','Exam'],['vit','Vitals'],['ddx','DDx'],['note','Note']].map(function(s){return '<button data-act="stage" data-s="'+s[0]+'"'+(UI.stage===s[0]?' aria-current="step"':'')+'>'+s[1]+(s[0]==='hist'?' <span class="mono small" id="pgH">'+pr.h+'/'+pr.ht+'</span>':s[0]==='exam'?' <span class="mono small" id="pgE">'+pr.x+'/'+pr.xt+'</span>':'')+'</button>'}).join('')+'<button class="tg" data-act="ddxToggle" aria-pressed="'+(!DB.hideDdx)+'">DDx '+(DB.hideDdx?'off':'on')+'</button></div>';
   h+='<div id="rfSlot" style="margin-block-start:12px">'+rfHTML(rf)+'</div>';
