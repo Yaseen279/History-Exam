@@ -322,6 +322,175 @@ label.f>input[type=text],label.f>input[type=number],label.f>input[type=date],lab
 .fcex li::before{content:counter(x);flex:none;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:.7rem;font-weight:700}
 .fscroll{overflow-x:auto}.ftbl{width:100%;border-collapse:collapse;font-size:.85rem}.ftbl caption{text-align:start;font-weight:700;padding-block-end:4px}.ftbl td,.ftbl th{padding:5px 8px;border-top:1px solid var(--line);text-align:start}
 @media (max-width:420px){.fbg{grid-template-columns:1fr}.fcrow,.fcdown{grid-template-columns:minmax(0,1.25fr) 26px minmax(0,1fr)}}
+/* ================= Design refresh =================
+   One layer over the rules above: calmer surfaces, clearer states, less chrome above the content.
+   Uses only the theme tokens, so every colour style and dark mode follow automatically. */
+:root{--rad:16px;--rad-s:12px;--sh2:0 1px 2px rgba(16,36,43,.05),0 8px 24px rgba(16,36,43,.07)}
+body{font-size:15.5px;line-height:1.42;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+::selection{background:var(--accent-soft)}
+.main{padding-inline:14px}
+.chips{margin-inline:-14px;padding-inline:14px}
+@media (min-width:900px){.main{padding-inline:24px}.chips{margin-inline:0;padding-inline:0}}
+h2{letter-spacing:-.02em}
+.card{border-radius:var(--rad);border-color:color-mix(in srgb,var(--line) 70%,transparent);box-shadow:var(--sh)}
+.eyebrow{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+.btn{border-radius:var(--rad-s);transition:transform .08s ease,background-color .15s ease,border-color .15s ease}
+.btn svg,.ibtn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.btn.primary{box-shadow:0 2px 8px color-mix(in srgb,var(--accent) 30%,transparent)}
+@media (hover:hover){.btn:hover{border-color:var(--accent)}.btn.primary:hover{filter:brightness(1.06)}.pick button:hover,.recent button:hover{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}}
+input[type=text],input[type=number],input[type=search],input[type=date],select,textarea{background:var(--surface);border:1.5px solid var(--line);transition:border-color .15s ease,box-shadow .15s ease}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent);outline:none}
+/* icon buttons */
+.ibtn{display:inline-grid;place-items:center;flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;transition:transform .08s ease,background-color .15s ease}
+.ibtn svg{width:20px;height:20px;stroke-width:1.8}
+.ibtn:active{transform:scale(.92)}
+.ibtn[aria-pressed="true"],.ibtn[aria-expanded="true"]{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.ibtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* app bar */
+.top{gap:8px;padding-block:8px 12px}
+.top>.row{gap:6px}
+.brand{font-size:1.15rem}
+.top.slim{align-items:center;padding-block:6px 10px}
+.top.slim .tt h2{font-size:1.2rem}
+.top.slim .tt .eyebrow{font-size:.64rem}
+.top.slim .btn.primary span{display:inline}
+/* bottom navigation: pill behind the active icon */
+.nav{background:color-mix(in srgb,var(--surface) 90%,transparent);-webkit-backdrop-filter:saturate(1.5) blur(14px);backdrop-filter:saturate(1.5) blur(14px)}
+.nav button{gap:3px;padding:7px 2px 6px;font-size:.7rem;font-weight:600}
+.nav button svg{box-sizing:content-box;width:22px;height:22px;padding:4px 18px;border-radius:99px;transition:background-color .2s ease,color .2s ease}
+.nav button[aria-current="page"]{box-shadow:none;color:var(--accent);font-weight:800}
+.nav button[aria-current="page"] svg{background:var(--accent-soft)}
+@media (min-width:900px){.nav button{border-radius:14px;padding-block:10px}.nav button[aria-current="page"]{background:transparent}}
+/* "Ask by" mnemonic strip */
+.hook{font-size:.9rem!important;padding:7px 12px!important;border-radius:var(--rad-s)!important;margin-block-end:10px!important}
+.hook>div{font-size:.62rem!important}
+/* patient summary */
+.ptcard{padding:0;overflow:hidden}
+.ptsum{display:flex;align-items:center;gap:12px;width:100%;padding:10px 12px;background:none;border:0;text-align:start;cursor:pointer;color:inherit;font:inherit}
+.ptsum b{display:block;font-size:.95rem}
+.ptsum .small{display:block;line-height:1.3}
+.av{display:inline-grid;place-items:center;flex:none;width:40px;height:40px;border-radius:50%;background:var(--surface2);color:var(--muted);font-weight:800;font-size:.85rem;letter-spacing:.02em}
+.av svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
+.av.on{background:var(--accent-soft);color:var(--accent)}
+.ptedit{display:inline-flex;align-items:center;gap:5px;flex:none;color:var(--accent);font-weight:700;font-size:.82rem;padding:6px 10px;border-radius:99px;background:var(--accent-soft)}
+.ptedit svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+/* encounter steps: all seven visible, sticky, with progress */
+.stages{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;overflow:visible;padding:5px;margin-inline:0;border:1px solid var(--line);border-radius:var(--rad);background:color-mix(in srgb,var(--surface) 92%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:var(--sh);top:calc(env(safe-area-inset-top,0px) + 6px)}
+.stages{gap:2px;padding:4px}
+.stages button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:44px;padding:4px 0;border-radius:11px;font-size:.74rem;font-weight:700;letter-spacing:-.01em;min-width:0}
+.stages button .sl{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.stages button[aria-current="step"]{box-shadow:0 2px 8px color-mix(in srgb,var(--accent) 35%,transparent)}
+.sbar{display:block;width:70%;max-width:46px;height:3px;border-radius:2px;background:var(--surface2);overflow:hidden}
+.sbar.none{visibility:hidden}
+.sbar i{display:block;height:100%;background:var(--accent);border-radius:2px;transition:width .25s ease}
+.stages button[aria-current="step"] .sbar{background:color-mix(in srgb,var(--accent-ink) 30%,transparent)}
+.stages button[aria-current="step"] .sbar i{background:var(--accent-ink)}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:375px){.stages button{font-size:.68rem}}
+.top.slim .tt .eyebrow{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:none;letter-spacing:0;font-weight:600}
+.dock .tops{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}
+.dock .tops::-webkit-scrollbar{display:none}
+.dock .tp{white-space:nowrap;flex:none}
+/* tips and toolbars */
+.tip{font-size:.8rem;line-height:1.4;color:var(--muted);margin-block:2px 10px;padding-inline-start:10px;border-inline-start:3px solid var(--accent-soft)}
+.tbar{flex-wrap:wrap}
+.tbar .btn.small{min-height:34px;border-radius:99px;padding-inline:12px;font-size:.8rem}
+/* companion notices: smaller, still visible */
+.compn{font-size:.78rem;padding:8px 12px;border-radius:var(--rad-s);background:color-mix(in srgb,var(--surface2) 70%,transparent);border-style:dashed}
+/* section cards */
+.sech .chev{display:inline-grid;place-items:center;width:22px;height:22px;margin-inline-end:4px;border-radius:50%;background:var(--accent-soft);font-size:.7rem;vertical-align:1px}
+.card.done{border-color:color-mix(in srgb,var(--ok) 40%,var(--line))}
+.card.done .sech .chev{background:var(--ok-bg);color:var(--ok)}
+.cnt{font-size:.72rem;padding:2px 8px}
+/* tick chips: state is shown by a mark as well as colour */
+.pk{min-height:38px;padding:6px 13px;border-radius:12px;font-weight:600;transition:transform .08s ease,background-color .12s ease,border-color .12s ease}
+.pk.y,.pk.a{box-shadow:0 2px 6px color-mix(in srgb,currentColor 0%,rgba(0,0,0,.12))}
+.pk.y:not(.rf)::before{content:'\2713';font-weight:900;margin-inline-end:6px}
+.pk.a:not(.rf)::before{content:'+';font-weight:900;margin-inline-end:6px}
+.pk.n:not(.rf)::before{content:'\2715';font-weight:800;margin-inline-end:6px;text-decoration:none;display:inline-block}
+.pk.n{text-decoration-thickness:1.5px}
+.pk.rf{background:color-mix(in srgb,var(--danger-bg) 60%,var(--surface))}
+.pk.rf.y,.pk.rf.a{background:var(--danger);border-color:var(--danger);color:#fff}
+.pk.rf.y{background:var(--accent);border-color:var(--danger);box-shadow:inset 0 0 0 1.5px var(--danger)}
+.pk.ot{border-radius:12px}
+.sst{font-size:.68rem;margin-block:14px 6px}
+/* yes/no rows */
+.seg button{border-radius:10px}
+.it.flag{border-radius:0 10px 10px 0}
+/* differential dock: floating card */
+.dock{left:10px;right:10px;bottom:calc(var(--navh,calc(54px + env(safe-area-inset-bottom,0px))) + 8px);border:1px solid var(--line);border-radius:var(--rad);box-shadow:0 8px 28px rgba(0,0,0,.18);padding:7px 8px 7px 12px;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);background:color-mix(in srgb,var(--surface) 94%,transparent)}
+.dock .l{font-weight:800;color:var(--accent);opacity:1}
+.dock .tp{border-radius:8px;font-size:.7rem}
+.dockx{border-radius:99px;min-height:34px}
+.main{padding-block-end:170px}
+/* stat tiles (vitals, review) */
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.stat{display:flex;flex-direction:column;gap:3px;padding:10px 12px;border-radius:var(--rad-s);background:var(--surface2);min-width:0}
+.stat .big{font-family:var(--f-mono);font-size:1.45rem;font-weight:600;line-height:1.1}
+.stat.lo{background:var(--ok-bg)}.stat.lo .big,.stat.lo .eyebrow{color:var(--ok)}
+.stat.md{background:var(--warn-bg)}.stat.md .big,.stat.md .eyebrow{color:var(--warn)}
+.stat.hi{background:var(--danger-bg)}.stat.hi .big,.stat.hi .eyebrow{color:var(--danger)}
+.mbar{display:block;height:5px;border-radius:3px;background:color-mix(in srgb,var(--line) 70%,transparent);overflow:hidden;margin-block:4px 1px}
+.mbar i{display:block;height:100%;border-radius:3px;background:var(--accent);transition:width .25s ease}
+.stat.lo .mbar i{background:var(--ok)}.stat.md .mbar i{background:var(--warn)}.stat.hi .mbar i{background:var(--danger)}
+/* vitals: unit inside the field */
+.vgrid{grid-template-columns:repeat(6,minmax(0,1fr))}
+.vgrid>label{grid-column:span 2}.vgrid>label:has(select){grid-column:span 3}
+@media (min-width:600px){.vgrid{grid-template-columns:repeat(8,minmax(0,1fr))}.vgrid>label:has(select){grid-column:span 4}}
+.alert ul{display:flex;flex-wrap:wrap;gap:5px;list-style:none;padding:0!important;margin-block-start:8px!important}
+.alert li{padding:3px 9px;border-radius:8px;background:color-mix(in srgb,var(--surface) 75%,transparent);font-size:.8rem;line-height:1.3}
+.vit label.f>span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.uin{position:relative;display:block}
+.uin input{padding-inline-end:46px!important;font-family:var(--f-mono);font-size:1.05rem!important;height:2.75rem}
+.uin em{position:absolute;inset-inline-end:10px;top:50%;transform:translateY(-50%);font-style:normal;font-size:.72rem;font-weight:600;color:var(--muted);pointer-events:none}
+/* differential bars */
+.dd{padding-block:10px}
+.dd .nm{font-size:.86rem}
+.bar{height:7px;border-radius:4px}
+.bar i{border-radius:4px;background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 70%,transparent),var(--accent))}
+.dd summary{font-size:.78rem;margin-block-start:2px}
+/* search fields with icon */
+.srch{position:relative;margin-block-end:12px}
+.srch svg{position:absolute;inset-inline-start:12px;top:50%;transform:translateY(-50%);width:19px;height:19px;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round;pointer-events:none}
+.srch input{padding-inline-start:40px!important;height:2.9rem;border-radius:14px!important;box-shadow:var(--sh)}
+/* complaint picker */
+.spc{padding:4px;margin-block-end:12px;box-shadow:var(--sh)}
+.spc button{padding:7px 16px;min-height:36px;font-size:.88rem}
+.pick{gap:8px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.pick button{min-height:62px;padding:10px 12px 10px 14px;border-radius:14px;overflow:hidden;border-color:color-mix(in srgb,var(--line) 75%,transparent)}
+.pick button::before{content:'';position:absolute;inset-block:0;inset-inline-start:0;width:4px;background:hsl(var(--hue,200) 55% 52%)}
+.pick button b{font-size:.92rem;margin-block-end:2px}
+.pick button span{font-size:.74rem}
+.recent{display:grid;gap:8px;margin-block-end:14px}
+@media (min-width:700px){.recent{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.recent button{position:relative;display:flex;align-items:center;gap:10px;text-align:start;padding:10px 12px 10px 16px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:inherit;font:inherit;cursor:pointer;box-shadow:var(--sh);overflow:hidden}
+.recent button::before{content:'';position:absolute;inset-block:0;inset-inline-start:0;width:4px;background:hsl(var(--hue,200) 55% 52%)}
+.recent b{display:block;font-size:.92rem}
+.recent .small{display:block}
+.recent svg{flex:none;width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+/* log */
+#logList{padding:4px 12px}
+.logrow{flex-wrap:wrap;gap:8px 10px;padding-block:12px}
+.logrow .o{display:flex;align-items:center;gap:12px;flex:1 1 260px;min-width:0}
+.logrow .o .grow>*{display:block}
+.logrow .av{background:hsl(var(--hue,200) 55% 52% / .16);color:hsl(var(--hue,200) 55% 42%)}
+:root[data-theme="dark"] .logrow .av{color:hsl(var(--hue,200) 65% 72%)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logrow .av{color:hsl(var(--hue,200) 65% 72%)}}
+.logrow .dxl{font-weight:600}
+.logrow .mbar{max-width:220px}
+.lact{display:flex;gap:6px;margin-inline-start:auto}
+.lact .btn.small{min-height:34px;border-radius:99px;font-size:.78rem}
+/* segmented mode switch (practice) */
+.segc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:4px;border:1px solid var(--line);border-radius:16px;background:var(--surface);box-shadow:var(--sh)}
+.segc .chip{justify-content:center;text-align:center;white-space:normal;line-height:1.15;border:0;border-radius:12px;min-height:40px;padding:4px 6px;font-size:.82rem;background:transparent;color:var(--muted)}
+.segc .chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+/* reference section grid */
+.rgrid .chip{border-radius:12px;min-height:42px;font-size:.84rem}
+.rgrid .chip[aria-pressed="true"]{box-shadow:0 2px 8px color-mix(in srgb,var(--accent) 30%,transparent)}
+/* alerts */
+.alert{border-width:1px;border-inline-start-width:5px;border-radius:var(--rad-s)}
+.note{border-radius:var(--rad-s)}
+.toast{border-width:1px;border-color:var(--line);background:var(--ink);color:var(--surface);box-shadow:0 8px 24px rgba(0,0,0,.25)}
 </style></head><body>
 <div class="app" id="app"></div>
 <div class="toast" id="toast" hidden></div>
@@ -8296,7 +8465,19 @@ function buildCSV(){
 }
 
 /* ================= icons ================= */
+function themeName(){return DB.theme==='dark'?'Dark':DB.theme==='light'?'Light':'Auto'}
 var IC={
+ help:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5v.7M12 17h0"/></svg>',
+ palette:'<svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1 0 1.6-.8 1.6-1.6 0-.5-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.9.7-1.6 1.6-1.6H16a5 5 0 0 0 5-5c0-4.2-4-7.6-9-7.6z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="14.5" cy="7" r="1"/></svg>',
+ sun:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
+ moon:'<svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>',
+ auto:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>',
+ plus:'<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
+ more:'<svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/><circle cx="19" cy="12" r="1.3" fill="currentColor"/></svg>',
+ search:'<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>',
+ user:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></svg>',
+ edit:'<svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>',
+ resume:'<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>',
  enc:'<svg viewBox="0 0 24 24"><path d="M9 4h6v3H9z"/><path d="M7 6H5v15h14V6h-2"/><path d="M9 12h6M9 16h4"/></svg>',
  log:'<svg viewBox="0 0 24 24"><path d="M5 6h14M5 12h14M5 18h9"/></svg>',
  sc:'<svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M16 12h0M8 16h2M12 16h2"/></svg>',
@@ -8457,10 +8638,10 @@ function render(keepScroll){
   else if(UI.tab==='enc'&&e&&!UI.pick&&UI.stage==='rev')bn='Gaps are suggestions from the checklist, not a complete list. Compare with your handbook.';
   else if(UI.tab==='enc'&&e&&!UI.pick&&UI.stage==='note')bn='This note is drafted from your ticks and typing. Read it, correct it and check it against your sources before you use or submit it.';
   if(bn)body='<div class="compn"><p><b>Companion only.</b> '+bn+'</p></div>'+body;
-  var top='<header class="top"><div class="brand">Bedside H&amp;E<small>History, examination, differential</small></div><div class="row">'+(saveOK?'':'<span class="pill red" title="Browser storage is blocked. Export your log often.">Not saving</span>')+'<button class="btn small" data-act="help" aria-label="How to use this app">Help</button><button class="btn small" data-act="accent" aria-label="Change style"><span class="dot"></span>Style</button><button class="btn small" data-act="theme" aria-label="Switch theme">'+(DB.theme==='dark'?'Dark':DB.theme==='light'?'Light':'Auto')+'</button></div></header>';
+  var top='<header class="top"><div class="brand">Bedside H&amp;E<small>History, examination, differential</small></div><div class="row">'+(saveOK?'':'<span class="pill red" title="Browser storage is blocked. Export your log often.">Not saving</span>')+'<button class="ibtn" data-act="help" aria-label="How to use this app" title="Help" aria-pressed="'+!!UI.helpOpen+'">'+IC.help+'</button><button class="ibtn" data-act="accent" aria-label="Change colour style" title="Colour style" aria-pressed="'+!!UI.stOpen+'">'+IC.palette+'</button><button class="ibtn" data-act="theme" aria-label="Theme: '+themeName()+'. Tap to switch" title="Theme: '+themeName()+'">'+(DB.theme==='dark'?IC.moon:DB.theme==='light'?IC.sun:IC.auto)+'</button></div></header>';
   if(LAYOUT_A&&UI.tab==='enc'&&e&&!UI.pick){
     var P0=getP(e.pid);
-    top='<header class="top slim"><div class="grow tt"><div class="eyebrow">'+esc(P0.g)+' / '+esc(P0.sys)+'</div><h2>'+esc(P0.name)+'</h2></div>'+(saveOK?'':'<span class="pill red" title="Browser storage is blocked. Export your log often.">Not saving</span>')+'<button class="btn small" data-act="pickOpen" data-m="change">Change</button><button class="btn small" data-act="newEnc">New patient</button><button class="btn small" data-act="moreToggle" aria-expanded="'+(!!UI.moreOpen)+'" aria-label="More options">\u22EF</button></header>'+moreMenu(e)+hookHTML(P0.id);
+    top='<header class="top slim"><div class="grow tt"><div class="eyebrow">'+esc(P0.g)+' / '+esc(P0.sys)+'</div><h2>'+esc(P0.name)+'</h2></div>'+(saveOK?'':'<span class="pill red" title="Browser storage is blocked. Export your log often.">Not saving</span>')+'<button class="btn small" data-act="pickOpen" data-m="change" title="Change the presenting complaint">Change</button><button class="btn small primary" data-act="newEnc" title="Start a new patient">'+IC.plus+'<span>New</span></button><button class="ibtn" data-act="moreToggle" aria-expanded="'+(!!UI.moreOpen)+'" aria-label="More options" title="More options">'+IC.more+'</button></header>'+moreMenu(e)+hookHTML(P0.id);
   }
   var dock='';
   if(UI.tab==='enc'&&e&&!UI.pick&&getP(e.pid).dd.length&&(UI.stage==='hist'||UI.stage==='exam'||UI.stage==='vit')){dock='<div class="dock" id="dock"'+(DB.hideDdx?'':' data-act="stage" data-s="ddx"')+'>'+dockHTML(e)+'</div>'}
@@ -8474,7 +8655,7 @@ function helpPanel(){
   var S=function(t,b,open){return '<details class="hl"'+(open?' open':'')+'><summary><b>'+t+'</b></summary><div class="hlb">'+b+'</div></details>'};
   return '<div class="card" style="padding:12px"><h3 style="margin-block-end:8px"><span>Help</span><button class="btn small" data-act="help">Close</button></h3>'
   +'<div class="compn" style="margin-block:0 10px"><p><b>Companion only.</b> Bedside H&amp;E helps you ask, examine and think in order. It is not a textbook or a guideline. Compare everything with your own sources and your supervisor, and never rely on it alone for a real patient.</p></div>'
-  +S('Start here','<ol><li><b>Pick a complaint</b> (Medicine or Surgery, or search).</li><li>Tap <b>Enter patient info</b>: initials, age, sex.</li><li><b>History</b> and <b>Exam</b>: tap what you find.</li><li><b>DDx</b> shows the ranked diagnoses. <b>Review</b> shows what you missed. <b>Note</b> saves the case sheet.</li></ol><p class="small muted" style="margin-block-start:6px">Everything saves on this device. No internet needed.</p>',true)
+  +S('Start here','<ol><li><b>Pick a complaint</b> (Medicine or Surgery, or search).</li><li>Tap <b>Add patient details</b>: initials, age, sex.</li><li><b>History</b> and <b>Exam</b>: tap what you find.</li><li><b>DDx</b> shows the ranked diagnoses. <b>Review</b> shows what you missed. <b>Note</b> saves the case sheet.</li></ol><p class="small muted" style="margin-block-start:6px">Everything saves on this device. No internet needed.</p>',true)
   +S('Ticking','<ul><li>Tap a chip once for <b>present</b>, again for <b>denied</b>, a third time to <b>clear</b>.</li><li>Red <b>!</b> means a red flag. Ask it every time.</li><li><b>Rest: No</b> or <b>Rest normal</b> fills the untapped lines.</li><li>In Exam, open <b>How to examine</b> on each step, then tap abnormal findings.</li></ul>')
   +S('Test yourself','<ul><li>Turn it on next to <b>Expand all</b>. Every line is hidden.</li><li>Say the answer first, then tap to check it.</li><li><b>Hide group names</b> makes it harder.</li></ul>')
   +S('Other tabs','<ul><li><b>Log</b>: your saved patients, and backup. Use initials only. Back up often.</li><li><b>Reference</b>: signs, scores, calculators, normal values, criteria, mnemonics.</li><li><b>Practice</b>: diagnosis quiz and exam guides.</li></ul>')
@@ -8510,7 +8691,7 @@ function viewEnc(e){
   var rf=redFlags(e);
   if(!LAYOUT_A)h+='<div style="margin-block-end:8px"><div style="margin-block-end:8px"><div class="eyebrow">'+esc(P.g)+' / '+esc(P.sys)+'</div><h2>'+esc(P.name)+'</h2>'+hookHTML(P.id)+srcLine(SRC_P[P.id])+'</div><div class="row" style="flex-wrap:wrap;gap:8px"><button class="btn small" data-act="ddxToggle" aria-pressed="'+(!DB.hideDdx)+'">DDx: '+(DB.hideDdx?'Hidden':'Shown')+'</button><button class="btn small" data-act="pickOpen" data-m="change">Change</button><button class="btn small" data-act="newEnc">New patient</button></div></div>';
   h+=infoCard(e);
-  h+='<div class="stages" role="tablist">'+[['hist','History'],['exam','Exam'],['vit','Vitals'],['ddx','DDx'],['web','Web'],['rev','Review'],['note','Note']].map(function(s){return '<button data-act="stage" data-s="'+s[0]+'"'+(UI.stage===s[0]?' aria-current="step"':'')+'>'+s[1]+(s[0]==='hist'?' <span class="mono small" id="pgH">'+pr.h+'/'+pr.ht+'</span>':s[0]==='exam'?' <span class="mono small" id="pgE">'+pr.x+'/'+pr.xt+'</span>':'')+'</button>'}).join('')+'</div>';
+  h+='<nav class="stages" aria-label="Encounter steps">'+[['hist','History'],['exam','Exam'],['vit','Vitals'],['ddx','DDx'],['web','Web'],['rev','Review'],['note','Note']].map(function(s){var pb=s[0]==='hist'?['pgH',pr.h,pr.ht]:s[0]==='exam'?['pgE',pr.x,pr.xt]:null;return '<button data-act="stage" data-s="'+s[0]+'"'+(UI.stage===s[0]?' aria-current="step"':'')+'><span class="sl">'+s[1]+'</span>'+(pb?'<span class="sbar" aria-hidden="true"><i id="'+pb[0]+'b" style="width:'+(pb[2]?Math.round(pb[1]/pb[2]*100):0)+'%"></i></span><span class="vh" id="'+pb[0]+'">'+pb[1]+'/'+pb[2]+'</span>':'<span class="sbar none" aria-hidden="true"></span>')+'</button>'}).join('')+'</nav>';
   h+='<div id="rfSlot" style="margin-block-start:12px">'+rfHTML(rf)+'</div>';
   var main='';
   if(UI.stage==='hist')main=stageHist(e,P);
@@ -8527,19 +8708,29 @@ function viewEnc(e){
 function rfHTML(rf){return rf.length?'<div class="alert" role="alert">Red flag: '+rf.map(function(i){return esc(i.t)}).join(' / ')+'</div>':''}
 function infoCard(e){
   var sum=[e.pt.ref||'No ID',e.pt.age?e.pt.age+' y':'',e.pt.sex||'',e.pt.loc||''].filter(Boolean).join(' / ');
-  if(!UI.infoOpen)return '<div class="card"><div class="row" style="justify-content:space-between"><div class="grow"><b>'+(sum?esc(sum):'Patient details')+'</b><div class="small muted">'+esc(e.cc||(sum?'Presenting complaint not entered':'Tap Enter patient info to add ID, age and sex'))+(e.dur?' / '+esc(e.dur):'')+'</div></div><button class="btn small" data-act="infoToggle">Enter patient info</button></div></div>';
+  var filled=!!(e.pt.ref||e.pt.age||e.pt.sex);
+  if(!UI.infoOpen)return '<div class="card ptcard"><button class="ptsum" data-act="infoToggle" aria-expanded="false"><span class="av'+(filled?' on':'')+'" aria-hidden="true">'+(e.pt.ref?esc(e.pt.ref.trim().slice(0,2).toUpperCase()):IC.user)+'</span><span class="grow"><b>'+(filled?esc(sum):'Add patient details')+'</b><span class="small muted">'+esc(e.cc||(filled?'Presenting complaint not entered':'Initials, age and sex adjust the differential'))+(e.dur?' / '+esc(e.dur):'')+'</span></span><span class="ptedit">'+IC.edit+'<span>'+(filled?'Edit':'Add')+'</span></span></button></div>';
   return '<div class="card"><div class="grid4"><label class="f">ID or initials<input type="text" id="f-ref" data-b="pt.ref" value="'+esc(e.pt.ref)+'" autocomplete="off"></label><label class="f">Age<input type="number" inputmode="numeric" data-b="pt.age" value="'+esc(e.pt.age)+'"></label><label class="f">Sex<select data-b="pt.sex"><option value=""></option><option value="M"'+(e.pt.sex==='M'?' selected':'')+'>Male</option><option value="F"'+(e.pt.sex==='F'?' selected':'')+'>Female</option></select></label><label class="f">Ward / bed<input type="text" data-b="pt.loc" value="'+esc(e.pt.loc)+'" autocomplete="off"></label></div><div class="grid4" style="margin-block-start:10px"><label class="f">Occupation<input type="text" data-b="pt.occ" value="'+esc(e.pt.occ||'')+'" autocomplete="off"></label><label class="f">Marital status<select data-b="pt.mar"><option value=""></option>'+['Single','Married','Divorced','Widowed'].map(function(m){return '<option'+(e.pt.mar===m?' selected':'')+'>'+m+'</option>'}).join('')+'</select></label><label class="f">Residence<input type="text" data-b="pt.res" value="'+esc(e.pt.res||'')+'" autocomplete="off"></label><label class="f">Date of admission<input type="date" data-b="pt.adm" value="'+esc(e.pt.adm||'')+'"></label></div><div class="grid4" style="margin-block-start:10px"><label class="f">Date of history<input type="date" data-b="pt.hdt" value="'+esc(e.pt.hdt||'')+'"></label><label class="f">Mode of referral<select data-b="pt.mref"><option value=""></option>'+['Self','Primary care','Another hospital','Outpatient clinic','Emergency'].map(function(m){return '<option'+(e.pt.mref===m?' selected':'')+'>'+m+'</option>'}).join('')+'</select></label><label class="f">Mode of arrival<select data-b="pt.marr"><option value=""></option>'+['Walked in','Ambulance','Private car','Wheelchair or stretcher'].map(function(m){return '<option'+(e.pt.marr===m?' selected':'')+'>'+m+'</option>'}).join('')+'</select></label></div><div class="grid2" style="margin-block-start:10px"><label class="f">Complaint (own words)<input type="text" data-b="cc" value="'+esc(e.cc)+'" autocomplete="off"></label><label class="f">Duration / onset<input type="text" data-b="dur" value="'+esc(e.dur)+'" autocomplete="off"></label></div><div class="row" style="margin-block-start:10px;justify-content:space-between"><span class="small muted">Use initials or a bed number. Data stays in this browser.</span><button class="btn small" data-act="infoToggle">Done</button></div></div>';
 }
 function viewPick(e){
   var q=UI.pq.toLowerCase();
   var h='<div class="row" style="justify-content:space-between;margin-block-end:10px"><h2>'+(UI.pickMode==='change'?'Change presentation':'What is the patient presenting with?')+'</h2>'+(e?'<button class="btn small" data-act="pickClose">Back</button>':'')+'</div>';
-  h+='<input type="search" id="pq" placeholder="Type the complaint, e.g. chest pain" value="'+esc(UI.pq)+'" style="margin-block-end:12px">';
+  h+='<div class="srch">'+IC.search+'<input type="search" id="pq" placeholder="Search, e.g. chest pain or cough" value="'+esc(UI.pq)+'" aria-label="Search presentations"></div>';
+  if(UI.pickMode!=='change')h+=recentHTML();
   h+=specBar();
-  h+='<div class="srcln" style="margin-block:-4px 4px">'+srcMark(1,18)+'<span class="small muted">The crest marks content based on College of Medicine teaching material.</span></div>';
   h+='<div id="pickList">'+pickList(q)+'</div>';
   h+='<div class="compn" style="margin-block-start:16px"><div class="srcln">'+srcMark(1,20)+'<span><b>The crest</b> marks content based on College of Medicine, University of Baghdad teaching material.</span></div><p><b>A companion, not a source.</b> This app is a revision aid for the bedside. Do not rely on it alone: compare every question, finding and diagnosis with your own sources and your supervisor.</p></div>';
   return h;
 }
+function recentHTML(){
+  var list=DB.encs.slice().sort(function(a,b){return (b.t||0)-(a.t||0)}).filter(function(x){return getP(x.pid)}).slice(0,3);
+  if(!list.length)return '';
+  return '<div class="eyebrow" style="margin-block:2px 8px">Continue a recent patient</div><div class="recent">'+list.map(function(x){var P=getP(x.pid),pr=progress(x),pc=pr.ht+pr.xt?Math.round((pr.h+pr.x)/(pr.ht+pr.xt)*100):0;return '<button data-act="logOpen" data-id="'+x.id+'" style="--hue:'+sysHue(P.sys)+'"><span class="grow"><b>'+esc(P.name)+'</b><span class="small muted">'+esc([x.pt.ref||'No ID',x.pt.age?x.pt.age+' y':'',ago(x.t)].filter(Boolean).join(' \u00B7 '))+'</span><span class="mbar" aria-hidden="true"><i style="width:'+pc+'%"></i></span></span>'+IC.resume+'</button>'}).join('')+'</div>';
+}
+function ago(t){var m=Math.round((Date.now()-(t||0))/60000);if(m<1)return 'just now';if(m<60)return m+' min ago';var h=Math.round(m/60);if(h<24)return h+' h ago';var d=Math.round(h/24);return d<8?d+' d ago':dstr(t)}
+/* One colour per body system, so related complaints share a stripe */
+var SYS_HUE=[[/cardi/i,352],[/respir/i,205],[/gastro|upper gi|colorectal|hernia/i,28],[/neuro/i,268],[/haemat/i,330],[/renal|genito|urolog/i,46],[/endocr|thyroid/i,160],[/vascular/i,8],[/rheumat|musculo/i,188],[/dermat|skin|breast/i,300],[/head and neck/i,240],[/emergency|trauma/i,0]];
+function sysHue(sys){sys=String(sys||'');for(var i=0;i<SYS_HUE.length;i++)if(SYS_HUE[i][0].test(sys))return SYS_HUE[i][1];return 215}
 function curSpec(){return DB.spec==='Surgery'?'Surgery':'Medicine'}
 function specBar(){
   var n={Medicine:0,Surgery:0};PRES.forEach(function(p){if(n[p.g]!==undefined)n[p.g]++});
@@ -8551,12 +8742,12 @@ function pickList(q){
   if(q&&q.trim().length>=2){
     var rk=symRank(q).filter(function(x){return x.p.id!=='genhx'&&x.p.id!=='other'});
     if(!rk.length)return '<div class="empty">No presentation matches. Try another word, or <button class="chip" data-act="pick" data-id="other">record it as another complaint</button>.</div>';
-    return '<div class="eyebrow" style="margin-block:14px 8px">Best matches for \u201c'+esc(q.trim())+'\u201d</div><div class="pick">'+rk.slice(0,12).map(function(x){var p=x.p;return '<button data-act="pick" data-id="'+p.id+'"><b>'+esc(p.name)+'</b><span>'+esc(p.sys)+(x.via?' / '+esc(x.via):'')+(p.g==='Surgery'?' <u class="tg">Surgery</u>':'')+'</span>'+srcMark(SRC_P[p.id],16)+'</button>'}).join('')+'</div>';
+    return '<div class="eyebrow" style="margin-block:14px 8px">Best matches for \u201c'+esc(q.trim())+'\u201d</div><div class="pick">'+rk.slice(0,12).map(function(x){var p=x.p;return '<button data-act="pick" data-id="'+p.id+'" style="--hue:'+sysHue(p.sys)+'"><b>'+esc(p.name)+'</b><span>'+esc(p.sys)+(x.via?' / '+esc(x.via):'')+(p.g==='Surgery'?' <u class="tg">Surgery</u>':'')+'</span>'+srcMark(SRC_P[p.id],16)+'</button>'}).join('')+'</div>';
   }
   [curSpec()].forEach(function(g){
     var list=PRES.filter(function(p){return p.g===g&&(!q||(p.name+' '+p.sys).toLowerCase().indexOf(q)>=0)}).sort(function(a,b){return a.name<b.name?-1:1});
     if(!list.length)return;
-    h+='<div class="eyebrow" style="margin-block:14px 8px">'+(g==='General'?'General approach':g)+'</div><div class="pick">'+list.map(function(p){return '<button data-act="pick" data-id="'+p.id+'"><b>'+esc(p.name)+'</b><span>'+esc(p.sys)+'</span>'+srcMark(SRC_P[p.id],16)+'</button>'}).join('')+'</div>';
+    h+='<div class="eyebrow" style="margin-block:14px 8px">'+(g==='General'?'General approach':g)+'</div><div class="pick">'+list.map(function(p){return '<button data-act="pick" data-id="'+p.id+'" style="--hue:'+sysHue(p.sys)+'"><b>'+esc(p.name)+'</b><span>'+esc(p.sys)+'</span>'+srcMark(SRC_P[p.id],16)+'</button>'}).join('')+'</div>';
   });
   return h||'<div class="empty">No presentation matches. Try a symptom word.</div>';
 }
@@ -8613,7 +8804,7 @@ function secHTML(e,P,s,idx,kind){return unitHTML(e,P,{g:null,secs:[s]},idx)}
 function secCnt(e,P,s){var n=0;s.items.forEach(function(it){if(e.f[fkey(P,it)])n++});return '<span class="cnt">'+n+'/'+s.items.length+'</span>'}
 function secBar(P,kind){
   var e=curEnc(),on=covOn();
-  var h='<div class="row" style="gap:6px;margin-block-end:8px"><button class="btn small" data-act="secAll" data-v="1" data-k="'+kind+'">Expand all</button><button class="btn small" data-act="secAll" data-v="0" data-k="'+kind+'">Collapse all</button>'+(COVER_OK?'<button class="btn small'+(on?' primary':'')+'" data-act="covToggle" aria-pressed="'+on+'">Test yourself: '+(on?'On':'Off')+'</button>':'')+'</div>';
+  var h='<div class="row tbar" style="gap:6px;margin-block-end:8px"><button class="btn small" data-act="secAll" data-v="1" data-k="'+kind+'">Expand all</button><button class="btn small" data-act="secAll" data-v="0" data-k="'+kind+'">Collapse all</button>'+(COVER_OK?'<button class="btn small'+(on?' primary':'')+'" data-act="covToggle" aria-pressed="'+on+'">Test yourself: '+(on?'On':'Off')+'</button>':'')+'</div>';
   if(on&&e){var c=covStat(e,P,kind);h+='<div class="covbar"><b>Uncovered '+c.n+' of '+c.t+'</b><span class="small muted">Say it first, then tap to check.</span><span class="row" style="gap:6px"><button class="btn small'+(UI.covHard?' primary':'')+'" data-act="covHard" aria-pressed="'+!!UI.covHard+'">Hide group names: '+(UI.covHard?'On':'Off')+'</button><button class="btn small" data-act="covAll">Uncover all</button><button class="btn small" data-act="covAgain">Cover again</button></span></div>'}
   return h;
 }
@@ -8641,7 +8832,7 @@ function paHTML(e){
   return h+'</section>';
 }
 function stageHist(e,P){
-  var h='<p class="small muted" style="margin-block-end:10px">Go in story order. Tap what the patient has. Tap again to mark it as denied, a third time to clear. Chips with a red ! are red flags: ask them every time.</p>';
+  var h='<p class="tip">Go in story order. Tap what the patient has. Tap again to mark it as denied, a third time to clear. Chips with a red ! are red flags: ask them every time.</p>';
   h+=secBar(P,'H');
   units(P,'H').forEach(function(u,i){h+=unitHTML(e,P,u,i);if(i===0&&!P.pain&&P.id!=='genhx')h+=paHTML(e)});
   if(!units(P,'H').length&&!P.pain)h+=paHTML(e);
@@ -8743,7 +8934,7 @@ function stepRefresh(e,P,st,idx){
 function stepFind(P,sk){var S2=stepsFor(P)||[],r=null;S2.forEach(function(s,i){if(stepKey(P,s)===sk)r={st:s,i:i}});return r}
 function stageExam(e,P){
   var gen=[['G0','Washed hands, introduced self, took consent'],['G1','Patient positioned and exposed appropriately, chaperone offered'],['G2','Inspected the bed space and general appearance']];
-  var h='<p class="small muted" style="margin-block-end:10px">Tap an abnormal finding (red). Tap again to record it as normal, a third time to clear. "Rest normal" marks everything you did not tap as normal.</p>';
+  var h='<p class="tip">Tap an abnormal finding (red). Tap again to record it as normal, a third time to clear. "Rest normal" marks everything you did not tap as normal.</p>';
   h+='<section class="card"><h3>Before you start</h3>'+gen.map(function(g){var st=e.f['gen.'+g[0]];return '<div class="it" data-gk="'+g[0]+'"><div class="t">'+g[1]+'</div><div class="seg one"><button class="y'+(st?' on':'')+'" data-act="gen" aria-pressed="'+(!!st)+'">Done</button></div></div>'}).join('')+'</section>';
   if(CORE_OF[P.id]&&gById(CORE_OF[P.id]))h+='<button class="btn" data-act="coreOpen" data-id="'+CORE_OF[P.id]+'" style="margin-block-end:10px">Open the full '+esc(gById(CORE_OF[P.id]).n.replace(' (Internal medicine)',''))+'</button><p class="small muted" style="margin-block:-4px 10px">The ticks below record findings. The full exam lists every step, with this complaint’s extras in colour.</p>';
   (function(){var cm=CORE_MAP[P.id],g0=cm&&gById(cm.g);if(g0&&g0.cx&&g0.cx.length>1)h+=legendHTML(g0,cm.cx)})();
@@ -8758,8 +8949,8 @@ function stageExam(e,P){
 }
 function stageVit(e,P){
   var v=e.v;
-  var I=function(k,l,u,step){return '<label class="f">'+l+(u?' <span class="muted">'+u+'</span>':'')+'<input type="number" inputmode="decimal" step="'+(step||'1')+'" data-b="v.'+k+'" value="'+esc(v[k])+'"></label>'};
-  var h='<section class="card vit"><h3>Vital signs</h3><div class="grid4">'+I('hr','Pulse','/min')+I('sbp','Systolic','mmHg')+I('dbp','Diastolic','mmHg')+I('rr','Resp. rate','/min')+I('spo2','SpO2','%')+I('temp','Temp','°C','0.1')+'<label class="f">Consciousness<select data-b="v.avpu"><option value="A"'+(!v.avpu||v.avpu==='A'?' selected':'')+'>Alert</option><option value="C"'+(v.avpu==='C'?' selected':'')+'>Confused (new)</option><option value="V"'+(v.avpu==='V'?' selected':'')+'>Voice</option><option value="P"'+(v.avpu==='P'?' selected':'')+'>Pain</option><option value="U"'+(v.avpu==='U'?' selected':'')+'>Unresponsive</option></select></label><label class="f">On oxygen?<select data-b="v.o2"><option value="">Room air</option><option value="1"'+(v.o2?' selected':'')+'>Supplemental O2</option></select></label></div>'
+  var I=function(k,l,u,step){return '<label class="f"><span>'+l+'</span><span class="uin"><input type="number" inputmode="decimal" step="'+(step||'1')+'" data-b="v.'+k+'" value="'+esc(v[k])+'">'+(u?'<em>'+u+'</em>':'')+'</span></label>'};
+  var h='<section class="card vit"><h3>Vital signs</h3><div class="grid4 vgrid">'+I('hr','Pulse','/min')+I('sbp','Systolic','mmHg')+I('dbp','Diastolic','mmHg')+I('rr','Resp. rate','/min')+I('spo2','SpO2','%')+I('temp','Temp','°C','0.1')+'<label class="f">Consciousness<select data-b="v.avpu"><option value="A"'+(!v.avpu||v.avpu==='A'?' selected':'')+'>Alert</option><option value="C"'+(v.avpu==='C'?' selected':'')+'>Confused (new)</option><option value="V"'+(v.avpu==='V'?' selected':'')+'>Voice</option><option value="P"'+(v.avpu==='P'?' selected':'')+'>Pain</option><option value="U"'+(v.avpu==='U'?' selected':'')+'>Unresponsive</option></select></label><label class="f">On oxygen?<select data-b="v.o2"><option value="">Room air</option><option value="1"'+(v.o2?' selected':'')+'>Supplemental O2</option></select></label></div>'
    +'<div class="grid2" style="margin-block-start:10px">'+I('wt','Weight','kg','0.1')+I('ht','Height','cm')+'</div><div id="vitOut" style="margin-block-start:12px">'+vitOut(v)+'</div></section>';
   var sug=P.sc.filter(function(id){return id!=='news'&&SCMAP[id]});
   if(sug.length){h+='<h3 style="margin-block:14px 8px">Suggested scores for this presentation</h3>'+sug.map(function(id){return scoreCard(SCMAP[id],scHolder())}).join('')}
@@ -8769,7 +8960,9 @@ function stageVit(e,P){
 function vitOut(v){
   var n=news2(v),fl=vitFlags(v),b=bmi(v),sb=num(v.sbp),db=num(v.dbp);
   var map=(sb!=null&&db!=null)?Math.round((sb+2*db)/3):null;
-  var h='<div class="grid3"><div><div class="eyebrow">NEWS2</div><div class="big">'+(n.any?(n.miss.length?n.tot+'+':n.tot):'--')+'</div></div><div><div class="eyebrow">MAP</div><div class="big">'+(map!=null?map:'--')+'</div></div><div><div class="eyebrow">BMI</div><div class="big">'+(b||'--')+'</div></div></div>';
+  var any3=false;for(var k in n.parts)if(n.parts[k]===3)any3=true;
+  var lv=!n.any?'':n.tot>=7?' hi':(n.tot>=5||any3)?' md':' lo';
+  var h='<div class="stats"><div class="stat'+lv+'"><span class="eyebrow">NEWS2</span><b class="big">'+(n.any?(n.miss.length?n.tot+'+':n.tot):'--')+'</b></div><div class="stat"><span class="eyebrow">MAP</span><b class="big">'+(map!=null?map:'--')+'</b><span class="small muted">mmHg</span></div><div class="stat"><span class="eyebrow">BMI</span><b class="big">'+(b||'--')+'</b><span class="small muted">kg/m\u00B2</span></div></div>';
   if(n.any)h+='<p class="small" style="margin-block-start:8px">'+esc(n.txt)+(n.miss.length?' Missing: '+n.miss.join(', ')+'.':'')+'</p>';
   if(fl.length)h+='<div style="margin-block-start:8px" class="row">'+fl.map(function(f){return '<span class="pill amber">'+esc(f)+'</span>'}).join('')+'</div>';
   return h;
@@ -8833,8 +9026,8 @@ function lbPanel(n){
 function viewLog(){
   var list=filtered();
   var h='<div class="row" style="justify-content:space-between;margin-block-end:10px"><h2>Patient log</h2><span class="muted small" id="logCount">'+list.length+' of '+DB.encs.length+' shown</span></div>';
-  h+='<input type="search" id="logq" placeholder="Search by ID, complaint, diagnosis" value="'+esc(UI.logq)+'" style="margin-block-end:10px">';
-  h+='<div class="row" style="margin-block-end:12px"><button class="btn small primary" data-act="lbOpen">Logbook PDF</button><button class="btn small" data-act="backup">Back up everything</button><button class="btn small" data-act="impPick">Restore backup</button><button class="btn small" data-act="expCsv">Export CSV</button></div>'+backupNote();
+  h+='<div class="srch">'+IC.search+'<input type="search" id="logq" placeholder="Search by ID, complaint, diagnosis" value="'+esc(UI.logq)+'" aria-label="Search the log"></div>';
+  h+='<div class="row tbar" style="margin-block-end:12px"><button class="btn small primary" data-act="lbOpen">Logbook PDF</button><button class="btn small" data-act="backup">Back up everything</button><button class="btn small" data-act="impPick">Restore backup</button><button class="btn small" data-act="expCsv">Export CSV</button></div>'+backupNote();
   if(UI.lbOpen)h+='<div id="lbPanel">'+lbPanel(list.length)+'</div>';
   h+='<div class="card" id="logList">'+logList()+'</div>';
   h+='<p class="small muted">Your log lives in this browser only. Clearing site data erases it, so back up regularly.</p>';
@@ -8852,7 +9045,8 @@ function logList(){
   if(!list.length)return '<div class="empty">'+(DB.encs.length?'No matches.':'No encounters yet. Start one on the Encounter tab and it saves here automatically.')+'</div>';
   return list.map(function(e){
     var P=getP(e.pid),pr=progress(e),ds=ddxScores(e),armed=UI.armed===e.id;
-    return '<div class="logrow"><button class="o" data-act="logOpen" data-id="'+e.id+'"><b>'+esc(e.pt.ref||'No ID')+' <span class="muted" style="font-weight:400">'+esc([e.pt.age?e.pt.age+' y':'',e.pt.sex].filter(Boolean).join(' '))+'</span></b><span class="small muted">'+esc(P.name)+' / '+dstr(e.t)+' / Hx '+pr.h+'/'+pr.ht+' Ex '+pr.x+'/'+pr.xt+'</span><br><span class="small">'+esc(diagOf(e)||'No diagnosis yet')+'</span></button> <button class="btn small" data-act="logPdf" data-id="'+e.id+'" aria-label="Save this patient as PDF">PDF</button>'+(canShare()?'<button class="btn small" data-act="logShare" data-id="'+e.id+'" aria-label="Share this patient as PDF">Share</button>':'')+'<button class="btn small'+(armed?' danger':'')+'" data-act="logDel" data-id="'+e.id+'">'+(armed?'Confirm':'Delete')+'</button></div>';
+    var pc=pr.ht+pr.xt?Math.round((pr.h+pr.x)/(pr.ht+pr.xt)*100):0;
+    return '<div class="logrow" style="--hue:'+sysHue(P.sys)+'"><button class="o" data-act="logOpen" data-id="'+e.id+'"><span class="av on" aria-hidden="true">'+(e.pt.ref?esc(e.pt.ref.trim().slice(0,2).toUpperCase()):IC.user)+'</span><span class="grow"><b>'+esc(e.pt.ref||'No ID')+' <span class="muted" style="font-weight:400">'+esc([e.pt.age?e.pt.age+' y':'',e.pt.sex].filter(Boolean).join(' '))+'</span></b><span class="small muted">'+esc(P.name)+' \u00B7 '+dstr(e.t)+' \u00B7 Hx '+pr.h+'/'+pr.ht+' \u00B7 Ex '+pr.x+'/'+pr.xt+'</span><span class="small dxl">'+esc(diagOf(e)||'No diagnosis yet')+'</span><span class="mbar" aria-hidden="true"><i style="width:'+pc+'%"></i></span></span></button><span class="lact"><button class="btn small" data-act="logPdf" data-id="'+e.id+'" aria-label="Save this patient as PDF">PDF</button>'+(canShare()?'<button class="btn small" data-act="logShare" data-id="'+e.id+'" aria-label="Share this patient as PDF">Share</button>':'')+'<button class="btn small'+(armed?' danger':'')+'" data-act="logDel" data-id="'+e.id+'">'+(armed?'Confirm':'Delete')+'</button></span></div>';
   }).join('');
 }
 
@@ -8949,7 +9143,9 @@ function stageReview(e,P){
   });
   var nH=unH.reduce(function(a,x){return a+x.l.length},0),nE=unE.reduce(function(a,x){return a+x.l.length},0);
   var pctH=pr.ht?Math.round(pr.h/pr.ht*100):0,pctE=pr.xt?Math.round(pr.x/pr.xt*100):0;
-  h+='<div class="card"><h3>How complete was this encounter?</h3><div class="grid3"><div><div class="eyebrow">History</div><div class="big">'+pctH+'%</div><div class="small muted">'+pr.h+' of '+pr.ht+'</div></div><div><div class="eyebrow">Exam</div><div class="big">'+pctE+'%</div><div class="small muted">'+pr.x+' of '+pr.xt+'</div></div><div><div class="eyebrow">Red flags</div><div class="big">'+(P.sections.reduce(function(a,s){return a+s.items.filter(function(it){return it.flag}).length},0)-flagMiss.length)+'</div><div class="small muted">asked of '+P.sections.reduce(function(a,s){return a+s.items.filter(function(it){return it.flag}).length},0)+'</div></div></div></div>';
+  var nRF=P.sections.reduce(function(a,s){return a+s.items.filter(function(it){return it.flag}).length},0),aRF=nRF-flagMiss.length;
+  var tile=function(lab,big,sub,pc,cls){return '<div class="stat'+(cls||'')+'"><span class="eyebrow">'+lab+'</span><b class="big">'+big+'</b><span class="mbar" aria-hidden="true"><i style="width:'+pc+'%"></i></span><span class="small muted">'+sub+'</span></div>'};
+  h+='<div class="card"><h3>How complete was this encounter?</h3><div class="stats">'+tile('History',pctH+'%',pr.h+' of '+pr.ht,pctH)+tile('Exam',pctE+'%',pr.x+' of '+pr.xt,pctE)+tile('Red flags',aRF+'/'+nRF,'asked',nRF?Math.round(aRF/nRF*100):100,nRF&&aRF<nRF?' hi':' lo')+'</div></div>';
   if(flagMiss.length)h+='<div class="alert" role="alert"><b>Red flags you have not asked about:</b><ul style="margin:4px 0 0;padding-inline-start:18px">'+flagMiss.map(function(it){return '<li>'+esc(it.t)+'</li>'}).join('')+'</ul></div>';
   if(!DB.hideDdx&&P.dd.length){
     var ds=ddxScores(e),top=ds.res.slice(0,3),seen={},hv=[];
@@ -9015,7 +9211,7 @@ function viewFlow(){
 
 /* ---- Practice ---- */
 function viewPractice(){
-  var h='<h2 style="margin-block-end:10px">Practice</h2><div class="row" style="margin-block-end:12px"><button class="chip" data-act="prMode" data-m="quiz" aria-pressed="'+(UI.pr==='quiz')+'">Diagnosis quiz</button><button class="chip" data-act="prMode" data-m="guide" aria-pressed="'+(UI.pr==='guide')+'">Exam guides</button><button class="chip" data-act="prMode" data-m="flow" aria-pressed="'+(UI.pr==='flow')+'">History flowcharts</button></div>';
+  var h='<h2 style="margin-block-end:10px">Practice</h2><div class="segc" role="group" aria-label="Practice mode" style="margin-block-end:12px"><button class="chip" data-act="prMode" data-m="quiz" aria-pressed="'+(UI.pr==='quiz')+'">Diagnosis quiz</button><button class="chip" data-act="prMode" data-m="guide" aria-pressed="'+(UI.pr==='guide')+'">Exam guides</button><button class="chip" data-act="prMode" data-m="flow" aria-pressed="'+(UI.pr==='flow')+'">History flowcharts</button></div>';
   return h+(UI.pr==='guide'?viewGuides():UI.pr==='flow'?viewFlow():viewQuiz());
 }
 function presOptions(sel){return '<option value="">Random</option>'+PRES.map(function(p){return '<option value="'+p.id+'"'+(sel===p.id?' selected':'')+'>'+esc(p.name)+'</option>'}).join('')}
@@ -9155,6 +9351,7 @@ function viewQuiz(){
 function refreshLive(){
   var e=curEnc();if(!e)return;
   var pr=progress(e);var a=$('#pgH');if(a)a.textContent=pr.h+'/'+pr.ht;var b=$('#pgE');if(b)b.textContent=pr.x+'/'+pr.xt;
+  var ab=$('#pgHb');if(ab)ab.style.width=(pr.ht?Math.round(pr.h/pr.ht*100):0)+'%';var bb=$('#pgEb');if(bb)bb.style.width=(pr.xt?Math.round(pr.x/pr.xt*100):0)+'%';
   var d=$('#dock');if(d)d.innerHTML=dockHTML(e);
   var s=$('#sideSlot');if(s&&s.classList.contains('on'))s.innerHTML=sideHTML(e);
   var r=$('#rfSlot');if(r)r.innerHTML=rfHTML(redFlags(e));
