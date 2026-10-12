@@ -2140,13 +2140,6 @@ E When indicated|pick
 - Basal crackles or bronchial breathing {mi:2} @38
 - Hernial orifices tender or irreducible {ob:3} @x115
 @bowel|Change in bowel habit|Gastrointestinal|Medicine
-Y Function and diet|ibs,imp|Abdomen
-Y Infection and inflammation|inf,ibd|Blood and mucus,Exposure
-Y Tumour|ca|Weight and appetite,Family history
-Y Malabsorption|coel|Outside the gut
-Y Hormones and nerves|thy,hypo,dm|Thyroid,Autonomic
-Y Diverticula|div|Abdomen
-Y Drugs|drug|Drugs
 SC
 I FBC, CRP, U&E, TFT, ferritin, coeliac serology; stool culture, faecal calprotectin, FIT; stool ova and parasites; colonoscopy or flexible sigmoidoscopy; CT colonography
 D ibs|Irritable bowel syndrome||1.5
@@ -2160,76 +2153,88 @@ D drug|Drugs / laxatives||0.8
 D dm|Diabetic autonomic neuropathy||0.3
 D imp|Faecal impaction / low fibre||0.8
 D div|Diverticular disease||0.5
-G The change
+Y Function and diet|ibs,imp|Abdominal symptoms,Diet and mobility
+Y Infection and inflammation|inf,ibd|In the stool,Travel and food
+Y Tumour|ca|Weight and appetite,Family history
+Y Malabsorption|coel|Appearance
+Y Thyroid and diabetic nerves|thy,hypo,dm|Thyroid,Autonomic
+Y Diverticula|div|Abdominal symptoms
+Y Drugs|drug|Drugs
+G The change (handbook)
+M What changed · How often · Looks like · Blood?|Diarrhoea, constipation or both · frequency, urgency, incontinence · consistency, does it float · blood, pus or mucus
 H What changed|one|Change:
 N Normal bowel habit varies; ask what is normal for them and what has changed.
-- Diarrhoea {inf:1,ibd:1,thy:1}
-- Constipation {hypo:1,imp:1,drug:1}
-- Alternating {ibs:2,ca:1}
+* Diarrhoea {inf:1,ibd:1,thy:1} @0
+- Constipation {hypo:1,imp:1,drug:1} @1
+- Alternating {ibs:2,ca:1} @2
 H Onset|one|Onset:
-- Sudden, days ago {inf:3}
-- Over weeks to months {ca:1,ibd:1,coel:1}
-- Years, on and off {ibs:2}
-H Frequency and timing|pick|Stools:
-- More than 3 a day {inf:1,ibd:1}
-- Wakes at night to open bowels {ibd:3,dm:2,coel:1}
-- Urgency {ibd:1,inf:1}
-- Incontinence {dm:1}
-- Feels not fully emptied (tenesmus) {ca:3}
+* Sudden, days ago {inf:3} @3
+- Over weeks to months {ca:1,ibd:1,coel:1} @4
+- Years, on and off {ibs:2} @5
+H How often|pick|Stools:
+* More than 3 a day {inf:1,ibd:1} @6
+- Wakes at night to open bowels {ibd:3,dm:2,coel:1} @7
+* Urgency {ibd:1,inf:1} @8
+- Incontinence {dm:1} @9
+- Feels not fully emptied (tenesmus) {ca:3} @10
 H Appearance|pick|Stool:
-- Watery {inf:2}
-- Pale, floating, offensive {coel:5}
-- Narrow or pencil-thin {ca:3}
-- Hard pellets {imp:2,ibs:1}
-H Blood and mucus|pick|In the stool:
-! Blood {ca:2,ibd:3,inf:1}
-- Mucus {ca:1,ibd:2,ibs:1}
-- Pus {ibd:2,inf:1}
-G Associated symptoms
-H Abdomen|pick
-- Pain relieved by opening the bowels {ibs:2}
-- Bloating {ibs:2}
-- Vomiting {inf:2}
+- Watery {inf:2} @11
+* Pale, floating, offensive {coel:5} @12
+- Narrow or pencil-thin {ca:3} @13
+- Hard pellets {imp:2,ibs:1} @14
+H In the stool|pick|In the stool:
+! Blood {ca:2,ibd:3,inf:1} @15
+* Mucus {ca:1,ibd:2,ibs:1} @16
+- Pus {ibd:2,inf:1} @17
+G Screen the causes
+M Function · Infection · Tumour · Malabsorption · Thyroid · Diabetes · Drugs|Handbook constipation causes: low fluid and food, IBS, hypothyroidism, drugs, colorectal tumour, diabetic neuropathy, impaction, chronic illness
+H Abdominal symptoms|pick
+* Pain relieved by opening the bowels {ibs:2} @18
+- Bloating {ibs:2} @19
+* Vomiting {inf:2} @20
 H Weight and appetite|pick
-! Weight loss {ca:2,ibd:1,coel:1,thy:1}
-- Loss of appetite {ca:2,ibd:1}
-- Weight stable {ibs:2}
+! Weight loss {ca:2,ibd:1,coel:1,thy:1} @21
+* Loss of appetite {ca:2,ibd:1} @22
+- Weight stable {ibs:2} @23
 H Thyroid|pick
-- Heat intolerance, sweating {thy:2}
-- Palpitations or tremor {thy:2}
-- Cold intolerance {hypo:2}
-- Weight gain and tiredness {hypo:2}
-H Outside the gut|pick
-- Mouth ulcers {ibd:1}
-- Joint pain {ibd:1}
-- Red eye {ibd:1}
-- Skin rash {ibd:1,coel:1}
+* Heat intolerance, sweating {thy:2} @24
+- Palpitations or tremor {thy:2} @25
+* Cold intolerance {hypo:2} @26
+- Weight gain and tiredness {hypo:2} @27
 H Autonomic|pick
-- Dizzy on standing {dm:3}
+- Dizzy on standing {dm:3} @32
+H Outside the gut|pick
+- Mouth ulcers {ibd:1} @28
+- Joint pain {ibd:1} @29
+- Red eye {ibd:1} @30
+- Skin rash {ibd:1,coel:1} @31
 G Background for this complaint
-H Exposure|pick|Exposure:
-- Others ill after the same food {inf:2}
-- Recent travel {inf:2}
-- Low fluid and fibre intake {imp:3}
-- Immobile {imp:3}
+M Travel · Diet · Past · Drugs · Family|Travel and food contacts · fluid, fibre and mobility · diabetes and thyroid · all medicines including over the counter · family bowel cancer, IBD, coeliac
+H Travel and food|pick|Exposure:
+- Others ill after the same food {inf:2} @33
+* Recent travel {inf:2} @34
+H Diet and mobility|pick
+* Low fluid and fibre intake {imp:3} @35
+- Immobile {imp:3} @36
 H Past history|pick|Past history:
-! Over 50 with a new change {ca:3}
-- Long-standing diabetes {dm:3}
-- Thyroid disease {thy:1,hypo:1}
+! Over 50 with a new change {ca:3} @37
+* Long-standing diabetes {dm:3} @38
+* Thyroid disease {thy:1,hypo:1} @39
 - Hypertension @x20
 - Previous abdominal surgery @x21
 - Depression or anxiety {ibs:1} @x22
 H Drugs|pick|Takes:
-- Laxatives {drug:3}
-- Recent antibiotics {drug:2,inf:1}
-- Iron {drug:1}
-- Opiates {drug:2,imp:2}
-- Antacids {drug:1}
-- Metformin {drug:2}
+N Ask about all medicines, including over-the-counter remedies.
+* Laxatives {drug:3} @40
+* Recent antibiotics {drug:2,inf:1} @41
+- Iron {drug:1} @42
+- Opiates {drug:2,imp:2} @43
+- Antacids {drug:1} @44
+- Metformin {drug:2} @45
 H Family history|pick|Family history:
-- Bowel cancer {ca:1}
-- IBD {ibd:1}
-- Coeliac disease {coel:1}
+* Bowel cancer {ca:1} @46
+- IBD {ibd:1} @47
+- Coeliac disease {coel:1} @48
 G Examination
 E Vital signs|pick
 ! Dehydrated or shocked {inf:1,ibd:1} @0
@@ -2470,11 +2475,6 @@ E When indicated|pick
 - Basal crackles or bronchial breathing @x132
 - Hernial orifices tender or irreducible @x133
 @hematuria|Haematuria|Genitourinary|Medicine
-Y Kidney|gn,pkd,rca,pyelo|Kidney disease,Tumour
-Y Stone|stone|Pain
-Y Bladder and prostate|bca,bph,uti|Urinary,Infection,Tumour
-Y TB and schistosoma|tb|Exposure
-Y Bleeding|coag,trauma|Bleeding,Drugs
 SC
 I Urine dipstick, MSU culture and microscopy (RBC casts, dysmorphic RBCs); U&E, creatinine, eGFR, FBC, coagulation; urine cytology; USS KUB; CT urogram; cystoscopy; PSA after counselling; urine ACR/PCR; complement, ANA, ASOT
 D uti|UTI / cystitis||1.5
@@ -2488,66 +2488,74 @@ D tb|GU TB / schistosomiasis||0.4
 D coag|Anticoagulants / coagulopathy||0.6
 D trauma|Trauma / strenuous exercise||0.3
 D pyelo|Pyelonephritis||0.5
-G The blood
+Y Kidney (glomerular)|gn,pkd|Kidney disease
+Y Tumour|rca,bca|Infection and tumour signs,Exposure
+Y Stone|stone|Pain
+Y Infection|uti,pyelo,tb|Micturition,Infection and tumour signs
+Y Prostate|bph|Micturition
+Y Bleeding or exercise|coag,trauma|Bleeding,Course
+G The blood (handbook)
+M Real blood? · Painful? · When in the stream · Clots|Rule out periods, food and drugs · painless (kidney, tumour, TB, exercise, bleeding) or painful (UTI, stone)
 H Is it really blood?|pick|Confirmed:
 N Rule out menstrual blood, beetroot, rifampicin and other red urine.
-- Not menstrual blood
-- No beetroot or rifampicin
+* Not menstrual blood @0
+* No beetroot or rifampicin @1
 H Pain|one|Haematuria is:
-! Painless {bca:4,rca:3,gn:1}
-- With colicky loin-to-groin pain {stone:5}
-- With burning on passing urine {uti:3}
-- With loin ache {pyelo:2,pkd:1,rca:1}
+! Painless {bca:4,rca:3,gn:1} @2
+- With colicky loin-to-groin pain {stone:5} @3
+- With burning on passing urine {uti:3} @4
+- With loin ache {pyelo:2,pkd:1,rca:1} @5
 H Timing in the stream|one|Blood is:
-- At the start of the stream {bph:2}
-- Throughout the stream {bca:2,rca:2,gn:1}
-- At the end of the stream {bca:2,uti:1}
-H Appearance|pick|Urine:
-- Clots {bca:3,rca:2,stone:1}
-- Smoky or cola-coloured {gn:3}
-- Frothy {gn:2}
+- At the start of the stream {bph:2} @6
+* Throughout the stream {bca:2,rca:2,gn:1} @7
+- At the end of the stream {bca:2,uti:1} @8
+H Clots and colour|pick|Urine:
+* Clots {bca:3,rca:2,stone:1} @9
+- Smoky or cola-coloured {gn:3} @10
+- Frothy {gn:2} @11
 H Course|pick|Course:
-- First episode
-- Recurrent {bca:1,stone:1,pkd:1}
-- After a sore throat or skin infection {gn:2}
-- After hard exercise or injury {trauma:3}
-G Associated symptoms
-H Urinary|pick
-- Frequency and urgency {uti:2}
-- Suprapubic pain {uti:2}
-- Hesitancy or poor stream {bph:2}
-- Getting up at night {bph:2}
-- Retention {bph:2}
-H Infection|pick
-- Fever and rigors {pyelo:2,rca:1}
+- First episode @12
+- Recurrent {bca:1,stone:1,pkd:1} @13
+- After a sore throat or skin infection {gn:2} @14
+- After hard exercise or injury {trauma:3} @15
+G Screen the causes
+M Micturition · Infection and tumour · Kidney · Bleeding|The handbook's "ask about" list, in order
+H Micturition|pick
+* Frequency and urgency {uti:2} @16
+- Suprapubic pain {uti:2} @17
+* Hesitancy or poor stream {bph:2} @18
+- Getting up at night {bph:2} @19
+- Retention {bph:2} @20
+H Infection and tumour signs|pick
+* Fever and rigors {pyelo:2,rca:1} @21
+! Weight loss {rca:2,bca:1} @24
+- Night sweats {rca:1,tb:1} @26
+- Lump in the loin {rca:2} @25
 H Kidney disease|pick
-- Swelling of the face or legs {gn:2}
-- Known high blood pressure {gn:2}
-H Tumour|pick
-! Weight loss {rca:2,bca:1}
-- Lump in the loin {rca:2}
-- Night sweats {rca:1,tb:1}
+* Swelling of the face or legs {gn:2} @22
+* Known high blood pressure {gn:2} @23
 H Bleeding|pick
-- Bruising or bleeding elsewhere {coag:2}
+* Bruising or bleeding elsewhere {coag:2} @27
 G Background for this complaint
+M Occupation · Sex · Past · Drugs · Family|Dyes and chemicals (bladder cancer) · sexual history · diabetes, hypertension, kidney disease · warfarin, antiplatelets, NSAIDs, antibiotics
 H Exposure|pick|Exposure:
-- Smoker {bca:2}
-- Dye, rubber or chemical industry {bca:2}
-- Freshwater swimming in an endemic area {tb:3}
-- TB contact {tb:3}
-- Sexual history {uti:1}
+* Smoker {bca:2} @28
+* Dye, rubber or chemical industry {bca:2} @29
+- Freshwater swimming in an endemic area {tb:3} @30
+- TB contact {tb:3} @31
+* Sexual history {uti:1} @32
 H Past history|pick|Past history:
-- Chronic cystitis {bca:2}
-- Kidney stones {stone:2}
-- Kidney disease or dialysis {gn:1,pkd:1}
-- Diabetes or hypertension {gn:1}
+- Chronic cystitis {bca:2} @33
+- Kidney stones {stone:2} @34
+- Kidney disease or dialysis {gn:1,pkd:1} @35
+- Diabetes or hypertension {gn:1} @36
 H Drugs|pick|Takes:
-- Warfarin or other anticoagulant {coag:2}
-- Aspirin or clopidogrel {coag:2}
-- NSAIDs or recent antibiotics {gn:1}
+* Warfarin or other anticoagulant {coag:2} @37
+* Aspirin or clopidogrel {coag:2} @38
+- NSAIDs or recent antibiotics {gn:1} @39
 H Family history|pick|Family history:
-- Kidney disease {pkd:2}
-- Stroke or hypertension at a young age {pkd:2}
+- Kidney disease {pkd:2} @40
+- Stroke or hypertension at a young age {pkd:2} @41
 G Examination
 E Vital signs|pick
 - Fever {uti:1,pyelo:3} @0
@@ -2599,13 +2607,6 @@ E Rectal and pelvic|pick
 - Enlarged smooth prostate {bph:4} @x118
 - Pelvic mass {bca:1} @x119
 @edema|Generalised oedema|Renal / Cardiac|Medicine
-Y Heart|hf,cp|Heart and lungs
-Y Kidney|nephr,nephritic|Kidney
-Y Liver and gut|cld,malnut|Liver and gut
-Y Thyroid|hypo|Thyroid
-Y Lungs and sleep|osa|Sleep
-Y Drugs|drug|Drugs
-Y Local and other|vi,preg,allerg|Other causes
 SC
 I FBC; U&E, creatinine; urinalysis; urine PCR or 24 h protein; albumin, LFT, INR; lipids; TFT; ECG, BNP, echo; CXR; renal USS; leg Doppler
 D hf|Heart failure||1.5
@@ -2620,66 +2621,82 @@ D preg|Pregnancy / premenstrual / cyclical||0.4
 D osa|Sleep apnoea / cor pulmonale||0.3
 D cp|Constrictive pericarditis||0.1
 D allerg|Allergic reaction / angioedema||0.15
-G The swelling
+Y Heart|hf,cp|Heart and lungs
+Y Liver|cld|Gut and liver
+Y Kidney|nephr,nephritic|Kidney
+Y Gut (malnutrition)|malnut|Gut and liver,Other causes
+Y Thyroid|hypo|Endocrine
+Y Sleep apnoea|osa|Sleep
+Y Drugs|drug|Drugs
+Y Veins, cycle and allergy|vi,preg,allerg|Where,Timing,Other causes
+G The swelling (handbook)
+M Where · How fast · When worse|Extent and site (ankles, face, sacrum, abdomen) · onset · morning eyes or evening ankles
 H Where|pick|Swelling of:
-- Both ankles and legs {hf:1,cld:1,nephr:1,drug:1}
-- Face and around the eyes {nephr:4,nephritic:2,hypo:1}
-- Abdomen {cld:3,nephr:1,cp:1}
-- Back and sacrum {hf:1,nephr:1}
-- One leg only {vi:2}
-- Whole body {nephr:2,hf:1,cld:1}
+* Both ankles and legs {hf:1,cld:1,nephr:1,drug:1} @0
+* Face and around the eyes {nephr:4,nephritic:2,hypo:1} @1
+- Abdomen {cld:3,nephr:1,cp:1} @2
+- Back and sacrum {hf:1,nephr:1} @3
+- One leg only {vi:2} @4
+- Whole body {nephr:2,hf:1,cld:1} @5
 H Onset|one|Onset:
-- Over days {nephritic:2,drug:1}
-- Over weeks to months {hf:1,cld:1,nephr:1,hypo:1}
+- Over days {nephritic:2,drug:1} @6
+- Over weeks to months {hf:1,cld:1,nephr:1,hypo:1} @7
 H Timing|pick|Timing:
-- Eyes puffy in the morning {nephr:4,nephritic:2}
-- Ankles worse in the evening, better overnight {hf:1,vi:2}
-- Comes and goes with periods {preg:3}
-G Associated symptoms
+* Eyes puffy in the morning {nephr:4,nephritic:2} @8
+- Ankles worse in the evening, better overnight {hf:1,vi:2} @9
+- Comes and goes with periods {preg:3} @10
+G Screen the causes, one system at a time (handbook)
+M Heart · Liver and gut · Kidney · Endocrine · Sleep|Cardiac, hepatic, renal, gut, thyroid, sleep apnoea, then drugs, veins, pregnancy and allergy
 H Heart and lungs|pick
-- Breathless on exertion {hf:2}
-- Breathless lying flat {hf:2}
-- Waking at night breathless {hf:2}
-- Palpitations or fainting {hf:1}
+* Breathless on exertion {hf:2} @11
+* Breathless lying flat {hf:2} @12
+- Waking at night breathless {hf:2} @13
+- Palpitations or fainting {hf:1} @14
+H Gut and liver|pick
+* Yellow eyes {cld:2} @18
+! Vomiting blood or black stool {cld:2} @19
+- Chronic diarrhoea or fatty stools {malnut:2} @20
+- Poor diet or starvation {malnut:2} @21
 H Kidney|pick
-- Frothy urine {nephr:5}
-- Passing less urine {nephritic:2,nephr:1}
-- Blood in urine {nephritic:2}
-H Liver and gut|pick
-- Yellow eyes {cld:2}
-! Vomiting blood or black stool {cld:2}
-- Chronic diarrhoea or fatty stools {malnut:2}
-- Poor diet or starvation {malnut:2}
-H Thyroid|pick
-- Cold intolerance {hypo:2}
-- Weight gain and constipation {hypo:2}
-- Hoarse voice {hypo:2}
+* Frothy urine {nephr:5} @15
+* Passing less urine {nephritic:2,nephr:1} @16
+- Blood in urine {nephritic:2} @17
+H Endocrine|pick
+* Cold intolerance {hypo:2} @22
+- Weight gain and constipation {hypo:2} @23
+- Hoarse voice {hypo:2} @24
+- Neck swelling {hypo:1} @x300
 H Sleep|pick
-- Loud snoring {osa:2}
-- Daytime sleepiness {osa:2}
-- Morning headaches {osa:2}
+* Loud snoring {osa:2} @25
+- Daytime sleepiness {osa:2} @26
+- Morning headaches {osa:2} @27
 G Background for this complaint
+M Past · Drugs · Social · Family|Diabetes, hypertension, IHD, dialysis, transplant, transfusion · the handbook drug list · smoking and alcohol · family diabetes, hypertension, early heart disease, thyroid
 H Other causes|pick
 - Itch, rash or hives with swelling of lips or face after a food or drug {allerg:5} @x20
 - Poor diet, alcohol, coeliac disease or pancreatitis (maldigestion, malabsorption) {malnut:3} @x21
 H Past history|pick|Past history:
-- Previous MI or IHD {hf:1}
-- Hypertension {hf:1,nephritic:1}
-- Valve disease {hf:1}
-- Long-standing diabetes {nephr:2,nephritic:2,hf:1}
-- Kidney disease, dialysis or transplant {nephritic:2}
-- Previous DVT or varicose veins {vi:2}
-- TB, chest radiotherapy or heart surgery {cp:2}
-- Pregnant now {preg:3}
+* Previous MI or IHD {hf:1} @28
+* Hypertension {hf:1,nephritic:1} @29
+- Valve disease {hf:1} @30
+* Long-standing diabetes {nephr:2,nephritic:2,hf:1} @31
+* Kidney disease, dialysis or transplant {nephritic:2} @32
+- Blood transfusion @x301
+- Previous DVT or varicose veins {vi:2} @33
+- TB, chest radiotherapy or heart surgery {cp:2} @34
+- Pregnant now {preg:3} @35
 H Drugs|pick|Takes:
-- Amlodipine or nifedipine {drug:5}
-- NSAIDs {drug:2}
-- Steroids {drug:2}
-- Hydralazine {drug:1}
-- Oestrogen or progesterone {drug:1}
+* Amlodipine or nifedipine {drug:5} @36
+* NSAIDs {drug:2} @37
+- Steroids {drug:2} @38
+- Hydralazine {drug:1} @39
+- Oestrogen or progesterone {drug:1} @40
+- Acyclovir, cyclophosphamide, methyldopa or androgens {drug:1} @x302
 H Habits|pick
-- Alcohol excess {cld:2}
-- Smoker {hf:1}
+* Alcohol excess {cld:2} @41
+- Smoker {hf:1} @42
+H Family history|pick|Family history:
+- Diabetes, hypertension, early heart disease or thyroid disease @x303
 G Examination
 E Vital signs|pick
 - Hypertension {nephritic:4,nephr:2,hf:1} @0
@@ -2757,14 +2774,6 @@ E Rectal and pelvic|pick
 - Tender boggy prostate @x131
 - Pelvic mass {preg:2,vi:2} @x132
 @wtloss|Weight loss|Endocrine|Medicine
-Y Diabetes|dm|Diabetes
-Y Thyroid|thy|Thyroid
-Y Cancer|ca|Lumps
-Y Gut|gi|Gut
-Y Infection (TB)|tb|Infection,Chest
-Y Mood|dep|Mood
-Y Organ failure|ckd,adr,copd|Adrenal and organ failure
-Y Drugs and alcohol|drug|Habits,Drugs
 SC
 I Fasting glucose or HbA1c; TFT; FBC, ESR and CRP; U&E, LFT, calcium; coeliac serology; CXR; HIV test; urine dip; FIT; CT chest, abdomen and pelvis; endoscopy; 9 am cortisol or synacthen test
 D dm|Diabetes mellitus (new)||1
@@ -2777,25 +2786,72 @@ D ckd|Organ failure cachexia (CKD, liver, heart)||0.5
 D adr|Adrenal insufficiency||0.2
 D copd|COPD / chronic lung disease||0.4
 D drug|Drugs / alcohol / substance misuse||0.4
-G The weight loss
-H How much|one|Lost:
-N Ask for the weight before and now, and over what time. Check old records or clothes size.
-- Under 5% of body weight
-- Over 5% in 6 months, unintentional {ca:1,tb:1,dm:1,thy:1}
-H Over|one|Over:
-- Weeks {dm:1,thy:1}
-- Months {ca:1,tb:1,gi:1}
+Y Diabetes|dm|Diabetes,Diabetes history (if known)
+Y Thyroid|thy|Thyroid
+Y Gut|gi|Gut
+Y Cancer|ca|Lumps,Gut
+Y Infection (TB)|tb|Infection
+Y Mood|dep|Mood
+Y Organ failure and adrenal|ckd,adr,copd|Organ failure and adrenal,Chest
+Y Drugs and alcohol|drug|Habits,Drugs
+G The weight loss (handbook)
+M Appetite first|Is the appetite good or poor? Then how much weight, over how long. Then system by system: general, gut, endocrine, reproductive, heart, nerves
 H Appetite|one|Appetite:
 N First question: is the appetite good or poor?
-- Increased {thy:4,dm:3}
-- Normal {gi:1,dm:1}
-- Reduced {ca:2,gi:1,dep:1,tb:1,ckd:1}
-G Associated symptoms
+* Increased {thy:4,dm:3} @4
+- Normal {gi:1,dm:1} @5
+- Reduced {ca:2,gi:1,dep:1,tb:1,ckd:1} @6
+H How much|one|Lost:
+N Ask for the weight before and now, and over what time. Check old records or clothes size.
+- Under 5% of body weight @0
+* Over 5% in 6 months, unintentional {ca:1,tb:1,dm:1,thy:1} @1
+H Over|one|Over:
+- Weeks {dm:1,thy:1} @2
+- Months {ca:1,tb:1,gi:1} @3
+G Screen the causes, system by system
+M Tired and thirsty = diabetes or high calcium|Tiredness alone is non-specific (liver, kidney, cancer); with thirst think diabetes and hypercalcaemia (handbook)
 H Diabetes|pick
-- Thirst and passing a lot of urine {dm:3}
-- Tiredness {dm:2}
-- Recurrent infections (skin, urine, thrush) {dm:2}
-- Blurred vision or tingling {dm:1}
+* Thirst and passing a lot of urine {dm:3} @7
+* Tiredness {dm:2} @8
+* Recurrent infections (skin, urine, thrush) {dm:2} @9
+- Blurred vision or tingling {dm:1} @10
+H Thyroid|pick
+* Heat intolerance and sweating {thy:1} @11
+* Palpitations {thy:1} @12
+- Tremor, nervousness {thy:1} @13
+* Neck swelling {thy:2} @14
+- Eye changes {thy:2} @15
+- Lighter or absent periods {thy:1} @16
+H Gut|pick
+! Difficulty swallowing {ca:1,gi:1} @17
+- Feeling full early {ca:2,gi:1} @18
+- Vomiting or abdominal pain {ca:1,gi:1} @19
+! Change in bowel habit or black stool {ca:1,gi:1} @20
+* Chronic diarrhoea or fatty stools {gi:4} @21
+- Bloating {gi:3} @22
+H Chest|pick
+* Cough {ca:1,copd:1,tb:1} @23
+! Coughing blood {ca:1,tb:1} @24
+- Breathlessness {ca:1,copd:1} @25
+H Infection|pick
+* Fever {tb:1} @26
+* Night sweats {tb:1} @27
+H Lumps|pick
+* Lumps in the neck, armpit or groin {ca:1} @29
+- Breast lump {ca:1} @28
+- Testicular lump {ca:1} @30
+H Mood|pick
+* Low mood or poor sleep {dep:3} @31
+- Worry about body shape, avoiding food {dep:4} @32
+H Organ failure and adrenal|pick
+- Dizzy on standing {adr:2} @33
+- Salt craving or darker skin {adr:2} @34
+- Nausea and itch {ckd:2} @35
+* Swelling of legs or abdomen {ckd:2} @36
+- Missed periods, infertility or low libido {adr:1,thy:1,dep:1,ckd:1} @x33
+* Breathless on exertion {copd:1,ckd:1,thy:1} @x34
+G Background for this complaint
+M If diabetic (handbook)|Type · treatment and diet · home monitoring · complications (eyes, feet, kidney, heart, stroke, claudication) · BP and cholesterol drugs · hypos and their triggers
 H Diabetes history (if known)|pick
 - Known diabetes on insulin {dm:1} @x24
 - Known diabetes on tablets or diet only {dm:1} @x25
@@ -2806,62 +2862,26 @@ H Diabetes history (if known)|pick
 - Leg pain on walking (claudication) @x30
 - Kidney disease, dialysis or transplant {ckd:1} @x31
 - Heart disease or stroke @x32
-H Thyroid|pick
-- Heat intolerance and sweating {thy:1}
-- Palpitations {thy:1}
-- Tremor, nervousness {thy:1}
-- Neck swelling {thy:2}
-- Eye changes {thy:2}
-- Lighter or absent periods {thy:1}
-H Gut|pick
-! Difficulty swallowing {ca:1,gi:1}
-- Feeling full early {ca:2,gi:1}
-- Vomiting or abdominal pain {ca:1,gi:1}
-! Change in bowel habit or black stool {ca:1,gi:1}
-- Chronic diarrhoea or fatty stools {gi:4}
-- Bloating {gi:3}
-H Chest|pick
-- Cough {ca:1,copd:1,tb:1}
-! Coughing blood {ca:1,tb:1}
-- Breathlessness {ca:1,copd:1}
-H Infection|pick
-- Fever {tb:1}
-- Night sweats {tb:1}
-H Lumps|pick
-- Breast lump {ca:1}
-- Lumps in the neck, armpit or groin {ca:1}
-- Testicular lump {ca:1}
-H Mood|pick
-- Low mood or poor sleep {dep:3}
-- Worry about body shape, avoiding food {dep:4}
-H Adrenal and organ failure|pick
-- Dizzy on standing {adr:2}
-- Salt craving or darker skin {adr:2}
-- Nausea and itch {ckd:2}
-- Swelling of legs or abdomen {ckd:2}
-- Missed periods, infertility or low libido {adr:1,thy:1,dep:1,ckd:1} @x33
-- Breathless on exertion {copd:1,ckd:1,thy:1} @x34
-G Background for this complaint
-H Exposure|pick|Exposure:
-- TB contact {tb:1}
-- Travel {tb:1}
-- HIV risk {tb:1}
-H Habits|pick
-- Smoker {ca:1,copd:1}
-- Alcohol excess {drug:2,ca:1}
-- Drug misuse {drug:2}
-H Drugs|pick|Takes:
-- Metformin or GLP-1 agonist {drug:1}
-- Thyroxine {drug:1}
-- Chemotherapy {drug:1}
-- Stimulants {drug:1}
 H Past history|pick|Past history:
-- Kidney, liver or heart failure {ckd:2}
-- COPD {copd:2}
+* Previous cancer {ca:2} @x21
+- Kidney, liver or heart failure {ckd:2} @47
+- COPD {copd:2} @48
 - Known diabetes, losing weight despite eating {dm:2} @x20
-- Previous cancer {ca:2} @x21
 - Thyroid disease {thy:1} @x22
 - Hypertension @x23
+H Exposure|pick|Exposure:
+* TB contact {tb:1} @37
+- Travel {tb:1} @38
+- HIV risk {tb:1} @39
+H Habits|pick
+* Smoker {ca:1,copd:1} @40
+* Alcohol excess {drug:2,ca:1} @41
+- Drug misuse {drug:2} @42
+H Drugs|pick|Takes:
+- Metformin or GLP-1 agonist {drug:1} @43
+- Thyroxine {drug:1} @44
+- Chemotherapy {drug:1} @45
+- Stimulants {drug:1} @46
 G Examination
 E Demeanour|pick
 - Cachexic, muscle wasting {ca:1,tb:1,ckd:1,gi:1} @0
@@ -2921,11 +2941,6 @@ E Fundi|pick
 - Diabetic retinopathy on fundoscopy {dm:3} @16
 - Hypertensive retinopathy {ckd:2} @x113
 @thyroid|Goitre / thyroid disease|Endocrine|Medicine
-Y Too much thyroid|graves,mng,thyt|Too much thyroid,Eyes
-Y Too little thyroid|hash|Too little thyroid
-Y Lump or cancer|ca,simple|Pressure symptoms,Course
-Y Drugs and treatment|drug,post|Drugs,Past history
-Y Not thyroid|anx|Too much thyroid
 SC
 I TSH, fT4, fT3; TPO antibodies, TRAb; USS thyroid; fine-needle aspiration of a nodule; radioiodine uptake scan; calcitonin if medullary carcinoma suspected; ECG; CXR or CT neck for retrosternal extension
 D graves|Graves' disease||1
@@ -2937,64 +2952,71 @@ D simple|Simple / iodine-deficiency goitre||0.6
 D drug|Drug-induced (amiodarone, lithium)||0.3
 D post|Post-surgery or post-radioiodine hypothyroidism||0.3
 D anx|Anxiety / non-thyroid cause||0.4
-G The neck swelling
-H Duration|one|Present for:
-- Weeks {thyt:2,ca:1}
-- Months to years {simple:2,mng:2,graves:1,hash:1}
-H Course|pick|Course:
-! Growing fast {ca:2,simple:1}
-- Painful and tender after a cold {thyt:5}
-- Started after pregnancy {thyt:3}
+Y Too much thyroid|graves,mng,thyt|Too much thyroid,Eyes
+Y Too little thyroid|hash|Too little thyroid
+Y Lump or cancer|ca,simple|The swelling,Pressure symptoms
+Y Drugs and treatment|drug,post|Drugs,Past history
+Y Not thyroid|anx|Too much thyroid
+G The neck swelling (handbook)
+M Swelling · Pressure · Thyroid state|How long, how fast, painful? · swallowing, stridor, voice · then too much or too little thyroid (ask onset and duration of each)
+H The swelling|pick|Swelling:
+* Present for weeks {thyt:2,ca:1} @0
+- Present for months to years {simple:2,mng:2,graves:1,hash:1} @1
+! Growing fast {ca:2,simple:1} @2
+* Painful and tender after a cold {thyt:5} @3
+- Started after pregnancy {thyt:3} @4
 H Pressure symptoms|pick|Pressure:
-- Difficulty swallowing {ca:1,simple:1}
-! Noisy breathing (stridor) {ca:1,simple:1}
-- Breathless {ca:1,simple:1}
-! Hoarse voice {ca:1,simple:1}
-G Thyroid state
+* Difficulty swallowing {ca:1,simple:1} @5
+! Noisy breathing (stridor) {ca:1,simple:1} @6
+- Breathless {ca:1,simple:1} @7
+! Hoarse voice {ca:1,simple:1} @8
+G Too much or too little?
+M Hot and fast, or cold and slow?|Thyrotoxic: heat intolerance, weight loss with appetite, palpitations, sweating, nervous, diarrhoea · hypothyroid: cold intolerance, tired, weight gain, constipation, hoarse, heavy periods
 H Too much thyroid|pick|Thyrotoxic:
 N Ask about onset and duration of each.
-- Heat intolerance {graves:2,mng:2,thyt:1}
-- Sweating {graves:2,mng:2,thyt:1}
-- Weight loss with a good appetite {graves:3,mng:3}
-- Palpitations {graves:1,mng:1,thyt:1,anx:1}
-- Tremor {graves:1,mng:1,thyt:1,anx:1}
-- Nervous or irritable {graves:1,mng:1,thyt:1,anx:1}
-- Diarrhoea {graves:1,mng:1}
-- Light or absent periods {graves:1,mng:1}
-- Muscle weakness {graves:1,mng:1}
-- Breathless on exertion {graves:1,mng:1}
+* Heat intolerance {graves:2,mng:2,thyt:1} @9
+- Sweating {graves:2,mng:2,thyt:1} @10
+* Weight loss with a good appetite {graves:3,mng:3} @11
+* Palpitations {graves:1,mng:1,thyt:1,anx:1} @12
+- Tremor {graves:1,mng:1,thyt:1,anx:1} @13
+* Nervous or irritable {graves:1,mng:1,thyt:1,anx:1} @14
+- Diarrhoea {graves:1,mng:1} @15
+- Light or absent periods {graves:1,mng:1} @16
+- Muscle weakness {graves:1,mng:1} @17
+- Breathless on exertion {graves:1,mng:1} @18
 H Eyes|pick|Eyes:
-- Gritty or sore {graves:2}
-- Double vision {graves:2}
-- Eyes bulging {graves:2}
+- Gritty or sore {graves:2} @19
+* Double vision {graves:2} @20
+* Eyes bulging {graves:2} @21
 H Too little thyroid|pick|Hypothyroid:
-- Cold intolerance {hash:1,post:1}
-- Tiredness, slowed thinking {hash:1,post:1}
-- Weight gain {hash:1,post:1}
-- Constipation {hash:1,post:1}
-- Dry skin, hair loss {hash:1,post:1}
-- Hoarse, slow speech {hash:1,post:1}
-- Heavy periods {hash:1,post:1}
-- Muscle cramps or tingling {hash:1,post:1}
-- Puffy face {hash:1,post:1}
+* Cold intolerance {hash:1,post:1} @22
+* Tiredness, slowed thinking {hash:1,post:1} @23
+* Weight gain {hash:1,post:1} @24
+* Constipation {hash:1,post:1} @25
+- Dry skin, hair loss {hash:1,post:1} @26
+- Hoarse, slow speech {hash:1,post:1} @27
+- Heavy periods {hash:1,post:1} @28
+- Muscle cramps or tingling {hash:1,post:1} @29
+- Puffy face {hash:1,post:1} @30
 G Background for this complaint
+M Past · Radiation · Drugs · Family|Major illnesses and operations · neck radiation · thyroxine, antithyroid drugs, amiodarone · family thyroid, endocrine, tumour or autoimmune disease
 H Past history|pick|Past history:
-- Thyroid surgery {post:3}
-- Radioiodine {post:3}
-- Neck irradiation {ca:3}
-- Type 1 diabetes, vitiligo or pernicious anaemia {graves:1,hash:1}
-- Hypertension, IHD or diabetes
+* Thyroid surgery {post:3} @31
+* Radioiodine {post:3} @32
+* Neck irradiation {ca:3} @33
+- Type 1 diabetes, vitiligo or pernicious anaemia {graves:1,hash:1} @34
+- Hypertension, IHD or diabetes @35
 H Drugs|pick|Takes:
-- Amiodarone {drug:5}
-- Lithium {drug:2}
-- Antithyroid drugs {drug:2}
-- Thyroxine {drug:2}
+* Amiodarone {drug:5} @36
+- Lithium {drug:2} @37
+* Antithyroid drugs {drug:2} @38
+* Thyroxine {drug:2} @39
 H Family history|pick|Family history:
-- Thyroid disease {graves:1,hash:1}
-- Autoimmune disease {graves:1,hash:1}
-- Thyroid cancer or MEN2 {ca:3}
+* Thyroid disease {graves:1,hash:1} @40
+- Autoimmune disease {graves:1,hash:1} @41
+- Thyroid cancer or MEN2 {ca:3} @42
 H Diet|pick
-- Iodine-deficient area or diet {simple:4}
+- Iodine-deficient area or diet {simple:4} @43
 G Examination
 E Demeanour|pick
 - Restless, thin {graves:1,mng:1} @0
@@ -3080,10 +3102,6 @@ E Interpret the neck findings|pick
 - Large firm nodes near the goitre {ca:5} @x130
 - Fixed, immobile goitre {ca:4} @x131
 @dysph|Dysphagia|Upper GI|Surgery
-Y Inside the gullet|ca,strict,web,eosi,can|Onset and course,Weight and blood
-Y Pressing from outside|ext|Chest
-Y Muscle (motility)|ach,spasm,sc|What is difficult,Regurgitation,Skin
-Y Nerves|neuro|Neuro,Swallow itself
 SC
 I Urgent OGD with biopsy if alarm features; barium swallow (achalasia: bird's beak); manometry; CT chest and abdomen for staging; endoscopic ultrasound; videofluoroscopy and speech therapy review; FBC, ferritin
 D ca|Oesophageal carcinoma|!|1
@@ -3096,68 +3114,74 @@ D neuro|Neurological (stroke, bulbar palsy, MND, myasthenia)||0.5
 D spasm|Diffuse oesophageal spasm||0.3
 D can|Candida oesophagitis||0.4
 D sc|Systemic sclerosis||0.2
+Y Inside the gullet|ca,strict,web,eosi,can|Onset and course,Weight and blood
+Y Pressing from outside|ext|Chest
+Y Muscle (motility)|ach,spasm,sc|What is difficult,Regurgitation,Skin
+Y Nerves|neuro|Neuro,Swallow itself
 G The dysphagia
+M Where · Solids or liquids · How fast|Cancer: solids stick first, then fluids, with weight loss (Browse) · motility problems: solids and liquids from the start
 H Level|one|Sticks at:
 N Ask the patient to point to where the food sticks.
-- The throat {neuro:2,web:2}
-- Behind the breastbone {ca:1,strict:1,ach:1}
-- Lower end of the breastbone {ca:1,strict:1,ach:1}
+* The throat {neuro:2,web:2} @0
+- Behind the breastbone {ca:1,strict:1,ach:1} @1
+- Lower end of the breastbone {ca:1,strict:1,ach:1} @2
 H What is difficult|one|Difficult to swallow:
-- Solids first, then liquids over weeks {ca:5,strict:2}
-- Solids and liquids from the start {ach:5,spasm:3,neuro:3}
+* Solids first, then liquids over weeks {ca:5,strict:2} @3
+- Solids and liquids from the start {ach:5,spasm:3,neuro:3} @4
 H Onset and course|pick|Course:
-! Rapidly getting worse {ca:5}
-- Comes and goes {spasm:2,ach:1,eosi:1}
+! Rapidly getting worse {ca:5} @5
+- Comes and goes {spasm:2,ach:1,eosi:1} @6
 - Chest pain on swallowing hot or cold drinks {spasm:4} @x1
-- Food gets stuck and has to be brought up {eosi:2}
-- Years of heartburn before it started {strict:5,ca:1}
+- Food gets stuck and has to be brought up {eosi:2} @7
+* Years of heartburn before it started {strict:5,ca:1} @8
 H Swallow itself|pick|Swallowing:
-- Hard to start the swallow {neuro:2}
-- Choking or coughing on swallowing {neuro:2}
-- Fluid comes out of the nose {neuro:2}
-- Painful swallowing {can:4,ca:2,eosi:1}
+- Hard to start the swallow {neuro:2} @9
+* Choking or coughing on swallowing {neuro:2} @10
+- Fluid comes out of the nose {neuro:2} @11
+* Painful swallowing {can:4,ca:2,eosi:1} @12
 H Regurgitation|pick|Regurgitation:
-- Undigested food hours later {web:2,ach:2}
-- At night, on the pillow {ach:3}
-- Gurgling in the neck {web:2}
-- Bad breath {web:2}
-G Associated symptoms
+* Undigested food hours later {web:2,ach:2} @13
+- At night, on the pillow {ach:3} @14
+- Gurgling in the neck {web:2} @15
+- Bad breath {web:2} @16
+G Screen the causes
+M Foreign body · Motility · Nerves · Reflux and stricture · Web · Pouch · Cancer|Browse's causes of dysphagia
 H Weight and blood|pick
-! Weight loss {ca:3,ach:1}
-- Loss of appetite {ca:2}
-- Tiredness, looks pale {ca:1,web:1}
-- Black stool or vomiting blood {ca:1}
+! Weight loss {ca:3,ach:1} @17
+* Loss of appetite {ca:2} @18
+- Tiredness, looks pale {ca:1,web:1} @19
+- Black stool or vomiting blood {ca:1} @20
 H Chest|pick
-- Hoarse voice {ext:2,ca:1}
-- Cough {ext:1,ca:1}
-- Coughing blood {ext:1,ca:1}
-- Chest pain {ach:1,spasm:2}
+* Hoarse voice {ext:2,ca:1} @21
+- Cough {ext:1,ca:1} @22
+- Coughing blood {ext:1,ca:1} @23
+- Chest pain {ach:1,spasm:2} @24
 H Neuro|pick
-- Weakness that worsens through the day {neuro:1}
-- Double vision or drooping eyelid {neuro:1}
-- Slurred speech {neuro:1}
+* Weakness that worsens through the day {neuro:1} @25
+- Double vision or drooping eyelid {neuro:1} @26
+- Slurred speech {neuro:1} @27
 H Skin|pick
-- Fingers turn white in the cold {sc:2}
-- Tight skin {sc:2}
+- Fingers turn white in the cold {sc:2} @28
+- Tight skin {sc:2} @29
 G Background for this complaint
 H Habits|pick
-- Smoker {ca:1}
-- Alcohol {ca:1}
+* Smoker {ca:1} @30
+* Alcohol {ca:1} @31
 H Past history|pick|Past history:
-- Barrett's oesophagus {ca:1}
-- Achalasia {ca:1}
-- Swallowed caustic {ca:1}
-- Asthma, eczema or allergies {eosi:2}
-- Immunosuppressed or HIV {can:2}
-- Stroke {neuro:2}
+- Barrett's oesophagus {ca:1} @32
+- Achalasia {ca:1} @33
+* Swallowed caustic {ca:1} @34
+- Asthma, eczema or allergies {eosi:2} @35
+- Immunosuppressed or HIV {can:2} @36
+* Stroke {neuro:2} @37
 - Parkinson's disease or MS {neuro:3} @x20
-- Long-standing reflux {strict:2,ca:1} @x21
+* Long-standing reflux {strict:2,ca:1} @x21
 - Diabetes @x22
 H Drugs|pick|Takes:
-- NSAIDs {strict:1}
-- Bisphosphonates {strict:1}
-- Potassium tablets {strict:1}
-- Inhaled steroids or recent antibiotics {can:2}
+- NSAIDs {strict:1} @38
+- Bisphosphonates {strict:1} @39
+- Potassium tablets {strict:1} @40
+- Inhaled steroids or recent antibiotics {can:2} @41
 G General examination
 E General|pick
 ! Cachexic {ca:2}
@@ -4737,11 +4761,6 @@ E Sensation|pick
 - Normal sensation {mnd:2,myop:1,mg:1}
 
 @haem|Haematemesis / melaena|Gastrointestinal|Medicine
-Y Ulcer and gastritis|pu,gast,oes|Before the bleed,Drugs
-Y Varices|var|Liver,Alcohol
-Y Tear|mw|Before the bleed
-Y Cancer|ca|Cancer
-Y Bleeding tendency|coag,ang|Drugs
 SC gbs
 I ABC, two large-bore IVs, crossmatch, FBC, U&E (urea raised), LFT, INR; ECG; transfuse to a restrictive target; urgent endoscopy within 24 h (sooner if unstable or variceal); IV PPI before endoscopy if ulcer likely; terlipressin and antibiotics if variceal bleeding suspected
 D pu|Peptic ulcer|!|1.5
@@ -4752,50 +4771,57 @@ D ca|Gastric or oesophageal cancer|!|0.4
 D oes|Oesophagitis||0.5
 D ang|Angiodysplasia / Dieulafoy lesion||0.2
 D coag|Coagulopathy / anticoagulants||0.3
-G The bleed
+Y Ulcer and erosions|pu,gast,oes|Before the bleed,Drugs
+Y Varices|var|Liver,Alcohol
+Y Tear|mw|Before the bleed
+Y Cancer|ca|Cancer
+Y Bleeding tendency|coag,ang|Drugs
+G The bleed (Browse)
+M Vomited · Coffee grounds · Melaena|Make sure it was vomited, not coughed up · coffee grounds = blood altered by stomach acid · melaena = black tarry stool from an upper GI bleed
 H What came up|pick|Vomited:
 N Confirm it was vomited, not coughed up or from the nose.
-- Fresh red blood {var:2,mw:1,pu:1}
-- Coffee grounds {pu:2,gast:2}
-! Large volume of fresh blood {var:5}
+* Fresh red blood {var:2,mw:1,pu:1} @0
+* Coffee grounds {pu:2,gast:2} @1
+! Large volume of fresh blood {var:5} @2
 H Stool|pick|Stool:
-- Black and tarry (melaena) {pu:2}
-- Fresh blood {var:1,pu:1}
+* Black and tarry (melaena) {pu:2} @3
+- Fresh blood {var:1,pu:1} @4
 H Before the bleed|pick|Before:
-- Retching or forceful vomiting {mw:6}
+* Retching or forceful vomiting {mw:6} @5
 - Small amount of blood, otherwise well {gast:2,mw:2} @x1
-- Epigastric pain {pu:2}
-- Indigestion for weeks {pu:2}
-- Heartburn and regurgitation {oes:5}
+* Epigastric pain {pu:2} @6
+- Indigestion for weeks {pu:2} @7
+- Heartburn and regurgitation {oes:5} @8
 H Effects|pick|Since the bleed:
-! Fainted or dizzy on standing {pu:1,var:1}
-- Palpitations {pu:1}
-- Thirsty {pu:1}
-G Associated symptoms
+! Fainted or dizzy on standing {pu:1,var:1} @9
+- Palpitations {pu:1} @10
+- Thirsty {pu:1} @11
+G Screen the causes
+M Ulcer · Erosions · Cancer · Varices|Browse's causes: peptic ulcer, acute erosions (aspirin, NSAIDs, steroids), stomach or oesophageal cancer, varices
 H Liver|pick
-- Yellow eyes {var:2}
-- Swollen abdomen {var:2}
+* Yellow eyes {var:2} @12
+* Swollen abdomen {var:2} @13
 H Cancer|pick
-! Weight loss {ca:2}
-! Difficulty swallowing {ca:2}
-- Feeling full early, loss of appetite {ca:2}
+! Weight loss {ca:2} @14
+! Difficulty swallowing {ca:2} @15
+- Feeling full early, loss of appetite {ca:2} @16
 G Background for this complaint
 H Past history|pick|Past history:
-- Previous ulcer {pu:2}
-- Known liver disease or varices {var:3}
-- Bleeding disorder {coag:2}
-- Aortic stenosis or aortic graft {ang:4}
-- Recurrent bleeds with no cause found {ang:2}
+* Previous ulcer {pu:2} @17
+* Known liver disease or varices {var:3} @18
+- Bleeding disorder {coag:2} @19
+- Aortic stenosis or aortic graft {ang:4} @20
+- Recurrent bleeds with no cause found {ang:2} @21
 - Kidney disease or dialysis {ang:2} @x20
 - Hypertension, IHD or stroke on aspirin {coag:1} @x21
 H Drugs|pick|Takes:
-- NSAIDs or aspirin {pu:1,gast:1,oes:1}
-- Steroids {pu:1,gast:1}
-- Bisphosphonates {oes:1}
-- Warfarin or a DOAC {coag:2}
-- Clopidogrel {coag:2}
+* NSAIDs or aspirin {pu:1,gast:1,oes:1} @22
+* Steroids {pu:1,gast:1} @23
+- Bisphosphonates {oes:1} @24
+* Warfarin or a DOAC {coag:2} @25
+- Clopidogrel {coag:2} @26
 H Alcohol|pick
-- Heavy alcohol use {gast:3,var:3,mw:2}
+* Heavy alcohol use {gast:3,var:3,mw:2} @27
 G General examination
 E Vital signs and perfusion|pick
 ! Tachycardia {pu:1,var:1}
@@ -4824,12 +4850,6 @@ E Rectal examination|pick
 - Fresh blood on the glove {var:1}
 
 @ascites|Abdominal distension / ascites|Gastrointestinal|Medicine
-Y Liver|cirr,budd,sbp|Liver,Infected ascites
-Y Cancer|mal|Cancer
-Y Heart|hf|Heart
-Y Kidney|nephr|Kidney
-Y TB|tb|TB
-Y Not fluid|obes,ovar|Gut and pregnancy
 SC cp
 I Ascitic tap: cell count and neutrophils (over 250 = SBP), albumin (SAAG), protein, culture, cytology; LFT, albumin, INR, FBC, U&E; urine protein; USS with Doppler; CT abdomen; AFP; echo if cardiac; upper endoscopy for varices
 D cirr|Cirrhosis / portal hypertension||1.5
@@ -4841,51 +4861,58 @@ D budd|Budd-Chiari / portal vein thrombosis|!|0.1
 D sbp|Spontaneous bacterial peritonitis|!|0.2
 D obes|Obesity / gas / faeces / pregnancy / fibroid||0.8
 D ovar|Large ovarian cyst||0.2
-G The swelling
-N Think of the five Fs: fluid, fat, flatus, faeces, fetus.
+Y Liver|cirr,budd,sbp|Liver,Infected ascites
+Y Cancer|mal|Cancer
+Y Heart|hf|Heart
+Y Kidney|nephr|Kidney
+Y TB|tb|TB
+Y The other F's|obes,ovar|The other F's
+G The swelling (Browse)
+M The 6 F's|Fetus · Flatus · Faeces · Fat · Fluid (free ascites or a cyst) · Fibroids and other big tumours
 H Onset|one|Onset:
-- Sudden and painful {budd:2}
-- Gradual over weeks {cirr:1,mal:1,hf:1,nephr:1}
-- Comes and goes with bloating {obes:1}
+- Sudden and painful {budd:2} @0
+* Gradual over weeks {cirr:1,mal:1,hf:1,nephr:1} @1
+- Comes and goes with bloating {obes:1} @2
 H Course|pick|Course:
-- Weight gain, clothes tighter {cirr:1,mal:1,hf:1,nephr:1}
-- Needs repeated drainage {cirr:1,mal:1}
-G Associated symptoms
+* Weight gain, clothes tighter {cirr:1,mal:1,hf:1,nephr:1} @3
+- Needs repeated drainage {cirr:1,mal:1} @4
+H The other F's|pick
+* Missed period {obes:3} @19
+- Constipation, wind, bloating {obes:1} @18
+G If it is fluid: which organ?
+M Liver · Cancer · Heart · Kidney · TB|Then ask about infection of the fluid (fever, pain, confusion)
 H Liver|pick
-- Yellow eyes {cirr:2}
-! Vomiting blood or black stool {cirr:2}
+* Yellow eyes {cirr:2} @5
+! Vomiting blood or black stool {cirr:2} @6
 H Cancer|pick
-! Weight loss and poor appetite {mal:2}
-- Change in bowel habit {mal:2}
-- Pelvic pain or abnormal vaginal bleeding {mal:1,ovar:1}
+! Weight loss and poor appetite {mal:2} @7
+- Change in bowel habit {mal:2} @8
+- Pelvic pain or abnormal vaginal bleeding {mal:1,ovar:1} @9
 H Heart|pick
-- Breathless lying flat {hf:3}
-- Ankle swelling {hf:3}
+* Breathless lying flat {hf:3} @10
+* Ankle swelling {hf:3} @11
 H Kidney|pick
-- Frothy urine {nephr:4}
-- Puffy eyes {nephr:4}
+* Frothy urine {nephr:4} @12
+- Puffy eyes {nephr:4} @13
 H TB|pick
-- Fever and night sweats {tb:2}
-- TB contact {tb:2}
+* Fever and night sweats {tb:2} @14
+- TB contact {tb:2} @15
 H Infected ascites|pick
-! Abdominal pain with fever {sbp:2}
-! Confusion {sbp:2}
-H Gut and pregnancy|pick
-- Constipation, wind, bloating {obes:1}
-- Missed period {obes:3}
+! Abdominal pain with fever {sbp:2} @16
+! Confusion {sbp:2} @17
 G Background for this complaint
 H Past history|pick|Past history:
-- Known liver disease or ascites {cirr:2,sbp:1}
-- Viral hepatitis {cirr:2}
-- Known cancer {mal:2}
-- Heart failure {hf:2}
-- Clotting tendency or polycythaemia {budd:2}
+* Known liver disease or ascites {cirr:2,sbp:1} @20
+* Viral hepatitis {cirr:2} @21
+* Known cancer {mal:2} @22
+- Heart failure {hf:2} @23
+- Clotting tendency or polycythaemia {budd:2} @24
 - Diabetes or obesity (fatty liver) {cirr:1} @x20
 - Kidney disease or nephrotic syndrome {nephr:2} @x21
 - Hypertension @x22
 H Drugs and habits|pick|Takes:
-- Heavy alcohol use {cirr:2}
-- Contraceptive pill {budd:2}
+* Heavy alcohol use {cirr:2} @25
+- Contraceptive pill {budd:2} @26
 G General examination
 E Vital signs|pick
 - Fever {sbp:2,tb:1}
@@ -6368,10 +6395,6 @@ E Nodes|pick
 ! Inguinal lymph nodes {ca:3}
 
 @obstr|Vomiting and distension (bowel obstruction)|Emergency|Surgery
-Y Outside the wall|adh,herni,vol|Before this,Past history
-Y In the wall|ca,crohn,div|Before this
-Y In the lumen|gall,intus|Before this
-Y No blockage (ileus)|ileus|Ileus causes
 SC news
 I Resuscitate: nil by mouth, IV fluids, NG tube if vomiting, catheter for fluid balance; U&E, lactate, FBC, CRP, amylase, group and save; erect CXR and AXR; contrast CT abdomen and pelvis; early surgical review; urgent theatre if strangulation or peritonism
 D adh|Adhesional small bowel obstruction||1.5
@@ -6383,45 +6406,53 @@ D gall|Gallstone ileus||0.1
 D crohn|Crohn's stricture||0.2
 D intus|Intussusception||0.1
 D div|Diverticular stricture||0.3
-G The four cardinal features
-N Pain, vomiting, distension, constipation. Early vomiting means high obstruction; early distension and constipation mean low.
+Y Hernia|herni|Before this,Past history
+Y Adhesions|adh|Past history
+Y Cancer|ca|Before this
+Y Volvulus|vol|Past history
+Y Diverticular|div|Before this
+Y Other blockages|gall,crohn,intus|Before this,Bowels
+Y No blockage (ileus)|ileus|Ileus causes
+G The 4 cardinal symptoms (Browse)
+M Pain · Vomiting · Distension · Absolute constipation|High small bowel: frequent colic and early vomiting, slight central distension · low large bowel: infrequent colic, absolute constipation, peripheral distension, late or no vomiting
 H Pain|one|Pain:
-- Colicky, central {adh:4,herni:3,ca:3,vol:3}
-! Constant and severe (strangulation) {herni:2,vol:1}
-- Little or no pain {ileus:2}
+* Colicky, central {adh:4,herni:3,ca:3,vol:3} @0
+! Constant and severe (strangulation) {herni:2,vol:1} @1
+- Little or no pain {ileus:2} @2
 H Vomiting|one|Vomiting:
-- Early and profuse {adh:3,herni:2}
-- Late, faeculent {ca:3,vol:3}
+* Early and profuse {adh:3,herni:2} @3
+- Late, faeculent {ca:3,vol:3} @4
 H Distension|one|Distension:
-- Mild {adh:1,herni:1}
-- Marked {ca:3,vol:3}
+* Mild {adh:1,herni:1} @5
+- Marked {ca:3,vol:3} @6
 H Bowels|pick|Bowels:
-- No stool {adh:2,ca:3,vol:3,ileus:2}
-- No wind {adh:2,ca:3,vol:3,ileus:2}
-- Redcurrant jelly stool (child) {intus:4}
-G Look for the cause
+* No stool {adh:2,ca:3,vol:3,ileus:2} @7
+* No wind {adh:2,ca:3,vol:3,ileus:2} @8
+- Redcurrant jelly stool (child) {intus:4} @9
+G Find the cause
+M Small bowel: hernias and adhesions · Large bowel: cancer, diverticulitis, volvulus|The commonest causes (Browse). Look at the hernial orifices and for scars.
 H Before this|pick
-- Altered bowel habit, weight loss or rectal bleeding {ca:3}
-- Lump in the groin or abdominal wall {herni:3}
-- Recent operation {ileus:2}
-- Previous attacks of left iliac fossa pain {div:3}
-- Gallstone symptoms in an older woman {gall:6}
+* Altered bowel habit, weight loss or rectal bleeding {ca:3} @10
+* Lump in the groin or abdominal wall {herni:3} @11
+- Recent operation {ileus:2} @12
+- Previous attacks of left iliac fossa pain {div:3} @13
+- Gallstone symptoms in an older woman {gall:6} @14
 H General|pick
-! Fever {herni:2,vol:1}
+! Fever {herni:2,vol:1} @15
 G Background for this complaint
 H Past history|pick|Past history:
-- Previous abdominal or pelvic surgery {adh:4}
-- Previous hernia {herni:3}
-- Crohn's disease or previous resection {crohn:4}
-- Known diverticular disease {div:3}
-- Chronic constipation, elderly or in care {vol:2}
+* Previous abdominal or pelvic surgery {adh:4} @16
+* Previous hernia {herni:3} @17
+- Crohn's disease or previous resection {crohn:4} @18
+- Known diverticular disease {div:3} @19
+- Chronic constipation, elderly or in care {vol:2} @20
 - Diabetes {ileus:1} @x20
 H Drugs|pick|Takes:
-- Opioids {ileus:2}
-- Anticholinergics {ileus:1}
+* Opioids {ileus:2} @21
+- Anticholinergics {ileus:1} @22
 H Ileus causes|pick
-- Low potassium or sodium {ileus:2}
-- Sepsis {ileus:2}
+- Low potassium or sodium {ileus:2} @23
+- Sepsis {ileus:2} @24
 G General examination
 E Vital signs and hydration|pick
 ! Tachycardia {herni:1,vol:1,ca:1}
@@ -6458,14 +6489,6 @@ N Always check the hernial orifices.
 - Blood on the glove {intus:3,ca:2} @x103
 
 @mass|Abdominal mass|Gastrointestinal|Surgery
-Y Liver|hep|Liver and spleen
-Y Spleen|spl|Liver and spleen
-Y Kidney|kid|Kidney
-Y Bowel|ca,crohn,fecal,divm|Gut
-Y Aorta|aaa|Where
-Y Pancreas|panc|Gut
-Y Pelvis|ovar|Pelvis
-Y Nodes and psoas|lym,psoas|Other
 SC
 I FBC, CRP, U&E, LFT; tumour markers as guided (CEA, CA19-9, CA-125, AFP, beta-hCG); USS abdomen and pelvis; contrast CT chest, abdomen and pelvis; colonoscopy for lower GI mass; OGD for epigastric mass; biopsy under imaging guidance; urgent referral if cancer suspected
 D ca|Colorectal / gastric cancer|!|1
@@ -6480,54 +6503,64 @@ D lym|Lymphoma / lymph node mass||0.2
 D fecal|Faecal loading||0.6
 D psoas|Psoas abscess / iliac node or artery mass||0.15
 D divm|Diverticular mass / abscess||0.3
+Y Liver|hep|Liver and spleen
+Y Spleen|spl|Liver and spleen
+Y Kidney|kid|Kidney
+Y Bowel|ca,crohn,fecal,divm|Gut
+Y Aorta|aaa|Noticed
+Y Pancreas|panc|Gut
+Y Pelvis|ovar|Pelvis
+Y Nodes and psoas|lym,psoas|Liver and spleen,Other
 G The mass
+M Where is it? Think of the organ underneath|Right upper: liver · left upper: spleen · loin: kidney · epigastrium: stomach, pancreas, aorta · right iliac fossa: Crohn's, caecum · left iliac fossa: faeces, diverticular, colon · pelvis: ovary, bladder
 H Where|pick|Site:
-- Right upper quadrant {hep:3,kid:1}
-- Epigastrium {ca:1,panc:2,aaa:1}
-- Left upper quadrant {spl:3,kid:1}
-- Loin {kid:3}
-- Around the umbilicus {aaa:2,lym:1}
-- Right iliac fossa {crohn:3,ca:1}
-- Left iliac fossa {fecal:2,divm:2,ca:1}
-- Suprapubic or pelvic {ovar:3}
+* Right upper quadrant {hep:3,kid:1} @0
+- Epigastrium {ca:1,panc:2,aaa:1} @1
+* Left upper quadrant {spl:3,kid:1} @2
+- Loin {kid:3} @3
+- Around the umbilicus {aaa:2,lym:1} @4
+- Right iliac fossa {crohn:3,ca:1} @5
+- Left iliac fossa {fecal:2,divm:2,ca:1} @6
+- Suprapubic or pelvic {ovar:3} @7
 H Noticed|pick|Mass:
-- Noticed by the patient
-- Found by a doctor
-- Getting bigger {ca:1,ovar:1}
-- Pulsates {aaa:2}
-- Painful {divm:2,crohn:1}
-G Associated symptoms
+- Noticed by the patient @8
+- Found by a doctor @9
+* Getting bigger {ca:1,ovar:1} @10
+* Pulsates {aaa:2} @11
+- Painful {divm:2,crohn:1} @12
+G Screen each organ
+M Gut · Liver and spleen · Kidney · Pelvis|Two questions each for the organ you suspect
 H Gut|pick
-! Weight loss {ca:2}
-- Loss of appetite {ca:2}
-! Change in bowel habit {ca:2}
-! Black stool {ca:2}
-- Feeling full early or vomiting {ca:1,panc:1}
-- Chronic constipation {fecal:4}
-- Diarrhoea with right iliac fossa pain {crohn:3}
+! Weight loss {ca:2} @13
+* Loss of appetite {ca:2} @14
+! Change in bowel habit {ca:2} @15
+! Black stool {ca:2} @16
+- Feeling full early or vomiting {ca:1,panc:1} @17
+- Chronic constipation {fecal:4} @18
+- Diarrhoea with right iliac fossa pain {crohn:3} @19
 H Liver and spleen|pick
-- Yellow eyes {hep:2}
-- Fever, night sweats, itch {lym:2,spl:1}
-- Lumps elsewhere {lym:1,spl:1}
+* Yellow eyes {hep:2} @20
+* Fever, night sweats, itch {lym:2,spl:1} @21
+- Lumps elsewhere {lym:1,spl:1} @22
 H Kidney|pick
-- Blood in urine {kid:3}
-- Loin pain {kid:3}
+* Blood in urine {kid:3} @23
+- Loin pain {kid:3} @24
 H Pelvis|pick
-- Pelvic pain or period changes {ovar:2}
-- Bloating or urinary frequency {ovar:2}
+* Pelvic pain or period changes {ovar:2} @25
+- Bloating or urinary frequency {ovar:2} @26
 H Other|pick
-- Back pain {aaa:2}
-- Hip pain or limp with fever {psoas:2}
+- Back pain {aaa:2} @27
+- Hip pain or limp with fever {psoas:2} @28
 G Background for this complaint
 H Past history|pick|Past history:
-- Alcohol or hepatitis {hep:2}
-- Previous diverticular attacks {divm:2}
-- Previous pancreatitis {panc:4}
-- TB contact {psoas:2}
-- Smoker with hypertension {aaa:2}
+* Alcohol or hepatitis {hep:2} @29
+- Previous diverticular attacks {divm:2} @30
+- Previous pancreatitis {panc:4} @31
+- TB contact {psoas:2} @32
+- Smoker with hypertension {aaa:2} @33
 H Family history|pick|Family history:
-- Bowel or stomach cancer {ca:1}
-- Polycystic kidneys {kid:2}
+* Bowel or stomach cancer {ca:1} @34
+- Polycystic kidneys {kid:2} @35
 G General examination
 E General|pick
 - Cachexic {ca:2}
@@ -6547,7 +6580,7 @@ N Note the region, and whether it moves with breathing.
 - Pulsation in the epigastrium that stays in every position {aaa:3} @x302
 - Wasted, sunken abdomen {ca:2} @x303
 E Palpation|pick
-M Light, then deep, starting away from the pain|All 9 regions · then liver · spleen · kidneys (ballot) · watch the face
+M Describe any mass (Browse)|Position · shape · size · surface · edge · consistency · fluid thrill · resonance · pulsatility
 N Site, size, shape, surface, edge, consistency, tenderness, pulsatility, mobility; can you get above or below it?
 - Hard, irregular, fixed {ca:5,ovar:2}
 - Liver edge hard and craggy {hep:5}
