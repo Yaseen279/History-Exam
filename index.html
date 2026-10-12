@@ -519,6 +519,10 @@ input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 
 .route>div>span:not(:last-child)::after{content:'\2192';color:var(--muted);font-weight:400;margin-inline-start:4px}
 .route i{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-style:normal;font-size:.66rem;font-weight:800}
 .pk.more{border-style:dashed;border-color:var(--accent);color:var(--accent);background:var(--accent-soft);font-weight:700}
+.pk.hy::after{content:'\2605';margin-inline-start:6px;color:#C98A00;font-size:.8em}
+.pk.hy.y::after,.pk.hy.a::after{color:inherit}
+.hys{color:#C98A00}
+.hyb[aria-pressed="true"]{box-shadow:0 2px 8px color-mix(in srgb,var(--accent) 30%,transparent)}
 </style></head><body>
 <div class="app" id="app"></div>
 <div class="toast" id="toast" hidden></div>
@@ -558,49 +562,49 @@ G Pain story (SOCRATES)
 M SOCRATES|Site · Onset · Character · Radiation · Associated (screened by cause below) · Timing · Exacerbating and relieving · Severity
 H Site|pick|Site:
 N Ask the patient to point with one finger.
-- Central or retrosternal {acs:2,ang:2,gerd:1,dis:1,peri:1} @0
+* Central or retrosternal {acs:2,ang:2,gerd:1,dis:1,peri:1} @0
 - Left or right side of chest {msk:1,pneu:1,ptx:1,pe:1} @1
 - One spot, points with a finger {msk:2} @3
 - Epigastric {gerd:2} @4
 - Between the shoulder blades {dis:3} @5
 H Onset|one|Onset:
-- Sudden, worst at the start {dis:3,ptx:2,pe:2} @6
+* Sudden, worst at the start {dis:3,ptx:2,pe:2} @6
 - Built up over minutes {acs:2,ang:1} @7
 - Gradual over hours or days {pneu:1,peri:1,msk:1} @8
 H Character|pick|Character:
-- Heavy, tight, crushing or squeezing {acs:3,ang:3} @9
+* Heavy, tight, crushing or squeezing {acs:3,ang:3} @9
 - Sharp or stabbing {peri:1,pe:1,pneu:1,ptx:1,msk:1} @10
 ! Tearing or ripping {dis:4} @11
 - Burning {gerd:2} @12
 H Radiation|pick|Radiates to:
-- Left arm {acs:1,ang:1} @13
+* Left arm {acs:1,ang:1} @13
 - Both arms {acs:2,ang:1} @14
-- Neck or jaw {acs:1,ang:1} @15
+* Neck or jaw {acs:1,ang:1} @15
 ! Through to the back {dis:3} @16
 - Shoulder tip {peri:1} @17
 H Timing|pick|Timing:
 - Episodes under 10 minutes {ang:3} @19
 ! Continuous for over 20 minutes {acs:3} @20
 - Comes on at rest {acs:2} @21
-- Only on exertion {ang:3} @22
+* Only on exertion {ang:3} @22
 H Exacerbating factors|pick|Worse with:
-- Exertion, emotion or cold weather {ang:3,acs:1} @24
-- Breathing in or coughing (pleuritic) {pe:2,pneu:2,peri:2,ptx:2} @25
+* Exertion, emotion or cold weather {ang:3,acs:1} @24
+* Breathing in or coughing (pleuritic) {pe:2,pneu:2,peri:2,ptx:2} @25
 - Lying flat {peri:3} @26
 - Moving or pressing on the chest {msk:4} @27
 - Meals, bending or lying after food {gerd:3} @28
 H Relieving factors|pick|Better with:
-- Rest within minutes {ang:3} @30
-- GTN spray {ang:2,acs:1} @31
+* Rest within minutes {ang:3} @30
+* GTN spray {ang:2,acs:1} @31
 - Sitting forward {peri:4} @32
 - Antacids {gerd:3} @33
 H Severity|one|Severity:
-- Mild (1 to 3 of 10) {msk:1,gerd:1} @36
+* Mild (1 to 3 of 10) {msk:1,gerd:1} @36
 - Moderate (4 to 6 of 10) @37
 - Severe (7 to 10 of 10) {acs:1,dis:1} @38
 H Exercise tolerance|one|Exercise tolerance:
 N How far can you walk on the flat before you stop? What stops you? How far could you walk a year ago?
-- Not limited @39
+* Not limited @39
 - Over 200 metres @40
 - Under 200 metres {ang:1} @41
 - Symptoms at rest {acs:1} @42
@@ -608,9 +612,9 @@ G Screen the causes, one at a time
 M Heart and aorta · Lungs · Clot · Gut · Wall · Mind|Two or three questions each, then move on. The pain story above already did most of the work.
 H Heart|pick
 N Ischaemia (ACS, angina) and pericarditis.
-- Sweating {acs:1} @43
+* Sweating {acs:1} @43
 - Nausea or vomiting {acs:1} @44
-- Breathlessness {acs:1,pe:2,ptx:2,pneu:1} @45
+* Breathlessness {acs:1,pe:2,ptx:2,pneu:1} @45
 - Palpitations {acs:1,pe:1,dis:1} @46
 ! Fainting or near-fainting {acs:1,pe:1,dis:1} @47
 - Recent flu-like illness (pericarditis) {peri:2} @52
@@ -621,43 +625,43 @@ N Dissection: sudden tearing pain through to the back. Ask about stroke-like sym
 - Known bicuspid aortic valve {dis:1} @82
 H Lungs|pick
 N Pneumonia, pleurisy, pneumothorax. Pleuritic pain is asked above.
-- Fever {pneu:1,peri:1} @48
-- Cough {pneu:1,peri:1} @49
+* Fever {pneu:1,peri:1} @48
+* Cough {pneu:1,peri:1} @49
 - Sputum {pneu:2} @50
 H Clot (PE)|pick
 N Ask for the risk factors as well as the symptoms.
 ! Coughing blood {pe:2} @51
-- One leg swollen or painful {pe:2} @53
-- Surgery, bed-bound or long journey in the last 4 weeks {pe:1} @54
+* One leg swollen or painful {pe:2} @53
+* Surgery, bed-bound or long journey in the last 4 weeks {pe:1} @54
 - Active cancer {pe:1} @57
 - Pill or HRT {pe:1} @58
 - Previous DVT or PE {pe:2} @59
 H Gut|pick
 N Reflux and oesophageal spasm. Meals and antacids are asked above.
-- Acid taste or regurgitation {gerd:2} @60
+* Acid taste or regurgitation {gerd:2} @60
 - Difficulty swallowing {gerd:1} @61
 H Chest wall|pick
 N Musculoskeletal pain: tender spot, worse on moving or pressing (asked above).
-- Recent injury, strain or heavy lifting {msk:3} @x301
+* Recent injury, strain or heavy lifting {msk:3} @x301
 H Mind|pick
 N Anxiety or panic: a diagnosis only after the dangerous causes are excluded.
-- Panic attacks or fear of dying {anx:1} @62
+* Panic attacks or fear of dying {anx:1} @62
 - Breathing fast with tingling around the mouth or fingers {anx:1} @64
 - Recent stress {anx:1} @x302
 G Background for this complaint
 M Risks · Past · Drugs|Then family and social history in the background card below.
 H Cardiovascular risk factors|pick|Risk factor:
-- Hypertension {acs:1,ang:1,dis:1} @66
-- Diabetes {acs:1,ang:1,dis:1} @67
-- High cholesterol {acs:1,ang:1,dis:1} @68
-- Smoking {acs:1,ang:1,dis:1} @69
-- Family history of early IHD (men under 55, women under 65) {acs:1,ang:1,dis:1} @70
+* Hypertension {acs:1,ang:1,dis:1} @66
+* Diabetes {acs:1,ang:1,dis:1} @67
+* High cholesterol {acs:1,ang:1,dis:1} @68
+* Smoking {acs:1,ang:1,dis:1} @69
+* Family history of early IHD (men under 55, women under 65) {acs:1,ang:1,dis:1} @70
 - Obesity {acs:1,ang:1} @71
 - Cocaine or amphetamine use {acs:1,dis:1} @72
 - Chronic kidney disease {acs:1,ang:1} @x20
 H Past cardiac history|pick|Past history:
-- Angina {acs:1,ang:1} @73
-- Previous MI {acs:1,ang:1} @74
+* Angina {acs:1,ang:1} @73
+* Previous MI {acs:1,ang:1} @74
 - Previous stent or bypass (CABG) {acs:1,ang:1} @75
 - Stroke or TIA {acs:1,ang:1} @77
 - Leg claudication {acs:1,ang:1} @78
@@ -665,9 +669,9 @@ H Past cardiac history|pick|Past history:
 - Rheumatic fever @80
 - Anaemia {ang:1} @x303
 H Drugs|pick|Takes:
-- Aspirin or other antiplatelet @83
+* Aspirin or other antiplatelet @83
 - GTN @84
-- Blood pressure tablets @85
+* Blood pressure tablets @85
 - Statin @86
 - NSAIDs {gerd:1} @87
 - Steroids, salbutamol, theophylline or thyroxine @x304
@@ -772,11 +776,6 @@ E Finish|pick
 - Hypertensive retinopathy {dis:1,acs:1} @x129
 - Diabetic retinopathy {acs:1,ang:1} @x130
 @palp|Palpitations|Cardiovascular|Medicine
-Y Rhythm|af,svt,vt,ect,brady|Rhythm,Onset and offset,During the episodes
-Y Thyroid|thy|Thyroid
-Y Blood|anaem|Anaemia
-Y Drugs and caffeine|drug|Drugs and stimulants
-Y Mind|anx|Anxiety
 SC chads
 I 12-lead ECG (during an episode if possible); Holter or event recorder; TFT; FBC; U&E, Mg, Ca; echo; troponin if chest pain
 D af|Atrial fibrillation||1.2
@@ -788,68 +787,80 @@ D anx|Anxiety / panic||1
 D anaem|Anaemia||0.6
 D drug|Drugs, caffeine, stimulants||0.8
 D brady|Heart block / sick sinus|!|0.4
-G The palpitations
-H Rhythm|one|Rhythm:
-N Ask the patient to tap out the rhythm on the table.
-- Fast and regular {svt:3}
-- Irregular and chaotic {af:4}
-- Missed beat, thump or pause {ect:4}
-- Slow and pounding {brady:2}
-H Onset and offset|one|Starts and stops:
-- Suddenly, like a switch {svt:3,vt:1}
-- Gradually builds up and settles {anx:2,thy:1}
-H Duration of episodes|one|Episodes last:
-- Seconds {ect:2}
-- Minutes {svt:1,anx:1}
-- Hours or continuous {af:2,thy:1}
-H Triggers|pick|Brought on by:
-- Exercise {vt:1,svt:1}
-- Stress or anxiety {anx:2}
-- Caffeine or alcohol {drug:1,ect:1}
-- At rest or lying in bed {ect:2}
+Y Rhythm|af,svt,vt,ect,brady|Tap the rhythm,Starts and stops,During the episodes
+Y Thyroid|thy|Thyroid
+Y Blood|anaem|Anaemia
+Y Drugs and caffeine|drug|Drugs and stimulants
+Y Mind|anx|Mind
+G The palpitation story (handbook)
+M Tap · Start and stop · How long · Trigger · With what?|Tap the rhythm · sudden or gradual start and stop · how long · what brings it on · chest pain, fainting or breathlessness with it
+H Tap the rhythm|one|Rhythm:
+N "Can you tap the rhythm?" Regular, irregular or regularly irregular? Fast or slow?
+* Fast and regular {svt:3} @0
+- Irregular and chaotic {af:4} @1
+- Missed beat, thump or pause {ect:4} @2
+- Slow and pounding {brady:2} @3
+H Starts and stops|one|Starts and stops:
+* Suddenly, like a switch {svt:3,vt:1} @4
+- Gradually builds up and settles {anx:2,thy:1} @5
+H How long|one|Episodes last:
+* Seconds {ect:2} @6
+- Minutes {svt:1,anx:1} @7
+- Hours or continuous {af:2,thy:1} @8
+H Brought on by|pick|Brought on by:
+* Exercise {vt:1,svt:1} @9
+- Stress or anxiety {anx:2} @10
+* Caffeine or alcohol {drug:1,ect:1} @11
+- At rest or lying in bed {ect:2} @12
 H Stopped by|pick|Stopped by:
-- Breath holding or straining (vagal manoeuvres) {svt:3}
-- Nothing, it settles by itself {af:1,ect:1}
-G Associated symptoms
+- Breath holding or straining (vagal manoeuvres) {svt:3} @13
+- Nothing, it settles by itself {af:1,ect:1} @14
 H During the episodes|pick|During episodes:
-! Fainting or near-fainting {vt:3,brady:3,svt:1,af:1}
-! Chest pain {vt:1,af:1,svt:1}
-! Breathlessness {vt:1,af:1,svt:1}
-- Passes a lot of urine afterwards {svt:2}
+! Fainting or near-fainting {vt:3,brady:3,svt:1,af:1} @15
+! Chest pain {vt:1,af:1,svt:1} @16
+! Breathlessness {vt:1,af:1,svt:1} @17
+- Passes a lot of urine afterwards {svt:2} @18
+G Screen the other causes
+M Rhythm · Thyroid · Blood · Drugs · Mind|The story above covers the rhythm. Two questions each for the rest; drugs are in the background below.
 H Thyroid|pick
-- Heat intolerance {thy:2}
-- Weight loss with good appetite {thy:3}
-- Tremor {thy:1}
-- Sweating {thy:1}
+* Heat intolerance {thy:2} @19
+* Weight loss with good appetite {thy:3} @20
+- Tremor {thy:1} @21
+- Sweating {thy:1} @22
 H Anaemia|pick
-- Tiredness {anaem:1}
-- Looks pale {anaem:1}
-- Heavy periods {anaem:1}
-H Anxiety|pick
-- Panic {anx:1}
-- Tingling around the mouth {anx:1}
+* Tiredness {anaem:1} @23
+- Looks pale {anaem:1} @24
+* Heavy periods {anaem:1} @25
+H Mind|pick
+* Panic {anx:1} @26
+- Tingling around the mouth {anx:1} @27
 G Background for this complaint
-H Drugs and stimulants|pick|Takes:
-- Excess caffeine {drug:2,ect:1}
-- Alcohol {drug:1,ect:1}
-- Stimulants or amphetamines {drug:3,svt:1,ect:1}
-- Decongestants {drug:1,ect:1}
-- Salbutamol or theophylline {drug:2,ect:1}
-- Thyroxine {drug:2,thy:1}
-- Smoker (pack-years) {drug:1,ect:1} @x24
-H Past cardiac history|pick|Past history:
-- Previous MI {vt:3,af:1}
-- Cardiomyopathy {vt:1,af:1}
-- Heart failure {vt:1,af:1}
-- Hypertension {af:1}
-- Valve disease or rheumatic fever {af:1}
+M Past · Drugs · Family|Previous episodes and treatment · heart disease and risks · drugs that speed the heart · sudden death in the family
+H Past history|pick|Past history:
+* Similar episodes before (diagnosis, treatment, response) @x300
+* Previous MI {vt:3,af:1} @34
+- Cardiomyopathy {vt:1,af:1} @35
+- Heart failure {vt:1,af:1} @36
+* Hypertension {af:1} @37
+- Valve disease or rheumatic fever {af:1} @38
+- Previous cardiac surgery {af:1} @x301
 - Diabetes @x20
 - Thyroid disease {thy:2} @x21
 - Anaemia or heavy periods {anaem:2} @x22
 - Previous stroke {af:1} @x23
+H Drugs and stimulants|pick|Takes:
+* Excess caffeine {drug:2,ect:1} @28
+- Alcohol {drug:1,ect:1} @29
+- Stimulants or amphetamines {drug:3,svt:1,ect:1} @30
+- Decongestants {drug:1,ect:1} @31
+* Salbutamol or theophylline {drug:2,ect:1} @32
+* Thyroxine {drug:2,thy:1} @33
+- Heart or blood pressure drugs (e.g. nifedipine) {drug:1} @x302
+- Smoker (pack-years) {drug:1,ect:1} @x24
 H Family history|pick|Family history:
-! Sudden death under 40 {vt:1}
-- Known arrhythmia {vt:1}
+! Sudden death under 40 {vt:1} @39
+- Known arrhythmia {vt:1} @40
+- Cardiomyopathy {vt:1} @x303
 G Examination
 E Bed space and appearance|pick
 - Pale {anaem:3} @0
@@ -933,13 +944,6 @@ E Finish|pick
 - Hypertensive retinopathy @x149
 - Diabetic retinopathy @x150
 @breath|Breathlessness|Respiratory|Medicine
-Y Heart|hf,tamp|Heart,Lying flat and at night
-Y Airways and lungs|copd,ast,pneu,ild,mal|Chest,Triggers
-Y Pleura|ptx,eff|Chest
-Y Clot|pe|Clot risk
-Y Nerve and muscle|nm|Neuromuscular
-Y Blood and acid|anaem,acid|Weight and night sweats
-Y Mind|anx|Anxiety
 SC wells,curb,qsofa,news
 I SpO2 and ABG; CXR; ECG; FBC, U&E, BNP; peak flow and spirometry; D-dimer or CTPA guided by Wells; echo; sputum culture
 D hf|Heart failure||1.2
@@ -956,94 +960,109 @@ D mal|Lung cancer / SVC obstruction||0.5
 D anx|Anxiety / hyperventilation||0.7
 D tamp|Pericardial effusion / tamponade|!|0.2
 D nm|Neuromuscular weakness (myasthenia, GBS, MND)|!|0.1
-G The breathlessness
+Y Heart|hf,tamp|Heart
+Y Airways|ast,copd|Airways
+Y Lungs and pleura|pneu,ild,mal,ptx,eff|Lungs and pleura
+Y Clot|pe|Clot
+Y Nerve and muscle|nm|Nerve and muscle
+Y Blood and acid|anaem,acid|Blood and acid
+Y Mind|anx|Mind
+G The breathlessness story (handbook)
+M Onset · Course · Severity · Worse · Better|Acute, chronic or acute on chronic · how far can you walk · orthopnoea and PND · what brings it on · what helps
 H Onset|one|Onset:
-- Sudden, over minutes {pe:3,ptx:3,ast:1}
-- Over hours to days {pneu:2,hf:1,copd:1,ast:1}
-- Progressive over weeks to months {ild:3,copd:2,mal:2,hf:2,anaem:1}
+* Sudden, over minutes {pe:3,ptx:3,ast:1} @0
+- Over hours to days {pneu:2,hf:1,copd:1,ast:1} @1
+- Progressive over weeks to months {ild:3,copd:2,mal:2,hf:2,anaem:1} @2
 H Course|one|Course:
-- First episode {pe:1,ptx:1,pneu:1}
-- Acute on chronic {copd:2,hf:1}
-- Comes and goes, normal in between {ast:3}
+* First episode {pe:1,ptx:1,pneu:1} @3
+- Acute on chronic {copd:2,hf:1} @4
+- Comes and goes, normal in between {ast:3} @5
 H Severity|one|Breathless:
 N How far can you walk on the flat? Stairs? Can you wash and dress?
-- Only on strenuous exertion
-- Walking on the flat
-- Washing and dressing {hf:1,copd:1}
-! At rest {pe:1,ptx:1,pneu:1,hf:1}
+* Only on strenuous exertion @6
+- Walking on the flat @7
+- Washing and dressing {hf:1,copd:1} @8
+! At rest {pe:1,ptx:1,pneu:1,hf:1} @9
 H Lying flat and at night|pick|Breathless:
-- Lying flat (orthopnoea, count the pillows) {hf:4}
-- Waking at night gasping (PND) {hf:4}
-- Worse at night or early morning {ast:2}
+* Lying flat (orthopnoea, count the pillows) {hf:4} @10
+* Waking at night gasping (PND) {hf:4} @11
+- Worse at night or early morning {ast:2} @12
 H Triggers|pick|Brought on by:
-- Exertion {hf:1,copd:1,anaem:1,ild:1}
-- Dust, smoke or cold air {ast:2,copd:1}
-- Allergens or the season {ast:2}
-- Stress {anx:2}
+* Exertion {hf:1,copd:1,anaem:1,ild:1} @13
+* Dust, smoke or cold air {ast:2,copd:1} @14
+- Allergens or the season {ast:2} @15
+- Stress {anx:2} @16
 H Relieved by|pick|Relieved by:
-- Rest {hf:1,copd:1}
-- Inhaler {ast:2,copd:1}
-- Sitting up {hf:2}
-- Nothing {pe:1,ptx:1}
-G Associated symptoms
-H Chest|pick
-- Cough {pneu:1,copd:1,ast:1}
-- Sputum {pneu:2,copd:2}
-- Fever {pneu:3}
-- Wheeze {ast:3,copd:3,hf:1}
-! Pleuritic chest pain {pe:2,pneu:2,ptx:2}
-! Coughing blood {pe:2,mal:3,pneu:1}
+* Rest {hf:1,copd:1} @17
+* Inhaler {ast:2,copd:1} @18
+- Sitting up {hf:2} @19
+- Nothing {pe:1,ptx:1} @20
+G Screen the causes, one at a time
+M Heart · Airways · Lungs · Clot · Nerve · Blood · Mind|Handbook causes: cardiac, respiratory, anaemia, psychological. Two or three questions each.
 H Heart|pick
-- Ankle swelling {hf:3}
-- Central chest pain {hf:1}
-- Palpitations {hf:1,pe:1,anaem:1}
-H Clot risk|pick
-- One leg swollen {pe:2}
-- Recent surgery {pe:2}
-- Bed-bound or immobile {pe:2}
-- Long journey {pe:1}
-- Pill or HRT {pe:1}
-H Weight and night sweats|pick
-- Weight loss {mal:2}
-- Night sweats {mal:2}
-- Hoarse voice {mal:1}
-- Swollen face or arms {mal:2}
-H Anxiety|pick
-- Panic {anx:2}
-- Tingling around the mouth or fingers {anx:2}
-H Neuromuscular|pick
+* Ankle swelling {hf:3} @27
+- Central chest pain {hf:1} @28
+- Palpitations {hf:1,pe:1,anaem:1} @29
+H Airways|pick
+* Wheeze {ast:3,copd:3,hf:1} @24
+* Cough {pneu:1,copd:1,ast:1} @21
+H Lungs and pleura|pick
+* Sputum {pneu:2,copd:2} @22
+* Fever {pneu:3} @23
+! Pleuritic chest pain {pe:2,pneu:2,ptx:2} @25
+! Coughing blood {pe:2,mal:3,pneu:1} @26
+* Weight loss {mal:2} @35
+- Night sweats {mal:2} @36
+- Hoarse voice {mal:1} @37
+- Swollen face or arms {mal:2} @38
+H Clot|pick
+* One leg swollen {pe:2} @30
+* Recent surgery (abdominal, pelvic or orthopaedic) {pe:2} @31
+- Bed-bound or immobile {pe:2} @32
+- Long journey {pe:1} @33
+- Pill or HRT {pe:1} @34
+H Nerve and muscle|pick
 - Droopy eyelids, double vision or weakness worse by evening {nm:4} @x24
 - Weakness spreading up the legs after an infection {nm:4} @x25
 - Difficulty swallowing or speaking, with limb weakness {nm:3} @x26
 - Breathless lying flat with limb weakness {nm:2} @x27
-G Background for this complaint
-H Past respiratory history|pick|Past history:
-- Asthma {ast:2}
-- COPD {copd:2}
-- TB {ild:1}
-- Pneumonia or whooping cough in childhood {copd:1}
-H Past cardiac history|pick|Past history:
-- IHD {hf:1}
-- Hypertension {hf:1}
-- Diabetes {hf:1}
-- Immunosuppressed {pneu:1}
+H Blood and acid|pick
+* Tired and pale {anaem:2} @x300
+- Peptic ulcer or GI bleeding {anaem:2} @x22
 - Diabetes with thirst, vomiting or abdominal pain {acid:4} @x20
 - Kidney disease {acid:2} @x21
-- Peptic ulcer or GI bleeding {anaem:2} @x22
+H Mind|pick
+- Panic {anx:2} @39
+- Tingling around the mouth or fingers {anx:2} @40
+G Background for this complaint
+M Past · Drugs · Social · Family|Old chest disease and heart disease · inhalers and other drugs · smoking, dust, pets · TB and asthma in the family
+H Past history|pick|Past history:
+* Asthma {ast:2} @41
+* COPD {copd:2} @42
+* TB {ild:1} @43
+- Pneumonia, measles or whooping cough in childhood {copd:1} @44
+* IHD {hf:1} @45
+- Hypertension {hf:1} @46
+- Diabetes {hf:1} @47
+- Immunosuppressed {pneu:1} @48
+- Recent dental surgery (aspiration) {pneu:1} @x301
 H Exposure and habits|pick|Exposure:
-- Smoker (pack-years) {copd:4,mal:3,ild:1}
-- Occupational dust or asbestos {ild:1,mal:1}
-- Birds or pets {ild:1,ast:1}
-- Dusty living conditions {ast:1}
+* Smoker (pack-years) {copd:4,mal:3,ild:1} @49
+* Occupational dust or asbestos {ild:1,mal:1} @50
+- Birds or pets {ild:1,ast:1} @51
+- Dusty living conditions {ast:1} @52
+- Recent travel {pe:1} @x302
 H Drugs|pick|Takes:
-- Inhalers {ast:1,copd:1}
-- Steroids {copd:1}
-- Home oxygen {copd:2}
-- Amiodarone or methotrexate {ild:2}
-- Beta-blockers or NSAIDs {ast:1}
+* Inhalers {ast:1,copd:1} @53
+- Steroids {copd:1} @54
+- Home oxygen {copd:2} @55
+- Amiodarone or methotrexate {ild:2} @56
+- Beta-blockers or NSAIDs {ast:1} @57
+- ACE inhibitors or antibiotics @x303
 H Family history|pick|Family history:
-- Asthma or allergy {ast:1}
-- TB {pneu:1}
+- Asthma or allergy {ast:1} @58
+- TB {pneu:1} @59
+- IHD or hypertension {hf:1} @x304
 G Examination
 E Vital signs|pick
 - Tachypnoea {copd:1,ast:1,pe:1,pneu:1} @7
@@ -1906,12 +1925,6 @@ E Neurology|pick
 - Ataxia @x145
 - Focal neurological signs {itp:1,dic:1,hem:1} @x146
 @abd|Abdominal pain|Gastrointestinal|Medicine
-Y Gut|app,pu,ob,div,gast,ibd|Upper gut,Bowels
-Y Bile and pancreas|chol,pan|Jaundice
-Y Kidney|ren|Urine
-Y Pelvis|ect|Women
-Y Vessels|aaa|General
-Y Chest and metabolic|mi,dka|General
 SC alv,qsofa
 I Bedside: pregnancy test, urine dip, glucose and ketones; FBC, CRP, U&E, LFT, amylase or lipase, lactate, group and save; erect CXR (free gas); AXR; USS (biliary, pelvic); CT abdomen and pelvis; ECG
 D app|Appendicitis|!|1.2
@@ -1927,104 +1940,117 @@ D gast|Gastroenteritis||1.2
 D ibd|IBD flare||0.4
 D mi|Inferior MI / lower lobe pneumonia (referred)|!|0.2
 D dka|DKA / metabolic||0.2
-G Pain (SOCRATES)
+Y Gut|app,pu,ob,div,gast,ibd|Fever,Upper gut,Bowels
+Y Bile and pancreas|chol,pan|Bile and pancreas
+Y Kidney|ren|Urine
+Y Pelvis (women)|ect|Women
+Y Aorta|aaa|Outside the gut
+Y Heart and sugar|mi,dka|Outside the gut
+G Pain story (handbook)
+M Site first, then the rest|Site (where it started, where it is now) · duration · type · periodicity · severity · radiation · aggravating · relieving
 H Site|pick|Site:
 N Ask the patient to point. Where did it start, and where is it now?
-- Epigastric {pu:3,pan:3,chol:1,mi:1}
-- Right upper quadrant {chol:4,pan:1}
-- Around the umbilicus {app:1,ob:1,gast:1}
-- Right iliac fossa {app:4,ect:1}
-- Left iliac fossa {div:4,ect:1}
-- Suprapubic or pelvic {ect:3,ren:1}
-- Loin {ren:3,aaa:1}
-- All over {ob:1,gast:1,pu:1}
+* Epigastric {pu:3,pan:3,chol:1,mi:1} @0
+- Right upper quadrant {chol:4,pan:1} @1
+- Around the umbilicus {app:1,ob:1,gast:1} @2
+* Right iliac fossa {app:4,ect:1} @3
+- Left iliac fossa {div:4,ect:1} @4
+- Suprapubic or pelvic {ect:3,ren:1} @5
+- Loin {ren:3,aaa:1} @6
+- All over {ob:1,gast:1,pu:1} @7
 H Onset|one|Onset:
-- Sudden and severe {pu:4,aaa:3}
-- Over hours {app:1,chol:1,pan:1,div:1}
-- Gradual over days {div:1,ibd:1}
-H Character|pick|Character:
-- Colicky, comes in waves {ob:4,ren:3,chol:2,gast:2}
-- Constant {app:1,pu:1,div:1,pan:1}
-- Sharp {app:1,pu:1,div:1}
-- Gnawing or burning {pu:3}
-H Radiation|pick|Radiates to:
-- Back {pan:4,aaa:3,ren:1}
-- Right shoulder tip or scapula {chol:4}
-- Loin to groin {ren:5,aaa:1}
-- Jaw, arm or chest {mi:4} @x1
-- Moved from the umbilicus to the right iliac fossa {app:5}
-- Does not spread
-H Timing|pick|Timing:
-- Constant since it started {app:1,pan:1,pu:1}
-- Episodes of hours after fatty meals {chol:2}
-- Related to meals {pu:3}
-- Comes and goes over months {ibd:1,pu:1}
-H Exacerbating factors|pick|Worse with:
-- Movement or coughing {app:1,pu:1,div:1}
-- Eating {pu:1,chol:1}
-- Lying flat {pan:1}
-H Relieving factors|pick|Relieved by:
-- Lying still {app:1,pu:1}
-- Leaning forward {pan:2}
-- Food or antacids {pu:2}
-- Opening the bowels {gast:1,ibd:1}
-- Nothing, cannot get comfortable {ren:3,ob:1}
+* Sudden and severe {pu:4,aaa:3} @8
+- Over hours {app:1,chol:1,pan:1,div:1} @9
+- Gradual over days {div:1,ibd:1} @10
+H Type|pick|Character:
+* Colicky, comes in waves {ob:4,ren:3,chol:2,gast:2} @11
+- Constant {app:1,pu:1,div:1,pan:1} @12
+- Sharp {app:1,pu:1,div:1} @13
+- Gnawing or burning {pu:3} @14
+H Periodicity|pick|Timing:
+- Constant since it started {app:1,pan:1,pu:1} @20
+- Episodes of hours after fatty meals {chol:2} @21
+- Related to meals {pu:3} @22
+- Comes and goes over months {ibd:1,pu:1} @23
 H Severity|one|Severity:
-- Mild (1 to 3 of 10)
-- Moderate (4 to 6 of 10)
-- Severe (7 to 10 of 10) {pu:1,aaa:1,pan:1,ren:1}
-G Associated symptoms
+- Mild (1 to 3 of 10) @32
+- Moderate (4 to 6 of 10) @33
+* Severe (7 to 10 of 10) {pu:1,aaa:1,pan:1,ren:1} @34
+H Radiation|pick|Radiates to:
+* Back {pan:4,aaa:3,ren:1} @15
+- Right shoulder tip or scapula {chol:4} @16
+* Loin to groin {ren:5,aaa:1} @17
+- Jaw, arm or chest {mi:4} @x1
+* Moved from the umbilicus to the right iliac fossa {app:5} @18
+H Aggravating factors|pick|Worse with:
+* Movement or coughing {app:1,pu:1,div:1} @24
+- Eating {pu:1,chol:1} @25
+- Lying flat {pan:1} @26
+H Relieving factors|pick|Relieved by:
+- Lying still {app:1,pu:1} @27
+- Leaning forward {pan:2} @28
+- Food or antacids {pu:2} @29
+- Opening the bowels {gast:1,ibd:1} @30
+* Nothing, cannot get comfortable {ren:3,ob:1} @31
+G Screen the causes, one system at a time
+M Gut · Bile · Urine · Pelvis · Aorta · Heart|Handbook: vomiting, bowels, urine, jaundice, periods. Then the dangerous mimics outside the gut.
+H Fever|pick
+* Fever or rigors {app:1,chol:1,div:2,ren:1,gast:1} @53
 H Upper gut|pick
-- Nausea and vomiting {gast:2,app:1,pan:2,chol:1}
-! Bilious or faeculent vomit {ob:4}
-- Loss of appetite {app:3}
-! Vomiting blood {pu:3}
+* Nausea and vomiting {gast:2,app:1,pan:2,chol:1} @35
+! Bilious or faeculent vomit {ob:4} @36
+* Loss of appetite {app:3} @37
+! Vomiting blood {pu:3} @38
+- Weight loss {ob:1,ibd:1} @54
 H Bowels|pick
-! No stool or wind, with distension {ob:5}
-- Diarrhoea {gast:4,ibd:3,div:1}
-- Blood in the stool {ibd:3}
-! Black stool {pu:3}
-- Chronic diarrhoea {ibd:3}
-- Change in bowel habit {ob:1,ibd:1}
+! No stool or wind, with distension {ob:5} @39
+* Diarrhoea {gast:4,ibd:3,div:1} @40
+* Blood in the stool {ibd:3} @41
+! Black stool {pu:3} @42
+- Chronic diarrhoea {ibd:3} @43
+- Change in bowel habit {ob:1,ibd:1} @44
 - Urgency or opening bowels at night {ibd:2} @x2
-H Urine|pick
-- Burning on passing urine {ren:1}
-- Frequency {ren:1}
-- Blood in urine {ren:1}
-H Jaundice|pick
-- Yellow eyes {chol:1,pan:1}
-- Dark urine and pale stools {chol:1,pan:1}
-H Women|pick
-N Ask every woman of child-bearing age.
-! Missed period {ect:3}
-- Vaginal bleeding {ect:2}
-- Vaginal discharge {ect:2}
-H General|pick
-- Fever or rigors {app:1,chol:1,div:2,ren:1,gast:1}
-- Weight loss {ob:1,ibd:1}
-- Thirst and passing a lot of urine {dka:2}
-- Chest pain or breathlessness {mi:2}
-- Sweating or clammy {mi:3,aaa:1} @x3
-! Dizzy or fainted {ect:3,aaa:3,pu:1} @x4
 - Mouth ulcers, joint pains or red eyes {ibd:3} @x5
+H Bile and pancreas|pick
+* Yellow eyes {chol:1,pan:1} @48
+- Dark urine and pale stools {chol:1,pan:1} @49
+H Urine|pick
+- Burning on passing urine {ren:1} @45
+- Frequency {ren:1} @46
+* Blood in urine {ren:1} @47
+H Women|pick
+N Ask every woman of child-bearing age: periods and vaginal bleeding.
+! Missed period {ect:3} @50
+* Vaginal bleeding {ect:2} @51
+- Vaginal discharge {ect:2} @52
+H Outside the gut|pick
+! Dizzy or fainted {ect:3,aaa:3,pu:1} @x4
+* Chest pain or breathlessness {mi:2} @56
+- Sweating or clammy {mi:3,aaa:1} @x3
+- Thirst and passing a lot of urine {dka:2} @55
 G Background for this complaint
+M Past · Drugs · Family · Social|Old gut or kidney problems and operations · gynae · drugs that hurt the gut · family cancers and IBD · alcohol, diet, travel
 H Past history|pick|Past history:
-- Previous abdominal surgery {ob:3}
-- Known hernia {ob:3}
-- Known gallstones {pan:3,chol:1}
-- Peptic ulcer {pu:2}
-- Kidney stones {ren:2}
-- Diabetes {dka:2,mi:1}
-- IHD or vascular disease {mi:2,aaa:1}
+* Previous abdominal surgery {ob:3} @57
+- Known hernia {ob:3} @58
+- Known gallstones {pan:3,chol:1} @59
+* Peptic ulcer {pu:2} @60
+- Kidney stones {ren:2} @61
+- Diabetes {dka:2,mi:1} @62
+- IHD or vascular disease {mi:2,aaa:1} @63
 - Hypertension or smoker, older man {aaa:2} @x20
+- Gynaecological problems {ect:1} @x300
+- Jaundice, anaemia or blood transfusion @x301
 H Drugs and habits|pick|Takes:
-- NSAIDs or aspirin {pu:3}
-- Steroids {pu:1}
-- Alcohol excess {pan:3,chol:1}
-- Smoker {aaa:1,pu:1}
-H Contacts|pick
-- Others ill after the same food {gast:2}
-- Recent travel {gast:2}
+* NSAIDs or aspirin {pu:3} @64
+- Steroids {pu:1} @65
+- Iron, opiates, antibiotics or anticoagulants @x302
+* Alcohol excess {pan:3,chol:1} @66
+- Smoker {aaa:1,pu:1} @67
+H Family and contacts|pick
+- Family history of bowel cancer or IBD {ibd:1} @x303
+- Others ill after the same food {gast:2} @68
+- Recent travel {gast:2} @69
 G Examination
 E Vital signs|pick
 ! Tachycardia {aaa:2,pu:1,pan:1,ob:1,ect:1,app:1} @0
@@ -3148,13 +3174,6 @@ E Abdomen|pick
 - Ascites {ca:2}
 
 @neck|Neck lump|Head and Neck|Surgery
-Y Lymph nodes|inf,tb,lym,met|Infection,Head and neck cancer,B symptoms
-Y Thyroid|thyroid|Thyroid,Moves with
-Y Congenital cysts|tgc,bcc|Site,Moves with
-Y Salivary gland|sal|Site
-Y Vessels|cb|Site
-Y Skin|seb|Duration
-Y Pouch|pouch|Pouch
 SC
 I FBC, ESR; USS neck with FNAC or core biopsy; TFT; CXR; CT or MRI neck; nasoendoscopy; excision biopsy if lymphoma suspected; Mantoux or IGRA and AFB; sialogram or CT for salivary lumps
 D inf|Reactive / infective lymph node||1.5
@@ -3168,59 +3187,73 @@ D sal|Salivary gland lump or stone||0.5
 D cb|Carotid body tumour / aneurysm||0.1
 D seb|Sebaceous cyst / lipoma / cystic hygroma||0.4
 D pouch|Pharyngeal pouch||0.1
-G The lump
-H Site|one|Site:
-- Midline {thyroid:2,tgc:2}
-- Front of the side of the neck {bcc:1,inf:1,met:1,cb:1}
-- Back of the neck {inf:1,lym:1}
-- Under the jaw {sal:2,inf:1}
-- In front of the ear {sal:2}
-- Above the collarbone {met:2,lym:1}
-H Duration|one|Present for:
-- Under 3 weeks {inf:2}
-- Over 3 weeks {met:2,lym:2,tb:2}
-- Since childhood or young adulthood {bcc:1,tgc:1,seb:1}
-H Course|pick|Course:
-! Painless and getting bigger {met:3,lym:3,tb:2}
-- Painful {inf:2}
-- Swells and hurts at mealtimes {sal:5}
-- Discharging {tb:2}
-- Pulsates {cb:3}
-- Long-standing lump that suddenly grew {thyroid:2,met:1} @x201
+Y Lymph nodes|inf,tb,lym,met|Infection,Head and neck cancer,B symptoms and TB
+Y Thyroid|thyroid|Moves with,Thyroid
+Y Thyroglossal cyst|tgc|Moves with
+Y Branchial cyst|bcc|Where is it
+Y Salivary gland|sal|Salivary gland
+Y Carotid body|cb|Changes
+Y Skin|seb|When first noticed
+Y Pouch|pouch|Pouch
+G The lump story (Browse)
+M 7 questions|When noticed · How noticed · Symptoms · Changed? · Ever disappears? · Other lumps? · Cause?
+H Where is it|one|Site:
+- Midline {thyroid:2,tgc:2} @0
+- Front of the side of the neck {bcc:1,inf:1,met:1,cb:1} @1
+- Back of the neck {inf:1,lym:1} @2
+- Under the jaw {sal:2,inf:1} @3
+- In front of the ear {sal:2} @4
+- Above the collarbone {met:2,lym:1} @5
 H Moves with|pick|Moves with:
-- Swallowing {thyroid:4}
-- Sticking out the tongue {tgc:5}
-G Associated symptoms
+* Swallowing {thyroid:4} @14
+* Sticking out the tongue {tgc:5} @15
+H When first noticed|one|Present for:
+- Under 3 weeks {inf:2} @6
+- Over 3 weeks {met:2,lym:2,tb:2} @7
+- Since childhood or young adulthood {bcc:1,tgc:1,seb:1} @8
+H Changes|pick|Course:
+! Painless and getting bigger {met:3,lym:3,tb:2} @9
+- Painful {inf:2} @10
+- Discharging {tb:2} @12
+- Pulsates {cb:3} @13
+- Long-standing lump that suddenly grew {thyroid:2,met:1} @x201
+H Other lumps|pick
+- Lumps in the armpit or groin {lym:2} @x300
+G Screen the causes
+M Nodes first, then glands, then cysts|Most neck lumps are lymph nodes: infection, head and neck cancer, lymphoma, TB. Then thyroid, salivary glands, cysts and pouch.
 H Infection|pick
-- Recent sore throat {inf:2}
-- Dental infection {inf:2}
+* Recent sore throat {inf:2} @16
+- Dental infection {inf:2} @17
 H Head and neck cancer|pick
-! Hoarse voice {thyroid:1,met:1}
-- Difficulty swallowing {thyroid:1,met:1}
-- Noisy breathing or breathless {thyroid:1,met:1}
-- Mouth ulcer that does not heal {met:1}
-- Ear pain {met:1}
-H B symptoms|pick
-- Fever {lym:1,tb:1}
-- Night sweats {lym:1,tb:1}
-! Weight loss {lym:1,tb:1}
-- Itch {lym:1}
+! Hoarse voice {thyroid:1,met:1} @18
+* Difficulty swallowing {thyroid:1,met:1} @19
+- Noisy breathing or breathless {thyroid:1,met:1} @20
+* Mouth ulcer that does not heal {met:1} @21
+- Ear pain {met:1} @22
+H B symptoms and TB|pick
+* Fever {lym:1,tb:1} @23
+- Night sweats {lym:1,tb:1} @24
+! Weight loss {lym:1,tb:1} @25
+- Itch {lym:1} @26
 - Evening fever {tb:3} @x231
 - Cough or coughing blood {tb:1,lym:1,met:1} @x232
 H Thyroid|pick
-- Heat or cold intolerance {thyroid:1}
-- Palpitations or tremor {thyroid:1}
+* Heat or cold intolerance {thyroid:1} @27
+- Palpitations or tremor {thyroid:1} @28
+H Salivary gland|pick
+* Swells and hurts at mealtimes {sal:5} @11
 H Pouch|pick
-- Gurgling, regurgitates undigested food {pouch:2}
-- Bad breath {pouch:2}
+- Gurgling, regurgitates undigested food {pouch:2} @29
+- Bad breath {pouch:2} @30
 G Background for this complaint
+M Habits · Past · Contacts|Smoking and alcohol (head and neck cancer) · previous cancer or neck radiation · TB contact
 H Habits and exposure|pick
-- Smoker {met:1}
-- Heavy alcohol {met:1}
-- TB contact or endemic area {tb:3}
+* Smoker {met:1} @31
+- Heavy alcohol {met:1} @32
+* TB contact or endemic area {tb:3} @33
 H Past history|pick|Past history:
-- Head and neck cancer {met:2}
-- Skin cancer of the scalp or face {met:2}
+* Head and neck cancer {met:2} @34
+- Skin cancer of the scalp or face {met:2} @35
 - Radiation to the head or neck in childhood {thyroid:2,met:1} @x207
 - Treated for TB before {tb:2} @x233
 G General examination
@@ -3234,18 +3267,19 @@ G The lump
 E Position|pick
 M Where in the neck?|Anterior or posterior triangle · midline or lateral · level
 N Examine from the front, then behind. Note side, level and triangle of the neck.
-- Midline, moves on swallowing {thyroid:5}
-- Midline, moves on tongue protrusion {tgc:5}
-- Anterior to upper sternomastoid, cystic {bcc:5}
+* Midline, moves on swallowing {thyroid:5}
+* Midline, moves on tongue protrusion {tgc:5}
+* Anterior to upper sternomastoid, cystic {bcc:5}
 - Deep to sternomastoid (less obvious when the muscle is tensed) {bcc:1,cb:1,inf:1}
 - Parotid swelling {sal:2}
 - Submandibular swelling {sal:2}
 E Character|pick
+M 5S, then the lump tests|Site · Size · Shape · Surface · Skin → consistency · tenderness · fluctuation · transillumination · pulsation · fixation
 N Size, shape, surface, edge, consistency, tenderness, temperature, fluctuation, transillumination, pulsation, fixation, overlying skin.
-- Soft, tender, mobile node {inf:5}
+* Soft, tender, mobile node {inf:5}
 ! Hard, fixed, irregular node {met:5}
-- Multiple rubbery nodes {lym:5}
-- Matted nodes with sinus or cold abscess {tb:5}
+* Multiple rubbery nodes {lym:5}
+* Matted nodes with sinus or cold abscess {tb:5}
 - Pulsatile with a bruit {cb:3}
 - Moves side to side but not up and down {cb:3}
 - Transilluminates {seb:3}
@@ -3256,8 +3290,8 @@ N Size, shape, surface, edge, consistency, tenderness, temperature, fluctuation,
 - Left supraclavicular (Virchow) node {met:3} @x248
 E Thyroid lumps|pick
 M Swallow, then tongue|Moves on swallowing: thyroid · also moves on tongue protrusion: thyroglossal cyst · trachea · retrosternal extension · bruit
-- Trachea deviated {thyroid:3}
-- Cannot get below it (retrosternal) {thyroid:3}
+* Trachea deviated {thyroid:3}
+* Cannot get below it (retrosternal) {thyroid:3}
 - Pemberton sign {thyroid:3}
 - Thyroid bruit {thyroid:1}
 - Lower border not seen or felt on swallowing {thyroid:3} @x210
@@ -3265,9 +3299,9 @@ M Swallow, then tongue|Moves on swallowing: thyroid · also moves on tongue prot
 - Dilated veins over the neck and upper chest {thyroid:2} @x212
 G Complete the examination
 E Find the source|pick
-M Look where it drains|Scalp · ears · mouth and throat (use a light) · other node groups · liver and spleen
+M Top to bottom (Browse)|Scalp, face, ears → nose → mouth (tongue, gums, tonsils) → parotid, submandibular, thyroid → arms and chest wall, breast → abdomen and genitalia
 N Scalp, ears, nose, mouth, pharynx; bimanual palpation of the floor of the mouth; facial and hypoglossal nerves; then axillae, groins, liver and spleen.
-- Lesion in the scalp, mouth or throat {met:1}
+* Lesion in the scalp, mouth or throat {met:1}
 - Stone in a salivary duct {sal:2}
 - Facial or hypoglossal nerve palsy {sal:2,met:1}
 - Nodes in the axilla or groin {lym:1}
@@ -3421,11 +3455,6 @@ E Spread|pick
 - Papilloedema or focal neurology {ca:1} @x328
 
 @groin|Groin lump / hernia|Hernia|Surgery
-Y Hernia|ing,dir,fem|Comes and goes,Obstruction,Raised abdominal pressure
-Y Lymph nodes|node|Nodes and abscess
-Y Vessels|sal,fa,var|Comes and goes
-Y Cord and testis|hyd,und|Testis
-Y Other|psoas,lip|Nodes and abscess
 SC
 I Usually a clinical diagnosis; USS groin if unclear; CT for complex cases; Doppler if vascular; if strangulation suspected: FBC, U&E, lactate, group and save, early theatre; FNAC or biopsy of nodes
 D ing|Indirect inguinal hernia||1.5
@@ -3439,60 +3468,70 @@ D psoas|Psoas abscess||0.1
 D und|Undescended / ectopic testis||0.2
 D var|Varicocele||0.2
 D lip|Lipoma||0.3
-G The lump
+Y Hernia|ing,dir,fem|Comes and goes,Obstruction or strangulation,Why is the pressure up?
+Y Lymph nodes|node|Nodes and abscess
+Y Vessels|sal,fa,var|Pain and pulsation
+Y Cord and testis|hyd,und,lip|Testis
+Y Psoas|psoas|Nodes and abscess
+G The lump story (Browse)
+M Comes on standing, goes lying down?|Hernias occur at a weak spot, reduce on lying down or with pressure, and have an expansile cough impulse (Browse).
 H Patient|pick
-- Woman {fem:3}
-- Older man {dir:3}
-- Child or young man {ing:2}
+- Woman {fem:3} @0
+- Older man {dir:3} @1
+- Child or young man {ing:2} @2
 H Comes and goes|pick|Lump:
-- Appears on standing or coughing {ing:3,dir:3,fem:2,sal:2}
-- Goes away lying down {ing:3,dir:3,fem:2,sal:2}
-- Always there {lip:1,node:1}
-- Goes down into the scrotum {ing:4,hyd:1}
-- On both sides {dir:3}
-- Came back after a repair {dir:2}
+* Appears on standing or coughing {ing:3,dir:3,fem:2,sal:2} @3
+* Goes away lying down {ing:3,dir:3,fem:2,sal:2} @4
+- Always there {lip:1,node:1} @5
+* Goes down into the scrotum {ing:4,hyd:1} @6
+- On both sides {dir:3} @7
+- Came back after a repair {dir:2} @8
 - Appears after lifting or straining {ing:2,dir:2,fem:1} @x203
-H Pain|pick|Pain:
-- Dragging ache, worse with lifting {ing:3,dir:3}
-- Painless {lip:1,node:1}
-! Suddenly painful and will not go back {fem:3,ing:2}
-- Pulsates {fa:5}
-G Associated symptoms
-H Obstruction|pick|With the lump:
+H Pain and pulsation|pick|Pain:
+* Dragging ache, worse with lifting {ing:3,dir:3} @9
+- Painless {lip:1,node:1} @10
+! Suddenly painful and will not go back {fem:3,ing:2} @11
+- Pulsates {fa:5} @12
+G Complications first
+M Painful + will not go back + vomiting = strangulation|Ask this early: it changes the urgency.
+H Obstruction or strangulation|pick|With the lump:
 N A painful irreducible lump with these means obstruction or strangulation.
-! Vomiting {ing:1,fem:1}
-! Colicky abdominal pain {ing:1,fem:1}
-! No stool or wind {ing:1,fem:1}
+! Vomiting {ing:1,fem:1} @13
+! Colicky abdominal pain {ing:1,fem:1} @14
+! No stool or wind {ing:1,fem:1} @15
 - Swollen belly {ing:1,fem:1} @x204
-H Raised abdominal pressure|pick|Causes of straining:
-- Chronic cough {ing:1,dir:1,fem:1}
-- Constipation {ing:1,dir:1,fem:1}
-- Straining to pass urine {ing:1,dir:2,fem:1}
-- Heavy lifting {ing:1,dir:1,fem:1}
-- Abdominal swelling (ascites) {ing:1,dir:1,fem:1}
+G Why is the pressure up? And other causes
+M Cough · Constipation · Straining to pee · Lifting · Swelling|Hernias go with raised intra-abdominal pressure. Then rule out nodes, testis and psoas (Browse groin differential).
+H Why is the pressure up?|pick|Causes of straining:
+* Chronic cough {ing:1,dir:1,fem:1} @16
+* Constipation {ing:1,dir:1,fem:1} @17
+* Straining to pass urine {ing:1,dir:2,fem:1} @18
+* Heavy lifting {ing:1,dir:1,fem:1} @19
+- Abdominal swelling (ascites) {ing:1,dir:1,fem:1} @20
 - Smoking {ing:1,dir:1,fem:1} @x205
 - Several pregnancies {fem:2} @x206
 - Poor stream, dribbling or retention {dir:2,ing:1} @x207
 - Bleeding, narrow stool or new constipation {dir:1,ing:1} @x208
 H Nodes and abscess|pick
-- Infection or sore on the leg, foot or genitals {node:1}
-- STI {node:1}
-- Weight loss or night sweats {node:1}
-- Fever and back pain {psoas:2}
+* Infection or sore on the leg, foot or genitals {node:1} @21
+- STI {node:1} @22
+- Weight loss or night sweats {node:1} @23
+- Fever and back pain {psoas:2} @24
 H Testis|pick
-- Testis absent from the scrotum since childhood {und:5}
+* Testis absent from the scrotum since childhood {und:5} @25
 G Background for this complaint
 H Past history|pick|Past history:
-- Previous hernia repair {ing:1,dir:1,fem:1}
-- Appendicectomy or groin surgery {dir:2}
-- TB {psoas:2}
-- Obesity {ing:1,dir:1,fem:1}
+* Previous hernia repair {ing:1,dir:1,fem:1} @26
+- Appendicectomy or groin surgery {dir:2} @27
+- TB {psoas:2} @28
+- Obesity {ing:1,dir:1,fem:1} @29
 G Inspection
 E Inspection|pick
+M Stand, both sides, cough|Standing first, compare both sides, ask to cough, then lie down. Look for scars.
 N Examine standing first, both sides, then lying. Ask the patient to cough. Note scars.
-- Cough impulse {ing:5,dir:5,fem:4,sal:4}
-- Lump above and medial to the pubic tubercle {ing:4,dir:4}
-- Lump below and lateral to the pubic tubercle {fem:3}
+* Cough impulse {ing:5,dir:5,fem:4,sal:4}
+* Lump above and medial to the pubic tubercle {ing:4,dir:4}
+* Lump below and lateral to the pubic tubercle {fem:3}
 - Extends into the scrotum {ing:2}
 - Bulge comes straight forward {dir:3}
 - Scars of previous groin or appendix surgery {dir:1}
@@ -3506,16 +3545,16 @@ G Palpation
 E The lump|pick
 M Above or below? Cough? Reduces?|Above the inguinal ligament and medial to the pubic tubercle: inguinal · below and lateral: femoral · cough impulse · reducible
 N Size, shape, consistency, tenderness, reducibility, cough impulse; can you get above it?
-- Reducible {ing:4,dir:4,fem:3}
-- Reduces up, laterally and back {ing:4}
+* Reducible {ing:4,dir:4,fem:3}
+* Reduces up, laterally and back {ing:4}
 - Reduces straight back {dir:3}
 ! Tender, red, tense and irreducible {fem:3,ing:2}
 - Tender lump without obstruction (Richter) {fem:3}
-- Cannot get above it {ing:2}
-- Fluctuant, transilluminates, testis felt separately {hyd:5}
+* Cannot get above it {ing:2}
+* Fluctuant, transilluminates, testis felt separately {hyd:5}
 - Thrill on coughing {sal:3}
 ! Pulsatile expansile mass with a bruit {fa:3}
-- Palpable inguinal nodes {node:3}
+* Palpable inguinal nodes {node:3}
 - Soft, lobulated, irreducible {lip:4}
 - Hard, fixed node {node:2} @x102
 - Can get above it {hyd:2,var:1,lip:1,und:1} @x216
@@ -3524,8 +3563,8 @@ N Size, shape, consistency, tenderness, reducibility, cough impulse; can you get
 E Deep ring test|pick
 M Indirect or direct?|Indirect: reduces up, then laterally and back; controlled by pressure over the deep ring; can reach the scrotum · Direct: reduces straight back; not controlled; rarely in the scrotum
 N Reduce the hernia, press over the deep ring (midpoint of the inguinal ligament) and ask the patient to cough.
-- Controlled by pressure on the deep ring {ing:4}
-- Not controlled by deep ring pressure {dir:5}
+* Controlled by pressure on the deep ring {ing:4}
+* Not controlled by deep ring pressure {dir:5}
 E Scrotum|pick
 - Empty hemiscrotum {und:5}
 G Complete the examination
@@ -6616,18 +6655,18 @@ H Where is it|pick|Site:
 - Trunk, shoulders or limbs {lip:1,seb:1} @3
 H When first noticed|one|First noticed:
 N Write "first noticed", not "appeared": many lumps are present long before the patient finds them.
-- Days ago {abs:2} @6
+* Days ago {abs:2} @6
 - Weeks to months ago @x300
 - Years ago, slowly growing {lip:3} @4
 H How noticed|one|Noticed:
-- Felt or saw it while washing @x301
+* Felt or saw it while washing @x301
 - Found it because the area hurt {abs:1} @x302
 - Someone else noticed it @x303
 - On self-examination @x304
 H Symptoms|pick|Lump:
 N Pain usually means inflammation, not cancer. A painless lump is not reassuring.
-- Painless {lip:1,sarc:1} @9
-- Painful, red and hot (throbbing) {abs:2} @10
+* Painless {lip:1,sarc:1} @9
+* Painful, red and hot (throbbing) {abs:2} @10
 - Discharges cheesy material {seb:4} @11
 ! Bleeds or itches (mole) {mel:1} @12
 - Crusted or ulcerated {scc:4,bcc:2} @13
@@ -6638,19 +6677,19 @@ H Changed since noticed|pick|Lump:
 - Same size for a long time {lip:1,seb:1} @x306
 H Ever disappears|one|Lump:
 N Ask even if it is there now: a lump can vanish on lying down or between episodes.
-- Never disappears @x307
+* Never disappears @x307
 - Varies in size or comes and goes {gang:3} @7
 - Disappears on lying down (think hernia) @x308
 H Other lumps|pick|Patient has:
-- Other similar lumps (lipomas, cysts) {lip:1,seb:1} @x309
+* Other similar lumps (lipomas, cysts) {lip:1,seb:1} @x309
 - Enlarged glands elsewhere {node:2} @x310
 H Cause|pick|Patient links it to:
 - An injury at the site @x311
-- Infection or a cut in the area it drains {node:4} @15
+* Infection or a cut in the area it drains {node:4} @15
 - Fever {abs:2} @14
 G Background for this complaint
 H Risk factors|pick|Risk factor:
-- Sun exposure or sunburn {mel:1,bcc:1,scc:1} @16
+* Sun exposure or sunburn {mel:1,bcc:1,scc:1} @16
 - Fair skin, many moles {mel:2} @17
 - Family history of melanoma {mel:2} @18
 - Old scar or burn at the site {scc:2} @19
@@ -6659,10 +6698,10 @@ G Examination
 E Look|pick
 N Site in exact anatomical terms, measured from bony points. Size in 3 dimensions with a tape. Shape (lumps are three-dimensional: dome, pear, dumb-bell). Surface. Colour and texture of the overlying skin.
 M 5S|Site · Size · Shape · Surface · Skin over it (colour, texture, punctum, ulcer)
-- Central punctum {seb:6} @0
+* Central punctum {seb:6} @0
 - Red, hot, swollen skin {abs:6} @1
 ! Mole: Asymmetric, irregular Border, several Colours, Diameter over 6 mm, Evolving (ABCDE) {mel:2} @2
-- Pearly rolled edge, telangiectasia, central ulcer {bcc:6} @3
+* Pearly rolled edge, telangiectasia, central ulcer {bcc:6} @3
 ! Hard crusted ulcerating nodule {scc:6} @4
 - Small brown papule that dimples when pinched {derm:6} @5
 - Ulceration {scc:3,mel:2,bcc:3} @x101
@@ -6673,23 +6712,23 @@ E Feel|pick
 N Temperature with the backs of your fingers. Tenderness: feel the non-tender part first and watch the face. Edge: clear or indistinct. Consistency on a scale: stony hard, firm, rubbery, spongy, soft.
 M 3T, then Edge and Consistency|Temperature · Tenderness · (Transillumination comes next) → Edge → Consistency
 - Hot {abs:3} @x200
-- Tender {abs:3} @x201
-- Soft, lobulated, slips under the fingers {lip:6} @6
+* Tender {abs:3} @x201
+* Soft, lobulated, slips under the fingers {lip:6} @6
 - Smooth, firm, well-defined edge {seb:3} @7
 ! Firm or hard, deep, over 5 cm {sarc:6} @9
 - Rubbery {node:2} @x202
 E What is it made of?|pick
 N Fluctuation: press the centre, feel two opposite sides bulge; test in two planes. Fluid thrill for large lumps. Transillumination: bright light from the side in a dark room. Percuss for resonance (gas). Rest your fingers on it for pulsation: expansile (aneurysm) or transmitted. Compress it and see if it refills. Try to reduce it and feel for a cough impulse. Listen for a bruit.
 M Fluid, gas or blood?|Fluctuation · Fluid thrill · Transillumination (fluid) · Resonance (gas) · Pulsation · Bruit (blood) · Compressible · Reducible with cough impulse
-- Fluctuant {abs:6} @8
-- Transilluminates (near a tendon sheath) {gang:4} @10
-- Pulsatile: expansile (think aneurysm) @x203
-- Reducible with a cough impulse (think hernia) @x204
+* Fluctuant {abs:6} @8
+* Transilluminates (near a tendon sheath) {gang:4} @10
+* Pulsatile: expansile (think aneurysm) @x203
+* Reducible with a cough impulse (think hernia) @x204
 - Resonant (gas, bowel) @x205
 E Relations|pick
 N Move the lump while watching the skin for puckering. Then tense the muscle underneath: less mobile means attached to muscle or fascia; harder to feel means deep to the muscle. Lumps on nerves or vessels move side to side but not along their length.
 M Skin first, then deep|Attached to skin? · Attached to deep tissue (tense the muscle)?
-- Attached to the skin {seb:4} @x206
+* Attached to the skin {seb:4} @x206
 - Mobile under the skin, not attached {lip:2,gang:2} @x105
 ! Fixed to deeper structures {sarc:3,scc:1} @x106
 E Nodes and local tissues|pick
@@ -8443,13 +8482,14 @@ function parse(raw){
       if(gMn){sec.gmn=gMn;gMn=null}
       if(c==='H'&&grp&&/^pain/i.test(grp))cur.pain=true;
       cur.sections.push(sec);return}
-    if((c==='-'||c==='!')&&sec){
+    if((c==='-'||c==='!'||c==='*')&&sec){
       var t=line.slice(2).trim(),w={},xk=null;
       var mx=t.match(/\s+@(x?\d+)\s*$/);if(mx){xk=mx[1];t=t.slice(0,mx.index)}
       var m=t.match(/\s*\{([^}]*)\}\s*$/);
       if(m){t=t.slice(0,m.index).trim();m[1].split(',').forEach(function(p){var kv=p.split(':');if(kv.length===2)w[kv[0].trim()]=parseFloat(kv[1])})}
       var full=sec.pre?sec.pre+' '+lcFirst(t):t;
-      sec.items.push({k:xk?sec.kind+xk:sec.kind+(cur.n[sec.kind]++),t:full,c:t,flag:c==='!',w:w});
+      sec.items.push({k:xk?sec.kind+xk:sec.kind+(cur.n[sec.kind]++),t:full,c:t,flag:c==='!',hy:c==='*',w:w});
+      if(c==='*'){cur.hyMarked=cur.hyMarked||{};cur.hyMarked[sec.kind]=true}
     }
   });
   return P;
@@ -9121,6 +9161,8 @@ function viewEnc(e){
   h+='<div class="encgrid"><div>'+main+'</div><aside class="side'+(side?' on':'')+'" id="sideSlot">'+(side?sideHTML(e):'')+'</aside></div>';
   return h;
 }
+/* High-yield (must-ask): red flags, items marked * in the content, or, where a complaint has no marks yet, strong clues (weight 3+) */
+function isHY(P,it){if(it.flag||it.hy)return true;if(P.hyMarked&&P.hyMarked[it.k.charAt(0)])return false;for(var k in it.w)if(it.w[k]>=3)return true;return false}
 function mnHTML(m){return m?'<div class="mn"><span class="mnl">Remember</span><b>'+esc(m.t)+'</b>'+(m.x?'<span>'+esc(m.x)+'</span>':'')+'</div>':''}
 function czState(e,P,c){var t=0,n=0;P.sections.forEach(function(s){if(c.secs.indexOf(s.title)<0)return;s.items.forEach(function(it){t++;if(e.f[fkey(P,it)])n++})});return {n:n,t:t}}
 function czHTML(e,P){
@@ -9189,8 +9231,9 @@ function covStat(e,P,kind){var t=0,n=0;P.sections.forEach(function(s){if(s.kind!
 function triRow(e,P,it,kind){
   if(!covShown(e,P,it))return '<div class="it cov'+(it.flag?' flag':'')+'" data-k="'+it.k+'"><button class="covb" data-act="unc" data-k="'+it.k+'" data-kd="'+kind+'" aria-label="Covered line. Tap to uncover">TAP</button></div>';
   var st=e.f[fkey(P,it)]||0;
+  if(DB.hy&&!covOn()&&!st&&!isHY(P,it))return '';
   var y=kind==='H'?'Yes':'Abn',n=kind==='H'?'No':'Nl';
-  return '<div class="it'+(it.flag?' flag':'')+'" data-k="'+it.k+'"><div class="t">'+(it.flag?'<span class="pill red">Red flag</span> ':'')+esc(it.t)+'</div><div class="seg" role="group" aria-label="'+esc(it.t)+'"><button class="'+(kind==='H'?'y':'a')+(st===1?' on':'')+'" data-act="tri" data-v="1" aria-pressed="'+(st===1)+'" title="'+(kind==='H'?'Yes / present':'Abnormal finding present')+'">'+y+'</button><button class="n'+(st===-1?' on':'')+'" data-act="tri" data-v="-1" aria-pressed="'+(st===-1)+'" title="'+(kind==='H'?'No / absent':'Normal / absent')+'">'+n+'</button></div></div>';
+  return '<div class="it'+(it.flag?' flag':'')+'" data-k="'+it.k+'"><div class="t">'+(it.flag?'<span class="pill red">Red flag</span> ':isHY(P,it)?'<span class="hys" title="High-yield: ask first">\u2605</span> ':'')+esc(it.t)+'</div><div class="seg" role="group" aria-label="'+esc(it.t)+'"><button class="'+(kind==='H'?'y':'a')+(st===1?' on':'')+'" data-act="tri" data-v="1" aria-pressed="'+(st===1)+'" title="'+(kind==='H'?'Yes / present':'Abnormal finding present')+'">'+y+'</button><button class="n'+(st===-1?' on':'')+'" data-act="tri" data-v="-1" aria-pressed="'+(st===-1)+'" title="'+(kind==='H'?'No / absent':'Normal / absent')+'">'+n+'</button></div></div>';
 }
 function secKey(P,s){return P.id+'|'+s.kind+'|'+(s.g?'G:'+s.g:s.title)}
 function secIsOpen(P,s,idx){var o=(UI.so||{})[secKey(P,s)];return o===undefined?idx===0:o}
@@ -9207,7 +9250,7 @@ function unitHTML(e,P,u,idx){
   if(open&&s0.gmn)h+=mnHTML(s0.gmn);
   else if(open&&s0.kind==='H'&&u.g&&/pain|socrates/i.test(u.g))h+=mnHTML({t:'SOCRATES',x:'Site \u00B7 Onset \u00B7 Character \u00B7 Radiation \u00B7 Associated \u00B7 Timing \u00B7 Exacerbating and relieving \u00B7 Severity'});
   if(open)u.secs.forEach(function(s){
-    if(u.g)h+='<div class="sst"><span>'+esc(covName(s.title,u.secs.indexOf(s),'Part'))+(s.mode==='one'?' <i>pick one</i>':'')+'</span></div>';
+    if(u.g)h+='<div class="sst"><span>'+(s.mode==='one'&&s.items.some(function(it){return isHY(P,it)})?'<b class="hys" title="High-yield question">\u2605</b> ':'')+esc(covName(s.title,u.secs.indexOf(s),'Part'))+(s.mode==='one'?' <i>pick one</i>':'')+'</span></div>';
     if(s.note)h+='<p class="snote">'+esc(s.note)+'</p>';
     if(s.mn)h+=mnHTML(s.mn);
     h+='<div class="sbody" id="sb-'+s.kind+s.ix+'">'+secBody(e,P,s)+'</div>';
@@ -9217,8 +9260,9 @@ function unitHTML(e,P,u,idx){
 function secBody(e,P,s){
   if(s.mode==='yn')return s.items.map(function(it){return triRow(e,P,it,s.kind)}).join('');
   var H=s.kind==='H',ok=P.id+'_'+s.kind+s.ix,ov=(e.ot||{})[ok]||'',any=false,un=false;
-  var showAll=s.items.length<=4||(UI.more||{})[ok]||covOn(),keep={},nHid=0;
-  if(!showAll){
+  var hyOn=!!DB.hy&&!covOn()&&!(UI.more||{})[ok],showAll=!hyOn&&(s.items.length<=4||(UI.more||{})[ok]||covOn()),keep={},nHid=0;
+  if(hyOn){var oneHY=s.mode==='one'&&s.items.some(function(it){return isHY(P,it)});s.items.forEach(function(it,i){if(oneHY||isHY(P,it)||e.f[fkey(P,it)])keep[i]=1;else nHid++})}
+  else if(!showAll){
     /* key questions: red flags, already answered, and the three that best separate the differential */
     var mw=s.items.map(function(it,i){var m=0;for(var k in it.w)if(it.w[k]>m)m=it.w[k];return {i:i,m:m}}).sort(function(a,b){return b.m-a.m||a.i-b.i});
     mw.slice(0,3).forEach(function(x){keep[x.i]=1});
@@ -9228,7 +9272,7 @@ function secBody(e,P,s){
     if(!showAll&&!keep[ii])return '';
     var st=e.f[fkey(P,it)]||0;if(st)any=true;else un=true;
     if(!covShown(e,P,it))return '<button class="pk cov'+(it.flag?' rf':'')+'" data-act="unc" data-k="'+it.k+'" data-kd="'+s.kind+'" aria-label="Covered line. Tap to uncover">TAP</button>';
-    var cls='pk'+(st===1?(H?' y':' a'):st===-1?(s.mode==='one'?' dim':' n'):'')+(it.flag?' rf':'');
+    var cls='pk'+(st===1?(H?' y':' a'):st===-1?(s.mode==='one'?' dim':' n'):'')+(it.flag?' rf':'')+(!it.flag&&s.mode!=='one'&&isHY(P,it)?' hy':'');
     return '<button class="'+cls+'" data-act="chip" data-k="'+it.k+'" aria-pressed="'+(st===1)+'">'+esc(it.c)+'</button>'}).join('');
   var oo=ov||(UI.oo||{})[ok];
   if(nHid)h+='<button class="pk more" data-act="moreQ" data-ok="'+ok+'" aria-label="Show '+nHid+' more">+ '+nHid+' more</button>';
@@ -9245,7 +9289,7 @@ function secHTML(e,P,s,idx,kind){return unitHTML(e,P,{g:null,secs:[s]},idx)}
 function secCnt(e,P,s){var n=0;s.items.forEach(function(it){if(e.f[fkey(P,it)])n++});return '<span class="cnt">'+n+'/'+s.items.length+'</span>'}
 function secBar(P,kind){
   var e=curEnc(),on=covOn();
-  var h='<div class="row tbar" style="gap:6px;margin-block-end:8px"><button class="btn small" data-act="secAll" data-v="1" data-k="'+kind+'">Expand all</button><button class="btn small" data-act="secAll" data-v="0" data-k="'+kind+'">Collapse all</button>'+(COVER_OK?'<button class="btn small'+(on?' primary':'')+'" data-act="covToggle" aria-pressed="'+on+'">Test yourself: '+(on?'On':'Off')+'</button>':'')+'</div>';
+  var h='<div class="row tbar" style="gap:6px;margin-block-end:8px"><button class="btn small" data-act="secAll" data-v="1" data-k="'+kind+'">Expand all</button><button class="btn small" data-act="secAll" data-v="0" data-k="'+kind+'">Collapse all</button>'+'<button class="btn small hyb'+(DB.hy?' primary':'')+'" data-act="hyToggle" aria-pressed="'+!!DB.hy+'" title="Show only the must-ask questions">\u2605 High-yield only</button>'+(COVER_OK?'<button class="btn small'+(on?' primary':'')+'" data-act="covToggle" aria-pressed="'+on+'">Test yourself: '+(on?'On':'Off')+'</button>':'')+'</div>';
   if(on&&e){var c=covStat(e,P,kind);h+='<div class="covbar"><b>Uncovered '+c.n+' of '+c.t+'</b><span class="small muted">Say it first, then tap to check.</span><span class="row" style="gap:6px"><button class="btn small'+(UI.covHard?' primary':'')+'" data-act="covHard" aria-pressed="'+!!UI.covHard+'">Hide group names: '+(UI.covHard?'On':'Off')+'</button><button class="btn small" data-act="covAll">Uncover all</button><button class="btn small" data-act="covAgain">Cover again</button></span></div>'}
   return h;
 }
@@ -9273,7 +9317,7 @@ function paHTML(e){
   return h+'</section>';
 }
 function stageHist(e,P){
-  var h=czHTML(e,P)+'<p class="tip">Go in story order. Tap what the patient has. Tap again to mark it as denied, a third time to clear. Chips with a red ! are red flags: ask them every time.</p>';
+  var h=czHTML(e,P)+'<p class="tip">Go in story order. Tap what the patient has. Tap again to mark it as denied, a third time to clear. Red ! = red flag, \u2605 = high-yield: ask these first.</p>';
   h+=secBar(P,'H');
   units(P,'H').forEach(function(u,i){h+=unitHTML(e,P,u,i);if(i===0&&!P.pain&&P.id!=='genhx')h+=paHTML(e)});
   if(!units(P,'H').length&&!P.pain)h+=paHTML(e);
@@ -9376,7 +9420,7 @@ function stepRefresh(e,P,st,idx){
 function stepFind(P,sk){var S2=stepsFor(P)||[],r=null;S2.forEach(function(s,i){if(stepKey(P,s)===sk)r={st:s,i:i}});return r}
 function stageExam(e,P){
   var gen=[['G0','Washed hands, introduced self, took consent'],['G1','Patient positioned and exposed appropriately, chaperone offered'],['G2','Inspected the bed space and general appearance']];
-  var h='<p class="tip">Tap an abnormal finding (red). Tap again to record it as normal, a third time to clear. "Rest normal" marks everything you did not tap as normal.</p>';
+  var h='<p class="tip">\u2605 = high-yield finding. Tap an abnormal finding (red). Tap again to record it as normal, a third time to clear. "Rest normal" marks everything you did not tap as normal.</p>';
   var rt=P.route;if(!rt){var SP0=stepsFor(P);if(SP0&&SP0.length>2)rt=SP0.map(function(x){return x.t}).join(' -> ')}
   if(rt)h+='<div class="route"><span class="eyebrow">Exam route</span><div>'+rt.split(/\s*(?:->|\u2192)\s*/).map(function(x,i){return '<span><i>'+(i+1)+'</i>'+esc(x)+'</span>'}).join('')+'</div></div>';
   h+='<section class="card"><h3>Before you start</h3>'+gen.map(function(g){var st=e.f['gen.'+g[0]];return '<div class="it" data-gk="'+g[0]+'"><div class="t">'+g[1]+'</div><div class="seg one"><button class="y'+(st?' on':'')+'" data-act="gen" aria-pressed="'+(!!st)+'">Done</button></div></div>'}).join('')+'</section>';
@@ -10269,6 +10313,7 @@ var ACT={
     UI.pick=false;UI.stage='hist';UI.pq='';saveSoon();render();
   },
   moreToggle:function(){UI.moreOpen=!UI.moreOpen;render(true)},
+  hyToggle:function(){DB.hy=!DB.hy;UI.more={};saveSoon();render(true);toast(DB.hy?'Showing must-ask questions only. Tap + more for the rest.':'Showing all questions')},
   moreQ:function(t){UI.more=UI.more||{};UI.more[t.dataset.ok]=true;var e=curEnc();if(!e)return;var P=getP(e.pid),sx=+t.closest('.pks').dataset.sx,sec=P.sections[sx];if(sec)unitRefresh(e,P,sec);else render(true)},
   czGo:function(t){
     var e=curEnc();if(!e)return;var P=getP(e.pid),c=P.cz[+t.dataset.i];if(!c)return;
