@@ -290,6 +290,38 @@ label.f>input[type=text],label.f>input[type=number],label.f>input[type=date],lab
 #gsteps .it.gs1{background:var(--g1b);border-radius:10px}#gsteps .it.gs2{background:var(--g2b);border-radius:10px}
 .glegend{display:flex;flex-direction:column;gap:8px;margin-block-end:10px}.glegend .row{align-items:baseline}
 .compn{border:1px solid var(--line,#cbd7dd);background:var(--surface2);border-radius:12px;padding:10px 12px;margin-block:0 12px;font-size:.84rem;line-height:1.45}.compn p{margin:0}.compn .srcln{margin-block-end:6px}
+.fnote{margin-block:8px 12px;padding:8px 12px;border-radius:10px;background:var(--surface2);color:var(--muted)}
+.fc{display:flex;flex-direction:column;align-items:stretch;margin-block-end:24px}
+.fcstart{align-self:center}.fcstart span{display:inline-block;padding:8px 20px;border-radius:99px;background:var(--accent);color:var(--accent-ink);font-weight:700}
+.fcb{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:9px 11px;font-size:.86rem;line-height:1.35;min-width:0;box-shadow:var(--sh)}
+.fcb .fct{font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-block-end:4px}
+.fcb ul,.fcb ol{margin:0;padding-inline-start:18px}.fcb li{margin-block:2px}
+.fcrow{display:grid;grid-template-columns:minmax(0,1.3fr) 34px minmax(0,1fr);align-items:center}
+.fcwide{align-self:stretch}
+.fcgate{border-color:var(--danger)}.fcgate .fct{color:var(--danger)}.fcgate li{color:var(--danger);font-weight:600}
+.fcstop{background:var(--danger-bg);border-color:var(--danger);color:var(--danger);font-weight:600}.fcstop .fct{color:var(--danger)}
+.fcq{background:var(--surface)}
+.fcn{display:inline-grid;place-items:center;min-width:20px;height:20px;margin-inline-end:7px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-size:.7rem;font-weight:700;vertical-align:1px}
+.fcr{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}.fcr b{display:block}
+.fcr.dg{background:var(--danger-bg);border-color:var(--danger);color:var(--danger)}
+.fcr em{display:block;margin-block-start:2px;font-style:normal;font-size:.64rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.fch{position:relative;height:2px;background:var(--muted);margin-inline:0}
+.fch::after{content:"";position:absolute;inset-inline-end:-1px;top:-4px;border-block:5px solid transparent;border-inline-start:8px solid var(--muted)}
+.fch i{position:absolute;inset-inline:0;top:-17px;text-align:center;font-style:normal;font-size:.68rem;font-weight:700;color:var(--muted)}
+.fcdown{display:grid;grid-template-columns:minmax(0,1.3fr) 34px minmax(0,1fr);height:28px}
+.fcdown .d{position:relative;justify-self:center;width:2px;height:100%;background:var(--muted)}
+.fcdown .d::after{content:"";position:absolute;inset-inline-start:-4px;bottom:-1px;border-inline:5px solid transparent;border-block-start:8px solid var(--muted)}
+.fcdown .d span{position:absolute;inset-inline-start:8px;top:5px;font-size:.68rem;font-weight:700;color:var(--muted);white-space:nowrap}
+.fc>.fcstart+.fcdown{grid-template-columns:1fr}
+.fcnote{margin-block:0 10px;color:var(--muted);text-align:center}
+.fcnone{border-style:dashed}
+.fchips{display:flex;flex-wrap:wrap;gap:6px}.fchips span{padding:3px 10px;border-radius:99px;background:var(--accent-soft);color:var(--accent);font-size:.82rem}
+.fbg{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.86rem}.fbg dt{font-weight:700}.fbg dd{margin:0}
+.fcex{counter-reset:x;list-style:none;padding:0!important;display:flex;flex-direction:column;gap:6px}
+.fcex li{counter-increment:x;display:flex;gap:8px;align-items:flex-start;margin:0!important;padding-block-end:6px;position:relative}
+.fcex li::before{content:counter(x);flex:none;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:.7rem;font-weight:700}
+.fscroll{overflow-x:auto}.ftbl{width:100%;border-collapse:collapse;font-size:.85rem}.ftbl caption{text-align:start;font-weight:700;padding-block-end:4px}.ftbl td,.ftbl th{padding:5px 8px;border-top:1px solid var(--line);text-align:start}
+@media (max-width:420px){.fbg{grid-template-columns:1fr}.fcrow,.fcdown{grid-template-columns:minmax(0,1.25fr) 26px minmax(0,1fr)}}
 </style></head><body>
 <div class="app" id="app"></div>
 <div class="toast" id="toast" hidden></div>
@@ -6671,6 +6703,176 @@ var OSCE_GEN=[
 'Presents findings concisely with a provisional and differential diagnosis'
 ];
 
+/* One-line memory hooks: what to ask about, in order. std = a widely taught mnemonic or framework; others are organ- or cause-based. */
+var HOOKS={
+chest:['Heart and aorta \u00B7 Lungs \u00B7 Clot \u00B7 Gut \u00B7 Wall \u00B7 Mind'],
+palp:['Rhythm · Thyroid · Blood · Drugs · Mind'],
+htn:['Essential (most) \u00B7 Kidney \u00B7 Hormones \u00B7 Aorta \u00B7 Drugs \u00B7 Sleep apnoea \u00B7 Pregnancy'],
+syncope:['Reflex faint · Standing BP · Heart · Mimics (fit, sugar, bleed)'],
+breath:['Heart \u00B7 Lungs and pleura \u00B7 Clot \u00B7 Nerve and muscle \u00B7 Anaemia \u00B7 Mind','hb'],
+cough:['Alarm signs \u00B7 Wheeze \u00B7 Nose and throat \u00B7 Reflux \u00B7 Smoker \u00B7 Other (drugs, heart failure, TB)'],
+hemopt:['Infection (TB) \u00B7 Cancer \u00B7 Airways \u00B7 Clot \u00B7 Heart valve \u00B7 Vasculitis \u00B7 Bleeding tendency \u00B7 Trauma'],
+pallor:['Lose · Make · Break (blood loss, low production, destruction)'],
+lymph:['Infection \u00B7 Cancer \u00B7 Inflammation (immune) \u00B7 Drugs','hb'],
+bleed:['Vessels \u00B7 Platelets \u00B7 Clotting factors','hb'],
+abd:['Gut \u00B7 Bile and pancreas \u00B7 Kidney \u00B7 Pelvis \u00B7 Vessels \u00B7 Referred from chest'],
+bowel:['Diet and fibre \u00B7 Functional (IBS) \u00B7 Infection and inflammation \u00B7 Tumour \u00B7 Hormones \u00B7 Drugs \u00B7 Nerves'],
+jaundice:['Before the liver \u00B7 In the liver \u00B7 After the liver','hb'],
+hematuria:['Kidney disease \u00B7 Tumour \u00B7 Infection (UTI, TB, schisto) \u00B7 Stones \u00B7 Cysts \u00B7 Clotting problem \u00B7 Hard exercise','hb'],
+edema:['Heart \u00B7 Liver \u00B7 Kidney \u00B7 Gut and protein loss \u00B7 Thyroid \u00B7 Drugs \u00B7 Veins and lymph','hb'],
+wtloss:['Eat less \u00B7 Absorb less \u00B7 Burn more \u00B7 Lose in urine (sugar)'],
+thyroid:['Overactive · Underactive · Lump · Drugs'],
+dysph:['Inside the tube · In the wall · Outside · Nerve and muscle'],
+neck:['Nodes · Thyroid · Glands · Cysts · Vessels'],
+breast:['Cyst · Benign solid lump · Infection · Cancer'],
+groin:['Hernia · Nodes · Vessels · Testis and cord'],
+prbleed:['Anus · Colon · Upper gut'],
+acuteabd:['Perforation · Obstruction · Inflammation · Ischaemia · Bleeding'],
+limb:['Acute: Pain · Pallor · Pulseless · Paraesthesia · Paralysis · Perishing cold (6 Ps)','std'],
+ulcer:['Arterial · Venous · Neuropathic · Cancer · Other'],
+trauma:['A · B · C · D · E: Airway · Breathing · Circulation · Disability · Exposure','std'],
+headache:['Primary (migraine, tension, cluster) · Danger: bleed, infection, pressure, arteritis, eye'],
+dizzy:['Ear · Brain · Heart and BP · Blood and sugar · Drugs · Mind'],
+seizure:['Epilepsy · Faint · Metabolic · Drugs and alcohol · Brain lesion or infection · Non-epileptic'],
+weak:['Brain · Cord · Nerve · Junction · Muscle'],
+haem:['Ulcer · Varices · Gastritis · Tear · Tumour'],
+ascites:['Liver · Heart · Kidney · Cancer · Infection (TB)'],
+fever:['Infection · Cancer · Inflammation · Drugs'],
+polyuria:['Sugar · Calcium · Kidney · Water hormone · Drugs'],
+joint:['Wear · Immune · Crystal · Infection · Injury'],
+backpain:['Mechanical · Nerve · Red flags: cancer, infection, fracture, cauda equina'],
+rash:['Allergy · Infection · Immune · Drug · Vessel (purpura)'],
+aki:['Before the kidney · In the kidney · After the kidney','std'],
+uti:['Urethra · Bladder · Prostate · Kidney (and STI)'],
+legswell:['Clot · Infection · Muscle and cyst · Veins and lymph · Pelvis'],
+confusion:['AEIOU TIPS: Alcohol · Epilepsy · Insulin · Overdose · Uraemia · Trauma · Infection · Psychiatric · Stroke','std'],
+vomit:['Gut · Brain · Metabolic · Drugs · Pregnancy'],
+scrotum:['Torsion first · Infection · Fluid · Tumour · Hernia'],
+luts:['Prostate · Urethra · Bladder · Nerves · Drugs and infection'],
+loin:['Stone · Infection · Muscle and bone · Vessel · Referred'],
+anal:['Piles · Fissure · Abscess and fistula · Cancer'],
+obstr:['Pain · Vomiting · Distension · Constipation. Cause: in the lumen · in the wall · outside the wall'],
+mass:['Organ in that region: liver · spleen · kidney · bowel · aorta · pelvis'],
+varicose:['Primary · Secondary (after clot) · Complications'],
+skinlump:['Fat · Cyst · Infection · Cancer · Node'],
+dyspep:['Acid · Gallbladder · Pancreas · Cancer · Heart'],
+postop:['5 Ws: Wind · Water · Wound · Walking · Wonder drugs. Also: bleeding and leak','std'],
+drain:['Type · Site · Output (amount, colour) · Complications · Plan to remove'],
+genhx:['Complaint · History of it · Past · Drugs and allergy · Family · Social · Systems','std']
+};
+
+/* Written flow for each presentation: danger first, describe, ask in order (3rd value 1 = cannot miss), ask every time, background, examine.
+   src 'hb' = the history and examination lists follow the college handbook; otherwise drafted from general clinical teaching. */
+var FLOWS={
+chest:{
+ gate:["Sudden, severe, tearing pain through to the back","Pain at rest for over 20 minutes with sweating","Fainted or nearly fainted","Breathless at rest","Cold, clammy, pale, low blood pressure"],
+ act:"Any yes: stop the story. Airway, breathing, circulation, monitor, ECG, call your senior.",
+ desc:["Site: ask the patient to point with one finger","Onset: sudden or gradual, and what they were doing","Character: heavy, tight, sharp, tearing, burning","Radiation: jaw, arm, back","Associated: sweating, nausea, breathlessness, palpitations","Time course: how long each episode lasts","Worse or better with: exertion, breathing in, lying flat, meals, movement, rest, leaning forward","Severity: score out of 10, and how far they can walk"],
+ order:[["Heavy central pain at rest for over 20 minutes, with sweating?","Heart attack (ACS)",1],["Brought on by exertion and gone within minutes of rest?","Stable angina"],["Sudden tearing pain to the back, different BP in each arm?","Aortic dissection",1],["Sharp, worse lying flat or breathing in, better leaning forward, recent viral illness?","Pericarditis"],["Pain on breathing with cough, fever or sputum?","Pneumonia or pleurisy"],["Sudden one-sided pain and breathlessness, tall thin young person or smoker?","Pneumothorax",1],["Pain on breathing with breathlessness, a swollen leg, recent surgery or a long journey?","Pulmonary embolism",1],["Burning, after meals or lying flat, acid taste?","GORD or oesophageal spasm"],["Can you press on it and reproduce the pain? Worse with movement?","Musculoskeletal pain"],["Panic, fast breathing, tingling around the mouth, fear of dying?","Anxiety, only after the others are excluded"]],
+ always:["Breathless on exertion: how far can you walk?","Needs extra pillows or wakes up breathless","Ankle swelling","Palpitations","Fainting","Calf pain on walking"],
+ bg:[["Risk factors","Hypertension, diabetes, smoking, high cholesterol, family history of early heart disease"],["Past history","Previous heart attack, stent or bypass; rheumatic fever; previous clot, cancer or recent surgery"],["Drugs","Aspirin, statin, nitrates, BP drugs; pill or HRT; cocaine and other stimulants"]],
+ exam:["Appearance and hands","Pulse and BP in both arms","JVP","Precordium","Lung bases","Ankles"]},
+breath:{
+ gate:["Cannot speak in full sentences","Blue lips or very fast breathing","Sudden onset with chest pain","Coughing blood","Swollen lips, tongue or throat after a trigger","Drowsy or confused"],
+ act:"Any yes: sit them up, give oxygen, monitor, call your senior now.",
+ desc:["Onset: minutes, hours to days, or months","Pattern: constant, comes and goes, worse at night or in the morning","Exertion: how far can you walk before stopping, compared with before?","Lying flat: how many pillows? Waking at night breathless?","Triggers: dust, cold air, exercise, allergens, smoke","Relief: rest, inhaler","Severity: at rest, or only on stairs and hills"],
+ order:[["Sudden onset with pain on breathing, a swollen leg or recent immobility?","Pulmonary embolism",1],["Sudden onset with one-sided pain, tall thin young person or smoker?","Pneumothorax",1],["Wheeze, worse at night or with triggers, history of allergy?","Asthma"],["Smoker with long-standing cough and sputum, gradually worse?","COPD"],["Fever, productive cough, pain on breathing in?","Pneumonia"],["Needs extra pillows, wakes up breathless, ankle swelling?","Heart failure"],["Weight loss, cough, coughing blood, hoarseness?","Lung cancer or other chest tumour",1],["Slowly progressive, dry cough, finger clubbing?","Interstitial lung disease"],["Pallor, tiredness, heavy periods or blood loss?","Anaemia"],["Fast deep breathing in someone with diabetes, kidney failure or infection?","Metabolic acidosis"],["Progressive limb weakness or trouble swallowing?","Nerve or muscle disease"],["Tingling around the mouth and fingers, fast breathing, a stressful trigger?","Anxiety or hyperventilation, only after the others are excluded"]],
+ always:["Cough and sputum","Wheeze","Chest pain","Ankle swelling","Fever","Weight loss and night sweats"],
+ bg:[["Risk factors","Smoking (pack-years), dust or occupational exposure, allergies, TB contact"],["Past history","Asthma, COPD, heart disease, previous clot, recent surgery or long travel"],["Drugs","Inhalers, beta-blockers, ACE inhibitors, amiodarone, chemotherapy"]],
+ exam:["General: cyanosis, clubbing, respiratory rate, accessory muscles","Hands and pulse","JVP","Chest inspection and expansion","Percussion and breath sounds","Heart sounds","Ankles and legs"]},
+cough:{
+ gate:["Coughing blood","Fever with productive cough","Progressive breathlessness","Persistent wheeze","Weight loss or night sweats"],
+ act:"Any yes: assess urgently and tell your senior. Do not treat it as a simple cough.",
+ desc:["Duration: under 3 weeks, 3 to 8 weeks, or over 8 weeks","Dry or productive; colour and amount of sputum","Timing: night, morning, after meals, after exercise","Triggers: cold air, dust, pets, lying flat","Associated: wheeze, breathlessness, fever"],
+ order:[["Episodic wheeze, worse at night or with triggers?","Asthma"],["Blocked or runny nose, post-nasal drip, throat clearing?","Upper airway cough (rhinitis or sinusitis)"],["Heartburn, acid taste, cough after meals or lying flat?","Reflux (GORD)"],["Smoker with morning cough and sputum, breathless on exertion?","Chronic bronchitis or COPD"],["Smoker or older, with weight loss or coughing blood?","Lung cancer",1],["Weeks of fever, night sweats, weight loss, TB contact?","Tuberculosis",1],["Large amounts of sputum every day, repeated chest infections?","Bronchiectasis"],["Taking an ACE inhibitor?","Drug-induced cough"],["Ankle swelling, breathless lying flat?","Heart failure"]],
+ end:"Acute cough under 3 weeks is usually a self-limited infection such as a cold or acute bronchitis. A cough that lingers for weeks is often left over from an infection. Chronic cough often has more than one cause, so keep asking after the first yes.",
+ always:["Wheeze","Breathlessness","Chest pain","Fever and night sweats","Weight loss","Heartburn"],
+ bg:[["Risk factors","Smoking, dust or occupational exposure, allergies, pets, TB contact"],["Past history","Asthma, hay fever, reflux, heart disease, previous TB or pneumonia"],["Drugs","ACE inhibitors"]],
+ exam:["General: clubbing, cyanosis, lymph nodes","Nose and throat","Chest inspection and expansion","Percussion and breath sounds (crackles, wheeze)","Heart and ankles for failure"]},
+abd:{
+ gate:["Sudden severe pain with a rigid abdomen","Faint, pale, fast pulse, low blood pressure","Pulsatile mass or pain through to the back in an older man","Vomiting blood or black stool","Repeated vomiting with a swollen abdomen and no wind","Missed period in a woman of child-bearing age"],
+ act:"Any yes: treat as a surgical emergency. Monitor, IV access, call your senior.",
+ desc:["Site, and where it started and moved","Onset: sudden or gradual","Character: colicky, constant, burning","Radiation: back, right shoulder blade, loin to groin","Timing and relation to food or bowels","Better or worse with: lying still, writhing, leaning forward, antacids","Severity"],
+ order:[["Pain began around the umbilicus and moved to the right lower abdomen, with fever and no appetite?","Appendicitis",1],["Right upper pain after fatty meals, spreading to the right shoulder blade?","Gallstones: biliary colic or cholecystitis"],["Severe central pain through to the back, better leaning forward, with vomiting, alcohol or gallstones?","Acute pancreatitis",1],["Burning upper pain related to meals, NSAID use, sudden severe pain?","Peptic ulcer, and perforation if sudden",1],["Colicky pain with vomiting, swelling and constipation, previous surgery?","Bowel obstruction",1],["Left lower pain with fever and change in bowel habit?","Diverticulitis"],["Pain from loin to groin, writhing, blood in the urine?","Renal colic (stone)"],["Fever, loin pain and burning urine?","Pyelonephritis"],["Sudden severe pain with collapse in an older smoker with hypertension?","Ruptured abdominal aortic aneurysm",1],["Lower abdominal pain in a woman with a missed period or vaginal bleeding?","Ectopic pregnancy or gynaecological cause",1],["Vomiting and diarrhoea, contacts or a suspicious meal?","Gastroenteritis"],["Long-standing cramps, bloody diarrhoea, weight loss?","Inflammatory bowel disease"],["Upper abdominal pain with sweating or chest symptoms?","Referred pain: inferior heart attack or lower lobe pneumonia",1]],
+ always:["Nausea and vomiting","Change in bowel habit","Urine symptoms","Jaundice and dark urine","Periods and vaginal bleeding","Appetite and weight"],
+ bg:[["Risk factors","Alcohol, NSAIDs, steroids, fatty meals, recent travel"],["Past history","Previous abdominal surgery, gallstones, ulcers, kidney stones, IBD"],["Drugs","NSAIDs, steroids, opioids, anticoagulants"]],
+ exam:["General: pallor, jaundice, dehydration","Vital signs","Inspect: scars, distension, visible pulsation","Palpate gently, starting away from the pain: tenderness, guarding, rebound","Percuss and auscultate bowel sounds","Hernial orifices","Rectal or pelvic examination when needed"]},
+headache:{
+ gate:["Sudden, worst-ever headache","Fever with neck stiffness or a rash","New headache over age 50 with jaw pain or scalp tenderness","Headache after a head injury","Weakness, speech or vision change, or confusion","Worse lying down or on coughing, with morning vomiting","Painful red eye with halos and blurred vision"],
+ act:"Any yes: urgent assessment. Check neurology, monitor, call your senior.",
+ desc:["Site: one side, both sides, behind the eye","Onset: sudden or gradual","Character: throbbing, band-like, stabbing","Associated: nausea, light and sound sensitivity, aura, watering eye","Time course: how long and how often","Triggers","Relief","Severity and effect on daily life"],
+ order:[["Sudden severe onset, peaking within minutes?","Subarachnoid haemorrhage",1],["Fever, neck stiffness, dislike of light, rash?","Meningitis",1],["Over 50, jaw pain on chewing, tender scalp, vision loss?","Giant cell arteritis",1],["Painful red eye, blurred vision, halos, nausea?","Acute angle-closure glaucoma",1],["Worse lying flat or on coughing, morning vomiting, neurological change?","Raised intracranial pressure or a brain tumour",1],["One-sided throbbing, nausea, light sensitivity, aura, lasts hours?","Migraine"],["Tight band across both sides, mild to moderate, no nausea?","Tension-type headache"],["Severe pain around one eye with tearing and a blocked nose, in clusters at the same time of day?","Cluster headache"],["Facial pain with a blocked nose, worse bending forward?","Sinusitis"],["Daily headache and frequent painkillers?","Medication-overuse headache"]],
+ always:["Vomiting","Vision changes","Weakness or numbness","Seizures","Fever","Recent head injury","Mood and sleep"],
+ bg:[["Risk factors","Stress, poor sleep, caffeine, alcohol, link to periods"],["Past history","Migraine, hypertension, cancer, HIV, head injury"],["Drugs","Painkiller use, oral contraceptive, nitrates"]],
+ exam:["General and temperature","Blood pressure","Neck stiffness","Temporal arteries","Eyes and fundi","Cranial nerves","Limbs and gait"]},
+backpain:{
+ gate:["Weakness or numbness in both legs","Numbness around the saddle area","New difficulty passing urine or loss of bowel control","Fever with spinal pain","Known cancer, weight loss or night pain","Pain after a minor fall in an older or steroid-treated patient","Sudden severe pain with a pulsatile abdominal mass"],
+ act:"Any yes: urgent assessment. Check leg neurology and call your senior.",
+ desc:["Site: lower back, middle, neck","Onset: sudden, after lifting, or gradual","Character","Radiation: below the knee?","Morning stiffness: for how long?","Better or worse with: movement, rest, night","Severity and what you can still do"],
+ order:[["Started after lifting, worse with movement, better with rest?","Mechanical back pain"],["Shooting pain below the knee, worse on coughing, tingling or numbness?","Disc prolapse with sciatica"],["Weakness in both legs, saddle numbness, bladder or bowel change?","Cauda equina syndrome",1],["Progressive pain, worse at night, weight loss, previous cancer?","Spinal metastases or myeloma",1],["Fever, recent infection or injection drug use, severe focal tenderness?","Spinal infection",1],["Older, on steroids, sudden pain after minor trauma?","Osteoporotic fracture"],["Young adult, morning stiffness over 30 minutes, better with exercise?","Ankylosing spondylitis"],["Sudden severe pain in an older man, pain unchanged by movement?","Aortic aneurysm",1],["Loin pain with urinary symptoms?","Kidney cause"],["Leg pain on walking, eased by bending forward?","Spinal stenosis"]],
+ always:["Leg weakness or numbness","Bladder and bowel control","Fever","Weight loss"],
+ bg:[["Risk factors","Heavy lifting, occupation, smoking, low mood or stress"],["Past history","Cancer, osteoporosis, TB, injection drug use"],["Drugs","Steroids"]],
+ exam:["Inspect posture and gait","Palpate the spine and sacroiliac joints","Movement: flexion and extension","Straight leg raise","Legs: power, reflexes, sensation","Peripheral pulses","Abdomen for an aneurysm"]},
+loin:{
+ gate:["Fever with loin pain","Only one kidney or a transplanted kidney","Collapse, pallor, low blood pressure","Pain with no urine passed","Pulsatile abdominal mass"],
+ act:"Any yes: urgent. A blocked kidney with infection is an emergency. Call your senior.",
+ desc:["Site and spread: loin to groin","Onset: sudden or gradual","Character: colicky, in waves","Restless or lying still?","Associated: nausea, vomiting, blood in the urine","Time course: waves lasting minutes","Severity"],
+ order:[["Colicky pain from loin to groin, writhing, blood in the urine?","Ureteric stone"],["Fever, rigors and burning urine with loin pain?","Pyelonephritis"],["Fever together with colic?","Infected, blocked kidney",1],["Pain changes with movement or posture, no urine symptoms?","Musculoskeletal pain"],["Sudden severe pain in an older man with collapse?","Leaking aortic aneurysm",1],["Testicular or lower abdominal pain spreading to the loin?","Referred pain: testicular torsion or ectopic pregnancy",1],["Pain after fatty meals, or through to the back?","Biliary or pancreatic pain"],["Burning pain in a band, before any rash?","Herpes zoster"]],
+ always:["Frequency","Burning on passing urine","Blood in the urine","Vomiting","Fever"],
+ bg:[["Risk factors","Dehydration, family history of stones, diet"],["Past history","Previous stones, urinary infections, gout"],["Drugs","Calcium or vitamin D supplements, diuretics"]],
+ exam:["Vital signs including temperature","Renal angle tenderness","Abdomen","Hernial orifices and testes","Spine"]},
+joint:{
+ gate:["Single hot, red, swollen joint with fever","Fever with a rash","Joint pain in someone taking immunosuppressants","Injury with inability to use the limb","Joint pain with weakness or numbness"],
+ act:"Any yes: urgent. A hot swollen joint with fever is septic arthritis until proven otherwise.",
+ desc:["Which joints, and how many: one, a few or many?","Symmetrical or not?","Onset: sudden or gradual","Morning stiffness: for how long?","Worse with use or worse with rest?","Swelling, redness, warmth","Effect on function"],
+ order:[["One hot, red, swollen joint with fever?","Septic arthritis",1],["Sudden severe big toe or knee pain, red, in someone who drinks or takes diuretics?","Gout or pseudogout"],["Worse with use, better with rest, short morning stiffness, older, weight-bearing joints?","Osteoarthritis"],["Small joints of both hands, morning stiffness over an hour?","Rheumatoid arthritis"],["Psoriasis, nail changes, back stiffness, sausage-shaped fingers?","Psoriatic arthritis or spondyloarthritis"],["Cheek rash, mouth ulcers, hair loss, sun sensitivity?","Lupus (SLE)"],["Joint pain after urethritis, diarrhoea or an inflamed eye?","Reactive arthritis"],["Joint pain after a viral illness, settling over weeks?","Viral arthritis"],["Pain after an injury or twist?","Trauma or mechanical problem"]],
+ always:["Fever","Rash","Red or painful eye","Mouth ulcers","Back pain","Urethral or bowel symptoms","Weight loss"],
+ bg:[["Risk factors","Family history, previous infections, injuries, alcohol"],["Past history","Psoriasis, IBD, gout, recent infection"],["Drugs","Diuretics, aspirin, steroids"]],
+ exam:["Look: swelling, redness, deformity","Feel: warmth, tenderness, effusion","Move: active and passive range","Other joints and the hands","Skin, nails and eyes","Function and gait"]},
+fever:{
+ gate:["Low blood pressure, fast pulse, fast breathing or confusion","Neck stiffness or a rash that does not fade on pressing","Weakened immune system or low white cells","Recent travel to a malaria area","Fever with a new heart murmur"],
+ act:"Any yes: treat as possible sepsis. Monitor, IV access, call your senior.",
+ desc:["Onset: sudden or gradual","Pattern: continuous, comes and goes, rigors","Duration: days or over 3 weeks","Height of the fever","Night sweats"],
+ order:[["Sore throat, runny nose, cough, aching, contacts with similar illness?","Viral infection"],["Burning urine, frequency, loin pain?","Urinary infection or pyelonephritis"],["Productive cough, pain on breathing?","Pneumonia"],["Recent travel, rigors every few days, raw milk or animal contact?","Malaria, typhoid or brucellosis"],["Weeks of fever with night sweats, weight loss, TB contact?","Tuberculosis",1],["New murmur, valve disease, injection drug use, splinter haemorrhages?","Infective endocarditis",1],["Right upper pain, or recent abdominal surgery or infection?","Abdominal or liver abscess"],["Headache, neck stiffness, confusion?","Meningitis",1],["Drenching night sweats, lumps, weight loss?","Lymphoma or other cancer"],["Joint pain, rash, mouth ulcers?","Connective tissue disease or vasculitis"],["Started a new drug in the last few weeks?","Drug fever"]],
+ end:"Fever lasting over 3 weeks with no cause found after a careful history is a fever of unknown origin. Go back through infection, cancer, inflammation and drugs, then reassess over time.",
+ always:["Night sweats","Weight loss","Rash","Joint pain","Cough","Urinary and bowel symptoms"],
+ bg:[["Risk factors","Travel, contacts, animals, raw food, sexual history, injection drug use"],["Past history","Valve disease, immunosuppression, recent surgery, HIV"],["Drugs","New drugs, antibiotics, immunosuppressants"]],
+ exam:["Temperature and vital signs","Skin: rash, petechiae, splinter haemorrhages","Mouth and throat","Lymph nodes","Heart murmur","Chest","Abdomen: tenderness, liver, spleen","Joints","Neck stiffness if headache"]},
+jaundice:{
+ gate:["Fever, rigors and right upper pain","Confusion or drowsiness","Vomiting blood or black stool","Bleeding or bruising","Very little urine"],
+ act:"Any yes: urgent. Cholangitis and liver failure are emergencies. Call your senior.",
+ desc:["Onset and duration, and whether it is getting worse","Painful or painless","Urine colour and stool colour","Itching","Fever","Weight loss and appetite"],
+ order:[["Dark urine, pale stools and itching?","Blockage after the liver (obstructive jaundice)"],["Colicky right upper pain after fatty food?","Bile duct stone"],["Fever and rigors with the pain?","Cholangitis",1],["Painless, steadily worse, weight loss, older?","Pancreatic head or bile duct cancer",1],["Alcohol, drugs such as paracetamol, isoniazid or valproate, viral illness or contacts?","Liver cell damage: hepatitis or drug injury"],["Long-standing alcohol, swollen abdomen, spider naevi, ankle swelling?","Cirrhosis"],["Pale, tired, dark urine with normal stools, mild jaundice, family history?","Haemolysis or Gilbert syndrome (before the liver)"],["Middle-aged woman with itching and another autoimmune disease?","Autoimmune liver disease (PBC)"],["Young patient with tremor or behaviour change?","Wilson disease"]],
+ always:["Itching","Nausea and vomiting","Abdominal pain","Weight loss","Bruising"],
+ bg:[["Risk factors","Alcohol, drugs, injections, blood transfusion, sexual history, travel and food"],["Past history","Gallstones, liver disease, anaemia, family history"],["Drugs","Paracetamol, antibiotics, anti-TB drugs, oral contraceptive"]],
+ exam:["General: jaundice, scratch marks, clubbing, spider naevi, flapping tremor","Hands and face","Abdomen: liver, spleen, gallbladder, ascites","Lymph nodes","Legs for oedema"]},
+pallor:{src:"hb",
+ gate:["Fainting, chest pain or severe breathlessness","Black stool or vomiting blood","Heavy ongoing bleeding","Fever with bruising or bleeding"],
+ act:"Any yes: urgent. Monitor and call your senior.",
+ desc:["How long, and how fast did it develop?","Tiredness, breathlessness, palpitations","Headache, dizziness, ringing in the ears","Which parts look pale?"],
+ order:[["Black stools, bleeding piles, heavy or long periods, nosebleeds?","Blood loss",1],["Poor diet or little red meat, pregnancy, malabsorption, spoon-shaped nails?","Iron deficiency"],["Vegan diet, gut surgery, numbness or tingling, sore tongue?","B12 or folate deficiency"],["Long-standing illness, infection or inflammatory disease?","Anaemia of chronic disease"],["Dark urine, jaundice, family history, drugs?","Haemolytic anaemia"],["Family anaemia, ethnic background, transfusions since childhood?","Thalassaemia or sickle cell disease"],["Fever, bone pain, bruising, repeated infections, weight loss?","Marrow failure or infiltration, such as leukaemia",1],["Known kidney disease?","Anaemia of chronic kidney disease"]],
+ always:["Fatigue, malaise, weakness","Palpitations, fainting, breathlessness","Headache, dizziness, tinnitus, numbness","Fever, bone pain, weight loss, loss of appetite","Jaundice and urine colour","Bleeding from the gut or periods"],
+ bg:[["Diet and gut","Red meat intake, difficulty chewing, chronic diarrhoea or constipation"],["Past history","Pregnancy anaemia, blood transfusion, chronic illness"],["Family","Anaemia, transfusions, ethnic background"],["Drugs","Aspirin, NSAIDs, sulfa drugs, chloramphenicol"]],
+ exam:["Pallor: mucous membranes and conjunctiva (Hb under 9), skin creases (Hb under 7)","Bleeding spots in the skin and mouth","Jaundice","Nails and tongue: koilonychia, glossitis, clubbing","Lymph nodes","Heart: fast pulse, flow murmur, wide pulse pressure, signs of failure","Liver and spleen","Rectal examination for occult blood","Neurology: B12 deficiency"]},
+lymph:{src:"hb",
+ gate:["Weight loss, drenching night sweats and fever","Hard, fixed or fast-growing nodes","Breathlessness or facial swelling","Bleeding, bruising or severe infections","A node above the left collarbone"],
+ act:"Any yes: urgent assessment and tell your senior. Think of cancer.",
+ desc:["Which node groups, and local or generalised?","Duration and speed of growth","Pain or tenderness","Change in size over time"],
+ order:[["Sore throat, tonsillitis, a skin or tooth infection nearby, tender node?","Local bacterial or viral infection"],["Young patient with sore throat, fever and several neck nodes?","Viral illness such as glandular fever"],["Weeks of fever, night sweats, weight loss, TB contact?","Tuberculosis",1],["Painless, rubbery nodes with itching, night sweats, weight loss?","Lymphoma",1],["Bruising, bone pain, infections, pallor?","Leukaemia",1],["Known cancer, or a hard fixed node near the breast, lung or stomach?","Spread from a solid cancer",1],["Joint pain, rash, mouth ulcers, dry eyes?","Autoimmune disease: SLE, RA, sarcoid"],["Chronic fever and weight loss with risk behaviour?","HIV or chronic infection"],["Started phenytoin, captopril, hydralazine or similar?","Drug reaction"]],
+ always:["Weight loss and loss of appetite","Fever and sweats","Itching, rash, joint pain, mouth ulcers","Difficulty swallowing, hoarse voice","Bleeding from skin or mucous membranes","Cough, breathlessness, wheeze","Abdominal pain, change in bowel habit, black stool"],
+ bg:[["Contacts and habits","Family members with a similar illness, smoking, alcohol"],["Past history","Diabetes, kidney disease, blood products"],["Drugs","Anticonvulsants, iron injections, steroids, phenytoin, captopril, hydralazine, gold"]],
+ exam:["Temperature","Each node group: cervical, axillary, epitrochlear, inguinal. Size, number, mobility, tenderness, consistency","Pallor, jaundice, tonsils, gums, teeth, neck veins","Bleeding spots and rash","Chest if respiratory symptoms","Liver and spleen"]},
+bleed:{src:"hb",
+ gate:["Heavy bleeding that will not stop","Pale, fast pulse, low blood pressure","Vomiting blood or black stool","Headache or confusion with bruising","Fever with bruising or bleeding"],
+ act:"Any yes: urgent. Monitor and call your senior.",
+ desc:["Site of bleeding","How long: recent, or since childhood?","Spontaneous or after injury","After surgery: straight away or delayed?","Does pressure stop it?"],
+ order:[["Skin spots, nosebleeds, gum bleeding, heavy periods, bleeding straight after cuts or surgery?","Platelet problem: low count or poor function"],["Bleeding into joints or deep muscles, delayed bleeding after surgery, male, since childhood?","Clotting factor deficiency, such as haemophilia"],["Mucosal bleeding and heavy periods with a family history?","Von Willebrand disease"],["Taking aspirin, NSAIDs, warfarin or steroids?","Drug-induced"],["Liver disease, jaundice, alcohol or poor diet?","Liver disease or vitamin K deficiency"],["Severe infection with widespread bleeding?","DIC",1],["Raised purple spots on the legs and buttocks after an infection, with abdominal and joint pain?","Vessel disorder: HSP or vasculitis"],["Bleeding gums, poor diet, corkscrew hairs?","Scurvy"],["Fever, bone pain, pallor, repeated infections?","Leukaemia or marrow failure",1]],
+ tbl:{title:"Platelet problem or clotting problem",cols:["","Platelet","Clotting factor"],rows:[["Sex","Female more than male","Male more than female"],["Age","20 to 40","Childhood"],["Onset","Immediate","Delayed"],["Type","Skin and mucous membranes","Deep tissue"],["Local pressure","Works","Does not work"],["Example","ITP","Haemophilia A"]]},
+ always:["Fever and rigors","Weight loss","Bone and joint pain","Abdominal pain","Increasing pallor","Recent lumps","Rash, mouth ulcers","Dark urine, black stool"],
+ bg:[["Past history","Diabetes, ischaemic heart disease, DVT, hypertension, blood transfusion, liver or kidney disease"],["Family","A negative family history does not exclude an inherited disorder"],["Drugs","Aspirin, NSAIDs, warfarin, sulfa drugs, steroids"],["Surgery","Tonsillectomy, circumcision: how much bleeding?"]],
+ exam:["Vital signs: pulse, BP, temperature","General: pallor, jaundice, mouth ulcers, gum swelling, nodes, rash, spider naevi, cushingoid face, telangiectasia","Skin bleeding: ecchymoses, purpura, petechiae","Abdomen: liver, spleen, ascites","Joints and muscles: swelling, deformity, haematoma"]}
+};
+
 var CV=5;var MIG={"chest":{"H1":"","H2":"H4","H3":"","H4":"","H5":"H9","H6":"","H7":"H12","H8":"","H9":"","H10":"H18","H11":"H19","H12":"","H13":"H23","H14":"","H15":"","H16":"H29","H17":"H30","H18":"","H19":"","H20":"","H21":"","H22":"","E0":"","E1":"","E2":"E6","E3":"","E4":"E9","E5":"","E6":"E12","E7":"","E8":"","E9":"","E10":"E19","E11":"E20","E12":"","E13":"E24","E14":"E25"},"palp":{"H0":"","H1":"H2","H2":"H3","H3":"","H4":"H6","H5":"H7","H6":"H8","H7":"","H8":"","H9":"","H10":"","H11":"","H12":"","H13":"","H14":"","H15":"H35","H16":"H36","H17":"H37","H18":"","H19":"","H20":"H44","H21":"H45","H22":"H46","H23":"H47"},"breath":{"H5":"","H6":"H8","H7":"H9","H8":"H10","H9":"H11","H10":"H12","H11":"","H12":"","H13":"H18","H14":"","H15":"","H16":"","H17":"","E0":"","E1":"","E2":"E7","E3":"E8","E4":"E9","E5":"E10","E6":"E11","E7":"","E8":"E14","E9":"","E10":"","E11":"E20","E12":"E21","E13":"E22","E14":"","E15":"","E16":"E27"},"cough":{"H2":"","H3":"H5","H4":"","H5":"H9","H6":"H10","H7":"H11","H8":"H12","H9":"","H10":"H15","H11":"H16","H12":"","H13":"","H14":"","H15":"","H16":"","H17":"","H18":"H33","H19":"H34","H20":"","H21":"","H22":"H39","H23":"","H24":"H43","H25":"H44","H26":"","H27":"","H28":"","H29":"H51"},"hemopt":{"H3":"","H4":"","H5":"","H6":"","H7":"","H8":"","H9":"","H10":"","H11":"","H12":"","H13":"","H14":"","H15":"H42","H16":"","H17":"","H18":"","H19":"H50","H20":"","H21":"H53","H22":"","H23":"","H24":""},"pallor":{"H0":"","H1":"","H2":"","H3":"","H4":"","H5":"","H6":"","H7":"","H8":"","H9":"","H10":"","H11":"","H12":"","H13":"H48","H14":"H49","H15":"H50","H16":"","H17":"","H18":"","H19":"H58","H20":"H59","H21":"H60","H22":"H61","H23":"","H24":"","H25":"","H26":"","H27":"","H28":"H74"},"lymph":{"H1":"","H2":"","H3":"","H4":"","H5":"H13","H6":"H14","H7":"","H8":"","H9":"","H10":"","H11":"","H12":"","H13":"","H14":"H39","H15":"H40","H16":"H41","H17":"","H18":"H44","H19":"H45","H20":"","H21":"","H22":"","H23":"","H24":"","H25":"H60"},"bleed":{"H0":"","H1":"","H2":"","H3":"","H4":"","H5":"H14","H6":"H15","H7":"","H8":"","H9":"","H10":"","H11":"","H12":"","H13":"","H14":"","H15":"","H16":"H50","H17":"H51","H18":"H52","H19":"","H20":"","H21":"H58","H22":"","H23":"H63","H24":"","H25":"H66","H26":"H67","H27":""},"abd":{"H8":"","H9":"H11","H10":"H12","H11":"H13","H12":"","H13":"H16","H14":"","H15":"H19","H16":"H20","H17":"H21","H18":"H22","H19":"H23","H20":"","H21":"","H22":"","H23":"","H24":"","H25":"","H26":"","H27":"","H28":"","H29":"","E0":"","E1":"E3","E2":"E4","E3":"E5","E4":"","E5":"E8","E6":"","E7":"","E8":"E13","E9":"","E10":"E16","E11":"E17","E12":"E18","E13":"E19","E14":"","E15":"","E16":"","E17":"E26","E18":"","E19":"","E20":"E31","E21":"E32","E22":"E33","E23":""},"bowel":{"E0":"","E1":"","E2":"","E3":"","E4":"E15","E5":"","E6":"","E7":"E20","E8":"","E9":"","E10":"","E11":"","E12":"E36","E13":"","E14":"","E15":"","E16":"","E17":"E47","E18":"","E19":"","E20":"","E21":"E54","E22":"E55","E23":"","E24":"","E25":"E62","E26":"","E27":"","E28":"E69","E29":""},"jaundice":{"E1":"","E2":"","E3":"E8","E4":"E9","E5":"E10","E6":"","E7":"E14","E8":"","E9":"","E10":"","E11":"","E12":"","E13":"E36","E14":"E37","E15":"","E16":"","E17":"E44","E18":"","E19":"","E20":"E50","E21":"","E22":"E53","E23":"E54","E24":"E55","E25":"E56","E26":"E57","E27":"E58","E28":"E59","E29":"E60","E30":"E61","E31":"","E32":"E64","E33":"","E34":"","E35":"E69","E36":"E70"},"hematuria":{"E0":"","E1":"E6","E2":"E7","E3":"E8","E4":"E9","E5":"E10","E6":"E11","E7":"","E8":"","E9":"","E10":"","E11":"","E12":"","E13":"","E14":"","E15":"","E16":"","E17":"E43","E18":"E44","E19":"","E20":"","E21":"","E22":"","E23":"E53","E24":"E54","E25":"E55","E26":"E56","E27":"E57","E28":"E58","E29":"","E30":"E61","E31":"E62","E32":""},"edema":{"E2":"","E3":"","E4":"","E5":"E10","E6":"","E7":"E14","E8":"","E9":"","E10":"","E11":"","E12":"","E13":"","E14":"","E15":"","E16":"E45","E17":"E46","E18":"E47","E19":"E48","E20":"E49","E21":"E50","E22":"","E23":"","E24":"E56","E25":"","E26":"","E27":"E63","E28":"","E29":"","E30":"","E31":""},"wtloss":{"E0":"","E1":"E2","E2":"","E3":"","E4":"","E5":"","E6":"","E7":"","E8":"","E9":"","E10":"","E11":"","E12":"","E13":"","E14":"","E15":"","E16":"","E17":"","E18":"","E19":"","E20":"","E21":"","E22":"E72","E23":"E73","E24":"","E25":"","E26":"","E27":"","E28":"","E29":"","E30":"E90","E31":"","E32":""},"thyroid":{"H0":"","H1":"H2","H2":"","H3":"","H4":"","H5":"","H6":"","H7":"","H8":"","H9":"","H10":"H29","H11":"","H12":"","H13":"","H14":"","H15":"","H16":"H47","H17":"H48","E8":"","E9":"","E10":"","E11":"E15","E12":"","E13":"","E14":"","E15":"E23","E16":"","E17":"","E18":"","E19":"","E20":""},"trauma":{"H0":"","H1":"H4","H2":"","H3":"","H4":"H9","H5":"","H6":"","H7":"","H8":"","E0":"","E1":"E4","E2":"","E3":"E9","E4":"","E5":"E13","E6":"E14","E7":"","E8":"E19","E9":"","E10":"","E11":"","E12":"","E13":"E33","E14":"","E15":"","E16":""},"headache":{"H1":"","H2":"","H3":"","H4":"","H5":"H16","H6":"","H7":"","H8":"","H9":"H25","H10":"","H11":"","H12":"","H13":"","H14":"","H15":"","H16":"","H17":"","H18":"","H19":"H59","H20":"H60","H21":"H61","H22":"H62","H23":"H63","H24":"H64","H25":"H65","H26":"H66"},"dizzy":{"H2":"","H3":"","H4":"H10","H5":"","H6":"","H7":"","H8":"","H9":"","H10":"","H11":"","H12":"H40","H13":"H41","H14":"","H15":"","H16":"H46","H17":"","H18":"H50","H19":"","H20":"H54","H21":"H55"},"syncope":{"H0":"","H1":"H8","H2":"H9","H3":"","H4":"H13","H5":"","H6":"","H7":"","H8":"","H9":"","H10":"","H11":"","H12":"","H13":"H39","H14":"H40","H15":"","H16":"","H17":"","H18":"","H19":"H53","H20":"H54"},"seizure":{"H0":"","H1":"H3","H2":"","H3":"","H4":"","H5":"","H6":"","H7":"","H8":"","H9":"","H10":"","H11":"H36","H12":"H37","H13":"","H14":"H41","H15":"","H16":"","H17":"","H18":"","H19":"H54","H20":"H55"},"weak":{"H0":"","H1":"H4","H2":"","H3":"","H4":"","H5":"","H6":"","H7":"","H8":"","H9":"","H10":"","H11":"","H12":"","H13":"","H14":"","H15":"H50","H16":"H51","H17":"H52","H18":"","H19":"","H20":"","H21":"","H22":"","H23":"H64"},"haem":{"H3":"","H4":"","H5":"H10","H6":"","H7":"","H8":"","H9":"","H10":"","H11":"","H12":"","H13":"H35","H14":"","H15":"","H16":"H42","H17":"H43","H18":"","H19":"H47","H20":""},"ascites":{"H0":"","H1":"","H2":"","H3":"","H4":"","H5":"","H6":"","H7":"","H8":"","H9":"","H10":"","H11":"H38","H12":"H39","H13":"H40","H14":"","H15":"H44","H16":"","H17":"","H18":"H50","H19":"H51","H20":""},"fever":{"H0":"","H1":"H4","H2":"","H3":"","H4":"H13","H5":"","H6":"","H7":"","H8":"","H9":"","H10":"","H11":"","H12":"H36","H13":"","H14":"","H15":"","H16":"","H17":"","H18":"H54","H19":"","H20":"","H21":"H62","H22":"H63","H23":"","H24":"","H25":"","H26":""},"polyuria":{"H0":"","H1":"","H2":"","H3":"","H4":"","H5":"","H6":"","H7":"","H8":"","H9":"","H10":"","H11":"","H12":"","H13":"","H14":"","H15":"H50"},"htn":{"H0":"","H1":"","H2":"","H3":"","H4":"","H5":"","H6":"","H7":"","H8":"","H9":"","H10":"","H11":"","H12":"","H13":"","H14":"H49","H15":"","H16":"H54","H17":"","H18":"H57","H19":""},"joint":{"H0":"","H1":"","H2":"","H3":"","H4":"","H5":"","H6":"","H7":"","H8":"","H9":"","H10":"","H11":"","H12":"","H13":"","H14":"","H15":"H48","H16":"H49","H17":"","H18":"H52","H19":"","H20":"","H21":"","H22":""},"backpain":{"H0":"","H1":"","H2":"","H3":"","H4":"","H5":"","H6":"H23","H7":"","H8":"","H9":"H30","H10":"","H11":"","H12":"","H13":"","H14":"H43","H15":"H44","H16":"H45","H17":"H46","H18":"","H19":"H52"},"rash":{"H0":"","H1":"","H2":"","H3":"H8","H4":"","H5":"","H6":"H16","H7":"","H8":"","H9":"","H10":"","H11":"H33","H12":"H34","H13":"H35","H14":"","H15":"","H16":"","H17":"H44","H18":"","H19":"","H20":""},"aki":{"H0":"","H1":"","H2":"","H3":"","H4":"","H5":"","H6":"","H7":"","H8":"","H9":"","H10":"","H11":"","H12":"","H13":"","H14":"","H15":"","H16":"","H17":"H62","H18":""},"uti":{"H0":"","H1":"","H2":"","H3":"","H4":"","H5":"","H6":"","H7":"","H8":"","H9":"H30","H10":"","H11":"","H12":"H36","H13":"","H14":"","H15":"H42"},"legswell":{"H0":"","H1":"","H2":"","H3":"","H4":"","H5":"","H6":"","H7":"H26","H8":"","H9":"H30","H10":"","H11":"H35","H12":"","H13":"H40","H14":"","H15":"","H16":"H45"},"confusion":{"H1":"","H2":"","H3":"","H4":"","H5":"","H6":"","H7":"","H8":"","H9":"","H10":"","H11":"","H12":"","H13":"","H14":"","H15":"H49","H16":"","H17":"","H18":"","H19":"","H20":"","H21":"","H22":""},"vomit":{"H0":"","H1":"","H2":"","H3":"","H4":"","H5":"","H6":"","H7":"","H8":"","H9":"","H10":"","H11":"","H12":"H46","H13":"","H14":"","H15":"","H16":"","H17":""},"postop":{"H0":"","H1":"","H2":"H8","H3":"H9","H4":"H10","H5":"H11","H6":"H12","H7":"","H8":"","H9":"","H10":"","H11":"","H12":"","H13":"","H14":"","H15":"","H16":"","H17":"","H18":"","H19":"","H20":"","H21":"","E0":"","E1":"E5","E2":"","E3":"","E4":"","E5":"","E6":"","E7":"","E8":"","E9":"","E10":"","E11":"","E12":"","E13":"","E14":"","E15":"","E16":"","E17":"","E18":"","E19":"","E20":"","E21":"","E22":"","E23":"E71","E24":""},"drain":{"H0":"","H1":"H3","H2":"H4","H3":"","H4":"","H5":"","H6":"H12","H7":"H13","H8":"H14","E4":"","E5":"","E6":"E11","E7":"","E8":"","E9":"","E10":"E21","E11":"E22","E12":"","E13":"E28","E14":"E29"},"other":{"H0":"","H1":"H2","H2":"","H3":"H5","H4":"","H5":"","H6":"H10","H7":"","H8":"","H9":"","H10":"","H11":"","H12":"","E0":"","E1":"","E2":"E8","E3":"E9","E4":"","E5":"","E6":"","E7":"","E8":"","E9":"","E10":""}};var ROSMIG={"gen":{"4":""},"cvs":{"2":"","3":"4","4":"5"},"res":{"1":"","2":"3","3":"4"},"git":{"1":"","2":"3","3":"4","4":"5","5":"","6":"8"},"gu":{"1":"","2":"3","3":"","4":""},"cns":{"1":"","2":"","3":"5","4":"6"},"end":{"0":"","1":"","2":"4"},"msk":{"0":"","1":"2","2":"3","3":"4"}};
 
 /* v3: the systems screen follows the Baghdad History Taking Record. Old answers are carried over by symptom name. */
@@ -7582,6 +7784,7 @@ function srcLine(on){return on?'<div class="srcln">'+srcMark(1,22)+'<span>Based 
 /* ================= helpers ================= */
 var $=function(s,r){return (r||document).querySelector(s)};
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+function hookHTML(id){var h=HOOKS[id];if(!h)return '';return '<div class="hook" style="margin-block:0 8px;padding:8px 12px;border-radius:10px;background:var(--accent-soft);color:var(--accent);border-inline-start:4px solid var(--accent);font-size:.95rem;line-height:1.35"><div style="font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.85">Ask by'+(h[1]==='hb'?' \u00B7 follows the handbook':h[1]?' \u00B7 standard mnemonic':'')+'</div><b>'+esc(h[0])+'</b></div>'}
 var p2=function(n){return (n<10?'0':'')+n};
 var dstr=function(t){var d=new Date(t);return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())};
 var uid=function(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)};
@@ -7676,7 +7879,7 @@ var SCMAP={};SCORES.forEach(function(s){SCMAP[s.id]=s});
 /* Layout switches. Set LAYOUT_A=false to bring back the old busy top. Set SHOW_MARKALL=true to bring back the 'Mark all steps done' button. */
 var SURG_STEPS=true,LAYOUT_A=true,SHOW_MARKALL=false;
 var UI={tab:'enc',stage:'hist',pick:false,pickMode:'new',pq:'',logq:'',signq:'',signsys:'All',note:'sheet',infoOpen:true,
-  osce:null,oscePid:'',osceMins:8,quiz:null,quizPid:'',qRecent:[],qDiff:'med',qPat:'dx',pr:'quiz',armed:null,lbOpen:false};
+  osce:null,oscePid:'',osceMins:8,quiz:null,quizPid:'',qRecent:[],qDiff:'med',qPat:'dx',pr:'quiz',flOpen:null,armed:null,lbOpen:false};
 function curEnc(){if(!DB.curId)return null;for(var i=0;i<DB.encs.length;i++)if(DB.encs[i].id===DB.curId)return DB.encs[i];return DRAFT&&DRAFT.id===DB.curId?DRAFT:null}
 var DRAFT=null;
 function newEnc(pid){return {id:uid(),t0:Date.now(),t:Date.now(),pid:pid,pt:{ref:'',age:'',sex:'',loc:'',occ:'',mar:'',res:'',adm:'',rel:'',hdt:'',mref:'',marr:''},dur:'',cc:'',f:{},x:{},soc:{},tx:{hpc:'',pmh:'',psh:'',dh:'',all:'',fh:'',sh:'',occ:'',ros:'',exn:'',dx:'',plan:''},v:{},sc:{},smk:{p:'',y:''},touched:false}}
@@ -8257,7 +8460,7 @@ function render(keepScroll){
   var top='<header class="top"><div class="brand">Bedside H&amp;E<small>History, examination, differential</small></div><div class="row">'+(saveOK?'':'<span class="pill red" title="Browser storage is blocked. Export your log often.">Not saving</span>')+'<button class="btn small" data-act="help" aria-label="How to use this app">Help</button><button class="btn small" data-act="accent" aria-label="Change style"><span class="dot"></span>Style</button><button class="btn small" data-act="theme" aria-label="Switch theme">'+(DB.theme==='dark'?'Dark':DB.theme==='light'?'Light':'Auto')+'</button></div></header>';
   if(LAYOUT_A&&UI.tab==='enc'&&e&&!UI.pick){
     var P0=getP(e.pid);
-    top='<header class="top slim"><div class="grow tt"><div class="eyebrow">'+esc(P0.g)+' / '+esc(P0.sys)+'</div><h2>'+esc(P0.name)+'</h2></div>'+(saveOK?'':'<span class="pill red" title="Browser storage is blocked. Export your log often.">Not saving</span>')+'<button class="btn small" data-act="pickOpen" data-m="change">Change</button><button class="btn small" data-act="newEnc">New patient</button><button class="btn small" data-act="moreToggle" aria-expanded="'+(!!UI.moreOpen)+'" aria-label="More options">\u22EF</button></header>'+moreMenu(e);
+    top='<header class="top slim"><div class="grow tt"><div class="eyebrow">'+esc(P0.g)+' / '+esc(P0.sys)+'</div><h2>'+esc(P0.name)+'</h2></div>'+(saveOK?'':'<span class="pill red" title="Browser storage is blocked. Export your log often.">Not saving</span>')+'<button class="btn small" data-act="pickOpen" data-m="change">Change</button><button class="btn small" data-act="newEnc">New patient</button><button class="btn small" data-act="moreToggle" aria-expanded="'+(!!UI.moreOpen)+'" aria-label="More options">\u22EF</button></header>'+moreMenu(e)+hookHTML(P0.id);
   }
   var dock='';
   if(UI.tab==='enc'&&e&&!UI.pick&&getP(e.pid).dd.length&&(UI.stage==='hist'||UI.stage==='exam'||UI.stage==='vit')){dock='<div class="dock" id="dock"'+(DB.hideDdx?'':' data-act="stage" data-s="ddx"')+'>'+dockHTML(e)+'</div>'}
@@ -8305,7 +8508,7 @@ function viewEnc(e){
   var P=getP(e.pid),pr=progress(e);
   var h='';
   var rf=redFlags(e);
-  if(!LAYOUT_A)h+='<div style="margin-block-end:8px"><div style="margin-block-end:8px"><div class="eyebrow">'+esc(P.g)+' / '+esc(P.sys)+'</div><h2>'+esc(P.name)+'</h2>'+srcLine(SRC_P[P.id])+'</div><div class="row" style="flex-wrap:wrap;gap:8px"><button class="btn small" data-act="ddxToggle" aria-pressed="'+(!DB.hideDdx)+'">DDx: '+(DB.hideDdx?'Hidden':'Shown')+'</button><button class="btn small" data-act="pickOpen" data-m="change">Change</button><button class="btn small" data-act="newEnc">New patient</button></div></div>';
+  if(!LAYOUT_A)h+='<div style="margin-block-end:8px"><div style="margin-block-end:8px"><div class="eyebrow">'+esc(P.g)+' / '+esc(P.sys)+'</div><h2>'+esc(P.name)+'</h2>'+hookHTML(P.id)+srcLine(SRC_P[P.id])+'</div><div class="row" style="flex-wrap:wrap;gap:8px"><button class="btn small" data-act="ddxToggle" aria-pressed="'+(!DB.hideDdx)+'">DDx: '+(DB.hideDdx?'Hidden':'Shown')+'</button><button class="btn small" data-act="pickOpen" data-m="change">Change</button><button class="btn small" data-act="newEnc">New patient</button></div></div>';
   h+=infoCard(e);
   h+='<div class="stages" role="tablist">'+[['hist','History'],['exam','Exam'],['vit','Vitals'],['ddx','DDx'],['web','Web'],['rev','Review'],['note','Note']].map(function(s){return '<button data-act="stage" data-s="'+s[0]+'"'+(UI.stage===s[0]?' aria-current="step"':'')+'>'+s[1]+(s[0]==='hist'?' <span class="mono small" id="pgH">'+pr.h+'/'+pr.ht+'</span>':s[0]==='exam'?' <span class="mono small" id="pgE">'+pr.x+'/'+pr.xt+'</span>':'')+'</button>'}).join('')+'</div>';
   h+='<div id="rfSlot" style="margin-block-start:12px">'+rfHTML(rf)+'</div>';
@@ -8775,10 +8978,45 @@ function stageReview(e,P){
   return h;
 }
 
+/* ---- History flowcharts: written flowcharts (yes/no ladder with branches) ---- */
+function flowChart(pid){
+  var F=FLOWS[pid],P=getP(pid);if(!F)return '';
+  var cap=function(t){return t.charAt(0).toUpperCase()+t.slice(1)};
+  var down=function(lbl){return '<div class="fcdown"><div class="d"><span>'+lbl+'</span></div></div>'};
+  var box=function(cls,inner){return '<div class="fcb'+(cls?' '+cls:'')+'">'+inner+'</div>'};
+  var h='<div class="fnote small">'+(F.src==='hb'?'History and examination lists follow your college handbook. The chart was written by Claude, so check it against your own sources.':'Written by Claude from general clinical teaching, not copied from a source. Check it against your own books and lectures.')+'</div><div class="fc">';
+  h+='<div class="fcstart"><span>'+esc(P.name)+'</span></div>'+down('');
+  /* danger gate */
+  h+='<div class="fcrow"><div class="fcb fcgate"><div class="fct">Any danger sign?</div><ul>'+F.gate.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></div><div class="fch"><i>Yes</i></div><div class="fcb fcstop"><div class="fct">Stop</div>'+esc(cap(F.act.replace(/^Any yes:\s*/,'')))+'</div></div>'+down('No');
+  /* describe */
+  h+=box('fcwide','<div class="fct">Describe the symptom</div><ul>'+F.desc.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>')+down('');
+  /* ladder */
+  h+='<div class="fcnote small">Go down the chart in order. A yes means consider that cause, then keep going: there can be more than one.</div>';
+  F.order.forEach(function(o,i){
+    h+='<div class="fcrow"><div class="fcb fcq"><span class="fcn">'+(i+1)+'</span>'+esc(o[0])+'</div><div class="fch"><i>Yes</i></div><div class="fcb fcr'+(o[2]?' dg':'')+'"><b>'+esc(o[1])+'</b>'+(o[2]?'<em>cannot miss</em>':'')+'</div></div>'+down(i<F.order.length-1?'No':'No to all');
+  });
+  h+=box('fcwide fcnone','<div class="fct">Nothing fits?</div>'+esc(F.end||'Go back through the causes in the hook, ask about anything you missed, and reassess over time. Do not stop at "no cause found".'))+down('');
+  /* complete */
+  h+=box('fcwide','<div class="fct">Ask every time</div><div class="fchips">'+F.always.map(function(x){return '<span>'+esc(x)+'</span>'}).join('')+'</div>')+down('');
+  h+=box('fcwide','<div class="fct">Background</div><dl class="fbg">'+F.bg.map(function(b){return '<dt>'+esc(b[0])+'</dt><dd>'+esc(b[1])+'</dd>'}).join('')+'</dl>')+down('');
+  h+=box('fcwide','<div class="fct">Examine, in this order</div><ol class="fcex">'+F.exam.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ol>');
+  if(F.tbl)h+='<div class="fscroll" style="margin-block-start:14px"><table class="ftbl"><caption>'+esc(F.tbl.title)+'</caption><tr>'+F.tbl.cols.map(function(c){return '<th>'+esc(c)+'</th>'}).join('')+'</tr>'+F.tbl.rows.map(function(r){return '<tr>'+r.map(function(c,i){return (i?'<td>':'<td><b>')+esc(c)+(i?'</td>':'</b></td>')}).join('')+'</tr>'}).join('')+'</table></div>';
+  return h+'</div>';
+}
+function viewFlow(){
+  if(UI.flOpen&&FLOWS[UI.flOpen]){
+    var P=getP(UI.flOpen);
+    return '<div class="row" style="margin-block-end:8px"><button class="btn small" data-act="flowBack">Back</button></div><div class="eyebrow">'+esc(P.g)+' / '+esc(P.sys)+'</div><h2 style="margin-block:2px 8px">'+esc(P.name)+'</h2>'+hookHTML(UI.flOpen)+flowChart(UI.flOpen);
+  }
+  var ids=PRES.filter(function(p){return FLOWS[p.id]}).sort(function(a,b){return a.name<b.name?-1:1});
+  var left=PRES.length-ids.length-1;
+  return '<div class="card"><h3>History flowcharts</h3><p class="small muted" style="margin-block:4px 0">Pick a presentation to see its flowchart: danger signs first, then the questions in order, with what each yes points to. More presentations are added as they are written and checked.</p></div><div class="eyebrow" style="margin-block:14px 8px">Ready ('+ids.length+')</div><div class="pick">'+ids.map(function(p){return '<button data-act="flowOpen" data-id="'+p.id+'"><b>'+esc(p.name)+'</b><span>'+esc(p.sys)+'</span></button>'}).join('')+'</div>';
+}
+
 /* ---- Practice ---- */
 function viewPractice(){
-  var h='<h2 style="margin-block-end:10px">Practice</h2><div class="row" style="margin-block-end:12px"><button class="chip" data-act="prMode" data-m="quiz" aria-pressed="'+(UI.pr==='quiz')+'">Diagnosis quiz</button><button class="chip" data-act="prMode" data-m="guide" aria-pressed="'+(UI.pr==='guide')+'">Exam guides</button></div>';
-  return h+(UI.pr==='guide'?viewGuides():viewQuiz());
+  var h='<h2 style="margin-block-end:10px">Practice</h2><div class="row" style="margin-block-end:12px"><button class="chip" data-act="prMode" data-m="quiz" aria-pressed="'+(UI.pr==='quiz')+'">Diagnosis quiz</button><button class="chip" data-act="prMode" data-m="guide" aria-pressed="'+(UI.pr==='guide')+'">Exam guides</button><button class="chip" data-act="prMode" data-m="flow" aria-pressed="'+(UI.pr==='flow')+'">History flowcharts</button></div>';
+  return h+(UI.pr==='guide'?viewGuides():UI.pr==='flow'?viewFlow():viewQuiz());
 }
 function presOptions(sel){return '<option value="">Random</option>'+PRES.map(function(p){return '<option value="'+p.id+'"'+(sel===p.id?' selected':'')+'>'+esc(p.name)+'</option>'}).join('')}
 function osceItems(pid){
@@ -9485,7 +9723,9 @@ var ACT={
     var st=h[s.id]||(h[s.id]={v:{}});st.t=1;st.v[i]=st.v[i]===1?0:1;scUpdate(s,st,t);touch();
   },
   signSys:function(t){UI.signsys=t.dataset.sys;render(true)},
-  prMode:function(t){UI.pr=t.dataset.m;render(true)},
+  prMode:function(t){UI.pr=t.dataset.m;if(UI.pr==='flow')UI.flOpen=null;render(true)},
+  flowOpen:function(t){UI.flOpen=t.dataset.id;render(true);window.scrollTo(0,0)},
+  flowBack:function(){UI.flOpen=null;render(true);window.scrollTo(0,0)},
   gTab:function(t){UI.gtab=t.dataset.v;render()},
   guideOpen:function(t){UI.guide=t.dataset.id;render()},
   coreOpen:function(t){UI.tab='prac';UI.pr='guide';UI.guide=t.dataset.id;UI.pick=false;render();window.scrollTo(0,0)},
@@ -9605,5 +9845,29 @@ applyTheme();applyAccent();
 })();
 })();
 </script>
-<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>
+<div class="upd" id="upd" role="status" hidden><span>A new version of Bedside H&amp;E is ready.</span><button class="btn small" id="updGo">Reload</button><button class="lnk" id="updX" aria-label="Dismiss update notice">Later</button></div>
+<style>.upd{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--navh,0px) + 72px);z-index:60;display:flex;align-items:center;gap:10px;background:var(--surface);color:var(--ink);border:1.5px solid var(--accent);box-shadow:var(--sh);padding:8px 10px 8px 14px;border-radius:14px;font-size:.85rem;font-weight:600;width:max-content;max-width:calc(100% - 32px)}.upd span{flex:1}.upd .btn{min-height:36px;background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}</style>
+<script>/* ---------- Updates: register the service worker and tell the student when a newer index.html is online ---------- */
+(function(){
+  if(!("serviceWorker" in navigator))return;
+  var base=null,last=0,shown=false;
+  function sig(res){return res.headers.get("ETag")||res.headers.get("Last-Modified")||res.headers.get("Content-Length")||""}
+  function show(){if(shown)return;shown=true;var b=document.getElementById("upd");if(b)b.hidden=false}
+  function check(){
+    if(!navigator.onLine||Date.now()-last<5*60*1000)return;last=Date.now();
+    fetch("./index.html",{method:"HEAD",cache:"no-cache"}).then(function(res){
+      if(!res.ok)return;var s=sig(res);if(!s)return;
+      if(base===null)base=s;else if(s!==base)show();
+    }).catch(function(){});
+  }
+  document.getElementById("updGo").addEventListener("click",function(){try{if(typeof saveNow==="function")saveNow()}catch(e){}location.reload()});
+  document.getElementById("updX").addEventListener("click",function(){document.getElementById("upd").hidden=true});
+  window.addEventListener("load",function(){
+    navigator.serviceWorker.register("sw.js").then(function(reg){
+      document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible"){reg.update().catch(function(){});check()}});
+    }).catch(function(){});
+    check();
+    setInterval(function(){if(document.visibilityState==="visible")check()},30*60*1000);
+  });
+})();</script>
 </body></html>
