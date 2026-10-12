@@ -1141,12 +1141,6 @@ E Heart|pick
 - Loud P2 {pe:1,ild:1} @41
 - Murmur {hf:1} @x120
 @cough|Cough and sputum|Respiratory|Medicine
-Y Infection|urti,pneu,tb|Infection
-Y Airways|copd,ast,bron|Airways and heart
-Y Cancer|ca|TB and cancer
-Y Nose and gut|rhin,gerd|Nose and gut
-Y Heart|hf|Airways and heart
-Y Drugs|ace|Drugs
 SC curb
 I CXR; sputum culture and AFB x3 (GeneXpert if TB suspected); FBC, CRP; spirometry; CT chest; bronchoscopy if mass or haemoptysis; trial off ACE inhibitor
 D urti|Viral URTI / acute bronchitis||1.5
@@ -1160,79 +1154,89 @@ D gerd|GORD||0.8
 D ace|ACE-inhibitor cough||0.6
 D rhin|Allergic rhinitis / post-nasal drip||0.8
 D hf|Heart failure||0.6
-G The cough
+Y Infection|urti,pneu,tb|Infection
+Y Airways|copd,ast,bron|Airways
+Y TB and cancer|ca|TB and cancer
+Y Nose and gut|rhin,gerd|Nose and gut
+Y Heart|hf|Heart
+Y Drugs|ace|Course,Drugs
+G The cough and sputum (handbook)
+M Cough, then sputum|Cough: duration · dry or wet · timing · change · Sputum: colour · consistency · amount · smell
 H Duration|one|Duration:
-- Under 3 weeks {urti:2,pneu:2}
-- 3 to 8 weeks {urti:1,tb:1}
-- Over 8 weeks (chronic) {copd:1,tb:1,ca:1,gerd:1,ace:1,ast:1,bron:1}
-H Type|one|Cough:
-- Dry {ast:1,ace:2,gerd:1,rhin:1}
-- Productive {pneu:1,copd:1,bron:2}
+* Under 3 weeks {urti:2,pneu:2} @0
+- 3 to 8 weeks {urti:1,tb:1} @1
+- Over 8 weeks (chronic, over 2 months) {copd:1,tb:1,ca:1,gerd:1,ace:1,ast:1,bron:1} @2
+H Dry or productive|one|Cough:
+* Dry {ast:1,ace:2,gerd:1,rhin:1} @3
+- Productive {pneu:1,copd:1,bron:2} @4
 H Timing|pick|Timing:
-- Worse at night {ast:1,gerd:1,hf:1}
-- Early morning, in a smoker {copd:4}
-- Worse lying flat or after meals {gerd:2}
-- On exercise or in cold air {ast:1}
+* Worse at night {ast:1,gerd:1,hf:1} @5
+* Early morning, in a smoker {copd:4} @6
+- Worse lying flat or after meals {gerd:2} @7
+- On exercise or in cold air {ast:1} @8
 H Course|pick|Course:
-! Recent change in a long-standing cough {ca:3,copd:1}
-- Began after starting an ACE inhibitor {ace:5}
-- Follows a cold {urti:2}
-G The sputum
-H Colour|pick|Sputum:
-N Ask the patient to show you the pot if they have one.
-- White or clear {copd:1,ast:1}
-- Yellow or green {pneu:2,bron:2,copd:2}
-- Rusty {pneu:3}
-- Frothy pink {hf:5}
-! Blood-streaked {tb:2,ca:3,bron:2,pneu:1}
+! Recent change in a long-standing cough {ca:3,copd:1} @9
+* Began after starting an ACE inhibitor {ace:5} @10
+- Follows a cold {urti:2} @11
+H Sputum colour|pick|Sputum:
+N Ask to see the pot. Rusty suggests pneumococcal pneumonia; frothy pink suggests pulmonary oedema.
+- White or clear {copd:1,ast:1} @12
+* Yellow or green {pneu:2,bron:2,copd:2} @13
+* Rusty {pneu:3} @14
+* Frothy pink {hf:5} @15
+! Blood-streaked {tb:2,ca:3,bron:2,pneu:1} @16
 H Amount and smell|pick|Sputum:
-- Teaspoons
-- Cupfuls every day {bron:3}
-- Foul-smelling {bron:3}
-G Associated symptoms
+- Teaspoons @17
+* Cupfuls every day {bron:3} @18
+* Foul-smelling (bronchiectasis, abscess) {bron:3} @19
+G Screen the causes, one at a time
+M Infection · Airways · TB and cancer · Nose and gut · Heart · Drugs|Handbook commonest causes: cold and chest infections, rhinitis, smoking, TB, asthma, reflux, pneumonia, heart failure, bronchiectasis, ACE inhibitors.
 H Infection|pick
-- Fever {pneu:2}
-- Rigors {pneu:2}
-- Pleuritic chest pain {pneu:2}
+* Fever {pneu:2} @20
+- Rigors {pneu:2} @21
+* Pleuritic chest pain {pneu:2} @22
+H Airways|pick
+* Wheeze {ast:1,copd:1,hf:1} @27
+* Breathlessness {ast:1,copd:1,hf:1} @28
 H TB and cancer|pick
-- Night sweats {tb:1,ca:1}
-- Weight loss {tb:1,ca:1}
-- Hoarse voice {ca:2}
-- Bone pain {ca:2}
-H Airways and heart|pick
-- Wheeze {ast:1,copd:1,hf:1}
-- Breathlessness {ast:1,copd:1,hf:1}
-- Lying flat makes it worse (orthopnoea) {hf:2}
-- Ankle swelling {hf:2}
+* Night sweats {tb:1,ca:1} @23
+* Weight loss {tb:1,ca:1} @24
+- Hoarse voice {ca:2} @25
+- Bone pain {ca:2} @26
 H Nose and gut|pick
-- Blocked or runny nose {rhin:2,urti:1}
-- Sneezing or itchy eyes {rhin:2,urti:1}
-- Heartburn {gerd:2}
+* Blocked or runny nose {rhin:2,urti:1} @31
+- Sneezing or itchy eyes {rhin:2,urti:1} @32
+* Heartburn {gerd:2} @33
+H Heart|pick
+* Lying flat makes it worse (orthopnoea) {hf:2} @29
+- Ankle swelling {hf:2} @30
 G Background for this complaint
+M Past · Exposure · Drugs · Family|Old chest disease · smoking, TB contact, dust, pets · ACE inhibitors and inhalers · TB and asthma in the family
 H Past history|pick|Past history:
-- Asthma {ast:2}
-- TB {tb:1,bron:1}
-- Severe measles or whooping cough {bron:2}
-- Recurrent chest infections {bron:2}
-- IHD or hypertension {hf:1}
-- Immunosuppressed {pneu:1,tb:1}
-- Recent dental surgery {pneu:1}
+* Asthma {ast:2} @34
+* TB {tb:1,bron:1} @35
+- Severe measles or whooping cough {bron:2} @36
+- Recurrent chest infections {bron:2} @37
+- IHD or hypertension {hf:1} @38
+- Immunosuppressed {pneu:1,tb:1} @39
+- Recent dental surgery {pneu:1} @40
 - Diabetes {tb:1,pneu:1} @x20
-- Heartburn or reflux {gerd:2} @x21
 - Hay fever or eczema {rhin:1,ast:1} @x22
 H Exposure|pick|Exposure:
-- Smoker (pack-years) {copd:2,ca:2}
-- TB contact {tb:2}
-- Dust or asbestos at work {ca:1}
-- Pets or birds {ast:1}
+* Smoker (pack-years) {copd:2,ca:2} @41
+* TB contact {tb:2} @42
+- Dust or asbestos at work {ca:1} @43
+- Pets or birds {ast:1} @44
+- Travel or dusty living conditions {tb:1,ast:1} @x300
 H Drugs|pick|Takes:
-- ACE inhibitor {ace:3}
-- Inhalers {ast:1,copd:1}
-- Beta-blocker {ast:1}
-- Amiodarone
+* ACE inhibitor {ace:3} @45
+- Inhalers {ast:1,copd:1} @46
+- Beta-blocker {ast:1} @47
+- Amiodarone @48
+- Steroids or antibiotics {pneu:1} @x301
 H Family history|pick|Family history:
-- TB {tb:1}
-- Asthma or allergy {ast:1,rhin:1}
+- TB {tb:1} @49
+- Asthma or allergy {ast:1,rhin:1} @50
 G Examination
 E Vital signs|pick
 - Fever {pneu:2,urti:1,tb:1} @0
@@ -1303,12 +1307,6 @@ E Back|pick
 - Kyphoscoliosis @x132
 - Sacral oedema {hf:2} @x133
 @hemopt|Haemoptysis|Respiratory|Medicine
-Y Airways|bron,bronch,fb|Chest,Injury
-Y Lung tissue|tb,pneu,hyd|TB and cancer,Chest
-Y Cancer|ca|TB and cancer
-Y Clot|pe|Clot
-Y Heart|mitral|Heart
-Y Bleeding|coag,vas|Bleeding and vasculitis
 SC wells
 I CXR; CT chest or CT pulmonary angiogram; FBC, coagulation screen, U&E, urine dipstick; sputum culture and AFB; bronchoscopy; ABG; ANCA and anti-GBM if vasculitis suspected
 D bron|Bronchiectasis||1
@@ -1322,65 +1320,75 @@ D coag|Coagulopathy / anticoagulants||0.4
 D hyd|Hydatid / parasitic / mycetoma||0.3
 D vas|Vasculitis (GPA, Goodpasture)|!|0.2
 D fb|Foreign body / trauma||0.2
-G The blood
+Y Airways (bronchial)|bron,bronch,fb|Airways,Injury
+Y Lung tissue (parenchymal)|tb,pneu,hyd|Infection and TB
+Y Cancer|ca|Cancer
+Y Clot|pe|Clot
+Y Heart|mitral|Heart
+Y Bleeding and vasculitis|coag,vas|Bleeding and vasculitis
+G The blood (handbook)
+M Origin · Amount · Colour · Consistency · Course|Was it really coughed up? How much? Fresh or dark? Liquid, clots or mixed with sputum?
 H Origin|pick|Origin:
 N Was it definitely coughed up? Rule out vomiting (haematemesis) and bleeding from the nose or mouth.
-- Coughed up, bright red and frothy
-- Could have been vomited
-- Could have come from the nose or gums
+* Coughed up, bright red and frothy @0
+- Could have been vomited @1
+- Could have come from the nose or gums @2
 H Amount|one|Amount:
-- Streaks in sputum {bronch:2,ca:1,tb:1}
-- Teaspoons {tb:1,bron:1,ca:1}
-! Cupfuls, or over 200 mL in a day {tb:2,bron:2,ca:1}
-H Appearance|pick|Blood is:
-- Mixed with purulent sputum {bron:2,pneu:2}
-- Pure fresh blood {ca:1,tb:1,pe:1}
-- Dark clots {pe:1}
-- Pink and frothy {mitral:3}
+* Streaks in sputum {bronch:2,ca:1,tb:1} @3
+- Teaspoons {tb:1,bron:1,ca:1} @4
+! Cupfuls, or over 200 mL in a day {tb:2,bron:2,ca:1} @5
+H Colour and consistency|pick|Blood is:
+* Mixed with purulent sputum {bron:2,pneu:2} @6
+* Pure fresh blood {ca:1,tb:1,pe:1} @7
+- Dark clots {pe:1} @8
+- Pink and frothy {mitral:3} @9
 H Course|pick|Course:
-- Single episode after a cold {bronch:3}
-- Settles within days {bronch:3}
-- Recurrent over weeks {ca:2,tb:2,bron:2}
-G Associated symptoms
-H Chest|pick
-- Chronic cough with daily purulent sputum {bron:2}
-- Recurrent chest infections {bron:2}
-- Fever {tb:1,pneu:1}
-! Pleuritic chest pain {pe:1,pneu:1}
-- Breathlessness {pe:1,mitral:1}
-H TB and cancer|pick
-- Night sweats {tb:1,ca:1}
-- Weight loss {tb:1,ca:1}
-- Hoarse voice {ca:1}
-H Clot|pick
-- One leg swollen {pe:1}
-- Recent surgery {pe:1}
-H Heart|pick
-- Breathless lying flat or at night {mitral:1}
-- Palpitations {mitral:1}
-H Bleeding and vasculitis|pick
-- Bruising or bleeding elsewhere {coag:2}
-- Blood in urine {vas:1}
-- Sinus problems or nosebleeds {vas:1}
-- Rash or joint pain {vas:1}
+- Single episode after a cold {bronch:3} @10
+- Settles within days {bronch:3} @11
+* Recurrent over weeks {ca:2,tb:2,bron:2} @12
+G Screen the causes, one at a time
+M Bronchial · Parenchymal · Clot · Heart · Bleeding|Handbook: bronchial (cancer, bronchiectasis, bronchitis, foreign body) and parenchymal (TB, pneumonia, abscess, hydatid, trauma). Then clot, heart and bleeding.
+H Airways|pick
+* Chronic cough with daily purulent sputum {bron:2} @13
+- Recurrent chest infections {bron:2} @14
 H Injury|pick
-- Chest trauma {fb:3}
-- Choked on something {fb:6}
+- Chest trauma {fb:3} @29
+* Choked on something {fb:6} @30
+H Infection and TB|pick
+* Fever {tb:1,pneu:1} @15
+* Night sweats {tb:1,ca:1} @18
+H Cancer|pick
+* Weight loss {tb:1,ca:1} @19
+- Hoarse voice {ca:1} @20
+H Clot|pick
+! Pleuritic chest pain {pe:1,pneu:1} @16
+* One leg swollen {pe:1} @21
+- Recent surgery {pe:1} @22
+H Heart|pick
+* Breathlessness {pe:1,mitral:1} @17
+- Breathless lying flat or at night {mitral:1} @23
+- Palpitations {mitral:1} @24
+H Bleeding and vasculitis|pick
+* Bruising or bleeding elsewhere {coag:2} @25
+- Blood in urine {vas:1} @26
+- Sinus problems or nosebleeds {vas:1} @27
+- Rash or joint pain {vas:1} @28
 G Background for this complaint
+M Past · Exposure · Drugs|Old TB or bronchiectasis · smoking, TB contact, dogs and sheep · blood thinners
 H Past history|pick|Past history:
-- TB or old TB cavity {tb:1,hyd:2}
-- Bronchiectasis or severe childhood whooping cough {bron:2}
-- Rheumatic fever {mitral:1}
-- Immunosuppressed {tb:1,pneu:1}
+* TB or old TB cavity {tb:1,hyd:2} @31
+- Bronchiectasis or severe childhood whooping cough {bron:2} @32
+- Rheumatic fever {mitral:1} @33
+- Immunosuppressed {tb:1,pneu:1} @34
 - Diabetes {tb:2} @x20
 H Exposure|pick|Exposure:
-- Smoker {ca:1}
-- TB contact {tb:1}
-- Contact with dogs or sheep {hyd:5}
-- Dust or asbestos at work {ca:1}
+* Smoker {ca:1} @35
+* TB contact {tb:1} @36
+- Contact with dogs or sheep {hyd:5} @37
+- Dust or asbestos at work {ca:1} @38
 H Drugs|pick|Takes:
-- Warfarin or a DOAC {coag:2}
-- Aspirin or clopidogrel {coag:2}
+* Warfarin or a DOAC {coag:2} @39
+- Aspirin or clopidogrel {coag:2} @40
 G Examination
 E Vital signs|pick
 ! Shocked {pe:1,bron:1,tb:1} @0
@@ -1455,9 +1463,6 @@ E Back|pick
 - Kyphoscoliosis @x137
 - Sacral oedema {mitral:2} @x138
 @pallor|Pallor / anaemia|Haematology|Medicine
-Y Lose (bleeding)|bl|Blood loss
-Y Make (marrow, iron, B12)|ida,b12,acd,ckd,bm|Diet and gut,Marrow,Nerves
-Y Break (haemolysis)|hem,thal|Haemolysis
 SC
 I FBC with film, reticulocytes, MCV; ferritin, B12, folate; LDH, bilirubin, haptoglobin, DAT; U&E; haemoglobin electrophoresis; OGD and colonoscopy if iron deficient (men, postmenopausal women); bone marrow if cytopenias
 D ida|Iron-deficiency anaemia||2
@@ -1468,68 +1473,75 @@ D hem|Haemolytic anaemia||0.5
 D bm|Marrow failure / infiltration|!|0.5
 D bl|Acute blood loss / GI bleed|!|0.8
 D ckd|Anaemia of CKD||0.5
-G The pallor
+Y Lose (bleeding)|bl|Lose: blood loss
+Y Make: iron and B12|ida,b12|Make: diet and gut,Make: nerves (B12)
+Y Make: marrow|bm|Make: marrow
+Y Make: chronic disease and kidney|acd,ckd|Make: chronic disease
+Y Break (haemolysis)|hem,thal|Break: haemolysis
+G The pallor (handbook)
+M How long · How it affects them|Duration and progression · general (tired, weak) · heart (palpitations, breathless, fainting) · nerves (headache, dizziness, tinnitus)
 H Duration|one|Pale for:
-- Days {bl:2}
-- Weeks to months {ida:1,acd:1,b12:1,bm:1}
-- Since childhood {thal:3}
+* Days {bl:2} @0
+- Weeks to months {ida:1,acd:1,b12:1,bm:1} @1
+- Since childhood {thal:3} @2
 H Symptoms of anaemia|pick|Symptoms:
-- Tiredness and weakness
-- Breathless on exertion
-- Palpitations
-! Fainting {bl:1}
-- Chest pain on exertion
-- Headache, dizziness or ringing in the ears
-G Where is the blood going?
-H Blood loss|pick|Blood loss:
+* Tiredness and weakness @3
+* Breathless on exertion @4
+- Palpitations @5
+! Fainting {bl:1} @6
+- Chest pain on exertion @7
+- Headache, dizziness or ringing in the ears @8
+G Lose, Make or Break?
+M Lose · Make · Break|Is blood being lost, not being made, or being broken down?
+H Lose: blood loss|pick|Blood loss:
 N Ask every patient about the gut, and every woman about her periods.
-- Heavy or long periods {ida:3,bl:1}
-! Black stool {bl:1,ida:1}
-! Vomiting blood {bl:1,ida:1}
-- Blood per rectum or piles {bl:1,ida:1}
-- Blood in urine {bl:1}
-- Nosebleeds or gum bleeding {bm:1}
-H Haemolysis|pick
-- Yellow eyes {hem:2}
-- Dark urine {hem:2}
-- Gallstones {hem:2}
-H Marrow|pick
-- Fever {bm:1}
-- Recurrent infections {bm:1}
-- Bone pain {bm:1}
-- Easy bruising {bm:1}
-H Diet and gut|pick
-- Little red meat, poor diet {ida:1}
-- Difficulty chewing {ida:1}
-- Craving ice or clay (pica) {ida:1}
-- Vegan diet {b12:1}
-- Chronic diarrhoea or malabsorption {ida:1,b12:1}
-H Nerves|pick
-- Numbness or tingling in the feet {b12:1}
-- Unsteady walking {b12:1}
-H General|pick
-- Weight loss {acd:1,bm:1,ckd:1}
-- Night sweats {acd:1,bm:1}
-- Loss of appetite {acd:1}
+* Heavy or long periods {ida:3,bl:1} @9
+! Black stool {bl:1,ida:1} @10
+! Vomiting blood {bl:1,ida:1} @11
+* Blood per rectum or piles {bl:1,ida:1} @12
+- Blood in urine {bl:1} @13
+H Make: diet and gut|pick
+* Little red meat, poor diet {ida:1} @22
+- Difficulty chewing {ida:1} @23
+- Craving ice or clay (pica) {ida:1} @24
+- Vegan diet {b12:1} @25
+* Chronic diarrhoea or malabsorption {ida:1,b12:1} @26
+H Make: nerves (B12)|pick
+* Numbness or tingling in the feet {b12:1} @27
+- Unsteady walking {b12:1} @28
+H Make: marrow|pick
+* Fever {bm:1} @18
+- Recurrent infections {bm:1} @19
+* Bone pain {bm:1} @20
+- Easy bruising {bm:1} @21
+- Nosebleeds or gum bleeding {bm:1} @14
+H Make: chronic disease|pick
+* Weight loss {acd:1,bm:1,ckd:1} @29
+- Night sweats {acd:1,bm:1} @30
+- Loss of appetite {acd:1} @31
+H Break: haemolysis|pick
+* Yellow eyes {hem:2} @15
+* Dark urine {hem:2} @16
+- Gallstones {hem:2} @17
 G Background for this complaint
+M Past · Drugs · Family|Chronic illness, kidney disease, transfusions, pregnancy · aspirin, NSAIDs, sulfa · family anaemia and ethnic background
 H Past history|pick|Past history:
-- Chronic disease (RA, TB, cancer) {acd:4}
-- Kidney disease {ckd:3}
-- Gastric surgery {ida:1,b12:1}
-- Coeliac disease {ida:1,b12:1}
-- Previous blood transfusion {thal:2}
-- Pregnancy, now or recently {ida:2,b12:1}
+* Chronic disease (RA, TB, cancer) {acd:4} @32
+* Kidney disease {ckd:3} @33
+- Gastric surgery {ida:1,b12:1} @34
+- Coeliac disease {ida:1,b12:1} @35
+* Previous blood transfusion {thal:2} @36
+- Pregnancy, now or recently {ida:2,b12:1} @37
 - Diabetes or hypertension (kidney disease) {ckd:1} @x20
 - Peptic ulcer or GI bleeding {bl:2,ida:1} @x21
-- Vegetarian or vegan diet {b12:1,ida:1} @x22
 H Drugs|pick|Takes:
-- Aspirin or NSAIDs {bl:1}
-- Sulfa drugs {hem:1}
-- Chloramphenicol {bm:1}
-- Alcohol {b12:1}
+* Aspirin or NSAIDs {bl:1} @38
+- Sulfa drugs {hem:1} @39
+- Chloramphenicol {bm:1} @40
+- Alcohol {b12:1} @41
 H Family history|pick|Family history:
-- Anaemia or transfusions {thal:2}
-- Thalassaemia or sickle cell {thal:2}
+* Anaemia or transfusions {thal:2} @42
+- Thalassaemia or sickle cell {thal:2} @43
 G Examination
 E Vital signs|pick
 ! Tachycardia with hypotension {bl:5} @0
@@ -1598,10 +1610,6 @@ E Neurology|pick
 - Ataxia {b12:3} @x129
 - Focal neurological signs @x130
 @lymph|Lymphadenopathy|Haematology|Medicine
-Y Infection|inf,tb,hiv|Infection,Chest
-Y Cancer|lym,leuk,met|B symptoms,Marrow,Hidden cancer
-Y Immune|sle|Autoimmune
-Y Drugs|drug|Drugs
 SC
 I FBC and film, ESR and CRP; CXR; monospot and EBV serology; HIV test; excisional node biopsy (FNA if needed); TB tests; LDH; CT neck, chest, abdomen and pelvis if lymphoma suspected
 D inf|Viral / bacterial infection||2
@@ -1612,70 +1620,80 @@ D met|Metastatic malignancy|!|0.8
 D sle|Autoimmune (SLE, RA, sarcoid)||0.5
 D hiv|HIV / chronic infection||0.4
 D drug|Drug reaction||0.2
-G The lumps
-H Site|pick|Nodes in:
-- Neck {inf:1,tb:1,lym:1}
-- Above the collarbone {met:2,lym:1}
-- Armpit {met:1,lym:1}
-- Groin {inf:1}
-- Several areas {lym:1,leuk:1,hiv:1,sle:1}
-H Duration|one|Present for:
-- Under 2 weeks {inf:3}
-- 2 to 6 weeks
-- Over 6 weeks {lym:1,met:1,tb:1}
-H Pain|one|Nodes are:
-- Painful {inf:3}
-- Painless {lym:1,met:1,tb:1}
-H Course|pick|Course:
-- Getting bigger {lym:1,met:1,tb:1}
-- Painful after drinking alcohol {lym:3}
-- Discharging {tb:3}
-G Associated symptoms
+Y Infection|inf,tb,hiv|Infection,Exposure
+Y Blood cancers|lym,leuk|B symptoms,Marrow
+Y Spread from a cancer|met|Hidden cancer,Chest
+Y Inflammatory|sle|Inflammatory
+Y Drugs|drug|Drugs
+G The nodes (handbook)
+M Where · How long · Painful? · Changing?|Which groups · duration · pain · getting bigger, painful with alcohol, discharging
+H Where|pick|Nodes in:
+- Neck {inf:1,tb:1,lym:1} @0
+* Above the collarbone {met:2,lym:1} @1
+- Armpit {met:1,lym:1} @2
+- Groin {inf:1} @3
+* Several areas {lym:1,leuk:1,hiv:1,sle:1} @4
+H How long|one|Present for:
+* Under 2 weeks {inf:3} @5
+- 2 to 6 weeks @6
+- Over 6 weeks {lym:1,met:1,tb:1} @7
+H Painful or painless|one|Nodes are:
+* Painful {inf:3} @8
+- Painless {lym:1,met:1,tb:1} @9
+H Changing|pick|Course:
+* Getting bigger {lym:1,met:1,tb:1} @10
+- Painful after drinking alcohol {lym:3} @11
+- Discharging {tb:3} @12
+G Screen the causes, one at a time
+M Infection · Blood cancer · Spread · Inflammatory · Drugs|The handbook's four groups: infections (viral, bacterial, TB), malignancy (lymphoma, leukaemia, solid cancer), inflammatory (SLE, vasculitis, Still's, RA, sarcoid), drugs.
 H Infection|pick
-- Sore throat or cold {inf:1}
-- Dental problem {inf:1}
-- Skin infection or bite near the nodes {inf:2}
+* Sore throat or cold {inf:1} @13
+- Dental problem {inf:1} @14
+* Skin infection or bite near the nodes {inf:2} @15
 H B symptoms|pick
-- Fever {lym:2,tb:1,leuk:1}
-! Drenching night sweats {lym:2,tb:1,leuk:1}
-! Weight loss {lym:2,tb:1,leuk:1}
-- Itching {lym:3}
-H Chest|pick
-- Cough {tb:2,met:1}
-- Coughing blood {tb:2,met:1}
-- Breathlessness or wheeze {lym:1,met:1}
+* Fever {lym:2,tb:1,leuk:1} @16
+! Drenching night sweats {lym:2,tb:1,leuk:1} @17
+! Weight loss {lym:2,tb:1,leuk:1} @18
+* Itching {lym:3} @19
 H Marrow|pick
-- Bleeding or bruising {leuk:2}
-- Recurrent infections {leuk:2}
-- Bone pain {leuk:2}
+* Bleeding or bruising {leuk:2} @23
+- Recurrent infections {leuk:2} @24
+- Bone pain {leuk:2} @25
 H Hidden cancer|pick
-- Difficulty swallowing {met:1}
-- Hoarse voice {met:1}
-- Breast lump {met:1}
-- Change in bowel habit or black stool {met:1}
-H Autoimmune|pick
-- Rash {sle:2}
-- Joint pain {sle:2}
-- Mouth ulcers {sle:2}
+* Difficulty swallowing {met:1} @26
+* Hoarse voice {met:1} @27
+- Breast lump {met:1} @28
+* Change in bowel habit, abdominal pain or black stool {met:1} @29
+H Chest|pick
+* Cough {tb:2,met:1} @20
+- Coughing blood {tb:2,met:1} @21
+- Breathlessness or wheeze {lym:1,met:1} @22
+H Inflammatory|pick
+* Rash {sle:2} @30
+* Joint pain {sle:2} @31
+- Mouth ulcers {sle:2} @32
 - Known SLE or rheumatoid arthritis {sle:2} @x20
 - Cough, breathlessness or tender red shin lumps (sarcoidosis) {sle:2} @x21
 - Spiking fever, salmon-pink rash and joint pain in a young adult (Still's disease) {sle:2} @x22
 G Background for this complaint
+M Exposure · Drugs · Habits · Past|Contacts, animals, travel, sex, needles · anticonvulsants and others · smoking and alcohol · diabetes, kidney disease, blood products
 H Exposure|pick|Exposure:
-- TB contact {tb:2}
-- Cats, raw milk or farm animals {inf:1}
-- Travel {inf:1}
-- High-risk sex {hiv:3}
-- Injecting drugs or blood products {hiv:3}
-- Family members with the same problem {tb:1,inf:1}
+* TB contact {tb:2} @33
+- Cats, raw milk or farm animals {inf:1} @34
+- Travel {inf:1} @35
+* High-risk sex {hiv:3} @36
+- Injecting drugs or blood products {hiv:3} @37
+- Family members with the same problem {tb:1,inf:1} @38
 H Drugs|pick|Takes:
-- Phenytoin {drug:2}
-- Captopril or hydralazine {drug:2}
-- Allopurinol {drug:2}
-- Gold {drug:2}
-H Habits|pick
-- Smoker {met:1}
-- Alcohol {met:1}
+* Phenytoin or other anticonvulsants {drug:2} @39
+- Captopril or hydralazine {drug:2} @40
+- Allopurinol {drug:2} @41
+- Gold {drug:2} @42
+- Iron injections or steroids {drug:1} @x300
+H Habits and past|pick
+- Smoker {met:1} @43
+- Alcohol {met:1} @44
+- Diabetes or kidney disease @x301
 G Examination
 E Vital signs|pick
 - Fever {inf:1,tb:1,lym:1} @0
@@ -1765,10 +1783,6 @@ E Neurology|pick
 - Ataxia @x148
 - Focal neurological signs {met:1,lym:1} @x149
 @bleed|Bleeding tendency|Haematology|Medicine
-Y Vessels|vas|Vasculitis
-Y Platelets|itp,leuk,dic|Marrow,Recent events
-Y Clotting factors|hem,vwd,liv,vitk|Liver,Diet and gut,Family history
-Y Drugs|drug|Drugs
 SC
 I FBC and film, PT/INR, aPTT, fibrinogen, D-dimer; LFTs; U&E; PFA-100; von Willebrand antigen and activity; factor VIII and IX; blood group; bone marrow if cytopenias
 D itp|ITP / thrombocytopenia||1
@@ -1780,70 +1794,77 @@ D dic|DIC / sepsis|!|0.3
 D leuk|Leukaemia / marrow failure|!|0.5
 D vas|Vessel disorder (HSP, vasculitis, scurvy)||0.5
 D vitk|Vitamin K deficiency / malabsorption||0.3
-G The bleeding
-H Site|pick|Bleeding:
-N Skin and mucosa point to platelets or vWD; joints and muscles point to a clotting factor; one site again and again points to a local cause.
-- Small red spots on the skin (petechiae) {itp:1,vwd:1}
-- Easy bruising {itp:1,vwd:1,drug:1}
-- Nosebleeds {itp:1,vwd:1}
-- Gums {itp:1,vwd:1}
-- Heavy periods {itp:1,vwd:1}
-- Into joints {hem:2}
-- Into muscles {hem:2}
-- Black stool or blood in vomit
-- Blood in urine {vas:1}
-H Onset|one|Started:
-- Since childhood {hem:3,vwd:2}
-- Recently {itp:2,liv:2,drug:3,leuk:2,dic:2}
-H Trigger|pick|Bleeds:
-- Spontaneously
-- After minor injury
-- Straight after surgery or a tooth extraction {itp:1,vwd:1}
-- Hours or days after surgery or injury {hem:3,liv:1}
-- Stops with local pressure {itp:3,vwd:2}
-- After circumcision or tonsillectomy {hem:2,vwd:1}
-G Associated symptoms
-H Marrow|pick
-- Fever {leuk:1,dic:1}
-- Bone pain {leuk:1}
-- Weight loss {leuk:1}
-- Getting paler {leuk:1}
-- Recurrent infections {leuk:1}
-- New lumps {leuk:1}
-H Liver|pick
-- Yellow eyes {liv:2}
-- Swollen abdomen {liv:1}
-H Vasculitis|pick
-- Raised purple rash on the legs {vas:2}
-- Abdominal pain {vas:2}
-- Joint pain {vas:2}
-H Recent events|pick
-- Recent cold or vaccination {itp:1}
-- Severe infection or sepsis {dic:4}
-- Recent childbirth complication {dic:1}
-H Diet and gut|pick
-- Poor diet, no fruit {vas:1}
-- Fatty diarrhoea {vitk:4}
-G Background for this complaint
-H Past history|pick|Past history:
-- Liver disease or hepatitis {liv:2}
-- Cancer {dic:1}
-- Obstructive jaundice {vitk:4}
-- Blood transfusion
-- Kidney disease
-H Drugs|pick|Takes:
-- Warfarin or other anticoagulant {drug:1}
-- Aspirin or NSAIDs {drug:1}
-- Steroids {drug:1}
-- Sulfa drugs {drug:1}
-- New drug recently {drug:1}
-- Antibiotics {vitk:2}
-- Alcohol excess {liv:2}
-H Family history|pick|Family history:
-- Male relatives with bleeding {hem:3,vwd:1}
-- Relatives of either sex {vwd:2}
+Y Vessels|vas|Vessels
+Y Platelets|itp,leuk,dic|Marrow and platelets,Recent events
+Y Clotting factors|hem,vwd,liv,vitk|Where it bleeds,Liver and gut,Family history
+Y Drugs|drug|Drugs
+G The bleeding (handbook)
+M Where · Since when · What starts it · After surgery|Skin, gums, nose, periods = platelets (or vWD) · joints and muscles = clotting factor · one site again and again = local cause · immediate after surgery = platelets, delayed = clotting factor
+H Where it bleeds|pick|Bleeding:
+* Small red spots on the skin (petechiae) {itp:1,vwd:1} @0
+* Easy bruising {itp:1,vwd:1,drug:1} @1
+- Nosebleeds {itp:1,vwd:1} @2
+- Gums {itp:1,vwd:1} @3
+* Heavy periods {itp:1,vwd:1} @4
+* Into joints {hem:2} @5
+- Into muscles {hem:2} @6
+- Black stool or blood in vomit @7
+- Blood in urine {vas:1} @8
+H Since when|one|Started:
+* Since childhood {hem:3,vwd:2} @9
+- Recently {itp:2,liv:2,drug:3,leuk:2,dic:2} @10
+H What starts it|pick|Bleeds:
+* Spontaneously @11
+- After minor injury @12
+* Straight after surgery or a tooth extraction {itp:1,vwd:1} @13
+* Hours or days after surgery or injury {hem:3,liv:1} @14
+* Stops with local pressure {itp:3,vwd:2} @15
+- After circumcision or tonsillectomy {hem:2,vwd:1} @16
 H Patient|pick
-- Young woman or child {itp:1}
+- Young woman or child {itp:1} @47
+G Screen the causes, one at a time
+M Vessels · Platelets · Clotting factors · Drugs|Handbook causes: vessel disorders, platelet disorders (low or not working), clotting factor deficiency (hereditary or acquired).
+H Marrow and platelets|pick
+* Fever {leuk:1,dic:1} @17
+* Bone pain {leuk:1} @18
+- Weight loss {leuk:1} @19
+* Getting paler {leuk:1} @20
+- Recurrent infections {leuk:1} @21
+- New lumps {leuk:1} @22
+H Recent events|pick
+* Recent cold or vaccination {itp:1} @28
+! Severe infection or sepsis {dic:4} @29
+- Recent childbirth complication {dic:1} @30
+H Vessels|pick
+* Raised purple rash on the legs {vas:2} @25
+- Abdominal pain {vas:2} @26
+- Joint pain {vas:2} @27
+- Poor diet, no fruit {vas:1} @31
+H Liver and gut|pick
+* Yellow eyes {liv:2} @23
+- Swollen abdomen {liv:1} @24
+- Fatty diarrhoea {vitk:4} @32
+G Background for this complaint
+M Past · Drugs · Family|Liver, kidney, cancer, transfusions · blood thinners and steroids · bleeding relatives (none does not rule out a hereditary cause)
+H Past history|pick|Past history:
+* Liver disease or hepatitis {liv:2} @33
+- Cancer {dic:1} @34
+- Obstructive jaundice {vitk:4} @35
+- Blood transfusion @36
+- Kidney disease @37
+- Diabetes, IHD, DVT or hypertension @x300
+H Drugs|pick|Takes:
+* Warfarin or other anticoagulant {drug:1} @38
+* Aspirin or NSAIDs {drug:1} @39
+- Steroids {drug:1} @40
+- Sulfa drugs {drug:1} @41
+- New drug recently {drug:1} @42
+- Antibiotics {vitk:2} @43
+- Alcohol excess {liv:2} @44
+H Family history|pick|Family history:
+N No family history does not rule out a hereditary disorder.
+* Male relatives with bleeding {hem:3,vwd:1} @45
+- Relatives of either sex {vwd:2} @46
 G Examination
 E Vital signs|pick
 ! Shocked {dic:1,leuk:1} @0
@@ -2279,9 +2300,6 @@ E Thyroid|pick
 - Tremor, goitre, warm sweaty hands {thy:5} @13
 - Dry skin, slow-relaxing reflexes {hypo:2} @14
 @jaundice|Jaundice|Gastrointestinal|Medicine
-Y Before the liver|hem,gil|Anaemia
-Y Liver|hep,cirr,drug,aih,wil,mal,rhd|Hepatitis,Liver failure,Exposure,Drugs before onset
-Y After the liver|gall,chang,panc|Obstruction and infection,Weight
 SC cp
 I LFTs (conjugated vs unconjugated bilirubin, ALP, GGT, ALT), FBC with film, reticulocytes, INR; hepatitis serology; USS abdomen; MRCP or CT; ERCP; CA19-9 if pancreatic; autoimmune screen, ferritin, caeruloplasmin
 D hep|Viral / alcoholic hepatitis||1.2
@@ -2296,78 +2314,80 @@ D aih|Autoimmune / PBC / PSC||0.3
 D wil|Wilson's / haemochromatosis||0.15
 D mal|Liver metastases / HCC|!|0.4
 D rhd|Congestive hepatopathy||0.2
-G The jaundice
+Y Before the liver|hem,gil|Before the liver
+Y Liver|hep,cirr,drug,aih,wil,mal,rhd|Liver,Liver failure,Drugs before onset
+Y After the liver (blocked bile)|gall,chang,panc|After the liver
+G The jaundice (handbook)
+M Onset · Course · Pain · Urine, stool, itch|Dark urine, pale stool and itching = the bile cannot get out (after the liver)
 H Onset|one|Onset:
-- Sudden, over days {hep:2,gall:1,chang:1,drug:1}
-- Gradual, over weeks {panc:2,mal:2,cirr:1,aih:1}
-- Comes and goes, mild, with fasting or illness {gil:3}
-- Since childhood {hem:2,gil:1}
+* Sudden, over days {hep:2,gall:1,chang:1,drug:1} @0
+- Gradual, over weeks {panc:2,mal:2,cirr:1,aih:1} @1
+- Comes and goes, mild, with fasting or illness {gil:3} @2
+- Since childhood {hem:2,gil:1} @3
 H Course|one|Course:
-- Getting deeper steadily {panc:3,mal:2}
-- Fluctuating {gall:2}
-- Improving {hep:1}
+- Getting deeper steadily {panc:3,mal:2} @4
+- Fluctuating {gall:2} @5
+- Improving {hep:1} @6
 H Pain|one|Pain:
-- Painless {panc:3,mal:2,gil:1,hem:1}
-- Colicky right upper quadrant pain {gall:5}
-- Dull ache under the right ribs {hep:2,rhd:1}
+* Painless {panc:3,mal:2,gil:1,hem:1} @7
+- Colicky right upper quadrant pain {gall:5} @8
+- Dull ache under the right ribs {hep:2,rhd:1} @9
 H Urine, stool and skin|pick|With:
-N Dark urine, pale stool and itch mean the bile cannot get out (obstructive).
-- Dark urine {gall:1,panc:1,chang:1,aih:1}
-- Pale stools {gall:1,panc:1,chang:1,aih:1}
-- Itching {gall:1,panc:1,chang:1,aih:1}
-- Normal-coloured urine {hem:2,gil:2}
-G Associated symptoms
-H Hepatitis|pick
-- Malaise and loss of appetite {hep:1}
-- Nausea {hep:1}
-- Off cigarettes or alcohol {hep:1}
-H Obstruction and infection|pick
-! Fever and rigors with right upper quadrant pain {chang:5}
-- Back pain {panc:1}
-- New diabetes {panc:1}
-- Fatty pale stools {panc:1}
-H Weight|pick
-! Weight loss and anorexia {panc:3,mal:3}
-- Night sweats {mal:1}
+* Dark urine {gall:1,panc:1,chang:1,aih:1} @10
+* Pale stools {gall:1,panc:1,chang:1,aih:1} @11
+* Itching {gall:1,panc:1,chang:1,aih:1} @12
+- Normal-coloured urine {hem:2,gil:2} @13
+G Before, in or after the liver?
+M Pre-hepatic · Hepatic · Post-hepatic|Handbook: haemolysis and Gilbert's · viral, alcohol, drugs, cirrhosis, autoimmune, Wilson's · stone, pancreatic cancer, stricture, cholangitis
+H Before the liver|pick
+* Tiredness and breathlessness (anaemia) {hem:2} @27
+H Liver|pick
+* Malaise and loss of appetite {hep:1} @14
+- Nausea {hep:1} @15
+- Off cigarettes or alcohol {hep:1} @16
+- Tremor or behaviour change in a young patient {wil:4} @28
+- Joint pain {aih:1,wil:1} @29
 H Liver failure|pick
-! Vomiting blood or black stool {cirr:2}
-! Confusion or sleepiness {cirr:2}
-- Swollen abdomen {cirr:2}
-- Easy bruising {cirr:1,hep:1}
-H Anaemia|pick
-- Tiredness and breathlessness (anaemia) {hem:2}
-H Other|pick
-- Tremor or behaviour change in a young patient {wil:4}
-- Joint pain {aih:1,wil:1}
+! Vomiting blood or black stool {cirr:2} @23
+! Confusion or sleepiness {cirr:2} @24
+* Swollen abdomen {cirr:2} @25
+- Easy bruising {cirr:1,hep:1} @26
+H After the liver|pick
+! Fever and rigors with right upper quadrant pain {chang:5} @17
+! Weight loss and anorexia {panc:3,mal:3} @21
+- Back pain {panc:1} @18
+- New diabetes {panc:1} @19
+- Fatty pale stools {panc:1} @20
+- Night sweats {mal:1} @22
 G Background for this complaint
+M Past · Contacts · Drugs · Family|Hepatitis, gallbladder, transfusion, pregnancy · alcohol, sex, travel, jaundiced contacts · every drug before onset · family jaundice
 H Past history|pick|Past history:
-- Gallstones or gallbladder problems {gall:2}
-- Hepatitis {hep:1,cirr:1}
-- Blood transfusion {hep:1,cirr:1}
-- Splenectomy {hem:2}
-- Autoimmune disease or IBD {aih:2}
-- Heart failure {rhd:5}
-- Pregnancy
+* Gallstones or gallbladder problems {gall:2} @30
+* Hepatitis {hep:1,cirr:1} @31
+* Blood transfusion {hep:1,cirr:1} @32
+- Bleeding disorder or splenectomy {hem:2} @33
+- Autoimmune disease or IBD {aih:2} @34
+- Heart failure {rhd:5} @35
+- Pregnancy @36
 - Diabetes {panc:1,cirr:1} @x20
 - Obesity (fatty liver) {cirr:1} @x21
-- Hypertension @x22
 H Exposure|pick|Exposure:
-- Alcohol excess (units per week) {hep:3,cirr:4}
-- Contact with jaundiced people {hep:2}
-- Travel {hep:1}
-- Injections, tattoos {hep:1,cirr:1}
-- Sexual exposure {hep:1,cirr:1}
+* Alcohol excess (units per week) {hep:3,cirr:4} @37
+* Contact with jaundiced people {hep:2} @38
+- Travel {hep:1} @39
+- Injections, tattoos {hep:1,cirr:1} @40
+- Sexual exposure {hep:1,cirr:1} @41
 - Smoker {panc:1,mal:1} @x23
 H Drugs before onset|pick|Took:
-- Paracetamol overdose {drug:4}
-- Erythromycin or co-amoxiclav {drug:5}
-- Isoniazid or rifampicin {drug:5}
-- Valproate {drug:2}
-- Contraceptive pill or anabolic steroids {drug:1}
-- Herbal remedies {drug:2}
+* Paracetamol overdose {drug:4} @42
+- Erythromycin or co-amoxiclav {drug:5} @43
+* Isoniazid or rifampicin {drug:5} @44
+- Valproate {drug:2} @45
+* Contraceptive pill or anabolic steroids {drug:1} @46
+- Herbal remedies {drug:2} @47
 H Family history|pick|Family history:
-- Similar jaundice {gil:3,hem:1}
-- Liver disease {wil:1,aih:1}
+* Similar jaundice {gil:3,hem:1} @48
+- Liver disease {wil:1,aih:1} @49
 G Examination
 E Vital signs|pick
 - Fever {chang:3,hep:1} @0
@@ -3311,10 +3331,6 @@ N Scalp, ears, nose, mouth, pharynx; bimanual palpation of the floor of the mout
 - Chest signs or enlarged supraclavicular nodes {tb:1,met:1} @x256
 
 @breast|Breast lump|Breast|Surgery
-Y Benign lumps|fib,cyst,fcc,phyll,gal|Age,Onset and course
-Y Cancer|ca|Nipple,Skin,Spread,Family history
-Y Infection and inflammation|abs,fn,mond|Pain
-Y Nipple and ducts|duct,ecz|Nipple
 SC
 I Triple assessment: clinical examination, imaging (USS under 40, mammography from 40) and core biopsy or FNAC; if malignant: CXR, LFT, bone scan, CT staging; BRCA counselling when indicated
 D fib|Fibroadenoma||1.2
@@ -3328,63 +3344,67 @@ D duct|Duct ectasia / papilloma||0.3
 D gal|Galactocele||0.1
 D ecz|Nipple eczema||0.1
 D mond|Mondor disease||0.05
-G The lump
+Y Benign lumps|fib,cyst,fcc,phyll,gal|Age,The lump
+Y Cancer|ca|Nipple and skin,Spread
+Y Infection and inflammation|abs,fn,mond|Pain and infection
+Y Nipple and ducts|duct,ecz|Nipple and skin
+G The lump story (Browse)
+M Age first|Under 30: fibroadenoma · 30 to 50: cysts and fibrocystic change · over 50: think cancer
 H Age|one|Age:
-- Under 30 {fib:4}
-- 30 to 50 {cyst:4,fcc:2}
-- Over 50 {ca:4}
-H Onset and course|pick|Lump:
-- Appeared suddenly {cyst:3}
-! Painless and growing {ca:5}
-- Slow-growing, moves easily {fib:5}
-- Large and growing fast {phyll:5}
-- Came after an injury or surgery {fn:2}
+* Under 30 {fib:4} @0
+- 30 to 50 {cyst:4,fcc:2} @1
+- Over 50 {ca:4} @2
+H The lump|pick|Lump:
+* Appeared suddenly {cyst:3} @3
+! Painless and growing {ca:5} @4
+* Slow-growing, moves easily {fib:5} @5
+- Large and growing fast {phyll:5} @6
+- Came after an injury or surgery {fn:2} @7
 - Milky cyst after breastfeeding stopped {gal:4} @x305
-H Pain|one|Pain:
-- Painless {ca:1,fib:1}
-- Painful, worse before periods {fcc:3,cyst:1}
-- Painful with redness and fever {abs:2}
-H Both sides|pick
-- Lumpiness in both breasts {fcc:3,cyst:1}
-G Nipple and skin
-H Nipple|pick|Nipple:
-! Bloody discharge {ca:3,duct:4}
-- Green or sticky discharge {duct:5}
-! Newly pulled in {ca:5}
-- Eczema of the nipple {ca:3}
+* Lumpiness in both breasts {fcc:3,cyst:1} @11
+H Pain and infection|one|Pain:
+- Painless {ca:1,fib:1} @8
+* Painful, worse before periods {fcc:3,cyst:1} @9
+- Painful with redness and fever {abs:2} @10
+G Screen the nipple, skin and spread
+M Nipple: the 7 Ds (Browse)|Destruction · Depression (inversion) · Discolouration · Displacement · Deviation · Discharge · Duplication
+H Nipple and skin|pick|Has:
+! Bloody discharge {ca:3,duct:4} @12
+! Newly pulled in {ca:5} @14
+* Eczema of the nipple {ca:3} @15
+- Green or sticky discharge {duct:5} @13
 - Clear or straw-coloured discharge {fcc:2,duct:2} @x201
 - Pus from the nipple {abs:3} @x202
 - Black or green discharge from many ducts {duct:4} @x203
 - Milky discharge {gal:2} @x304
-H Skin|pick|Skin:
-! Dimpling or puckering {ca:5}
-- Redness and warmth {abs:2}
-- Bruising {fn:2}
-G Associated symptoms
+! Skin dimpling or puckering {ca:5} @16
+* Redness and warmth {abs:2} @17
+- Bruising {fn:2} @18
 H Spread|pick
-- Bone pain {ca:1}
-- Cough or breathlessness {ca:1}
-- Yellow eyes {ca:1}
-- Weight loss {ca:1}
-- Lump in the armpit {ca:2}
+* Lump in the armpit {ca:2} @23
+* Bone pain {ca:1} @19
+- Cough or breathlessness {ca:1} @20
+- Yellow eyes {ca:1} @21
+- Weight loss {ca:1} @22
 G Background for this complaint
+M Browse's breast history|Menarche · menopause · cycle changes · pregnancies · breastfeeding · family history · drugs (pill, HRT)
 H Hormonal history|pick|Hormonal:
-- Early first period {ca:1}
-- Late menopause {ca:1}
-- No children or first child after 30 {ca:1}
-- HRT for over 5 years {ca:1}
-- Contraceptive pill {ca:1}
-- Pregnant or breastfeeding {abs:3,fcc:1}
+- Early first period {ca:1} @24
+- Late menopause {ca:1} @25
+- No children or first child after 30 {ca:1} @26
+* HRT for over 5 years {ca:1} @27
+- Contraceptive pill {ca:1} @28
+* Pregnant or breastfeeding {abs:3,fcc:1} @29
 H Past history|pick|Past history:
-- Previous breast lump or cancer {ca:1}
-- Previous breast surgery or implants {fn:2,abs:1}
-- Chest radiotherapy {ca:1}
+* Previous breast lump or cancer {ca:1} @30
+- Previous breast surgery or implants {fn:2,abs:1} @31
+- Chest radiotherapy {ca:1} @32
 H Family history|pick|Family history:
-- Breast cancer (note the relative's age) {ca:1}
-- Ovarian cancer {ca:1}
+* Breast cancer (note the relative's age) {ca:1} @33
+- Ovarian cancer {ca:1} @34
 H Habits|pick
-- Alcohol {ca:1}
-- Obesity after menopause {ca:1}
+- Alcohol {ca:1} @35
+- Obesity after menopause {ca:1} @36
 G Inspection
 E Inspection|pick
 M Arms down, arms up, hands on hips|Size · symmetry · skin (dimpling, peau d'orange) · nipple
@@ -3410,9 +3430,9 @@ E The lump|pick
 M 5S, then consistency and fixation|Site (quadrant, clock face) · Size · Shape · Surface · Skin → consistency → fixation
 N Patient at 45 degrees, hand behind the head. Normal breast first, then all four quadrants, the axillary tail and behind the nipple.
 ! Hard, irregular, fixed lump {ca:5}
-- Smooth, firm, very mobile lump {fib:5}
-- Smooth, tense lump {cyst:5}
-- Nodular, tender, ill-defined, both sides {fcc:5}
+* Smooth, firm, very mobile lump {fib:5}
+* Smooth, tense lump {cyst:5}
+* Nodular, tender, ill-defined, both sides {fcc:5}
 - Tender, fluctuant {abs:2}
 - Firm irregular mass after injury {fn:5}
 - Lobulated large mobile mass {phyll:5}
@@ -3427,14 +3447,15 @@ N Patient at 45 degrees, hand behind the head. Normal breast first, then all fou
 - Firm, rubbery consistency {fib:3} @x219
 - Hot, tender breast {abs:4} @x220
 E Fixation|pick
-M Skin first, then muscle|Move the lump and watch the skin · then hands on hips to tense pectoralis and move it again
-- Fixed to the skin {ca:3}
-- Fixed to pectoralis (test with hands pressed on hips) {ca:4}
+M Tethered or fixed? (Browse)|Tethered: the skin dimples when you move the lump · Fixed: the lump cannot move without the skin · then hands on hips to tense pectoralis
+* Fixed to the skin {ca:3}
+* Fixed to pectoralis (test with hands pressed on hips) {ca:4}
 - Fixed to the chest wall {ca:4} @x106
 - Skin tethers when pinching the skin and moving the lump {ca:3} @x221
 - Fixed to the serratus anterior (hands pressed on a wall) {ca:3} @x222
 E Nipple|pick
-- Discharge from one duct {duct:1,ca:1}
+M The 7 Ds|Destruction · Depression · Discolouration · Displacement · Deviation · Discharge · Duplication
+* Discharge from one duct {duct:1,ca:1}
 - Discharge from many ducts {duct:1}
 - Bloody discharge {ca:2,duct:2} @x107
 G Lymph nodes and spread
@@ -3446,6 +3467,7 @@ M Axilla, then above the clavicle|Axillary groups: anterior · posterior · cent
 - Infraclavicular or apical nodes {ca:3} @x223
 - Nodes fixed to each other or the chest wall {ca:3} @x224
 E Spread|pick
+M Spine · chest · liver (Browse)|Spinal tenderness · pleural effusion · hepatomegaly · then supraclavicular fossae and a general examination
 - Hepatomegaly {ca:1}
 - Spinal tenderness {ca:1}
 - Chest signs {ca:1}
@@ -3686,11 +3708,6 @@ E Proctoscopy|pick
 - Inflamed mucosa {ibd:2,fist:2}
 
 @acuteabd|Acute abdomen (surgical)|Emergency|Surgery
-Y Perforation|pu,div|Gut,Past history
-Y Inflammation|app,chol,pan|Gut,Infection
-Y Obstruction|ob,vol|Gut
-Y Vessels|aaa,mes|Collapse
-Y Gynae|ect|Women
 SC alv,qsofa,news
 I Resuscitate first; bedside lactate, ABG, glucose; FBC, U&E, CRP, amylase or lipase, LFT, coagulation, group and save or crossmatch; urine and beta-hCG; ECG; erect CXR; contrast CT abdomen and pelvis once stable; early senior surgical review
 D pu|Perforated peptic ulcer|!|1
@@ -3703,68 +3720,78 @@ D chol|Acute cholecystitis / cholangitis||0.8
 D div|Perforated diverticulitis||0.8
 D vol|Volvulus|!|0.3
 D ect|Ruptured ectopic / ovarian torsion|!|0.5
+Y Perforation|pu,div|Perforation
+Y Inflammation|app,chol,pan|Inflammation
+Y Obstruction|ob,vol|Obstruction
+Y Bleeding inside|aaa,ect|Bleeding inside
+Y Ischaemia|mes|Ischaemia
 G First: is the patient stable?
 H Resuscitation|yn
 N If unwell, do ABCDE and resuscitate before the full history.
-! ABCDE done, IV access, fluids, analgesia, antiemetic, nil by mouth
-G Pain (SOCRATES)
-H Site|pick|Site:
-- Epigastric {pu:2,pan:2}
-- Right upper quadrant {chol:3}
-- Right iliac fossa {app:3,ect:1}
-- Left iliac fossa {div:3,ect:1}
-- Lower abdomen or pelvis {ect:2}
-- Generalised {pu:2,ob:1,mes:2}
-- Back or flank {aaa:3,pan:1}
+! ABCDE done, IV access, fluids, analgesia, antiemetic, nil by mouth @0
+G The pain (Browse)
+M Onset · Site · Character · Severity · Progression · Radiation · Better or worse|Browse's features of pain that must be elicited
 H Onset|one|Onset:
-! Sudden, severe {pu:5,aaa:2,mes:3,ect:1}
-- Over hours {app:1,chol:1,pan:1,div:1,ob:1}
+! Sudden, severe {pu:5,aaa:2,mes:3,ect:1} @8
+- Over hours {app:1,chol:1,pan:1,div:1,ob:1} @9
+H Site|pick|Site:
+* Epigastric {pu:2,pan:2} @1
+- Right upper quadrant {chol:3} @2
+* Right iliac fossa {app:3,ect:1} @3
+- Left iliac fossa {div:3,ect:1} @4
+- Lower abdomen or pelvis {ect:2} @5
+* Generalised {pu:2,ob:1,mes:2} @6
+- Back or flank {aaa:3,pan:1} @7
 H Character|pick|Character:
-- Colicky {ob:2,vol:1}
-- Constant {pu:1,app:1,pan:1,div:1}
+* Colicky {ob:2,vol:1} @10
+* Constant {pu:1,app:1,pan:1,div:1} @11
 H Radiation|pick|Radiates to:
-- Back {pan:2,aaa:3}
-- Moved from the umbilicus to the right iliac fossa {app:5}
-- Right shoulder {chol:2}
-- Shoulder tip (blood or gas under the diaphragm) {pu:1,ect:1}
-H Exacerbating and relieving|pick|Pain:
-- Worse with any movement or coughing {pu:1,app:1,div:1}
-- Better leaning forward {pan:2}
-- Worse after fatty food {chol:2}
+* Back {pan:2,aaa:3} @12
+* Moved from the umbilicus to the right iliac fossa {app:5} @13
+- Right shoulder {chol:2} @14
+- Shoulder tip (blood or gas under the diaphragm) {pu:1,ect:1} @15
+H Better or worse|pick|Pain:
+* Worse with any movement or coughing {pu:1,app:1,div:1} @16
+- Better leaning forward {pan:2} @17
+- Worse after fatty food {chol:2} @18
 H Severity|pick|Severity:
-! Out of proportion to the examination {mes:5}
-- Severe, 7 or more of 10 {pu:1,aaa:1,pan:1,mes:1}
-G Associated symptoms
-H Gut|pick
-- Vomiting {ob:2,vol:1,pan:1,chol:1}
-! No stool or wind {ob:2,vol:1}
-- Distension {ob:2,vol:2}
-- Vomiting blood or black stool {pu:1}
-H Infection|pick
-- Fever {chol:2,div:2,app:1}
-H Collapse|pick
-! Fainted or collapsed {aaa:3,ect:2}
-H Women|pick
+! Out of proportion to the examination {mes:5} @19
+- Severe, 7 or more of 10 {pu:1,aaa:1,pan:1,mes:1} @20
+G Which surgical emergency?
+M Perforation · Inflammation · Obstruction · Bleeding · Ischaemia|Then remember causes outside the abdomen: pneumonia, MI, PE, DKA, testicular torsion, shingles (Browse)
+H Perforation|pick
+* Vomiting blood or black stool {pu:1} @24
+H Inflammation|pick
+* Fever {chol:2,div:2,app:1} @25
+H Obstruction|pick
+M 4 cardinal symptoms|Pain · Vomiting · Distension · Absolute constipation
+* Vomiting {ob:2,vol:1,pan:1,chol:1} @21
+! No stool or wind {ob:2,vol:1} @22
+* Distension {ob:2,vol:2} @23
+H Bleeding inside|pick
 N Ask every woman of child-bearing age; do a pregnancy test.
-! Missed period {ect:2}
-- Vaginal bleeding {ect:2}
+! Fainted or collapsed {aaa:3,ect:2} @26
+! Missed period {ect:2} @27
+* Vaginal bleeding {ect:2} @28
+H Ischaemia|pick
+* AF, recent MI or vascular disease {mes:2} @34
 G Background for this complaint
+M Past · Drugs|Operations and hernias (obstruction) · ulcers and NSAIDs (perforation) · gallstones and alcohol (pancreatitis) · aneurysm (bleeding)
 H Past history|pick|Past history:
-- Previous abdominal surgery {ob:3}
-- Hernia {ob:3}
-- Previous ulcer {pu:2}
-- Gallstones {pan:2,chol:1}
-- Known diverticular disease {div:2}
-- AF, recent MI or vascular disease {mes:2}
-- Known aneurysm or hypertension in an older man {aaa:3}
-- Chronic constipation or neuropsychiatric illness {vol:4}
+* Previous abdominal surgery {ob:3} @29
+* Hernia {ob:3} @30
+* Previous ulcer {pu:2} @31
+- Gallstones {pan:2,chol:1} @32
+- Known diverticular disease {div:2} @33
+* Known aneurysm or hypertension in an older man {aaa:3} @35
+- Chronic constipation or neuropsychiatric illness {vol:4} @36
 - Diabetes @x20
 - Kidney disease or dialysis @x21
 H Drugs and habits|pick|Takes:
-- NSAIDs {pu:2}
-- Steroids {pu:2}
-- Alcohol {pan:2}
-- Anticoagulants {mes:1}
+* NSAIDs {pu:2} @37
+- Steroids {pu:2} @38
+* Alcohol {pan:2} @39
+- Anticoagulants {mes:1} @40
 G General examination
 E Vital signs and perfusion|pick
 ! Tachycardia {aaa:1,mes:1,pu:1,ect:1,vol:1}
@@ -3821,6 +3848,7 @@ M Listen for a full minute|Bowel sounds · bruits · succussion splash
 - Succussion splash {ob:1} @x307
 G Complete the examination
 E Rectal and pelvic|pick
+M Never forget (Browse)|Supraclavicular nodes · hernial orifices · femoral pulses · genitalia · anal canal and rectum
 - Ballooned or empty rectum {ob:2,vol:3}
 - Cervical excitation or adnexal tenderness {ect:3}
 - Rectal tenderness on the right {app:1}
@@ -6853,12 +6881,6 @@ E Rectal examination|pick
 - Melaena on the glove {pu:3,ca:2} @x105
 
 @postop|Post-operative review / complication|Emergency|Surgery
-Y Wind (chest)|atel|Chest
-Y Water (urine)|uti,ret|Urine
-Y Wound|wi,dehis,bleed|Wound
-Y Walking (clots)|vte|Legs and lines
-Y Wonder drugs and lines|drug,line,hypoca|Other,Legs and lines
-Y Abdomen|leak,abs,ileus|Abdomen
 SC qsofa,news
 I Check the operation note and post-operative day (POD); full vitals, NEWS2, urine output and fluid balance chart; wound inspection and swab; drain output and character; FBC, CRP, U&E, calcium after neck surgery, lactate, blood, urine and wound cultures; CXR; urine dip; Doppler leg (DVT) or CTPA (PE); CT abdomen and pelvis for collection or leak; early senior review
 D bleed|Haemorrhage (primary, reactionary or secondary)|!|0.5
@@ -6874,62 +6896,72 @@ D ileus|Paralytic ileus||0.7
 D hypoca|Hypocalcaemia (after thyroid or parathyroid surgery)||0.2
 D drug|Drug or transfusion reaction||0.3
 D line|Cannula or line infection / phlebitis||0.4
-G The operation
-H Timing|one|Problem began:
+Y Wind (chest)|atel|Wind: chest
+Y Water (urine)|uti,ret|Water: urine
+Y Walking (clots)|vte|Walking: legs
+Y Wound and bleeding|wi,dehis,bleed|Wound and bleeding
+Y Wonder drugs and lines|drug,line,hypoca|Wonder drugs and lines
+Y Inside the abdomen|leak,abs,ileus|Inside the abdomen
+G The operation and the timing
+M Immediate · Early · Late|Under 6 h: bleeding, shock, breathing, arrhythmia, anaphylaxis · 6 to 72 h: atelectasis, aspiration, retention, UTI, phlebitis · over 72 h: wound infection, dehiscence, abscess, leak, DVT/PE, sepsis
+H When did it start|one|Problem began:
 N Read the operation note first: what was done, when, and any complications.
-- Within hours of surgery {bleed:2}
-- Days 1 to 2 (wind: chest) {atel:5}
-- Days 3 to 4 (water: urine) {uti:5,ret:2}
-- Days 5 to 6 (walking: legs and lungs) {vte:5}
-- Day 7 or later (wound, collection, leak) {wi:3,abs:3,leak:3,dehis:2}
-H Operation|pick|Operation:
-- Bowel surgery with an anastomosis {leak:2,ileus:1}
-- Emergency or contaminated surgery {wi:2,leak:1}
-- Long operation {wi:2,leak:1}
-- Thyroid or parathyroid surgery {hypoca:2}
-- Recent transfusion or new drug {drug:3}
-G Symptoms
-H Chest|pick
-- Cough with sputum {atel:2}
-- Breathless {atel:2,vte:2}
-! Pleuritic chest pain {vte:3}
-- Not breathing deeply or mobilising {atel:2}
-H Wound|pick
-- Pain, redness or swelling {wi:2}
-- Discharge {wi:2}
-! Burst open, or pink fluid leaking on coughing {dehis:3}
-H Urine|pick
-- Burning or frequency {uti:3}
-- Cannot pass urine, lower abdominal discomfort {ret:4}
-H Abdomen|pick
-- Distension, vomiting, no wind {ileus:2,leak:1,abs:1}
-! Worsening abdominal pain {leak:2,abs:2}
-H Legs and lines|pick
-- Calf pain or swelling {vte:3}
-- Pain or redness at the cannula {line:4}
-H Other|pick
-! Dizzy or faint {bleed:2}
-- Rigors {leak:2,abs:2,drug:1}
-- Rash {drug:3}
-- Tingling around the mouth or cramps {hypoca:4}
+* Within hours of surgery {bleed:2} @0
+- Days 1 to 2 (wind: chest) {atel:5} @1
+- Days 3 to 4 (water: urine) {uti:5,ret:2} @2
+- Days 5 to 6 (walking: legs and lungs) {vte:5} @3
+- Day 7 or later (wound, collection, leak) {wi:3,abs:3,leak:3,dehis:2} @4
+H The operation|pick|Operation:
+* Bowel surgery with an anastomosis {leak:2,ileus:1} @5
+- Emergency or contaminated surgery {wi:2,leak:1} @6
+- Long operation {wi:2,leak:1} @7
+* Thyroid or parathyroid surgery {hypoca:2} @8
+G The 5 W's, one at a time
+M Wind · Water · Walking · Wound · Wonder drugs|Post-op fever by day: wind (atelectasis) first, then water (UTI), walking (DVT/PE), wound (infection) around day 7, wonder drugs (drug or transfusion reaction) any time
+H Wind: chest|pick
+* Cough with sputum {atel:2} @10
+* Breathless {atel:2,vte:2} @11
+! Pleuritic chest pain {vte:3} @12
+- Not breathing deeply or mobilising {atel:2} @13
+H Water: urine|pick
+* Burning or frequency {uti:3} @17
+* Cannot pass urine, lower abdominal discomfort {ret:4} @18
+H Walking: legs|pick
+* Calf pain or swelling {vte:3} @21
+H Wound and bleeding|pick
+* Pain, redness or swelling {wi:2} @14
+* Discharge {wi:2} @15
+! Burst open, or pink fluid leaking on coughing {dehis:3} @16
+! Dizzy or faint {bleed:2} @23
+H Wonder drugs and lines|pick
+* Rash {drug:3} @25
+- Recent transfusion or new drug {drug:3} @9
+- Pain or redness at the cannula {line:4} @22
+- Tingling around the mouth or cramps {hypoca:4} @26
+H Inside the abdomen|pick
+* Distension, vomiting, no wind {ileus:2,leak:1,abs:1} @19
+! Worsening abdominal pain {leak:2,abs:2} @20
+* Rigors {leak:2,abs:2,drug:1} @24
 G Background for this complaint
+M Wound risks · Clot risks|Diabetes, malnutrition, obesity, steroids, smoking (wound) · immobility, cancer, previous DVT, no prophylaxis (clots)
 H Risk factors|pick|Risk factor:
-- Diabetes {wi:1,dehis:1,atel:1}
-- Malnourished or obese {wi:1,dehis:1}
-- Steroids or immunosuppressed {wi:1,dehis:1}
-- Smoker {wi:1,atel:1}
-- Immobile {vte:1}
-- Cancer {vte:1}
-- Previous DVT {vte:1}
-- No VTE prophylaxis {vte:1}
+* Diabetes {wi:1,dehis:1,atel:1} @27
+- Malnourished or obese {wi:1,dehis:1} @28
+- Steroids or immunosuppressed {wi:1,dehis:1} @29
+- Smoker {wi:1,atel:1} @30
+* Immobile {vte:1} @31
+- Cancer {vte:1} @32
+- Previous DVT {vte:1} @33
+* No VTE prophylaxis {vte:1} @34
 G General examination
 E Vital signs and charts|pick
+M Chart first (source list)|Pulse · RR · BP · temperature · SpO2 · urine output · bowel sounds
 N Observation chart, NEWS2, fluid balance, urine output.
 ! Hypotension {leak:1,bleed:1,vte:1}
 ! Tachycardia {leak:1,bleed:1,vte:1}
 ! Low urine output {leak:1,bleed:1}
 ! Mottled skin {leak:1,bleed:1}
-- Temperature over 38 C {wi:2,atel:2,uti:2,vte:1,abs:2,drug:2}
+* Temperature over 38 C {wi:2,atel:2,uti:2,vte:1,abs:2,drug:2}
 - Swinging fever {abs:4}
 - SpO2 low, tachypnoea {atel:2,vte:1}
 E General|pick
@@ -6940,23 +6972,24 @@ E General|pick
 - Confusion or drowsiness {leak:1,atel:1} @x101
 G Systems
 E Chest|pick
-- Basal crackles or reduced breath sounds {atel:2}
+* Basal crackles or reduced breath sounds {atel:2}
 - Raised JVP {vte:2}
 - Wheeze {drug:2} @x102
 E Abdomen|pick
-- Distension with absent bowel sounds {ileus:4,leak:1}
+* Distension with absent bowel sounds {ileus:4,leak:1}
 ! Peritonism or generalised tenderness {leak:3}
 - Localised tender mass {abs:4}
-- Palpable bladder {ret:4}
+* Palpable bladder {ret:4}
 - Suprapubic or renal angle tenderness {uti:2}
 E Legs|pick
-- Swollen tender calf {vte:4}
+* Swollen tender calf {vte:4}
 G Wound, drains and lines
 E Wound|pick
+M Signs of infection|Calor (heat) · Rubor (redness) · Dolor (pain) · Tumour (swelling) · loss of function
 N Ask to take down the dressing. Length, edges, discharge, surrounding skin.
 - Dressing soaked {bleed:1,wi:1}
-- Red, warm, hard, tender skin around it {wi:6}
-- Edges gaping {dehis:3}
+* Red, warm, hard, tender skin around it {wi:6}
+* Edges gaping {dehis:3}
 - Haematoma or seroma {bleed:2,wi:1}
 - Wound clean, dry and intact @x103
 E Drains|pick
@@ -6973,16 +7006,17 @@ I Match the drain to the operation and the post-operative day; record output vol
 G About the drain
 H Background|yn
 N Ask: what operation, which day, and why the drain was put in.
-- Operation and date known
-- Purpose known (therapeutic, prophylactic, monitoring)
+* Operation and date known
+* Purpose known (therapeutic, prophylactic, monitoring)
 - Checked for more than one drain
 H Symptoms|pick
 - Pain at the drain site
-- Fluid leaking around the drain
-- Fever or rigors
-- New abdominal pain
+* Fluid leaking around the drain
+* Fever or rigors
+* New abdominal pain
 G Identify the drain
 E Identify|yn
+M Number · Site · Type · Name|Open or closed, active or passive: Penrose, corrugated, Robinson, Redivac, Jackson-Pratt, T-tube, chest tube
 N Number, site, type (open or closed, active or passive) and name (Penrose, corrugated, Robinson, Redivac, Jackson-Pratt, T-tube, chest tube).
 - Number and site recorded
 - Type and name recorded
@@ -6990,28 +7024,31 @@ N Number, site, type (open or closed, active or passive) and name (Penrose, corr
 - Date inserted recorded @x102
 G Check the drain
 E Tube and bag|pick
+M Secure · Patent · Below the wound|No kinks or clots, well fixed, reservoir below the incision, active drains charged
 N Tap a problem if you find one; "Rest normal" when all is well.
-- Kinked or blocked by clots
-- Not secured
-- Bag above the wound level
+* Kinked or blocked by clots
+* Not secured
+* Bag above the wound level
 - Active reservoir not charged
 E Output|pick
+M Volume · Trend · Colour|Serous or serosanguinous is fine · purulent, bilious, faecal, chylous or bloody: keep it and find the source · a sudden change suggests a complication
 N Volume over 24 hours and its trend; colour.
 - Bloody
-- Purulent
-- Bilious
-- Faecal
+* Purulent
+* Bilious
+* Faecal
 - Chylous (milky)
 - Stopped suddenly
 - Serous or serosanguinous @x103
 - Amount since the last check charted @x104
 E Exit site and wound|pick
-- Exit site red or discharging
+* Exit site red or discharging
 - Leak around the tube
 - Herniation at the exit site
 - Main wound discharging or collection
 G Ready to come out?
 E Removal criteria|yn
+M Low · Serous · Well · Early|About 30 to 50 mL in 24 h and falling · serous · no fever or collection · remove early: over 7 to 10 days risks infection
 N Usually when output is low (about 30 to 50 mL in 24 hours, depends on the operation) and serous, and the patient is well.
 - Output low and falling
 - Fluid serous or serosanguinous
