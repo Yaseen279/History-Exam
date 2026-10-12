@@ -523,6 +523,9 @@ input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 
 .pk.hy.y::after,.pk.hy.a::after{color:inherit}
 .hys{color:#C98A00}
 .hyb[aria-pressed="true"]{box-shadow:0 2px 8px color-mix(in srgb,var(--accent) 30%,transparent)}
+.vb{position:relative;display:inline-flex;flex:none;line-height:0}
+.vb i{position:absolute;inset-inline-end:-4px;inset-block-end:-3px;display:grid;place-items:center;width:11px;height:11px;border-radius:50%;background:#1E9E55;color:#fff;font-style:normal;font-size:8px;font-weight:900;line-height:1;box-shadow:0 0 0 1.5px var(--surface)}
+.srcln .vb i{width:13px;height:13px;font-size:9px}
 </style></head><body>
 <div class="app" id="app"></div>
 <div class="toast" id="toast" hidden></div>
@@ -5932,12 +5935,6 @@ E Chest, abdomen, bladder|pick
 - Pericardial rub {ur:4}
 
 @vomit|Vomiting / nausea|Gastrointestinal|Medicine
-Y Gut|gast,pu,ob,panc|Gut
-Y Head|cns|Head
-Y Metabolic|dka|Metabolic
-Y Pregnancy|preg|Pregnancy
-Y Heart|mi|Chest
-Y Drugs|drug|Drugs and habits
 SC
 I Pregnancy test; glucose, ketones, U&E, Ca, LFT, amylase or lipase; FBC, CRP; urine dip; ECG if epigastric pain; AXR or CT if obstruction; OGD if upper GI alarm features; stop likely drugs; rehydrate
 D gast|Gastroenteritis||2
@@ -5949,57 +5946,69 @@ D dka|DKA / metabolic (uraemia, hypercalcaemia)|!|0.3
 D drug|Drugs / chemotherapy||0.8
 D panc|Pancreatitis / biliary|!|0.4
 D mi|Inferior MI|!|0.2
-G The vomiting
+Y Gut infection|gast|Infection
+Y Ulcer|pu|What comes up,Gut
+Y Obstruction|ob|What comes up,Gut
+Y Pancreas and gallbladder|panc|Gut
+Y Head (brain, migraine, ear)|cns|Head
+Y Sugar and kidney|dka|Metabolic
+Y Pregnancy|preg|Pregnancy
+Y Drugs and alcohol|drug|Drugs and habits
+Y Heart|mi|Chest
+G The vomiting (Browse)
+M What comes up tells the level|Watery and acid, no bile: pyloric · green, bile-stained: high small bowel · brown, foul, faeculent: low small bowel
 H Onset|one|Onset:
-- Sudden, within a day of food {gast:2}
-- Over days {ob:1,dka:1,preg:1}
-- Weeks {pu:1,cns:1,preg:1}
+* Sudden, within a day of food {gast:2} @0
+- Over days {ob:1,dka:1,preg:1} @1
+- Weeks {pu:1,cns:1,preg:1} @2
 H What comes up|pick|Vomit:
-- Food {gast:1,pu:1}
-! Bile (green) {ob:1}
-! Faeculent {ob:2}
-! Blood or coffee grounds {pu:2}
+* Food {gast:1,pu:1} @3
+! Bile (green) {ob:1} @4
+! Faeculent {ob:2} @5
+! Blood or coffee grounds {pu:2} @6
 H Timing|pick|Timing:
-- In the morning {preg:3,cns:1}
-- Soon after meals {pu:1}
-- Projectile, without nausea {cns:2}
+* In the morning {preg:3,cns:1} @7
+- Soon after meals {pu:1} @8
+- Projectile, without nausea {cns:2} @9
 H Relieved by|pick|Relieved by:
-- Vomiting relieves the pain {pu:1,ob:1}
-- Food or milk {pu:3}
-G Associated symptoms
-H Gut|pick
-- Diarrhoea {gast:2}
-- Colicky pain and distension {ob:1}
-! No stool or wind {ob:2}
-- Epigastric pain to the back {panc:3}
-H Head|pick
-! Headache or neck stiffness {cns:2}
-- Visual disturbance {cns:2}
-- Room spinning, ringing in the ears {cns:3}
-H Metabolic|pick
-! Thirst, passing a lot of urine, deep breathing {dka:2}
-H Pregnancy|pick
-- Missed period or breast tenderness {preg:3}
-H Chest|pick
-! Chest pain and sweating {mi:2}
+* Vomiting relieves the pain {pu:1,ob:1} @10
+- Food or milk {pu:3} @11
+G Gut or outside the gut?
+M Gut · Brain · Metabolic · Pregnancy · Drugs|Browse's medical causes: opioids and chemotherapy, alcohol, pregnancy, uraemia, high or low sugar, stroke, migraine, brain tumour, concussion, adrenal failure, Meniere's
 H Infection|pick
-- Fever {gast:2}
-- Others ill with the same food {gast:2}
+N Gastroenteritis starts 12 to 72 hours after the infection; bacterial causes give cramps and blood in the stool.
+* Fever {gast:2} @22
+* Others ill with the same food {gast:2} @23
+H Gut|pick
+* Diarrhoea {gast:2} @12
+* Colicky pain and distension {ob:1} @13
+! No stool or wind {ob:2} @14
+- Epigastric pain to the back {panc:3} @15
+H Head|pick
+! Headache or neck stiffness {cns:2} @16
+- Visual disturbance {cns:2} @17
+- Room spinning, ringing in the ears {cns:3} @18
+H Metabolic|pick
+! Thirst, passing a lot of urine, deep breathing {dka:2} @19
+H Pregnancy|pick
+* Missed period or breast tenderness {preg:3} @20
+H Chest|pick
+! Chest pain and sweating {mi:2} @21
 G Background for this complaint
 H Past history|pick|Past history:
-- Previous abdominal surgery {ob:1}
-- Diabetes {dka:2,mi:1}
-- Gallstones {panc:3}
-- Peptic ulcer {pu:2}
+* Previous abdominal surgery {ob:1} @24
+* Diabetes {dka:2,mi:1} @25
+- Gallstones {panc:3} @26
+- Peptic ulcer {pu:2} @27
 - Hypertension, IHD or smoker {mi:1} @x20
-- Migraine or head injury {cns:2} @x21
-- Kidney disease {dka:2} @x22
+* Migraine or head injury {cns:2} @x21
+* Kidney disease {dka:2} @x22
 H Drugs and habits|pick|Takes:
-- Chemotherapy or opioids {drug:3}
-- Digoxin {drug:3}
-- Antibiotics, metformin or iron {drug:1}
-- NSAIDs {pu:3}
-- Alcohol {pu:1,panc:2}
+* Chemotherapy or opioids {drug:3} @28
+- Digoxin {drug:3} @29
+- Antibiotics, metformin or iron {drug:1} @30
+- NSAIDs {pu:3} @31
+* Alcohol {pu:1,panc:2} @32
 G General examination
 E Hydration and vitals|pick
 - Dry mouth, poor turgor, postural drop {gast:1,ob:1,dka:1}
@@ -6803,11 +6812,6 @@ N Never examine only the lump: examine the whole patient.
 - Other lumps elsewhere {lip:1,node:1} @x208
 - Signs of systemic illness (weight loss, fever) {node:1,sarc:1} @x209
 @dyspep|Dyspepsia / epigastric pain|Upper GI|Surgery
-Y Oesophagus|gerd|Reflux
-Y Stomach|pu,gast,hpylori,gastropar|Stomach
-Y Cancer|ca|Alarm features
-Y Gallbladder and pancreas|gall,panc|Radiation
-Y Heart|mi|Cardiac
 SC
 I Test and treat for H. pylori; urgent OGD if alarm features (age over 55 with new symptoms, dysphagia, weight loss, anaemia, vomiting, melaena, mass); FBC, ferritin, LFT, amylase or lipase; ECG if chest pain; USS biliary; trial of PPI; stop NSAIDs
 D gerd|GORD||2
@@ -6819,72 +6823,82 @@ D panc|Pancreatitis|!|0.3
 D mi|Cardiac (angina, MI)|!|0.3
 D hpylori|Helicobacter pylori infection||0.8
 D gastropar|Gastroparesis||0.2
+Y Oesophagus (reflux)|gerd|Reflux,Exacerbating factors
+Y Stomach and duodenum|pu,gast,hpylori,gastropar|Timing,Stomach
+Y Cancer|ca|Alarm features
+Y Gallbladder and pancreas|gall,panc|Radiation
+Y Heart|mi|Cardiac
 G Pain (SOCRATES)
+M Ulcer clues (Browse)|Epigastric pain related to meals · gastric ulcer: afraid to eat, vomiting relieves it · duodenal ulcer: good appetite, eats to relieve the pain · indigestion with new weight loss: suspect gastric cancer
 H Site|pick|Site:
-- Behind the breastbone {gerd:2,mi:1}
-- Epigastric {pu:2,gast:1,panc:1}
-- Right upper quadrant {gall:3}
+* Behind the breastbone {gerd:2,mi:1} @0
+* Epigastric {pu:2,gast:1,panc:1} @1
+- Right upper quadrant {gall:3} @2
 H Onset|one|Onset:
-- Gradual, weeks to months {gerd:1,pu:1,gast:1}
-- Episodes lasting hours {gall:2}
-- Sudden, severe {panc:2,mi:1}
+* Gradual, weeks to months {gerd:1,pu:1,gast:1} @3
+- Episodes lasting hours {gall:2} @4
+- Sudden, severe {panc:2,mi:1} @5
 H Character|pick|Character:
-- Burning {gerd:2,pu:1}
-- Gnawing {pu:2}
-- Colicky {gall:2}
-- Tight {mi:3}
+* Burning {gerd:2,pu:1} @6
+* Gnawing {pu:2} @7
+- Colicky {gall:2} @8
+- Tight {mi:3} @9
 H Radiation|pick|Radiates to:
-- Back {panc:2}
-- Right shoulder {gall:3}
-- Arm or jaw {mi:3}
+* Back {panc:2} @10
+- Right shoulder {gall:3} @11
+- Arm or jaw {mi:3} @12
 H Timing|pick|Timing:
-- At night, eased by eating (duodenal) {pu:3}
-- Worse straight after food (gastric) {pu:2}
-- After fatty meals {gall:3}
-- On exertion {mi:4}
+* At night, eased by eating (duodenal) {pu:3} @13
+* Worse straight after food (gastric) {pu:2} @14
+- After fatty meals {gall:3} @15
+- On exertion {mi:4} @16
 H Exacerbating factors|pick|Worse with:
-- Lying flat or bending {gerd:2}
-- Large meals {gerd:2}
-- Alcohol {gast:1,panc:1}
+N Reflux is related to posture: bending, stooping, heavy lifting and tight clothes; worse at night off the pillow (Browse).
+* Lying flat, bending, stooping or lifting {gerd:2} @17
+- Large meals {gerd:2} @18
+- Alcohol {gast:1,panc:1} @19
 H Relieving factors|pick|Relieved by:
-- Antacids {gerd:1,pu:1}
-- Food or milk {pu:2}
-- Rest {mi:2}
-G Associated symptoms
+* Antacids {gerd:1,pu:1} @20
+* Food or milk {pu:2} @21
+- Rest {mi:2} @22
+G Screen the causes
+M Oesophagus · Stomach · Cancer · Gallbladder and pancreas · Heart|Browse's upper abdominal causes: gallstones, pancreatitis, gastritis, peptic ulcer, oesophagitis; and causes outside the abdomen
 H Reflux|pick
-- Acid regurgitation {gerd:2}
-- Sour taste or night cough {gerd:1}
+* Acid regurgitation {gerd:2} @23
+- Sour taste or night cough {gerd:1} @24
 H Stomach|pick
-- Bloating {gast:2}
-- Feeling full early {gast:2,ca:1}
-- Nausea {gast:2}
-- Vomiting undigested food hours later {gastropar:4,ca:1}
+- Bloating {gast:2} @25
+* Feeling full early {gast:2,ca:1} @26
+- Nausea {gast:2} @27
+- Vomiting undigested food hours later {gastropar:4,ca:1} @28
 H Alarm features|pick
 N Any of these needs an urgent endoscopy.
-! Difficulty swallowing {ca:1,pu:1}
-! Persistent vomiting {ca:1,pu:1}
-! Weight loss {ca:1,pu:1}
-! Tiredness or pallor (anaemia) {ca:1,pu:1}
-! Vomiting blood or black stool {ca:1,pu:1}
-! New symptoms over 55 {ca:3}
+! Difficulty swallowing {ca:1,pu:1} @29
+! Persistent vomiting {ca:1,pu:1} @30
+! Weight loss {ca:1,pu:1} @31
+! Tiredness or pallor (anaemia) {ca:1,pu:1} @32
+! Vomiting blood or black stool {ca:1,pu:1} @33
+! New symptoms over 55 {ca:3} @34
 H Cardiac|pick
-- Sweating with the pain {mi:4}
+* Sweating with the pain {mi:4} @35
 G Background for this complaint
+M Drugs · Smoking and stress · Past · Family|Aspirin and NSAIDs irritate the stomach: get the exact details (Browse)
 H Drugs and habits|pick|Takes:
-- NSAIDs or aspirin {pu:1,gast:1}
-- Steroids {pu:1}
-- Alcohol {pu:1,gast:1,panc:1}
-- Smoker {pu:1,gerd:1}
+* NSAIDs or aspirin {pu:1,gast:1} @36
+- Steroids {pu:1} @37
+- Alcohol {pu:1,gast:1,panc:1} @38
+* Smoker {pu:1,gerd:1} @39
+- Periods of stress {pu:1} @x300
 H Past history|pick|Past history:
-- H. pylori or ulcer {hpylori:2,pu:1}
-- Gallstones {panc:2,gall:1}
-- Diabetes with early satiety and vomiting {gastropar:6}
+* H. pylori or ulcer {hpylori:2,pu:1} @40
+- Gallstones {panc:2,gall:1} @41
+- Diabetes with early satiety and vomiting {gastropar:6} @42
 - Hypertension, IHD or smoker {mi:2} @x20
 H Family history|pick|Family history:
-- Stomach cancer {ca:3}
-- Ulcers {hpylori:1}
+* Stomach cancer {ca:3} @43
+- Ulcers {hpylori:1} @44
 H Social|pick
-- Poor sanitation or crowded housing {hpylori:2}
+- Poor sanitation or crowded housing {hpylori:2} @45
 G General examination
 E General|pick
 ! Pallor {ca:2}
@@ -7177,6 +7191,7 @@ H Patient data
 - Occupation
 - Marital status
 - Residency
+- Religion @x300
 - Date of admission
 - Date of taking the history
 - Mode of referral
@@ -8463,10 +8478,12 @@ var PDFW=(function(){
 
 /* College of Medicine, University of Baghdad crest: source attribution mark */
 var LOGO='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFQAAABkCAYAAAAYERdsAABMTElEQVR42u39d7Sl6XXeB/72+75fOumem+veWzl1dVXnbqABIgMCSUAUA4huSpbosWzJHHOGkjVWICXPVDclWbLHNE3Jkmia1lCBJtUtkmACJRI5EECjG+jq3JXr3ro5nvyFN/iPU80AkqDIkUTOWvOtVavWunXqnPvts7/97v3s59lb+He4wn/5cCQ/9lwVnvnHH9j5+K//WGdzf/rUo8c/IX/mR78F3Pg1n7xoePcTTkQC/z9yhace08yeFwB5z5MWIISgyn/1n3729Zd79+f7ZnTueC9t3j37/TzzL/4JFx4Xefxp9/XeU36/D33qscf0408/7cLnLn4w//XP/x+3X8snDnKFmY6pHZp/+uzZaocP/9knRb5t843XP/YY8PL5IE8+6f9YGvLiRcUrT4o8zW8YJ9z4B+f48sf+yrXXG3PD7Zvf3u8pDg60f+BUoabuX/qJ9Lt/5s+HT77LyHs+bf/QBg0XLyqeeCLwhb/7LdVzv/p/3N6Rhp1/i0fV1Nry66HldmUuOqAbnX16/tTxT0y95/RHZen/svzbPODl82OPfQLgySDCf3QPDiBcvDi+1wuv3PEyIXzh+9/Pzub57dF8v3vz6nfVezfev1lOcWAmwqGjp8XvVWH3yoth8Vhz9eSf+uCflof+818Pn7xo3vDmP5BBL168qJ545RX56mNvnzqx8UvPHqwPj/p7v9ktvv1h7Z1lcHuV9SvX3MHlDSZ3D/ShWcteo31p2Dr1S/efjJU6Mfszcvf3Pvd7fknAf6jwEEL4zft64gn52iclvPzfv8Nf2fyz6y99+bsbua8VZo7OMGM9ilz73iWOnj6ks1qLaG3Ia5+5FAarr8nJ8zO7rUfe/qH4XX/lM+EiSp7E/4EMGp56TMvjT7vrT//IN24/97GnFhZOtua+8ZuCm2t51T8wohRqUGE3++TXrvv1lRthr7OuTYATMw5Vjzby7J3/1ZEJt8piFTPhNW7qVXnoL2//VuP++w4Lv9t7hrBa4yv/9JFqrxztLEfH9PbHfmxU6skbO0koQsOdPHJMFh+6V6LZpvKJRlRA5x1Cr8JvF9z4wld87/aL6p5H53ezC49+iPf+t5/93b4oAPN7/lKPP+l6r3zynoOP/eg/n5upTTTf/HAIx+b3jC9Sr9NGlZfQVhA3qC2cV8f7R5nf2vPrr14OL165TjLoHVqoffLnetPGyo2O97VuFNoXfiKEzb/JyjXNkbd2RKQfHkPzNPDY722k3/jn8wRe+U0nePp3eaE8+aQLITQHt55rhKTttlYP0o1/8pf+50a19m1hMGO76yHe6EcMTpxwp77pLj1z1xkTT00NJYgO/TyRPEeLwpYZg2pE1DAsnV5S19Y3/PIzq9NH9See7s0fvn8OtkJAvjaEye/lmb1Lv3xv8dmf+NTuznBq7v0fCtH5u0Yk6SZFvphXwyQfbJNUfZrxFEU1QntHOtJU3R6jgxy3se/V6lXpbGzJyvYwFImVhcMNP3/08M2aPpC0prrF7Af/Qv1bv+9Z8OAFQhhHPNTXiVBfEyUkjH8u4/+3//M/+O7azuf+Ua8bZSVNt7qWZ529zaVMNEfnThMfORqiY4vI0rSY+baL6+moBOlu7CTFQc8cmp7GdoasvnaZV69cZqnZ5NzsEvnVm9x48XnfPJqGiT/xpy8c/sBfeD1cvGjkyd8eT3+bQd84xcLVXzyz9Ss/+bOXrq7fc/od7/GLb3+3ryaa6zjbeP3ySnv9+lWZmMqYrEUcn18ktgEJOb4soHAoD9Id4UclRSen1+2S9zYoNtdxB330cEAjz+m7pdXGsUMfn5zQEhohVMGEWksTNwohWEEHlCixwYlCeSQo7/FKooCUKi+SUO6o4HwlRWlCf6Cku7nxwVRtT+9JRDw/RTw7S2tmwSezc6rdmkYvzOKaGkli71Stb5RU2xtbEzdubZi6S2mkCa9cusSVFy/RW93gPQ+c5hseOYfdOmD31Wt+a21XTtxz6jONb//eP92459GNrz2k5DfjzEUl8qQPL/6j9ww+/8s/ffmV/lxy7hF/6t1vUXpqxrtms3P95nL7337sK2KLggcfOM7xE4doU6fmRhz0dzHOMV2PcUWFH1lUYVG+QPsSdzBgsH9AcVD4sNMX29nzdArd0pqAYyglGwWMxBKZChXAa4VG4auAigTrAso6SCEowXtDzcXUYkWtOUEWNxkI+PkpVzYzZSanw8Rcm3R2UsUtjU8iXKOJjTW2CGF5Y+gCwWzc3OL28i5GZdzYWGPz5WeZUIF7jizy5rMzTDY8qiqJdiwrr94KRacrRx49fXnqWz78rXLy218PTz2l5fHH3W8YNIQgPP24Ymrmg8XrV39469W9U73meXvuw99s/OIsIYqo0nS4vLqZ3l47UENLSFQppuhjezHNpiJrC4eaTWI8u2tr1FWNmVSh8wFlWaJHoIJHuQo3HEE+wI/KYHf6rhx2sQUcjIThMKc0mt1qyCj3DKKIwoGLEhr1lLlIk8YZZAFwzMQJE82MrJ6STLSIm3VNsyVSM1DL8FoTkhhXSyGN6Zeeg+GI2bmlvYPhoH7l6u1k/bUVdlZW2dlbxVYlR9KMh88c5dSRSZpUhEEXVZQYF6h6jpVbu7amDkz77OEXm49+8Hvk4T/7hTdC5fhQ+p5HjPzYc9X2j/2Z98jt6lS/OmEPt+fN3t4IM1thmhEBz/zcTDh5bKnXG0nvxq3bc1de7JvNzWVur2/RnG3ygbc9SCOrcXNrxF3zMT6dxJcKZYYoU2JzjwsBHQW8V8RBJJpPTVYpfOmZLCzB1tjPc3a3BxwA+Jy9Wg0bxdhYmGgalqYmaByZZSIx1JWCJEZHFU4UQQzEjiCCo0Andbw27Aw9w+4Qm/fZ7I3ouVaj1TAcbHa4evU6djhgMvacP36Uc0tLHGrH4Ee4XpeozMGD9RHWpEwfq5nN66mLb2/eG6e/8GNh4+f/hBz6ts1w8aIyIQQRkar3yV+8Z+WZn7t/ENouW5xQ2/1tyhd3mbRHaZ88hcwu1JTO3Kj0vUT5+OTxpU6z0aivrs0no89+UnZWVli5eYjMKNa3dji+MIP3GZIElCrp7u9TFSPSyOC9JQkgeLwonFfkHipdw6qcjZ0Rt1Y7bPT7FFpxUJ8kq5d0gStrgcl4hZm9I9x39ihH51rUypLMKpK6Q4xClMeniu2tPWTKk8w12esO2VzbIGtGlDbiyx/7XBwnQjEYMjMVs3SizZnZaQ5PTRG5AjvYRY1GQCB4jfiK0g046I2oqojGdKZ3OzXrX7lxz1TxL38+XP6ZD3PmQ6v6B598ks4zP37Xxkd+5Wcm+rffXDs5zajVUN1qh/n+6yTb15GRwtWmUFlGnMUKpXJFkHa7NlxcnO0/cteZ+vHjRyRKPLu3V7jy2m16VtMtIpJGgnEFa5ubVHlJvV4nIaDdAOeF7sjSKStGqkbHZOw7jSsttpaw1mgyaNVQJiGdqOGmllhWMZfyHp/tDrmaaxoTTarBgG6/R63VImq0kMgRjLC8vs9m1+FaDVa7BWvLO5gQ8JWju3aLbq/PdDPm0eMz3Hv6CJPTbXS5gxtuIcWQqMyJrMIAw2GPg4NtnOtg9Ii5RBOXsbpyNa/qZf9o5Lez6IHv+GUTUCQ3n/3+4card/enz9h7T73D1HSHPemi1mtYV9Jdfp1cZcx4r9qHlxqYOBGlO866RAu+cPj5mSl18vgS87MzlKXn0nNf5ap6jq377+F4ltHWhqw9iYlj8CU2SRnlOV98bZXe3oiZZp3YpGwVA0QJenqadi1hZ3uFquyxfL3Lnt9iZm6eVn2GHiUv3bjM8eEW5cw0iUmw2nOm3SBBo0lZvPcYN25t8+oLt3j+2ird/X3e/aZ7OHn3PA8/fIo4WFav3qbY2GC4c0A60UANu0SFw1tPUIowGHIw3KccDog9RGlMTRt036LygM8rdXVbuYXdMr2T2HuSC489YV7afn8UosVyVIXGkabEFy5QTE2xfmuVdH+N9pXPEw/WCZ2HUGdPR74xWVdSpuKTcmBHJooUxkQcnjtE65vfxrkLh3nxmZcYDfpcKzvUVEK8mzPZqHHi8DSSZ2zkG/zS7SFXL69wcnqGo4fvQjdazB2qc+bYEoVqcuOrFVtVYLW3Rn9th8n2NCcWjlDs3sK0pqmas8Rn7qLa3ecL13bxx6Y4eSjDpNCvZWFUE3nms8/w2o013nL2NOePLXFkaY60tIgT0kZKNd3CWCHs9AhOIU6jVYXqDxjtHlDlA4zRxFmENorQD4xWC9woJ/iKdi3Ss00bAEwAuVl77+bp0z+1un9leWlt44Y7eeJurVuzRPEkS7U25vWKamuFwcotOnkBuk/7gTdnkRgCXk3OTFaKyviAR4k0p1vqTPscM4eXCL3A8vWbPPfcS1x98QozzQYfeOdbmG3GvHBln9WVXXYieODNj3D23L30OwccXWyTTbWJ8pypqQVEw/6tDWy9zpnz93Hvgw/QvLpAqmNOHD3G0vwsNzrPcLvb5dDNFY7NncSSceP1TXnxtZsszk3ytne+mXPHj40Ot6IkcajhcESwgVh7GrFDnMdZhy1KrIFhMULvriMjRxRH1CZa2OAo9tfwHUMaJQx3Br6WRRLPn73evP8dPwxPYQiBEyJ5+OJPfG/n+i/8q7C7frLYPh7i+ZZEmaG9eBRfz+iuL9G/vYLb2sJ95RJxntM+ey+uPa8iY0CEgFfee9TAoXLLfJqhjKd5+hiprjjcAjfsQ9ljt99ibXOfPAhJmtCenCCdm8KOBsw2M3xZEXcO0FKQ1ZtkUxNs7nfZ7qzRWVuiHdUYrq3RmJshjo8QpuYpsw1evv46cbFDiWInLzh8ZIbzDz/sl5ZmizjOurbbmQz9vVgXFa4/JOQ9qqHH5A7FCB0K1P4eo842zmriyToJiqpfUgw7uLwgDQG8cLBThGMn6rpxrH5F3vwXXwqglIiE8NRjWt7ynz3XmD/yr+rBycr1de9HGkrwEYSlRdLz9zJx+jiNRkyytUH1lefZ+/IXyXtb2ptKe5wErCgfxGCoa40uC9ygQzOFC6dP8eaH7+HND9zF7OFp+oMeuC6NuYyRddy8ucbm9i47w4rljQPqvqRpwJcH7HX3GLRrDNsxtza3WNneJu8dgAwYjLoMHcTtGUyjxsawwHpH1Ig4fXKSu+46zsLcTCEh3q8KF0UUyhcj0uqAWrWLKku08zhfYMsSO+xQ7Sxj+iVROoHSEWVeUHT28L0OkfdECvo9FwhOVRPTL8V3t/9hCF4IF++AI0+PARHbvNzc2Nhgd6/BcX8WZz0h0WgHUZwxefw0A5NR3FqlONiheP0yE6mmdu4cur2ERBmiQCWCB8QqDApsDnlB4hVxYxIv0Bn1qKRBUkspextUzlKZmFEl5FGNvsl45forXFpexXqo+j2azQkunLqb+8+f4fa1FaZOniI9fIyeg4nWNHPT85R76xw7u8TZu88gBoY+wjmqOCG2ZV53g67WVUWRj0iCw3mLuBxV9dnbPyDvdEkEWu1JIvEU+13yoUdXgqiI2AuR1Oj3u35yPtPR0bt/NnrXf/fL4bErWp5+2o1RiKfG6LpZmrqSKz1Uuwcq9G1wscYi2CBY0VCbIz3zJlrnH8FMTpGUOcWzlxh+7vP49VuE4BGlcSbxwSSIKETVUJKSRcJcu8ZUu05AszYKrOSOIAmNdgtUzM7BgFzAO8sXbm7xmZVNPJpmexK/3ae13ud0e5apKGLGpGQ+wVZCWQxI4pRDEzNI0OQDR+ICUWKYnWtSa2QjrDemyBPpFxJVQygrysEQXeaUoz69/dvknV1CiFDNOVyqcZ0uupOTVDmEkkQyjCQgsJ2DmYuYO5ZPPvXYY/oNtEyNgd4nfXjqMS3v/dF/uKUf+IHMaikPRl47oLCEqkJCjBCIlKW9OMPchfuYOHoYopjtq8usv/Qqxfo65COEIKRxINGgFcEYiA0hzhCtqUKgMyrYTAzZ7AIzswv08j7Xr19ja2eLz798mWdefo325CJvfvB+7j1ylnZthr2qzydfe4FnvvISey7noGvp7G5QlgMSrX3aymw20Wa7l5NXBZGOCVhiO5wNo/5EWZQYPG40wJcF4j0UQ7p7a+zvd6klCUvtjNgbdnY7dLsdfPAQPOoO1hkZRWVdGLpC8onEsTT7pcefftq9ASX+dpwsOE7OZlvtLNDf3pAQLFo0aqjQoxJKD1WFEk2yeJL0gXfROHKGIG2Gl68z/MLnCLduEFwp4r1UaYRrGZQKoA0hjRklDTaCYrkKNKYXkbjGzLHTxEmG7+5TWcfL/U1e6C+z298j5CN0pEkSQy84Xh9t8ezeCvsjy8iXiIloNGcpTBqyxjTSqHGlU3EgGkkVUjnUYKDS3oHUezuE/gFlWRC7Ct/b4eD2DUb7e0RRTC3OsMWA/KBH0hlhCCgNRjQ1lRJrTVARo4LQnJqQvfp9f0vecfEnn3rsMf34nebdbwGYHwOextZNZL2nWttj2p2GyCPW4oNGhQifgnMeiSOk2WLirvPEEnOwdpXu8jUKcbTSOo3FBeJYU/lASFIUgqtGuKKkKC2lE6qyx6mFQ/QKyDuG1KTkGdzfPsFub4/dtVXW1jOWZh3tGIyOKH2FOPAI5XQN0gZFWVL3VdmcnLbN1mJzZ3OZftWnUtPETghlTigsMqjwoxznPN1+j9H2HqP+kFpSZ6rZpOwMKHYO8KUlEcEoQwgGQY2hWgHrA5sHuUqTRjV3+NivETyPnT8ffk/EfqFZCyulY6OzxaHBAKNiRFUoPDgPuUKZMZ6bmICbnSRu3wcvpRxcuYxb2UGVv0bt3rNEJ+7FRBmkhtw5rE+QJGZURISiJDU16rUJ2oliWJXsHXTxSY04zvimM4uY4xNs7R7Q6QzYq0N1bIKaCENx9N2AqEiofE5iDBK81yqi3Wiwu+HDdifIEatLI2LFlTUZ9ZC8wpcO2T2gt7mMHXRp1ls04hTVGWK2+ogFT8CIxoQYrdQ4bCmLiyJCoWBo0bORRM2q/rX2U7+90QA6ddQjx8iCsx7lCpAKVAXBIdajq4ByBcFDpQ1uok3r7lPM33WOiVpEuXqD/a8+T2/9NkE8SseIiYjShBzN9v6IqnKUvmRnr4MJHmMDhCHJYBk/6DHojlCiaCQRrXpKTRSiFU5pDqohPVUxGIzIh32seEjqOo6TYnJmIagoleVN2D9QtvJB5TbgqpJQ9Ci3O+zd3MD3ukzXmqRJnWGZc9DtI7bCKEgkRWEIOEAIWhEShUo13gUYVTRjaExp9/v3lOIcUUMKH7AhJ3iF4EAi8AGCBpOCE4LkyEjAaRppysSZE+wby96twFpPaF96gfmqQB87TZzVUMGwvbHO7t6IKK1TaxoKt8fN/T4TVEyYIQZH2tvCyzQ3twbsjEr2hiUHoyGZF5aU4t65KY5OZagqJ9/eZd2+QLG/nU7NtM2ot02ej9jc3Ce3w5rvDEi6m0jRodpap7u+iS9KWq0pasHg9wfY0SZqFBCJcFYRRBMnGo0nSMBri4hGEQM5VXAoY8liq/6dmnSVLiiGI0JVYEOGIOjKo0KJBCHkATHx2L9DQTIElQmhGdE6cQqv61TXb1DdvMGwv43VBlm4h0ZiqMrAMK84fuIY7XaLjc4u1cGQNBZmam10CFhbUXbXWNne4WYe08uHHGg4OT3Fu2Yzjs9HtExFs9mkNBk7eR+6a3T1wFDk6DjQ6W6yv9nmWFtg0GW4dZt84xaUAxaakyhtyHsD2N8gVQWKhIBClEF0jDMpKgzxsUdEoQiEOw4ZLMQMwVR8nUf+jbZjjLgYlEKXjqgMuNyCdQgKjyZ4IASkEkwuiNXgAmGUoxJF6/hR5hcXiBoJewddbr96neH6FcQfYKkoqwHVcMTB/oCo12cijPCuoFt5ysqy2u3yla9e5+UbWygCJxcWuadW41SkiBPFcHfEaPuA/l6XRhxzeKnJ5ExCHGtQGecOLSGDLqPr15D9Ifn2Hrsrq+SjAY1anRCnVPsd/KBH4TXeKUQMiCcyYLIE8ASjUCZCxRobV3hdIkmEdRrNSKgP9W+SOL6Oh3qniQpL3B9BHJNohdIepxVEEVqBqxzaWaSIxzGGBIxDXEDXFK27jxLCkJs31qgvv47u3ySv3sXAxnS6O1y6fB28Zi5WNONJ0npCLS7YJOJablmNNUFSluYWuH92kv1XN7m6vM2BPsbR4zVaScTW3g6X+wMmZgxZLcPWZmnpCOol7fkaxyUQbt5kd/kGxbDD1OQUyqTY7oDQHWJswIihMholloQMlUT0GSKpRpSCAEp5lNFj//MBrcYHM66Ur/PIv5GalihGVJXHE9DW4fy4/RS8QXQgVCVKDEFF+GAJBQQVMDL2XEYDdArNkyc5GmoMrl6iv3lA99XXGE6d4txdJzm8OElJTBJSDDFp3qFFTidWyDCnKLsMSks98WQygCjizJE5jp5e5OTSJJFMcPJ4yu4EUK8R1WOIakxnBlcY9LCkvnyZ3Wu3ceWQqckJokwYHuwj/ZLMVxhJ8NqiVISECCKP1QodgQgoo/A+EHSEigQsoAI+qgghgP2d/vg7f6IhKDBGUOIQRkjQYA2R2iOUBid1VCQEWyFBUHFAvMdVGmciVKUISmMaE0ydi+nrIZ2r10lWb7IwrDh54Rzu8CNIYQlVgRz0SPca6LykZMj7hmvclDqvXD4g6qxjm0dZrtdIig4nWjHzUw1S76jVM2aONqnqLUw9I47qmKpAtnYoN15ndP156naPifYhVJogoxzp5lTDPt4nBOUxwYAOiCQgCm+EOIEgDo9DG42KEsREYzukHi/gvQKtwu9vUAeRglqs0D4nuAhRARQ4p7BBUJFFyoBTERhQwRG8xduEoCLA4W2MUgoabeZOHiYueoyujlA7G0SNaVpHDqFn6lTdnLgKRCEh7Hlk5CjJSNpNzLxl3xrWEYb5iNXVDtcXe5w9HtNqKEzNUYoiTiKyBEQCZeEpN28wuPk8SW+DRrsJUcReH8qDPrVRn4wELYYQFEppYhHGwVMTqYDHIzrGaAdagIrgDEFnYHJiFFGmQL7uI/+GQWO0FxIreAziA8H7MYVNBOM8ITgwCmUFLzFq5PERKDdCuwYqUrjAODS4mHpriujMOfZtYHBjlb2160xeqmgcPUxUb1AmTcJwDx3lFKWnjBJGs7OsdTU31nbYunaLfLtD2xgaGiIZQTRDiJrUbYB8iNZNcr9DfnWZ0cuvUe2NaNYPoZJJ3KjE9Neo+gWxT9ESYbQGEXyicbFBK0EruUNcSSFSKB0hCF4EiccHL7UmYbqOqApG8dfz0HHpySDCDeoo0wPROBfwzqKNIFqjpCRYBUGjlEaNLGgNQRAjiB/iAO2b43LKOGwZY6ZatE+fIIwCo7Xr5DdyMtslvvcRSJuEaJ+QgNMJ1cBzdWOHz9zaYKvviZ1ntlHjLeeO8rbT8yQyblM4ZdCmhqgYcBSrW+y88FWa69eZj2cgnaEqNba/STTcJaOOUcnYkCpGRSCxIBpQmiB6TKBICowOCHoM7EQRPgS0VigfIVmdSt85OL6eh4aAlP/MKesj0jgB5whWsN79Zi7mPegAPozbtRLwQZAwjjEhdugqhpCDSaAySLAEH4jaM9TPxQxGfcqddXY2Vmk252gcOYJJDVWeoPEURcELz61y/ZUVpk8c5ejiEnMNxeKRObLpOmJifByh4whqMV4JduUG/Re+gtvZIDQaSKOJ5CXD7gDf7SHUiJRGRxpMhCjwyuEj0NogWsAIKlKooBEd4dQYKVPCOJPRGm+h0p7cJ6HKzZh7+sTvmoeOuxgHujYsQiCuRQTnofKIB6oS8tH476KAoiDkOVQFUhRQ5LhiSMj7UFV3/gyhtCgXoFQEUpL5KabPnyVuZrh+SffKq3TXX8fGOaqRUCpNhZAlCY1mndm2YmFaMywcz19e4/LqBv2qg8oUkhmCiRn29+m88BX05ReY1iXR1AIdE1EM+4TBNkYFaqoGSnCRoDKFqzlc3RPikhB5iB0+KgjiIMqwcYSvK1Rs8EbjjSGYCF3XyGTCoEoY+CM9+Rr2mvkNhu/jj/kQQnrjv/3z3zba7jB5+BCmAkuBDwFCSjAeMX6cGlkPopAgiDGgPFLdYdCFkuASkIBojy0dJhGwFUFrmjMLpKdPsXtjjf7uHtWNZSR4au154jhh4tAEb3rrYUY1zUGuKHqW4e4eI1uxP2k4MuuQxECs0btrjFZep7+7QS0RiNtIHuj1u7j+gEYQtEkgAqMTPBVBG4IBZcZVETLmSikVgzHYVMalpkrGYQAPEgiRAiPUJhJfdnLdu/Xid4cQXkTE/3YPfQwlSODj/+l/M7nz1T/n1ntuoiZK7ABVFRhAJAdf4YsKvEcIEDx4D96BDYjVqAqwnuA9tgyEUYUaFrhuhe+7cSshaSHHH6I8fi9ZIrS2l7E3V7AHXbIkoe4jlrKU9901w8Oxo767w/GpBu979DQP3HeBiekjSD0h+C72lS+TPv8M6aCDah6hmbRQ+3uku1uI6qBTIVIxWtVRSQ1VT7FxhIlidJygTAZZDd8Yc59QEegmQTfApOgoQUcpKtWoRAiJpjHXUOt7w5Bu/Ppf4ZP/1fcK+PDUY/p3nvKbg7kyD6FUmjJKiZzDBUF8/ga2j2iNt2F8YN15A+UCToOPFEYJlfVYKrCWEAWMKgm6jteQVx6jHMSauaPzsLeIv9ljf/eA0NgnMTE6GNLQpG1GaHHkwTLXMCzOtJmoJyRxTFkO2Fm9jlm9STI4YGJiEcmmGHUOsN0usUnJtMFg0GmEGE0Q0HEKUQAJ+CQl6HDnUFLjSlDV0JEgkRBCIFRAHBABpzUqMUTNiMK7UHb7nlHn+O88lB57DJ5+miEzeWk2JZIRxluwhiTkeBQ+NigR8B6nNWBRyuCCQ1RCsDnYkhAnaApEBGKD+AirDVEshCIQipxIBUK9Thxl+LMX2C0qytV1kpWXsHZIvHAXptWmtXvANBEbu7tEUzET6VkqH2F8QK68jrrxEqPBkLS5SKYnKPcGlN0DkmiENiUqrmNDDRMrglFIpPGxEDKD9vH40DQBJwEtAnpcu4uOQZdIUEAE2uOjGDGCzgxpe4oMg3FthVosfic48vSY0ri+her0A1Fm0LFGqiHkBd4XBFsRfKByAVsFnPVYX+F8oCxy8AHjQaoKcZbIlqiiwgxzdJVT2gEUfeJyNG6lFODzCtWcJztzjvZ0nbTYodhcZeegxIihGaWcTFKWahnTtYha7EBFlL0B5fWrRLs71MUQN2q4siDfPyC1irrJSDBoVUcnNYhTpKYItQiJ9LiMTiJ0kqJVio5TVGIwUR2RDK8N3tcQaRBqDTDJOA81apyqpYZ2qojyDPZr+reKJMwbVfzjIuHzP/C9Ra1UNFsRQQLiPCGA2IB4h1WKygSMr9AmQKUIUYwucyRLCF5gFPBpNG4ZmBKnNRUG70qU5CiTErQH/LgCswnNqXniM+fY88LBQEjXbjLRbhHSiLSlWTxWoznfIvIaRrv0t1fJu11E1ZnMpvCFZtTfQ/uCuNUmqAyVBoKuIQlIZHBJc5zuOYcYjU8VIQqooFBaEwArEV4ptK5QUUrwglOg4miMsBlBsoRMCfX2BIOdEXYrFPMiITw2RuvMG6qJ8IUfPv7ln/7ct5SjgnarKaoY4sXiVECcEDwoApHTaFHo4HFBY8o+4PFhCB5EKZSFIIKKU7yArtVR1oyzAh1QUkEFJAkEwZka8expqjxmdOUKk3u3qUKTaGIRlaW0dEaa1fClx+6u09+5hdNCs96gNAZ/MBwfnhMelTl0lEAUU0XjCifETaxOMbpAYce1tdKI8gQDXmlEK4IKaAUEg4s9aINIGN8XEUEEnSZYbZhamJGNG1fI1l7+QFj5F/8rR757NVy8qPQTn/40/0UI6cQX/6d/vffia4929qOwtDipTKzwrmTsS4HgHQSLchYVHC4ofGmxVYlRQnAOfMAT3QkmMbZSBOcxyjLyDu8V2guBMZcIHwjOIhYkTZAYdDHEDLYAiCohVjFlpNCpIXKOzvYqoSpI0oykUUN6Yy5/Wq8RpzW0SQhpRKjVkEaExAmoBGUEiQISGyQ2qCRG0gSvx8b0yiBpPCbtGoUoISiNShO884QQkDQdEzlEiHtOVq7suFlzY6mVrS/y06//DJ96jxiBcO36czHd+nw5Sr2OhchUImUgaIt2GnGa4AUVM06XygolBSoAscHbCo2iCmCdQ4UEcSl9QKc1WsOCmqsoIsUwEXSpScSjRmqcw9YLnJQkjSnmjp7D9rrk27epxKKzWbJawFY5ZbdHOtoiNXVsbYpOUdL0itZkSpQkQAOfCb7mUEmMSlN8FIHVKK8IOkM1hWDuaGH0nW67dZhIcFmDYAPa5eg0veNMGqkbtIRxTuo9kiTIXJMq1myNjF/q+qnHQT31BN4AjEapo1/PCbEiVF7LGJpDe3AKH0pEFFWuUFIhShOcQ6sYqTyIo0JhlRAkwYYU7xyoBFcp+lUgFsGLo0cf7RWRFxBBGk18kTMaRjhtqccxemEW2x33hkLVwVnFyBsoHa1IE6cJfZ3gypwo8+haCxtnBJOiYoVOxo+yvZMu6VghJiaIgPYEIJgYbwwSa6wXbD5uy2kjENdxzo7LbRVQMgZ7dL0xrosCMNHATSXYqq36Ybp6+k7FZADq21dMtT407d0cHWlCACWB0hpUqPDBQTBI8IgOIG5MlQ7gsdjEkKs6ttL0SuHGYJu1vR5KxfSGI0xnkweOLXLXqcNMBIu4gNcRViCoAj0siHo5cbeHShQkLeIjp7Cb17D5PnogNJyjIGHUnEQ1axi6TDdjonQSmzTGVU9mqFKDjTRxqDC1dByKnIN6HUFwwSOmRRWaXHr2EqtrW0RxzP5On80i56E3neWtj56l5gaMfSIhBIeIxqNACeIdqu7JDtXxawO6HTMGOIU7ooV3f3u+/nNPqw6OepKOESY8YiusjE+5JBhEHN5YtFU4X+H9CBugwOAiRaU1N7a2+NXnrnBzvyBLIrqdnAljmajVODo7R8tZdKxR8fgAsFWFdwrKAp8fELKUkDWJswlGSYYf9IncnXZLq4abmiaKQTlIWg2k1cKpFBUbVDtFJQlGDDpYPAqFJ5QVVjQ6isAoPA2uvrjLT33kGa6/eIt6TdjuDqBVY+bQHG96q0biOiZ4JIlxKLSADeCdx3hPaDY5enKCy7s9vrob2SUxNoAYEA7/m7/xwatbyydETGi3asq5gBVHqQ0bnYKV9QMmaoapyZRBnpP3LJPtGvNzc5AZRqUQ+4jb/R5fePEmz13epe8VjSQwqoTGhCGNMrRK6amctbxkuNVjVHkGEliYbbOQKiacpahZBs2KWhYRq4hSRVhXjgVAUUS93SKdbOCyFpIoXBJj1ATLazu8+MnXmG+2WZhu0A8l/V6f9uElls4eJU1jgrVQRuxuDPnERz/Gpa+8xvZun0wgt54T0y0Wl+YwjSmU6rO+M2R5uY/tdrDO05zIOH1uEYkTgvdkh5dU+cVbIdldeWv1iR98n7z3b33coGKK26/89WxvO/Ou6RITNLrEKs+OaC6t7PDJV9c43co4tDDNMEup9vbxqwec2Bfm2k16wyGbec56brlZGoooQkpPpDW5DZxqxRyPauzs9nluZ4OXtzrs73Uo8oKhVxydn+QbTyzxDbNTlKVlUFVIOyaTFK8NodSAwxHhm9PYQ9MQa4IYVJzSL2M+88wtPvrTn+bMwgx3n56j0Iab+7uY1jXOPHCeIyeXsN0R29e22Nwe8vKry4TK00zrKOWxEpg7usShYyfZ3Nrjk898mS++sM7GypBqb49eblk6McN3ftdbeeCRu8giTTrZkjiO3Pz+zRlWPv/ngY8bAOfUyOsIcWNM0OApRXFz44AX13bJbaA92WT+8GGiZoJfaPPyyzf43MsvY3TMTq9kNzjuf/g+HnjkPMPoRW6+eo2RNqik4ux0m0PNjFcPtlm5uYzNA5NZhtRrWB/Y2u5yOdLcMzXufkZRRK1ex/f38VWJEYcKgThYZFDitruo2BGMQddSXnt9g89/6sus395htpGRD0c0WzUW6jFX1jb41y9cIZJsLC5bX+P8hbu478EL9EeBy1dW0Qi1ZszhU4dYmI55/bVrfPGrN9jZOKDpDH6mibYVtzb3+Pi/eYZTx2epH54jbiYk9ZShN4EiG40PpWAZdBtFNRJ0otGpRnmDJ+WVTpeXtkfU8UwfXeDE4iGSdMD08cOcu+8kv/CRT/NLX91gJ/c88NAJzr7tTWSNKZZ2O9x87QZF5Vg4NE3z7AnM/AITJuahc0J7dop4Yp5EoO8Cn3r2ZTbXbnEzz3no2GloxNSTCJ8P7hC1xpWdtgG7fYDbWiWNHWpqEpfVufXpr3Dz+SuYWo2ZxcOcn2kzN2Oozc6znR/l6U9d5iOfeJmqKLlw9ihvf/MDzB2e49VXlonNKmVVcWZ+gvd/wxHibMhko8YH3/4mZudnmJmsU0TC5t6IX/nVL3PpSy9yc3nI3KLg4pSkWcNHdekV0zKulLyVl/72n/cSaeJYQAlGCSYLNKYniaOElYM+r15fZntjg9mpOu88PMP04RmOPng38et7UIxYPHqUg4OKL/76J7h9fZnKBqLgOTI7wXSjxe5owI39Azrre2x3KzhsoKrYOxhybXkV3+vRjRx6epJGo4YosLHCq0BQCcqVaKUpvaXTG2HYJx3lVO1pGrUa85MNXl/v8trlFdpVl2M7Mfc37ubo4ixnT+2z+NWYfldx9NghBi7nV37lS1y5tkxwoATmZheYy6ZYv7rJ1dd32LmxTmNukrmFKap+n2u3V7hyaZWDzR6bm0NsPiIVSFstikzY7uZjg4oy4RPf8+0ybWByOiUSh0dR1yktNaIMULrAjkyxVWji7ZKj/YR7jjUw2biBLSqwuzlgZ/NVXnzheVzpUGbcMunsbvH5SwNKMSzvduns5ZR6i9qrN+kNLf3SUxYl995/lPj+4/RnZ4gbbdK0oriuqJyQCDhRlCrGtCeJDZQ3djC9DpQRJg8MTcQOjrkk5lrV4Oortzh6eoETp2fRVnClBleyt7fHV1+qeOW5a+zt9NAiSByxv77Hp//Vp9kajHj59j6d7T0UCqMMvirYGw0otOHB88c5NxWIRj2siajXIpSPGN3uWQBzw9v01vf+uZl6vUWSKNFaI5HCGYOWCOs8tVrMRr/PqF9g7YCvvHiNs6ebYxlgHIFKuHLtGpWrKKwgyrB0qM2jbznPqeMzzGcahWGQ5/R6Jbo3YuX6Lb7y0nW2RoGHHr3Ah7/zbZy//zSmGWOmaoRgQYHoEpzcwQcU2ewMyXQb2erQ313HpwXF3gH0uoiO6BRDlldWGG1t8NqLNzl5+hDtJKZBYGOU88LLN2lmdUbDChNHHDmywMP3nePsmUWmJ4Tz4jnVteTWEQ722L29xxcvXaMqPW9951186DveyfHjDSJb4Z2jlSkZhoiRk0XiGqb94/+3f31z59Yj/aD8UqOmqtgQ6woVPAuVZ07DzQJWVzcwrqKdKNzoAKXNuLUQxiXCQW84Hm+gFDMzk3zzt76d933zg9QSzeDKdXSIaM9N4XtDlq+vY1pN0kaNvUur3P3Q/Tz4zreQZBBFARMZfGcAxWDMcg0xKgQsmv20weRUE+l06L1m8aGBK7bQw4K00rj1HQZuBAg956hMxkhrKg1GGWwe6NmCwlcszLb4pm99Kx9435uIMWzv7qHzIafPpTgRrj53jYWpOco4gxde5YHjh3nw/CxZ5PDFCEJCFtVUmca+2l7+lu6Pf+hfmKx360+Ouh1mmtNK0vROeySQasX0RIv5lmGl2+P44TkOLc4yzEckE/PorIEEEC0EAkYLubV4DWfuPsQ7v+URDs+2eOlzz/BvP/IF4uYE3/at76Df6fGLH/sC7UOHSBsLOFYxSYrOmkjdI8YQnGd4MEQBGTE+eIQSZzw+i5B6CodO0OjlDHc8SVZnZnqC9mqf2chx9O4zdEeO5tIiUW0CY1pUKibSmiiKcG6MwJ+97xSPvvtuDh2f5EuffJ5f/cUv0WoEPvwnH6ZfOj77hUtkUzNkNUWmFf0yJ1R9wgiCDygJJGlMVG+r/MbL6P6tP2eGQ+2UCzpNEzAGYyxYBVozuRDz3vuPszRT567z55ian+FTL17B5TneC4UXnPMYpShsxSAvOXf3PO/95vs4caJNf7/g459+kS9dusqb3/IQWTOjv7XG7eurbO5XZNPHyIuS4Cq8JGWUGFE2j+ygi/S2SENEMBpbDfG6QitQ+RD8JDI9TaM6Dnqdxb0pHr3nOCcmdzgxO8nkmRN87tW1MQjuxs25TGfs+oOxWs5bzpyd5xs/+ADHT89ykOd86YXX+dXPPscH338/JqtT7W3w6q0Not2cqYmEwUEPW5XoyiICKCGEAkwNIUZsRinZyJgy1RL0GIjNIpBwJxg7ZqOYd91/lkceOEctNjjruBYGrG0O2d7oUEiCiKaoLHkES2cP8aHvegfvff+DRLWIUSdwq1cwvTjNu99yF4uzc9x++SpxbFjv9IjcCmkjZXbhELVWzVVSBcoqCp0uWbkPeU5RunFYEY2vHD6vxh3XVkwlM6S2ZGngOSRgFtrUGzV2I88rvVX2r3dYXb9AvwDRGieCc4G5w/N86MNv4q1vP0M2WWf31jYbvZzZY4d513vfxfT0DDevrKGc4qDTo9frMiKwUDOYEOFLixaHjxOch1iB0wZbxt5oowlaU0UxWizBV7ikBlrwAsYktEyEF0MRacLENJ3NPW4sL4MTTh6dpzMcMjM5wXd8+Fv55m99B7XJin4v55VnX2NtZZ/DtYhmq8GoLLi+s8tqr6IXPMXBKvc+ci/H7j4WTEQSRkOVD3J8XiBFQIdy3Gm906sRFJEdw21ePGYiJh5Owu4I6dcRVzEkoldYKh0zbYVbt7coQ52FQ7Ns7KwRtSf55j/1Ht79J9/MzFSb/d6IZ798k2uvLtNOIqayDFt4biyv0+8csF8KznuOHV3kxNnTqCCYSChHGnFC5ByII0s9oryYyhWIBLSK8CZBAG80lY7QogghMCpT1onZ8o5dnZFNTDJIawz29/jAu+/jkQsLdC0suZSVK1sMrebqc9d46n//NTavb1BNNbhyu8PkKUuZRZhM0d+3jIInXZggmU5wzgYZFqjeAaG7iSlKhBSnE6x6o13ticseatDATcT4WBEmJlDzgiuhQtjvlXQGio6uEy0u0VKKiRTe9g2nOHq+zY5VJI2I1dslVZlz6aWbfPSnPsPyCzc4fGiK169e5dDSYSamYnSryWhziFHC7Ow0s5OHUCNP2SvQRmH0OGU0kULrAMZ4oxNHLYOkZpAsgdKCDuM8Umv2d7t87ksvcnl1l72sztqgYCKJqb++Qjcf8tYPvo13zT3CP/upT/CTP/1zpB9t0J5LuL26y8ryLslUnW5R8qUvvcSpM4s8sHSC52enuLazgY4NL71yk+c//5IsJUqneKpBH4oC8SUiglaK4AJWCbEyRM4QfAV5B4kb2EaNeD5mdXWVLz33Oq9dW2WYO17c7nPOWry1ZBNNHnz0Xh5afAu/9Onn+cjTH+OzH/8889N1lq8esL62SZZFqFGPr3zxGc6da3Dq7BKnTqyxvn2FvPTcvnGLS8++xPwDZzATmlB5SioSl+DvtIh8aTFIgg4BE5eIhsooglZgYjq6wbWtPf7NyytcXt7FpCllGmO0YnO7w8P3LtGsNxgMS26ubnN5ZY1IadxLlvkk8I6HzvDudz7K2to2X/3yJb7y2Rc5dvo0uj3P3Q9Pcv3qCiuv3uRn/z8/x6Ivec+jd6EGB0gZUKOAcwW4ERIg9oLBgi5xVYUMFSYuIWoS6gnXK8dHL6/z8uVNTBRhg8bd3OT1Wzt8w5tPMTt7L14XbN68wf7KGvamZz3STGrHB08vcs/dJxgcDPjq66/z/K9fpnFskVqUcPfSFPv7HZZXd/jlj3+exWjA/Q8uIY0Yay34OrgRinHmYJQXkAivI4KSMedTCaIjShEure9yc7/gQBlcVaGDQgehP8h5b/McJoLLL15mf3WVRAuzhya469wRHnjgFI/ce4IzM6fZ9zmVLbl2+Qo3N/bYGwa+8Zvezd5DA37to7/G5s1V1m6uYe4/jFiHHeaE0oPXYyKaHzNdnPeEyuFHOZJAnGdIIgzF88rNDb60sk/fWRJRNNOMrU6BVI4oi2nFJa+8/iorz75IUgSOThgWZ1vcd+EU9941zcJ0m0FPUw56PPf8VfzNLfq7I86fO4pK2/zi55/n5vo2q6sbnH9ohtiOW+Q+KdDiiHRGFdJgvJQULuCCQYsB7QgCxBFVr2RreQ07HHB0/hBJlnKwt8HufkFjqsncsaP0C/jii9foDoe8+9GzPPToPVy45zSHjx+hmdZwwTDZPBQuvOnNcvnyGpe/8DxmYo5Ws80D739fGOSVfO7nfpHhsEdVDZDKYa1FQolWIMrgqAgBjMQ4L+AqpDIwsKiWYbtf8vryDuVoxNmFQ9SVEAZdtgcFrXadI4sz9DrCK89eJj444G1LDR66+xB3Lx1i/ugCSXNA5IfU6xOcPXKEX/3UV9lZ7VHPc95y6iiPvPUB9oaOL3zmM+wXlspHhLIck8KcvsO0i6hC5E1AUZQV1pVILMSVodIRIYoYVSXDbhcTae67/wHeev4wexu3ePbFawzLQJq2ePnVdTZ7nre//0184D0PcPj4KRLx2FIIuUcysEZhG/WwZ5GVvSFHDgXUdIRKKgbB03WBYpgzqHLSELDegwUngUprrDOY4PFxNaYdOohyEGUJuae3V7HfK5mYavPWt72L+482kY0VPvnSVXIfSHTGa69us3r1Nu8/f5Q3LSwxd/IwSVpi1QaqMyANNbSOaTnFsAwcHBTM1WFBIuquQqkKFwJdp6n6htASRCUon6Jth7Ky2MqL8RRBIiWVxFjNuLsZGUqEzmDIVuWZaDV5+8NHeO+bHsS6hzh+9yv8yr/9JK9ceonlnRHHFtrce985+mK4sbbK/EybWlZHpTEqShkOCrn+0jWu3l4lm0h58N67OXfXKa68fFme/czHKfs9tNaM+o7IFvhqPNqnUILF3aEHWqx3GO/QzuDvKPpCkXOwtclwe5d2s8XptzzEn7h/Cd0foo4/w2c//UW++pVXqIInH1QcvfsM21mdcntAq1Yy1YTIFYS4yV5nyNWVFUZFSRQ89x+Z48LZBS5vrPLl518aI2h5ge7lqEZ2p/wUqnxEGFrEe2Uk3hObuZCnWkamBtWIVHly53jt9h67fcuxqQYL03WssoAjNoGVtR1eunSFAx9xY3mCl6/dxoaKYydm+VMffj/3nZsmwVG5kl/9+LP80sc+x9r6FvdfuMA73v+eMDmZsXLlpnR3+qRY6lKSVSVVvyLynswOCd7R9RYVCnQAbT3BlQQbEGuwQaOGlrXXXmLt8jXuOnqKe4/NoSYzbACd1Nne6vHsjXWaNQP1Bv/o2SvkRcGJRsZ3PnIX82KIfYu9MuJLt3b4N6+vMBwULMxOcOb+Y6SNEVvPXqe3ucuEhinjiXQg+C74gjCMMFsD6oOcNCrF6JoeJtrXXOVCEBFTS4mUp+rn7O0MMEpQtYhKAsYEfFFguz2KwZBu7gli2dzeZbPbxQ4rChx7nS6mVkeJYmNtnc997nPcvH4rzNQa8qbz53nbOx4M1g/kYHubdqJZmJ5n4dAkkTFYcVBqbDCIUoiKUFKOO40qjCkzKKJQoL3FjwZsL9+m3x2hplMadUMcKXyk0QGsEioP+3nADLv0kz7eWnYGwnB3Gt+YJRjH5t4en721xUqvIEa4+/gCp4/MU9mccq/PVOQ51MqYm2lhjKIYFCAeox2hrHCKYKIqmOLMd32nPPfL/zTZyw9Fe2XQk0qKSKFqCUuHD/Et73yI+eOzLM230KYEE7Fw9jDf/K3v5ua1NSTAxGSbaGaCUVnSmmtwbGGW8VwNxdRkzDu+6X3E9RnxowPuf/eDTGRBDXYGvOORM5yfi5ivZ5yanyDOHaYcUpY5SIVEAW08odRYpYkQDOD9nWGIZYk3CafuOc53/YUPcPf955lYaiL1CKkqjp9d4L3vOc+t6QhbeJIo5mhNiHoWFSxH6xFajfDO0ooC5xdaTPp59gdD3jpnWHIDav0RDxyeYrHxKFPtOovHGyRhiApC0BFVGdNLM3TdSpq6hgA8+3e/+6NTK7c/MHHigmuemtEuzimjjP4oQzkhSceoisrG3CRrNQdlID+oCBKRtNskSYRTI6o4UJuaIktjUiOISardkSk2DzqY0SBt1ab0TOzEliOqQQfXHaKdJen3kd0d6Pcoh0OMcpi4ZDRax5YlypWkrSXUsQv0lZBITNRs4loz7BhDFRlak7OhPpER+VLcwYhBp0t/fYXexha2V0CpmLKC7nUoBwNqfo+UEiPCKNZsmUMMRxXDquTYhGdGGSLtGZo6Nl7ASE5seqBKStHEScLW8ihsvbbp2wu17vw3PvSECReDujn5X9r8hSG9Rp/6qeMIHmM0080YSRK0lHcYyxbnwCQJhxoRzCX4pE6QQAieKJ4iGE24Uxw4iYPXqW9O4luTC6Uuq4RuV3xvgLIDjB8Qa4d0h8igg2IEoSRy7g5JKxAQglR4D6X3JNahMag7LMAQKqayDGnUIYpIxIkXQdUVdS80XZv5VOEGDr2fY/c7EEXQqlF0Shh2CaogtbAYBoQshmZCogJGLDbPia3B00dHHl3a8RhO54nKgv2dA581Kt0+Pf2JiW//7/6Bkb8d+ZX/5bsmd/rDML2zi+sV6NkEExJKKqR0qEzwYhFnQGs0FdZ5QhQIo7H0W0cOXzlEkrFG8s5URAnBeO9jXQ2E4QjyIcENYdDBlD3CKKCLEmwBZYmyFSFYgjNIpMbSnKDG6jWJUGgS/JgVHRKkGqEKTaE1KBHtYpSOwGgkgpAZwihCuRxNHy19hCGjKhApg448IZRgNaY8QJeGoAQiTSWWoEZoK6QDTYgUJrF4pzEK7GAUVFFI1ZzebN5z9p+EiyiD98zNNT5TnZ16+8babpjb26R9+C6CKol1wMpYFuO0AR1jlL+Tx44VGKiYuDZW77pgkXisixQdiJQXi/E6IMrnhGokoRpAmaO0JWg1HnDgSkLlkdLirMd5NxZhKY/yGjwoDZHReATnKnRlkLJARRGhzEjTAOJReYXU07GHp00ImjBS0AhjrhaeMDSokBMkoHwTP/T4EBBR+Dts5uAcBAe1FGVipCgRB86CtxZJUg52hn4mG2izNPdi9o0/+PEAyoTw/1Ri/t7f6v3U90a88Opfu7ly256YX9CN+YaEOCfRQkAwJhl/gFcQZygT4d2Yc+5TTeUNSIJJkxCQO2Jb5bUUEVUO+QBsgaosYguCtfjhEOMCwVuoChSBKgjeOSKjCHicVxCi8dSHYBFncdYyBh4cYktUXkA0QkVmPHzO5JBmY0FaJdjUEZptNILY8k5nV+EGGlEa7UHnI3xw+OCoAkQmRomCShO8w0qBkjFJTgVDvmPpLvekeaIeph88+m9DsAqeQIk86Z/6UKmbj//Dv77w4H3/w1RzYK59+Us+3y0QqeO9G8tJlIBSBBOBjpAoI4pjjFIEDy5S6CRGKyPKaAmYgDLjoGvdWE/v9FhqEzyuKlCFxQ4KsBWIxzs/1kGJIhDACc5bwh2Oqg3jdosWNa6YAuA8SoWxoYtqPHGisuAcCkVIGph6i6RWw5uEEMX4JEbqCUTjHlhotiFr45UAMSEoKluMlciVQ/ISrMNhUV7hcs/arT1Xnww0zpz9SfPBH/4feUIQedIrgMeeCv6TF53JPvw//Y323Rf++8VZq6+/8qwtdkch2Dq4DEdKmWbYLCNkyR0GnhtzjlxEpGpgMu90OnIqqrQEBVUSQhjz86sKVQwJhSOU44EGCoXWgsUTgqC8RYIj4KmCAxVQOkK5gA5jvakNAUIg+DB+/pyDshz310uHL0p8AWoUqEiHPsuGqlmjSDOKiUlce5pRIyVPE3y9Bo0UX0txzTo2m8LrGnJHaum8pQwFBWMZkfZQ7MDy5V03iCu/9ICo5mnzKgS48Jj8Bp1RREIAFy46Jf/Jj3z//lN/Kcj1V7//xU9/2p1/6O2qcWJerNZIqFBa4TOFcg4JMTCW9UUonIqsU3jxOiiqsZbeFmhXIaUFP84dpaoIzlEVOVhQISL4ETYEgij8mDhIACSMB6koiQmMNaaFK9BBUDpmrBW0UDq8kbFX+oDD4EXFooLXOgomi8U7i3MxqozwtkDVojGDOlhCFaHSCAkONfR32CqCZxzLK1NSHAR2Voqgm4m+8Ehd+4WZjwwX3v/jIcwrZLwkwPyWceEhPBH4JO82k4//yA/s/9R/HY7kz//Ar3/hU+6u7kP68P13EdrN8SvzHJeloGN0cOjIUKmodErtiXfNgNOVAvIKVY6QooQiQO4JZYlYj6ksEgJFVRGsJbgCCQGvwNoKTTTmtgaNSMB7j4jHiyWIBvx4+Ee4M/OIEiEfx/ggEAZElTOeCEzA1AzBaZw1mLIGPkL8iLzyBFWRGY8JGrzC+YTKllB5TIgpByV7yy70Dvph9r4lpY/d/3fSNx3/JEe+7wvNozIKYyg0/A7hl4gEQnDhlce1/Nkf+Zu9p75Pnbh06W9c/fIX7d5+V449fEHNHpsTH2e4aHyj4oRgApggyocaiB+PPvJKh1wkBLwXpLIEa8faH+dQlrGAzPs7beKAEo2jxLpA7AKCGsfWoMb9rhDhTYQpx+ECNZbI4CtUqMYejkW58g6Z841VAgr0eHaIJAqJU9yoMfbCpD9WtDg7/h10wLczGBmig4LhrgvbB0NvBwOO3HNIx2/7hh9offjv/P2x/f4Sd2ZY/96DsBgb1YfHRcuH/+H3h498r8zpL/71S8tf5mpvh+6Zu/zs2ZPSPDIloZlgtSVo0HjjxdV8EBtZ0W40Ap8TCo9UxVh3bx3YnGA94hzBBfAOKUAqIfJuLI7w4+jgkLHzEZCgERNwXrCBMVOwFIj9OI768UBVVeUEZZEyIWQpYj13gFWC0ZAK3iZIbgllTKYaSFngReHjMVVccgf9MqwOQqjKoaq1+nrxwUnihx/9AfnQ3/774eK7DBfmAo897b92QczvOsRFREJ4w6gf+id/I/z8d49OXFfvWFvefXD41c9Ort5cpnbP+dA4uyT66ASpiXFBgxekqoz0cxWPSqwK42EvlceX44OJkUWKkuArlHNo7/A+oH3Ae4v1AuII3qBdwEsY64uCH0/m8dXYyA5EO0Iw+GBw3mOCI5QBNKhU4cvheNqNZkzgMDFONZCogExwVqEo8G4GqY3weZ9ie0h1ezuUu10pmyMpTx/bOXbh7PPxHB+Vb/offjhcvGh44kn3e60x+n0XVP3m9g0h/Pzf/D67cfMvvXBlt93r9GZqZ++yjQcv6OmjR2WiPeN1FkkYVEK3e+frqnDVAN8bEg9LpCoJgxwpB1CN8MMeoQI3CuNZIVWfYWHJC0stSUlansGoA8MhSilM+xB+/gRVUdEAJIrGGUdUw9dqmFoNG2skVqhajZAlqCSDJMObrMI7r6thYnsFMsih04V+gd3ZpdzdDftr+xysrYRof09lzemNY2+RPnff//827/+RH7ujKZDfbx+U+XdZ7hSeQvF48Cwd/dG1qfP/8tyJ2+/Q1z/21I3bm8n2z96g15jlyF33qvrpY0FNNdCRwRiHLkZQVXgX8GqEDxbjC3B3OgShQiohDndwTucxARKJfnPJig14BB0cgiNxDu0rRBuCdSjv8E7uYKUVYgUdRTgbUKXglUJ0hNW6cFG2Y0w8pdygZUsHlSXfHLD/8lV/sLqmRiJMTVRy5KHjw87iAx9aa7VfPzLZ6AWC8NRjSuTrr0/7d/LQ33MB1Jf+7qObVwano52X/s72bljYHtZ8qn0aL837xrnzamlyAhNV2OBQZR+bDwijnLRw+NGQkI8QWxJKP56OMxpS5TnBlYy8Jo4TkjYMhgfYvCR2jnRqFpk9gRvmxPF4WJekMSFu4tMaJBkSxaia4KIIsgYhSSFp4mv1URXJwAzzlj3oxWuvv+T2n3+B/OWb4VCiTXN2Nk/rpaSLZa/x8Hd+hzzyPZ/7w9jG/KGMKYLAF4Evhv4rH49ffnlKVVN5dumXvp/O9b/wwkfXir2ork8cPizZ4pxWLY2ODMpF+FFBsIrgxlpKxQhEjSfoRgYbCqTsoOP2nSGwQhQMOmTj2Uoi5EZBCMQ6xgdB2RxxGuXHz2Pw43LSBzuuv4cFpqgyt7qbrb/wij+4ftNvS67nk4L77/P0m8d+ee79P/BXia56vPZy5tuuXgT1ROAPvPLtD2zQN0618NRj+lMvb4k0zq8D63eM/dfyn/wv2u8Kz394d3uO8vUeK89eCmGh7ZuHEzU3PSH1bIoQKhwVyo5nmgQ3RuFVCAQC3gRwBb7SxIVm/B2OpeIoIQqC3Bl+oJQm6AixFsocF41haB3HaFuxu36L3WvbYe/2tg+7+2q+6KlTUxF2cul/m1xsfap2DFN711/7iMhM92s39zz5h3h+/1CP/O+6/+3px5U8/rQLL/39o1x//v9lV1r+xmqYUMNXvlNM0CvDjOAyP9+eYmaqJVM1K0403jooB/hhDrbCh4K8GJLqjHgyIs8P8GVJwJM2Z9Czi1TVePmlNhGm3kKUGRs2reF1E1uN6OwMw8b2Wtje2iGxfXU065LrbDjdOPOL8yfaX5bv/qEfwtnfvoPv38OuvP+vDfq1U3XGj8hYBoOOCJ/43u8qt0ePXHtp6z8p11YWy6JJLAmpFj8x1ZJmpiXKFKGy+MJiS0tuK9I0Ip5Q5OUWruhD6kjqs5iJo5SFItcRiY6Ia010FCPBUHRyttb2w/Bg4GWwo53tEcw+aunE5fPnF35GzTd+Xd77v/wStuQiqHdffJd692/kk/9+tjn+ezXoG0blaRRPwxNPE54c5+iEX/2//0X6a//X7urMaPXy9umwc2W+iKaYibOQ1DKyiUhUUFCMyKuctA6mFlMVe5SMkLQkrU0TmicJA49KJkB7hIRhldDv9H13fYPRxi1Vjwpax86uHj4yc5OZ9ZTJQz8o7/vRX7iTtSguvkvJk19/P+cfG4P+rttdAXn8X7uXgo8vgO8/88/uqr361D9fW45P9Jb3J/3+kKmsNV4vohyihrhaTjI1ST7cJQ85IoYsa5FkS/hco7IWo17BaC9neevAj4o9lUxH3HWkttea56Xuw//1d1+68CfWtl9GPX6PKsNTH9Y8dj6I/Idd3vof3KC/NZ/9rTOOQrg2sfcLP39Yb3/6HySr3Du8sje7ubsfmq12aExp5SYTapMJRbFNXuRoPFlrjrRxhLJnKLsD1m/vsru17WcW26p9anKzeSh9Jl965G9Mv/9PL4ssDN74zK/97P+Ql/mPZdDfekMXL15UIqc6QEcZ8z63fm1RfvYv//OTvfJ9t2/FsnW764+kdRVN1sEfYO0IRURUNBi5mLXVfW6tbrq0PrL3v4lEH136hcZ//o//ojKTW8H9JPBXfhto8R/LmP9RPfR3zQ6eeEJ48skgEEJ4YZKt1y7sfvxL3xEuXfp/LN8YuLMX5jWhR17ukKBRbobl/TprWxvhrlOxHD7Wh4VzH+HD//LPiEh+8SLqCS7CE380K4P/SA36tcb9jVRFR4x++r/5e/2Xf/37S628qEnFoEccW0qVhdF+l1oryMyJu37UHPKv7Dz8P/7E7Oxs743c8Y/6Xv5YGPQ3s4PH1NNPP83jTxtX/fxf/nv5jVf/+sGohalQRg9Rqs/kVIGcuPBX5Rt//IfuJBC/A5P8o7zUHxeDihDk8afdY489RcBK7/B7fjRLSxWGB2HPhdAP1k80Q+4Pnfur8o0//kPhojfhf304Gue+f3x22v+xMehvXI8/7rmIqOFy1zezj7XqA31jf1QOhgNx9ZlnzLf90x8Kj3ktT2Lle56r/qhi5R/7R/53i6nbITRr//J7fnrz8pUP1qKc+fvP/GO+cuL7eGK8YYf///UHMOrFiwpgb29vovO//7mvdP7Zf/bpvb29iXDxorrDpPhjef2fK9DJ0H2CqNQAAAAASUVORK5CYII=';
-var SRC_P={genhx:1,chest:1,palp:1,breath:1,cough:1,hemopt:1,pallor:1,lymph:1,bleed:1,abd:1,bowel:1,jaundice:1,hematuria:1,edema:1,wtloss:1,thyroid:1,dysph:1,neck:1,breast:1,groin:1,acuteabd:1,ulcer:1,mass:1,skinlump:1,varicose:1,postop:1,drain:1};
-var SRC_G={hist:1,gen:1,abd:1,hernia:1,lump:1,ulcer:1,thy:1,breast:1,postop:1,drains:1,nodes:1};
-function srcMark(on,sz){return on?'<img class="srcmk" src="'+LOGO+'" alt="College of Medicine, University of Baghdad" style="width:'+(sz||18)+'px;height:auto">':''}
-function srcLine(on){return on?'<div class="srcln">'+srcMark(1,22)+'<span>Based on College of Medicine, University of Baghdad teaching material</span></div>':''}
+/* Crest with a green tick = checked against the college sources (medicine handbook, Browse’s surgical chapters, post-op and drains lectures, history-taking record) */
+var SRC_P={genhx:1,chest:1,palp:1,breath:1,cough:1,hemopt:1,pallor:1,lymph:1,bleed:1,abd:1,bowel:1,jaundice:1,hematuria:1,edema:1,wtloss:1,thyroid:1,neck:1,breast:1,groin:1,acuteabd:1,skinlump:1,postop:1,drain:1,obstr:1,mass:1,dysph:1,haem:1,ascites:1,vomit:1,dyspep:1};
+/* Surgical guides are not yet checked against the college sources, so they carry no crest */
+var SRC_G={};
+function srcMark(on,sz){return on?'<span class="srcmk vb" title="Verified against College of Medicine, University of Baghdad sources"><img src="'+LOGO+'" alt="Verified against College of Medicine, University of Baghdad sources" style="width:'+(sz||18)+'px;height:auto"><i aria-hidden="true">\u2713</i></span>':''}
+function srcLine(on){return on?'<div class="srcln">'+srcMark(1,22)+'<span>Verified against College of Medicine, University of Baghdad sources</span></div>':''}
 (function(){
 'use strict';
 /* ================= helpers ================= */
@@ -8946,7 +8963,7 @@ function offerBinary(name,bytes){
 function buildPDF(e){
   var P=getP(e.pid),blocks=sheetBlocks(e).map(function(b){return b.k==='p'&&b.label&&b.label[b.label.length-1]!==':'?{k:b.k,label:b.label+':',text:b.text}:b}),meta=[];
   var pr=progress(e);
-  if(SRC_P[P.id])meta.push('Based on College of Medicine, University of Baghdad teaching material');
+  if(SRC_P[P.id])meta.push('Verified against College of Medicine, University of Baghdad sources');
   meta.push('Checklist coverage: history '+pr.h+' of '+pr.ht+', examination '+pr.x+' of '+pr.xt);
   meta.push('Companion tool only. Compare everything with your own sources.');
   var acc=(ACCENTS[DB.accent]&&ACCENTS[DB.accent].l.ac)||'#1F5FBF';
@@ -8974,7 +8991,7 @@ function buildLogbookPDF(list){
     var P=getP(e.pid);
     blocks.push({k:'pb'});
     blocks.push({k:'big',text:'Case '+(i+1)+': '+P.name});
-    blocks.push({k:'p',text:P.g+' / '+P.sys+(SRC_P[P.id]?'   |   Based on College of Medicine, University of Baghdad teaching material':'')});
+    blocks.push({k:'p',text:P.g+' / '+P.sys+(SRC_P[P.id]?'   |   Verified against College of Medicine, University of Baghdad sources':'')});
     sheetBlocks(e).forEach(function(b){blocks.push(b.k==='p'&&b.label&&b.label[b.label.length-1]!==':'?{k:b.k,label:b.label+':',text:b.text}:b)});
   });
   return PDFW.build({title:'Clinical logbook',sub:p.module||'Patient log',meta:meta,blocks:blocks,accent:acc,foot:'Companion tool only. Verify against your textbooks, the handbook and your supervisor.'});
@@ -9185,7 +9202,7 @@ function helpPanel(){
   +S('Ticking','<ul><li>Tap a chip once for <b>present</b>, again for <b>denied</b>, a third time to <b>clear</b>.</li><li>Red <b>!</b> means a red flag. Ask it every time.</li><li><b>Rest: No</b> or <b>Rest normal</b> fills the untapped lines.</li><li>In Exam, open <b>How to examine</b> on each step, then tap abnormal findings.</li></ul>')
   +S('Test yourself','<ul><li>Turn it on next to <b>Expand all</b>. Every line is hidden.</li><li>Say the answer first, then tap to check it.</li><li><b>Hide group names</b> makes it harder.</li></ul>')
   +S('Other tabs','<ul><li><b>Log</b>: your saved patients, and backup. Use initials only. Back up often.</li><li><b>Reference</b>: signs, scores, calculators, normal values, criteria, mnemonics.</li><li><b>Practice</b>: diagnosis quiz and exam guides.</li></ul>')
-  +S('About the content','<ul><li>The <b>crest</b> marks complaints and guides based on the College of Medicine (University of Baghdad) material: the handbook and the surgery sources.</li><li>Complaints without the crest, the extra findings added to some complaints, the diagnosis weights and the calculators, normal values, criteria and mnemonics are written from standard teaching.</li><li>The differential is a thinking aid, not a diagnosis. Check your textbooks and supervisor.</li><li>Made by <b>Yaseen Omar Lutfi</b>. Telegram <a href="https://t.me/YaseenOmarLutfi" target="_blank" rel="noopener">@YaseenOmarLutfi</a>.</li></ul>')
+  +S('About the content','<ul><li>The <b>crest with a green tick</b> marks complaints and guides verified against the College of Medicine (University of Baghdad) sources: the medicine handbook, Browse’s surgical chapters, the post-op and drains lectures and the history-taking record.</li><li>Complaints and guides without it, the extra findings added to some complaints, the diagnosis weights and the calculators, normal values, criteria and mnemonics are written from standard teaching.</li><li>The differential is a thinking aid, not a diagnosis. Check your textbooks and supervisor.</li><li>Made by <b>Yaseen Omar Lutfi</b>. Telegram <a href="https://t.me/YaseenOmarLutfi" target="_blank" rel="noopener">@YaseenOmarLutfi</a>.</li></ul>')
   +'</div>';
 }
 function stylePanel(){
@@ -9260,7 +9277,7 @@ function viewPick(e){
   if(UI.pickMode!=='change')h+=recentHTML();
   h+=specBar();
   h+='<div id="pickList">'+pickList(q)+'</div>';
-  h+='<div class="compn" style="margin-block-start:16px"><div class="srcln">'+srcMark(1,20)+'<span><b>The crest</b> marks content based on College of Medicine, University of Baghdad teaching material.</span></div><p><b>A companion, not a source.</b> This app is a revision aid for the bedside. Do not rely on it alone: compare every question, finding and diagnosis with your own sources and your supervisor.</p></div>';
+  h+='<div class="compn" style="margin-block-start:16px"><div class="srcln">'+srcMark(1,20)+'<span><b>The crest with a green tick</b> marks complaints verified against College of Medicine, University of Baghdad sources: the medicine handbook, Browse’s surgical chapters, the post-op and drains lectures and the history-taking record.</span></div><p><b>A companion, not a source.</b> This app is a revision aid for the bedside. Do not rely on it alone: compare every question, finding and diagnosis with your own sources and your supervisor.</p></div>';
   return h;
 }
 function recentHTML(){
