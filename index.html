@@ -491,6 +491,33 @@ input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 
 .alert{border-width:1px;border-inline-start-width:5px;border-radius:var(--rad-s)}
 .note{border-radius:var(--rad-s)}
 .toast{border-width:1px;border-color:var(--line);background:var(--ink);color:var(--surface);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+/* memory aid strip */
+.mn{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;margin:6px 0 8px;padding:7px 10px;border-radius:10px;background:var(--warn-bg);color:var(--ink);font-size:.82rem;line-height:1.35;border-inline-start:3px solid var(--warn)}
+.mn .mnl{font-size:.6rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--warn)}
+.mn b{color:var(--warn);font-weight:800}
+.mn span:last-child{flex-basis:100%}
+/* causes to cover */
+.cz{padding:12px 12px 10px}
+.czh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.czm{display:block;font-size:.98rem;line-height:1.3;color:var(--accent);margin-block-start:2px}
+.czl{display:grid;gap:6px}
+@media (min-width:640px){.czl{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.czr{position:relative;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:2px 10px;width:100%;text-align:start;padding:8px 10px 8px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:inherit;font:inherit;cursor:pointer;overflow:hidden}
+.czr::before{content:'';position:absolute;inset-block:0;inset-inline-start:0;width:4px;background:hsl(var(--hue) 60% 52%)}
+.czn{font-weight:800;font-size:.9rem;white-space:nowrap}
+.czd{font-size:.76rem;color:var(--muted);line-height:1.3;min-width:0}
+.czd u{text-decoration-color:var(--danger);text-decoration-thickness:2px;text-underline-offset:2px}
+.czs{font-size:.72rem;font-weight:800;padding:3px 9px;border-radius:99px;background:var(--surface2);color:var(--muted)}
+.czr.on{border-color:color-mix(in srgb,var(--ok) 45%,var(--line))}
+.czr.on .czs{background:var(--ok-bg);color:var(--ok)}
+.unit.pulse{animation:upulse 1.2s ease 1}
+@keyframes upulse{0%,50%{box-shadow:0 0 0 3px var(--accent)}100%{box-shadow:var(--sh)}}
+/* exam route */
+.route{margin-block-end:10px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--rad);background:var(--surface);box-shadow:var(--sh)}
+.route>div{display:flex;flex-wrap:wrap;gap:6px 4px;margin-block-start:6px}
+.route>div>span{display:inline-flex;align-items:center;gap:5px;font-size:.8rem;font-weight:700}
+.route>div>span:not(:last-child)::after{content:'\2192';color:var(--muted);font-weight:400;margin-inline-start:4px}
+.route i{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-style:normal;font-size:.66rem;font-weight:800}
 </style></head><body>
 <div class="app" id="app"></div>
 <div class="toast" id="toast" hidden></div>
@@ -518,117 +545,131 @@ D pneu|Pneumonia / pleurisy||0.8
 D gerd|GORD / oesophageal spasm||1.2
 D msk|Musculoskeletal / costochondritis||1.2
 D anx|Anxiety / panic||0.6
-G Pain (SOCRATES)
+Y Heart|acs,ang,peri|Heart
+Y Aorta|dis|Aorta
+Y Lungs|pneu,ptx|Lungs
+Y Clot|pe|Clot (PE)
+Y Gut|gerd|Gut
+Y Chest wall|msk|Chest wall
+Y Mind|anx|Mind
+R Hands and pulses -> Face -> Neck (JVP, carotids) -> Precordium (look, feel, listen) -> Back (lung bases, sacrum) -> Abdomen (liver) -> Legs -> Fundi
+G Pain story (SOCRATES)
+M SOCRATES|Site · Onset · Character · Radiation · Associated (screened by cause below) · Timing · Exacerbating and relieving · Severity
 H Site|pick|Site:
 N Ask the patient to point with one finger.
-- Central or retrosternal {acs:2,ang:2,gerd:1,dis:1,peri:1}
-- Left side of chest {msk:1,pneu:1,ptx:1,pe:1}
-- Right side of chest {msk:1,pneu:1,ptx:1,pe:1}
-- One spot, points with a finger {msk:2}
-- Epigastric {gerd:2}
-- Between the shoulder blades {dis:3}
+- Central or retrosternal {acs:2,ang:2,gerd:1,dis:1,peri:1} @0
+- Left or right side of chest {msk:1,pneu:1,ptx:1,pe:1} @1
+- One spot, points with a finger {msk:2} @3
+- Epigastric {gerd:2} @4
+- Between the shoulder blades {dis:3} @5
 H Onset|one|Onset:
-- Sudden, worst at the start {dis:3,ptx:2,pe:2}
-- Built up over minutes {acs:2,ang:1}
-- Gradual over hours or days {pneu:1,peri:1,msk:1}
+- Sudden, worst at the start {dis:3,ptx:2,pe:2} @6
+- Built up over minutes {acs:2,ang:1} @7
+- Gradual over hours or days {pneu:1,peri:1,msk:1} @8
 H Character|pick|Character:
-- Heavy, tight, crushing or squeezing {acs:3,ang:3}
-- Sharp or stabbing {peri:1,pe:1,pneu:1,ptx:1,msk:1}
-! Tearing or ripping {dis:4}
-- Burning {gerd:2}
+- Heavy, tight, crushing or squeezing {acs:3,ang:3} @9
+- Sharp or stabbing {peri:1,pe:1,pneu:1,ptx:1,msk:1} @10
+! Tearing or ripping {dis:4} @11
+- Burning {gerd:2} @12
 H Radiation|pick|Radiates to:
-- Left arm {acs:1,ang:1}
-- Both arms {acs:2,ang:1}
-- Neck or jaw {acs:1,ang:1}
-! Through to the back {dis:3}
-- Shoulder tip {peri:1}
-- Does not spread {msk:1}
+- Left arm {acs:1,ang:1} @13
+- Both arms {acs:2,ang:1} @14
+- Neck or jaw {acs:1,ang:1} @15
+! Through to the back {dis:3} @16
+- Shoulder tip {peri:1} @17
 H Timing|pick|Timing:
-- Episodes under 10 minutes {ang:3}
-! Continuous for over 20 minutes {acs:3}
-- Comes on at rest {acs:2}
-- Only on exertion {ang:3,acs:1}
-- Constant for days {msk:1,pneu:1,peri:1}
+- Episodes under 10 minutes {ang:3} @19
+! Continuous for over 20 minutes {acs:3} @20
+- Comes on at rest {acs:2} @21
+- Only on exertion {ang:3} @22
 H Exacerbating factors|pick|Worse with:
-- Exertion {ang:3,acs:1}
-- Breathing in or coughing {peri:1,pe:1,pneu:1,ptx:1,msk:1}
-- Lying flat {peri:2,gerd:1}
-- Moving or pressing on the chest {msk:3}
-- Meals, bending or lying after food {gerd:2}
-- Emotion or cold weather {ang:1}
-H Relieving factors|pick|Relieved by:
-- Rest within minutes {ang:3,acs:1}
-- GTN spray {ang:2,gerd:1}
-- Sitting forward {peri:3}
-- Antacids {gerd:2}
-- Simple painkillers {msk:1}
-- Nothing helps {acs:1,dis:1}
+- Exertion, emotion or cold weather {ang:3,acs:1} @24
+- Breathing in or coughing (pleuritic) {pe:2,pneu:2,peri:2,ptx:2} @25
+- Lying flat {peri:3} @26
+- Moving or pressing on the chest {msk:4} @27
+- Meals, bending or lying after food {gerd:3} @28
+H Relieving factors|pick|Better with:
+- Rest within minutes {ang:3} @30
+- GTN spray {ang:2,acs:1} @31
+- Sitting forward {peri:4} @32
+- Antacids {gerd:3} @33
 H Severity|one|Severity:
-- Mild (1 to 3 of 10)
-- Moderate (4 to 6 of 10)
-- Severe (7 to 10 of 10) {acs:1,dis:1}
+- Mild (1 to 3 of 10) {msk:1,gerd:1} @36
+- Moderate (4 to 6 of 10) @37
+- Severe (7 to 10 of 10) {acs:1,dis:1} @38
 H Exercise tolerance|one|Exercise tolerance:
 N How far can you walk on the flat before you stop? What stops you? How far could you walk a year ago?
-- Not limited
-- Over 200 metres
-- Under 200 metres {ang:1}
-- Symptoms at rest {acs:1}
-G Associated symptoms
-H Cardiac|pick
-- Sweating {acs:1}
-- Nausea or vomiting {acs:1}
-- Breathlessness {acs:1,pe:2,ptx:2,pneu:1}
-- Palpitations {acs:1,pe:1,dis:1}
-! Fainting or near-fainting {acs:1,pe:1,dis:1}
-H Chest infection|pick
-- Fever {pneu:1,peri:1}
-- Cough {pneu:1,peri:1}
-- Sputum {pneu:2}
-! Coughing blood {pe:2}
-- Recent flu-like illness {peri:2}
-H Clot risk|pick
-- One leg swollen or painful {pe:2}
-- Surgery in the last 4 weeks {pe:1}
-- Bed-bound or immobile {pe:1}
-- Long journey {pe:1}
-- Active cancer {pe:1}
-- Pill or HRT {pe:1}
-- Previous DVT or PE {pe:2}
+- Not limited @39
+- Over 200 metres @40
+- Under 200 metres {ang:1} @41
+- Symptoms at rest {acs:1} @42
+G Screen the causes, one at a time
+M Heart and aorta · Lungs · Clot · Gut · Wall · Mind|Two or three questions each, then move on. The pain story above already did most of the work.
+H Heart|pick
+N Ischaemia (ACS, angina) and pericarditis.
+- Sweating {acs:1} @43
+- Nausea or vomiting {acs:1} @44
+- Breathlessness {acs:1,pe:2,ptx:2,pneu:1} @45
+- Palpitations {acs:1,pe:1,dis:1} @46
+! Fainting or near-fainting {acs:1,pe:1,dis:1} @47
+- Recent flu-like illness (pericarditis) {peri:2} @52
+H Aorta|pick
+N Dissection: sudden tearing pain through to the back. Ask about stroke-like symptoms and known aortic risk.
+! Weakness, numbness or loss of vision with the pain {dis:3} @x300
+- Marfan syndrome {dis:1} @81
+- Known bicuspid aortic valve {dis:1} @82
+H Lungs|pick
+N Pneumonia, pleurisy, pneumothorax. Pleuritic pain is asked above.
+- Fever {pneu:1,peri:1} @48
+- Cough {pneu:1,peri:1} @49
+- Sputum {pneu:2} @50
+H Clot (PE)|pick
+N Ask for the risk factors as well as the symptoms.
+! Coughing blood {pe:2} @51
+- One leg swollen or painful {pe:2} @53
+- Surgery, bed-bound or long journey in the last 4 weeks {pe:1} @54
+- Active cancer {pe:1} @57
+- Pill or HRT {pe:1} @58
+- Previous DVT or PE {pe:2} @59
 H Gut|pick
-- Acid taste or regurgitation {gerd:2}
-- Difficulty swallowing {gerd:1}
-H Anxiety|pick
-- Panic {anx:1}
-- Breathing fast {anx:1}
-- Tingling around the mouth or fingers {anx:1}
-- Fear of dying {anx:1}
+N Reflux and oesophageal spasm. Meals and antacids are asked above.
+- Acid taste or regurgitation {gerd:2} @60
+- Difficulty swallowing {gerd:1} @61
+H Chest wall|pick
+N Musculoskeletal pain: tender spot, worse on moving or pressing (asked above).
+- Recent injury, strain or heavy lifting {msk:3} @x301
+H Mind|pick
+N Anxiety or panic: a diagnosis only after the dangerous causes are excluded.
+- Panic attacks or fear of dying {anx:1} @62
+- Breathing fast with tingling around the mouth or fingers {anx:1} @64
+- Recent stress {anx:1} @x302
 G Background for this complaint
+M Risks · Past · Drugs|Then family and social history in the background card below.
 H Cardiovascular risk factors|pick|Risk factor:
-- Hypertension {acs:1,ang:1,dis:1}
-- Diabetes {acs:1,ang:1,dis:1}
-- High cholesterol {acs:1,ang:1,dis:1}
-- Smoking {acs:1,ang:1,dis:1}
-- Family history of early IHD (men under 55, women under 65) {acs:1,ang:1,dis:1}
-- Obesity {acs:1,ang:1}
-- Cocaine or amphetamine use {acs:1,dis:1}
+- Hypertension {acs:1,ang:1,dis:1} @66
+- Diabetes {acs:1,ang:1,dis:1} @67
+- High cholesterol {acs:1,ang:1,dis:1} @68
+- Smoking {acs:1,ang:1,dis:1} @69
+- Family history of early IHD (men under 55, women under 65) {acs:1,ang:1,dis:1} @70
+- Obesity {acs:1,ang:1} @71
+- Cocaine or amphetamine use {acs:1,dis:1} @72
 - Chronic kidney disease {acs:1,ang:1} @x20
 H Past cardiac history|pick|Past history:
-- Angina {acs:1,ang:1}
-- Previous MI {acs:1,ang:1}
-- Previous stent {acs:1,ang:1}
-- Previous bypass (CABG) {acs:1,ang:1}
-- Stroke or TIA {acs:1,ang:1}
-- Leg claudication {acs:1,ang:1}
-- Heart failure
-- Rheumatic fever
-- Marfan syndrome {dis:1}
-- Known bicuspid aortic valve {dis:1}
+- Angina {acs:1,ang:1} @73
+- Previous MI {acs:1,ang:1} @74
+- Previous stent or bypass (CABG) {acs:1,ang:1} @75
+- Stroke or TIA {acs:1,ang:1} @77
+- Leg claudication {acs:1,ang:1} @78
+- Heart failure @79
+- Rheumatic fever @80
+- Anaemia {ang:1} @x303
 H Drugs|pick|Takes:
-- Aspirin or other antiplatelet
-- GTN
-- Blood pressure tablets
-- Statin
-- NSAIDs {gerd:1}
+- Aspirin or other antiplatelet @83
+- GTN @84
+- Blood pressure tablets @85
+- Statin @86
+- NSAIDs {gerd:1} @87
+- Steroids, salbutamol, theophylline or thyroxine @x304
 G Examination
 E Bed space and appearance|pick
 ! Pale and sweaty {acs:1,dis:1,pe:1,ptx:1} @0
@@ -641,6 +682,7 @@ E Bed space and appearance|pick
 - Looks unwell or sweaty {acs:1,dis:1,pe:1} @x102
 - Obese or cachexic @x103
 E Pulses|pick
+M Radial -> Brachial -> Carotid -> Femoral|Rate and rhythm (radial) · Character and volume (brachial, carotid) · Both radials together · Radio-femoral delay
 - Irregular pulse {acs:1} @12
 ! Radial pulses unequal {dis:3} @13
 ! Absent peripheral pulse {dis:3} @14
@@ -651,6 +693,7 @@ E Pulses|pick
 - Slow-rising, low-volume pulse {ang:2} @x105
 - Radio-femoral delay {dis:2} @x106
 E Blood pressure|pick
+M Both arms, then lying and standing|A difference over 20 mmHg between arms suggests dissection
 ! Hypotension {acs:1,dis:1,pe:1,ptx:1} @6
 ! Tachycardia {acs:1,dis:1,pe:1,ptx:1} @7
 - SpO2 under 94% {pe:1,ptx:1,pneu:1} @8
@@ -660,6 +703,7 @@ E Blood pressure|pick
 - Hypertension {dis:2,acs:1,ang:1} @x107
 - Postural drop in blood pressure @x108
 E Eyes|pick
+M Eyes, then face, then mouth|Pallor · Arcus · Xanthelasma → Malar flush → Cyanosis · Palate · Teeth
 - Conjunctival pallor {ang:1} @18
 - Corneal arcus {acs:1,ang:1} @19
 - Xanthelasma {acs:1,ang:1} @20
@@ -670,18 +714,21 @@ E Face and mouth|pick
 - High-arched palate (Marfan syndrome) {dis:2} @x111
 - Dental caries @x112
 E JVP|pick
+M 45 degrees, head turned slightly left|Height above the sternal angle · Waveform (feel the carotid) · Hepatojugular reflux
 - Raised JVP {pe:2,peri:1,ptx:1} @22
 ! Trachea deviated {ptx:3} @23
 - Cannon a waves @x113
 - Prominent v waves (tricuspid regurgitation) @x114
 - Low JVP on hepatojugular reflux @x115
 E Precordium: inspection|pick
+M Look, feel, listen|Look: scars · pulsations · deformity · pacemaker box
 - Sternotomy scar {acs:1,ang:1} @24
 - Visible pulsation @25
 - Chest wall deformity @26
 - Visible cardiac pulsation @x116
 - Pacemaker or defibrillator box @x117
 E Precordium: palpation|pick
+M Feel: Apex, Heave, Thrill|Apex site and character → parasternal heave → thrills in each area
 - Displaced apex beat {acs:1} @27
 - Parasternal heave {pe:1} @28
 - Thrill @29
@@ -689,6 +736,7 @@ E Precordium: palpation|pick
 - Heaving apex beat {ang:1} @x118
 - Tapping apex beat @x119
 E Auscultation|pick
+M All Physicians Take Money|Aortic (2nd right space) · Pulmonary (2nd left) · Tricuspid (left lower sternal edge) · Mitral (apex). Then: axilla · left side with bell (MS) · sitting forward in expiration (AR)
 - Muffled heart sounds {peri:2} @31
 - Pericardial friction rub {peri:4} @32
 - Third heart sound or gallop {acs:1} @33
@@ -697,6 +745,7 @@ E Auscultation|pick
 - Loud P2 {pe:1} @36
 - Prosthetic valve click @x120
 E Lungs, back and carotids|pick
+M Sit forward: back, then sit back: neck|Lung bases · sacral oedema → carotid bruits
 - Basal crackles (heart failure) {acs:1} @37
 ! Hyper-resonant with absent breath sounds {ptx:4} @38
 - Dull to percussion {pneu:2} @39
@@ -708,6 +757,7 @@ E Lungs, back and carotids|pick
 - Carotid bruit {acs:1,ang:1} @x123
 - Aortic murmur radiating to the carotids {ang:2} @x124
 E Abdomen and legs|pick
+M Lie flat: liver, then legs|Liver (pulsatile in TR) → pitting ankle oedema → calves
 - Sacral or ankle oedema {acs:1} @43
 - One calf swollen {pe:2} @44
 - One calf tender {pe:2} @45
@@ -6249,63 +6299,108 @@ D sarc|Soft tissue sarcoma|!|0.1
 D gang|Ganglion||0.5
 D node|Lymph node||0.8
 D derm|Dermatofibroma / wart / benign naevus||0.6
-G The lump
-H Site|pick|Site:
-- Face or sun-exposed skin {bcc:2,scc:2}
-- Near a joint or tendon, wrist {gang:3}
-- Neck, armpit or groin {node:4}
-- Trunk, shoulders or limbs {lip:1,seb:1}
-H Duration and change|pick|Lump:
-- Present for months to years, slowly growing {lip:3}
-! Growing quickly {scc:4,sarc:2}
-- Appeared over days {abs:2}
-- Varies in size {gang:3}
-! Mole changed in size, shape or colour {mel:1}
+Y Skin|seb,bcc,scc,mel,derm|Symptoms,Look
+Y Fat|lip|Feel
+Y Infection|abs|Symptoms
+Y Tendon sheath|gang|Where is it
+Y Lymph node|node|Cause,Nodes and local tissues
+Y Deep tissue|sarc|Relations
+R Look (4S + skin) -> Feel (3T, edge, consistency) -> What is it made of? -> Relations -> Nodes and local tissues -> Whole patient
+G History of the lump (Browse)
+M 7 questions|When? · How noticed? · Symptoms? · Changed? · Ever disappears? · Other lumps? · Cause?
+H Where is it|pick|Site:
+- Face or sun-exposed skin {bcc:2,scc:2} @0
+- Near a joint or tendon, wrist {gang:3} @1
+- Neck, armpit or groin {node:4} @2
+- Trunk, shoulders or limbs {lip:1,seb:1} @3
+H When first noticed|one|First noticed:
+N Write "first noticed", not "appeared": many lumps are present long before the patient finds them.
+- Days ago {abs:2} @6
+- Weeks to months ago @x300
+- Years ago, slowly growing {lip:3} @4
+H How noticed|one|Noticed:
+- Felt or saw it while washing @x301
+- Found it because the area hurt {abs:1} @x302
+- Someone else noticed it @x303
+- On self-examination @x304
 H Symptoms|pick|Lump:
-- Painless {lip:1,sarc:1}
-- Painful, red and hot {abs:2}
-- Discharges cheesy material {seb:4}
-! Bleeds or itches (mole) {mel:1}
-- Crusted or ulcerated {scc:4,bcc:2}
-G Associated symptoms
-H General|pick
-- Fever {abs:2}
-- Infection near a lymph node basin {node:4}
+N Pain usually means inflammation, not cancer. A painless lump is not reassuring.
+- Painless {lip:1,sarc:1} @9
+- Painful, red and hot (throbbing) {abs:2} @10
+- Discharges cheesy material {seb:4} @11
+! Bleeds or itches (mole) {mel:1} @12
+- Crusted or ulcerated {scc:4,bcc:2} @13
+- Interferes with movement, breathing or swallowing @x305
+H Changed since noticed|pick|Lump:
+! Growing quickly {scc:4,sarc:2} @5
+! Mole changed in size, shape or colour {mel:1} @8
+- Same size for a long time {lip:1,seb:1} @x306
+H Ever disappears|one|Lump:
+N Ask even if it is there now: a lump can vanish on lying down or between episodes.
+- Never disappears @x307
+- Varies in size or comes and goes {gang:3} @7
+- Disappears on lying down (think hernia) @x308
+H Other lumps|pick|Patient has:
+- Other similar lumps (lipomas, cysts) {lip:1,seb:1} @x309
+- Enlarged glands elsewhere {node:2} @x310
+H Cause|pick|Patient links it to:
+- An injury at the site @x311
+- Infection or a cut in the area it drains {node:4} @15
+- Fever {abs:2} @14
 G Background for this complaint
 H Risk factors|pick|Risk factor:
-- Sun exposure or sunburn {mel:1,bcc:1,scc:1}
-- Fair skin, many moles {mel:2}
-- Family history of melanoma {mel:2}
-- Old scar or burn at the site {scc:2}
+- Sun exposure or sunburn {mel:1,bcc:1,scc:1} @16
+- Fair skin, many moles {mel:2} @17
+- Family history of melanoma {mel:2} @18
+- Old scar or burn at the site {scc:2} @19
 - Diabetes {abs:2} @x20
-G Inspection
-E Inspection|pick
-N Site, size, shape, colour, surface, edge; for a mole: ABCDE.
-- Central punctum {seb:6}
-- Red, hot, swollen {abs:6}
-! Asymmetric, irregular border, several colours, over 6 mm, changing {mel:2}
-- Pearly rolled edge, telangiectasia, central ulcer {bcc:6}
-! Hard crusted ulcerating nodule {scc:6}
-- Small brown papule that dimples when pinched {derm:6}
+G Examination
+E Look|pick
+N Site in exact anatomical terms, measured from bony points. Size in 3 dimensions with a tape. Shape (lumps are three-dimensional: dome, pear, dumb-bell). Surface. Colour and texture of the overlying skin.
+M 4S + Skin|Site · Size · Shape · Surface · Skin over it (colour, texture, punctum, ulcer)
+- Central punctum {seb:6} @0
+- Red, hot, swollen skin {abs:6} @1
+! Mole: Asymmetric, irregular Border, several Colours, Diameter over 6 mm, Evolving (ABCDE) {mel:2} @2
+- Pearly rolled edge, telangiectasia, central ulcer {bcc:6} @3
+! Hard crusted ulcerating nodule {scc:6} @4
+- Small brown papule that dimples when pinched {derm:6} @5
 - Ulceration {scc:3,mel:2,bcc:3} @x101
 - Bleeding {mel:2,scc:2,bcc:2} @x102
 - Satellite lesions {mel:3} @x103
 - Pigmented {mel:2} @x104
-G Palpation
-E Palpation|pick
-N Consistency, tenderness, temperature, fluctuation, transillumination, pulsation, compressibility, mobility, attachment to skin and deep tissues.
-- Soft, lobulated, slips under the fingers {lip:6}
-- Smooth, firm, attached to skin {seb:6}
-- Tender, fluctuant {abs:6}
-! Firm, deep, fixed, over 5 cm {sarc:6}
-- Transilluminates, attached to tendon sheath {gang:4}
-- Firm, mobile under the skin, not attached {lip:2,gang:2} @x105
-- Fixed to deeper structures {sarc:3,scc:1} @x106
-G Complete the examination
-E Regional nodes|pick
-! Regional lymph nodes enlarged {mel:3,scc:3,node:3}
+E Feel|pick
+N Temperature with the backs of your fingers. Tenderness: feel the non-tender part first and watch the face. Edge: clear or indistinct. Consistency on a scale: stony hard, firm, rubbery, spongy, soft.
+M 3T, then Edge and Consistency|Temperature · Tenderness · (Transillumination comes next) → Edge → Consistency
+- Hot {abs:3} @x200
+- Tender {abs:3} @x201
+- Soft, lobulated, slips under the fingers {lip:6} @6
+- Smooth, firm, well-defined edge {seb:3} @7
+! Firm or hard, deep, over 5 cm {sarc:6} @9
+- Rubbery {node:2} @x202
+E What is it made of?|pick
+N Fluctuation: press the centre, feel two opposite sides bulge; test in two planes. Fluid thrill for large lumps. Transillumination: bright light from the side in a dark room. Percuss for resonance (gas). Rest your fingers on it for pulsation: expansile (aneurysm) or transmitted. Compress it and see if it refills. Try to reduce it and feel for a cough impulse. Listen for a bruit.
+M Fluid, gas or blood?|Fluctuation · Fluid thrill · Transillumination (fluid) · Resonance (gas) · Pulsation · Bruit (blood) · Compressible · Reducible with cough impulse
+- Fluctuant {abs:6} @8
+- Transilluminates (near a tendon sheath) {gang:4} @10
+- Pulsatile: expansile (think aneurysm) @x203
+- Reducible with a cough impulse (think hernia) @x204
+- Resonant (gas, bowel) @x205
+E Relations|pick
+N Move the lump while watching the skin for puckering. Then tense the muscle underneath: less mobile means attached to muscle or fascia; harder to feel means deep to the muscle. Lumps on nerves or vessels move side to side but not along their length.
+M Skin first, then deep|Attached to skin? · Attached to deep tissue (tense the muscle)?
+- Attached to the skin {seb:4} @x206
+- Mobile under the skin, not attached {lip:2,gang:2} @x105
+! Fixed to deeper structures {sarc:3,scc:1} @x106
+E Nodes and local tissues|pick
+N Feel the nodes that drain the area: limbs and trunk drain to the axilla and groin, head and neck to the cervical nodes. Check the local arteries, nerves, bones and joints.
+M L and L|Lymph nodes that drain it · Local tissues (arteries, nerves, bones)
+! Regional lymph nodes enlarged {mel:3,scc:3,node:3} @11
 - Satellite or in-transit nodules {mel:3} @x107
-
+- Local nerve or circulation problem @x207
+E Whole patient|pick
+N Never examine only the lump: examine the whole patient.
+- Other lumps elsewhere {lip:1,node:1} @x208
+- Signs of systemic illness (weight loss, fever) {node:1,sarc:1} @x209
 @dyspep|Dyspepsia / epigastric pain|Upper GI|Surgery
 SC
 I Test and treat for H. pylori; urgent OGD if alarm features (age over 55 with new symptoms, dysphagia, weight loss, anaemia, vomiting, melaena, mass); FBC, ferritin, LFT, amylase or lipase; ECG if chest pain; USS biliary; trial of PPI; stop NSAIDs
@@ -6923,7 +7018,7 @@ anal:['Piles · Fissure · Abscess and fistula · Cancer'],
 obstr:['Pain · Vomiting · Distension · Constipation. Cause: in the lumen · in the wall · outside the wall'],
 mass:['Organ in that region: liver · spleen · kidney · bowel · aorta · pelvis'],
 varicose:['Primary · Secondary (after clot) · Complications'],
-skinlump:['Fat · Cyst · Infection · Cancer · Node'],
+skinlump:['Layer by layer: Skin · Fat · Infection · Tendon sheath · Node · Deep tissue'],
 dyspep:['Acid · Gallbladder · Pancreas · Cancer · Heart'],
 postop:['5 Ws: Wind · Water · Wound · Walking · Wonder drugs. Also: bleeding and leak','std'],
 drain:['Type · Site · Output (amount, colour) · Complications · Plan to remove'],
@@ -8009,22 +8104,28 @@ saveNow();
 
 /* ================= content parser ================= */
 function parse(raw){
-  var P=[],cur=null,sec=null,grp=null,gk='',gNew=false;
+  var P=[],cur=null,sec=null,grp=null,gk='',gNew=false,gMn=null;
   raw.split('\n').forEach(function(line){
     line=line.replace(/\s+$/,'');
     if(!line)return;
     var c=line.charAt(0);
-    if(c==='@'){var a=line.slice(1).split('|');cur={id:a[0],name:a[1],sys:a[2],g:a[3],sc:[],inv:'',dd:[],sections:[],n:{H:0,E:0},pain:false};P.push(cur);sec=null;grp=null;gk='';return}
+    if(c==='@'){var a=line.slice(1).split('|');cur={id:a[0],name:a[1],sys:a[2],g:a[3],sc:[],inv:'',dd:[],sections:[],n:{H:0,E:0},pain:false,cz:[],route:''};P.push(cur);sec=null;grp=null;gk='';gMn=null;return}
     if(!cur)return;
     if(line.slice(0,2)==='SC'&&(line.length===2||line.charAt(2)===' ')){cur.sc=line.slice(2).trim().split(',').filter(Boolean);return}
     if(line.slice(0,2)==='I '){cur.inv=line.slice(2).trim();return}
     if(line.slice(0,2)==='D '){var d=line.slice(2).split('|');cur.dd.push({k:d[0],name:d[1],mnm:d[2]==='!',prior:parseFloat(d[3])||1});return}
-    if(line==='G'||line.slice(0,2)==='G '){grp=line.slice(2).trim()||null;gNew=true;return}
+    if(line==='G'||line.slice(0,2)==='G '){grp=line.slice(2).trim()||null;gNew=true;gMn=null;return}
+    /* Y name|dd keys|section titles: one cause group for the "Causes to cover" card */
+    if(line.slice(0,2)==='Y '){var y=line.slice(2).split('|');cur.cz.push({n:y[0].trim(),dd:(y[1]||'').split(',').map(function(x){return x.trim()}).filter(Boolean),secs:(y[2]||'').split(',').map(function(x){return x.trim()}).filter(Boolean)});return}
+    /* M title|expansion: a memory aid; after G it heads the group, after H/E it heads that section */
+    if(line.slice(0,2)==='M '){var mm=line.slice(2).split('|'),mo={t:mm[0].trim(),x:(mm[1]||'').trim()};if(gNew||!sec)gMn=mo;else sec.mn=mo;return}
+    if(line.slice(0,2)==='R '){cur.route=line.slice(2).trim();return}
     if(line.slice(0,2)==='N '&&sec){sec.note=(sec.note?sec.note+' ':'')+line.slice(2).trim();return}
     if(line==='H'||line==='E'||line.slice(0,2)==='H '||line.slice(0,2)==='E '){
       if(gk&&gk!==c&&!gNew)grp=null;gk=c;gNew=false;
       var hd=line.slice(2).split('|');
       sec={kind:c,title:hd[0].trim()||(c==='H'?'History':'Examination'),mode:(hd[1]||'yn').trim(),pre:(hd[2]||'').trim(),g:grp,note:'',items:[],ix:cur.sections.length};
+      if(gMn){sec.gmn=gMn;gMn=null}
       if(c==='H'&&grp&&/^pain/i.test(grp))cur.pain=true;
       cur.sections.push(sec);return}
     if((c==='-'||c==='!')&&sec){
@@ -8641,7 +8742,7 @@ function render(keepScroll){
   var top='<header class="top"><div class="brand">Bedside H&amp;E<small>History, examination, differential</small></div><div class="row">'+(saveOK?'':'<span class="pill red" title="Browser storage is blocked. Export your log often.">Not saving</span>')+'<button class="ibtn" data-act="help" aria-label="How to use this app" title="Help" aria-pressed="'+!!UI.helpOpen+'">'+IC.help+'</button><button class="ibtn" data-act="accent" aria-label="Change colour style" title="Colour style" aria-pressed="'+!!UI.stOpen+'">'+IC.palette+'</button><button class="ibtn" data-act="theme" aria-label="Theme: '+themeName()+'. Tap to switch" title="Theme: '+themeName()+'">'+(DB.theme==='dark'?IC.moon:DB.theme==='light'?IC.sun:IC.auto)+'</button></div></header>';
   if(LAYOUT_A&&UI.tab==='enc'&&e&&!UI.pick){
     var P0=getP(e.pid);
-    top='<header class="top slim"><div class="grow tt"><div class="eyebrow">'+esc(P0.g)+' / '+esc(P0.sys)+'</div><h2>'+esc(P0.name)+'</h2></div>'+(saveOK?'':'<span class="pill red" title="Browser storage is blocked. Export your log often.">Not saving</span>')+'<button class="btn small" data-act="pickOpen" data-m="change" title="Change the presenting complaint">Change</button><button class="btn small primary" data-act="newEnc" title="Start a new patient">'+IC.plus+'<span>New</span></button><button class="ibtn" data-act="moreToggle" aria-expanded="'+(!!UI.moreOpen)+'" aria-label="More options" title="More options">'+IC.more+'</button></header>'+moreMenu(e)+hookHTML(P0.id);
+    top='<header class="top slim"><div class="grow tt"><div class="eyebrow">'+esc(P0.g)+' / '+esc(P0.sys)+'</div><h2>'+esc(P0.name)+'</h2></div>'+(saveOK?'':'<span class="pill red" title="Browser storage is blocked. Export your log often.">Not saving</span>')+'<button class="btn small" data-act="pickOpen" data-m="change" title="Change the presenting complaint">Change</button><button class="btn small primary" data-act="newEnc" title="Start a new patient">'+IC.plus+'<span>New</span></button><button class="ibtn" data-act="moreToggle" aria-expanded="'+(!!UI.moreOpen)+'" aria-label="More options" title="More options">'+IC.more+'</button></header>'+moreMenu(e)+(UI.stage==='hist'&&P0.cz&&P0.cz.length?'':hookHTML(P0.id));
   }
   var dock='';
   if(UI.tab==='enc'&&e&&!UI.pick&&getP(e.pid).dd.length&&(UI.stage==='hist'||UI.stage==='exam'||UI.stage==='vit')){dock='<div class="dock" id="dock"'+(DB.hideDdx?'':' data-act="stage" data-s="ddx"')+'>'+dockHTML(e)+'</div>'}
@@ -8705,6 +8806,19 @@ function viewEnc(e){
   h+='<div class="encgrid"><div>'+main+'</div><aside class="side'+(side?' on':'')+'" id="sideSlot">'+(side?sideHTML(e):'')+'</aside></div>';
   return h;
 }
+function mnHTML(m){return m?'<div class="mn"><span class="mnl">Remember</span><b>'+esc(m.t)+'</b>'+(m.x?'<span>'+esc(m.x)+'</span>':'')+'</div>':''}
+function czState(e,P,c){var t=0,n=0;P.sections.forEach(function(s){if(c.secs.indexOf(s.title)<0)return;s.items.forEach(function(it){t++;if(e.f[fkey(P,it)])n++})});return {n:n,t:t}}
+function czHTML(e,P){
+  if(!P.cz||!P.cz.length)return '';
+  var done=0,rows=P.cz.map(function(c,i){
+    var st=czState(e,P,c);if(st.n)done++;
+    var dx=c.dd.map(function(k){var d=P.dmap[k];return d?(d.mnm?'<u>'+esc(d.name)+'</u>':esc(d.name)):''}).filter(Boolean).join(', ');
+    return '<button class="czr'+(st.n?' on':'')+'" data-act="czGo" data-i="'+i+'" style="--hue:'+(czHue[i%czHue.length])+'"><span class="czn">'+esc(c.n)+'</span><span class="czd">'+dx+'</span><span class="czs" aria-label="'+(st.n?'Asked':'Not asked yet')+'">'+(st.n?'\u2713':'Ask')+'</span></button>';
+  }).join('');
+  var hk=HOOKS[P.id];
+  return '<section class="card cz" id="czSlot"><div class="czh"><div><div class="eyebrow">Causes to cover</div>'+(hk?'<b class="czm">'+esc(hk[0])+'</b>':'')+'</div><span class="cnt">'+done+'/'+P.cz.length+'</span></div><p class="small muted" style="margin-block:2px 8px">Ask the story first, then screen each cause with a few questions. Tap a cause to jump to its questions. <u>Underlined</u>: must not miss.</p><div class="czl">'+rows+'</div></section>';
+}
+var czHue=[352,28,205,265,150,190,320,45];
 function rfHTML(rf){return rf.length?'<div class="alert" role="alert">Red flag: '+rf.map(function(i){return esc(i.t)}).join(' / ')+'</div>':''}
 function infoCard(e){
   var sum=[e.pt.ref||'No ID',e.pt.age?e.pt.age+' y':'',e.pt.sex||'',e.pt.loc||''].filter(Boolean).join(' / ');
@@ -8775,9 +8889,11 @@ function unitHTML(e,P,u,idx){
   u.secs.forEach(function(s){var c=0;s.items.forEach(function(it){if(e.f[fkey(P,it)])c++});n+=c;t+=s.items.length;if(s.mode==='one'?!c:c<s.items.length)done=false});
   var title=covName(u.g||s0.title,idx);
   var h='<section class="card unit'+(done&&n?' done':'')+(open?'':' shut')+'" data-u="'+esc(secKey(P,s0))+'"><h3 class="sech" data-act="secToggle" data-sk="'+esc(secKey(P,s0))+'" data-i="'+idx+'" role="button" tabindex="0" aria-expanded="'+open+'"><span><i class="chev">'+(open?'▾':'▸')+'</i> '+esc(title)+'</span><span class="cnt">'+n+'/'+t+'</span></h3>';
+  if(open&&s0.gmn)h+=mnHTML(s0.gmn);
   if(open)u.secs.forEach(function(s){
     if(u.g)h+='<div class="sst"><span>'+esc(covName(s.title,u.secs.indexOf(s),'Part'))+(s.mode==='one'?' <i>pick one</i>':'')+'</span></div>';
     if(s.note)h+='<p class="snote">'+esc(s.note)+'</p>';
+    if(s.mn)h+=mnHTML(s.mn);
     h+='<div class="sbody" id="sb-'+s.kind+s.ix+'">'+secBody(e,P,s)+'</div>';
   });
   return h+'</section>';
@@ -8832,7 +8948,7 @@ function paHTML(e){
   return h+'</section>';
 }
 function stageHist(e,P){
-  var h='<p class="tip">Go in story order. Tap what the patient has. Tap again to mark it as denied, a third time to clear. Chips with a red ! are red flags: ask them every time.</p>';
+  var h=czHTML(e,P)+'<p class="tip">Go in story order. Tap what the patient has. Tap again to mark it as denied, a third time to clear. Chips with a red ! are red flags: ask them every time.</p>';
   h+=secBar(P,'H');
   units(P,'H').forEach(function(u,i){h+=unitHTML(e,P,u,i);if(i===0&&!P.pain&&P.id!=='genhx')h+=paHTML(e)});
   if(!units(P,'H').length&&!P.pain)h+=paHTML(e);
@@ -8917,6 +9033,7 @@ function stepHTML(e,P,st,idx){
       if(hw)h+='<div class="hw small">'+esc(st.how)+gExtra(st.g,{n:st.notes})+'</div>';
     }
     st.secs.forEach(function(s){
+      if(s.gmn)h+=mnHTML(s.gmn);if(s.mn)h+=mnHTML(s.mn);
       if(st.secs.length>1||s.title!==st.t)h+='<div class="sst"><span>'+esc(covName(s.title,st.secs.indexOf(s),'Part'))+(s.mode==='one'?' <i>pick one</i>':'')+'</span></div>';
       if(s.note&&s.note!==st.how)h+='<p class="snote">'+esc(s.note)+'</p>';
       h+='<div class="sbody" id="sb-'+s.kind+s.ix+'">'+secBody(e,P,s)+'</div>';
@@ -8935,6 +9052,7 @@ function stepFind(P,sk){var S2=stepsFor(P)||[],r=null;S2.forEach(function(s,i){i
 function stageExam(e,P){
   var gen=[['G0','Washed hands, introduced self, took consent'],['G1','Patient positioned and exposed appropriately, chaperone offered'],['G2','Inspected the bed space and general appearance']];
   var h='<p class="tip">Tap an abnormal finding (red). Tap again to record it as normal, a third time to clear. "Rest normal" marks everything you did not tap as normal.</p>';
+  if(P.route)h+='<div class="route"><span class="eyebrow">Exam route</span><div>'+P.route.split(/\s*(?:->|\u2192)\s*/).map(function(x,i){return '<span><i>'+(i+1)+'</i>'+esc(x)+'</span>'}).join('')+'</div></div>';
   h+='<section class="card"><h3>Before you start</h3>'+gen.map(function(g){var st=e.f['gen.'+g[0]];return '<div class="it" data-gk="'+g[0]+'"><div class="t">'+g[1]+'</div><div class="seg one"><button class="y'+(st?' on':'')+'" data-act="gen" aria-pressed="'+(!!st)+'">Done</button></div></div>'}).join('')+'</section>';
   if(CORE_OF[P.id]&&gById(CORE_OF[P.id]))h+='<button class="btn" data-act="coreOpen" data-id="'+CORE_OF[P.id]+'" style="margin-block-end:10px">Open the full '+esc(gById(CORE_OF[P.id]).n.replace(' (Internal medicine)',''))+'</button><p class="small muted" style="margin-block:-4px 10px">The ticks below record findings. The full exam lists every step, with this complaint’s extras in colour.</p>';
   (function(){var cm=CORE_MAP[P.id],g0=cm&&gById(cm.g);if(g0&&g0.cx&&g0.cx.length>1)h+=legendHTML(g0,cm.cx)})();
@@ -9355,6 +9473,7 @@ function refreshLive(){
   var d=$('#dock');if(d)d.innerHTML=dockHTML(e);
   var s=$('#sideSlot');if(s&&s.classList.contains('on'))s.innerHTML=sideHTML(e);
   var r=$('#rfSlot');if(r)r.innerHTML=rfHTML(redFlags(e));
+  var cz=$('#czSlot');if(cz){var tmp=document.createElement('div');tmp.innerHTML=czHTML(e,getP(e.pid));if(tmp.firstChild)cz.replaceWith(tmp.firstChild)}
   var gp=$('#gtop');if(gp)gp.innerHTML=gTop(e,4);
 }
 function unitRefresh(e,P,s){
@@ -9824,6 +9943,16 @@ var ACT={
     UI.pick=false;UI.stage='hist';UI.pq='';saveSoon();render();
   },
   moreToggle:function(){UI.moreOpen=!UI.moreOpen;render(true)},
+  czGo:function(t){
+    var e=curEnc();if(!e)return;var P=getP(e.pid),c=P.cz[+t.dataset.i];if(!c)return;
+    var s=null;P.sections.forEach(function(x){if(!s&&c.secs.indexOf(x.title)>=0)s=x});if(!s)return;
+    UI.so=UI.so||{};UI.stage=s.kind==='E'?'exam':'hist';
+    if(s.kind==='E'){var SP=stepsFor(P);(SP||[]).forEach(function(st){if(st.secs.indexOf(s)>=0)UI.so[stepKey(P,st)]=true})}
+    else{var U=units(P,'H');U.forEach(function(u){if(u.secs.indexOf(s)>=0)UI.so[secKey(P,u.secs[0])]=true})}
+    render(true);
+    var el=document.getElementById('sb-'+s.kind+s.ix);
+    if(el){var sst=el.previousElementSibling;while(sst&&!sst.classList.contains('sst')&&!sst.classList.contains('sech'))sst=sst.previousElementSibling;var tgt=sst||el,y=tgt.getBoundingClientRect().top+window.scrollY-90;window.scrollTo({top:y,behavior:'smooth'});var it=el.closest('.unit');if(it){it.classList.remove('pulse');void it.offsetWidth;it.classList.add('pulse')}}
+  },
   infoToggle:function(){UI.infoOpen=!UI.infoOpen;render(true)},
   stage:function(t){UI.stage=t.dataset.s;render()},
   tri:function(t){
