@@ -518,6 +518,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 
 .route>div>span{display:inline-flex;align-items:center;gap:5px;font-size:.8rem;font-weight:700}
 .route>div>span:not(:last-child)::after{content:'\2192';color:var(--muted);font-weight:400;margin-inline-start:4px}
 .route i{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-style:normal;font-size:.66rem;font-weight:800}
+.pk.more{border-style:dashed;border-color:var(--accent);color:var(--accent);background:var(--accent-soft);font-weight:700}
 </style></head><body>
 <div class="app" id="app"></div>
 <div class="toast" id="toast" hidden></div>
@@ -771,6 +772,11 @@ E Finish|pick
 - Hypertensive retinopathy {dis:1,acs:1} @x129
 - Diabetic retinopathy {acs:1,ang:1} @x130
 @palp|Palpitations|Cardiovascular|Medicine
+Y Rhythm|af,svt,vt,ect,brady|Rhythm,Onset and offset,During the episodes
+Y Thyroid|thy|Thyroid
+Y Blood|anaem|Anaemia
+Y Drugs and caffeine|drug|Drugs and stimulants
+Y Mind|anx|Anxiety
 SC chads
 I 12-lead ECG (during an episode if possible); Holter or event recorder; TFT; FBC; U&E, Mg, Ca; echo; troponin if chest pain
 D af|Atrial fibrillation||1.2
@@ -927,6 +933,13 @@ E Finish|pick
 - Hypertensive retinopathy @x149
 - Diabetic retinopathy @x150
 @breath|Breathlessness|Respiratory|Medicine
+Y Heart|hf,tamp|Heart,Lying flat and at night
+Y Airways and lungs|copd,ast,pneu,ild,mal|Chest,Triggers
+Y Pleura|ptx,eff|Chest
+Y Clot|pe|Clot risk
+Y Nerve and muscle|nm|Neuromuscular
+Y Blood and acid|anaem,acid|Weight and night sweats
+Y Mind|anx|Anxiety
 SC wells,curb,qsofa,news
 I SpO2 and ABG; CXR; ECG; FBC, U&E, BNP; peak flow and spirometry; D-dimer or CTPA guided by Wells; echo; sputum culture
 D hf|Heart failure||1.2
@@ -1109,6 +1122,12 @@ E Heart|pick
 - Loud P2 {pe:1,ild:1} @41
 - Murmur {hf:1} @x120
 @cough|Cough and sputum|Respiratory|Medicine
+Y Infection|urti,pneu,tb|Infection
+Y Airways|copd,ast,bron|Airways and heart
+Y Cancer|ca|TB and cancer
+Y Nose and gut|rhin,gerd|Nose and gut
+Y Heart|hf|Airways and heart
+Y Drugs|ace|Drugs
 SC curb
 I CXR; sputum culture and AFB x3 (GeneXpert if TB suspected); FBC, CRP; spirometry; CT chest; bronchoscopy if mass or haemoptysis; trial off ACE inhibitor
 D urti|Viral URTI / acute bronchitis||1.5
@@ -1265,6 +1284,12 @@ E Back|pick
 - Kyphoscoliosis @x132
 - Sacral oedema {hf:2} @x133
 @hemopt|Haemoptysis|Respiratory|Medicine
+Y Airways|bron,bronch,fb|Chest,Injury
+Y Lung tissue|tb,pneu,hyd|TB and cancer,Chest
+Y Cancer|ca|TB and cancer
+Y Clot|pe|Clot
+Y Heart|mitral|Heart
+Y Bleeding|coag,vas|Bleeding and vasculitis
 SC wells
 I CXR; CT chest or CT pulmonary angiogram; FBC, coagulation screen, U&E, urine dipstick; sputum culture and AFB; bronchoscopy; ABG; ANCA and anti-GBM if vasculitis suspected
 D bron|Bronchiectasis||1
@@ -1411,6 +1436,9 @@ E Back|pick
 - Kyphoscoliosis @x137
 - Sacral oedema {mitral:2} @x138
 @pallor|Pallor / anaemia|Haematology|Medicine
+Y Lose (bleeding)|bl|Blood loss
+Y Make (marrow, iron, B12)|ida,b12,acd,ckd,bm|Diet and gut,Marrow,Nerves
+Y Break (haemolysis)|hem,thal|Haemolysis
 SC
 I FBC with film, reticulocytes, MCV; ferritin, B12, folate; LDH, bilirubin, haptoglobin, DAT; U&E; haemoglobin electrophoresis; OGD and colonoscopy if iron deficient (men, postmenopausal women); bone marrow if cytopenias
 D ida|Iron-deficiency anaemia||2
@@ -1551,6 +1579,10 @@ E Neurology|pick
 - Ataxia {b12:3} @x129
 - Focal neurological signs @x130
 @lymph|Lymphadenopathy|Haematology|Medicine
+Y Infection|inf,tb,hiv|Infection,Chest
+Y Cancer|lym,leuk,met|B symptoms,Marrow,Hidden cancer
+Y Immune|sle|Autoimmune
+Y Drugs|drug|Drugs
 SC
 I FBC and film, ESR and CRP; CXR; monospot and EBV serology; HIV test; excisional node biopsy (FNA if needed); TB tests; LDH; CT neck, chest, abdomen and pelvis if lymphoma suspected
 D inf|Viral / bacterial infection||2
@@ -1714,6 +1746,10 @@ E Neurology|pick
 - Ataxia @x148
 - Focal neurological signs {met:1,lym:1} @x149
 @bleed|Bleeding tendency|Haematology|Medicine
+Y Vessels|vas|Vasculitis
+Y Platelets|itp,leuk,dic|Marrow,Recent events
+Y Clotting factors|hem,vwd,liv,vitk|Liver,Diet and gut,Family history
+Y Drugs|drug|Drugs
 SC
 I FBC and film, PT/INR, aPTT, fibrinogen, D-dimer; LFTs; U&E; PFA-100; von Willebrand antigen and activity; factor VIII and IX; blood group; bone marrow if cytopenias
 D itp|ITP / thrombocytopenia||1
@@ -1870,6 +1906,12 @@ E Neurology|pick
 - Ataxia @x145
 - Focal neurological signs {itp:1,dic:1,hem:1} @x146
 @abd|Abdominal pain|Gastrointestinal|Medicine
+Y Gut|app,pu,ob,div,gast,ibd|Upper gut,Bowels
+Y Bile and pancreas|chol,pan|Jaundice
+Y Kidney|ren|Urine
+Y Pelvis|ect|Women
+Y Vessels|aaa|General
+Y Chest and metabolic|mi,dka|General
 SC alv,qsofa
 I Bedside: pregnancy test, urine dip, glucose and ketones; FBC, CRP, U&E, LFT, amylase or lipase, lactate, group and save; erect CXR (free gas); AXR; USS (biliary, pelvic); CT abdomen and pelvis; ECG
 D app|Appendicitis|!|1.2
@@ -2004,6 +2046,7 @@ E General|pick
 - Mouth ulcers {ibd:2} @x104
 - Clubbing {ibd:2} @x105
 E Inspection|pick
+M Look from the end of the bed, then at eye level|Distension · scars · visible peristalsis · pulsation · hernial orifices (ask to cough)
 - Distension {ob:5} @11
 - Visible peristalsis {ob:2} @12
 - Abdominal scars {ob:2} @13
@@ -2012,6 +2055,7 @@ E Inspection|pick
 - Caput medusae @x106
 - Visible hernia {ob:3} @x107
 E Palpation|pick
+M Light, then deep, starting away from the pain|All 9 regions · then liver · spleen · kidneys (ballot) · watch the face
 - Guarding {app:1,pu:2,div:1} @16
 ! Board-like rigidity {pu:5} @17
 - Rebound or percussion tenderness {app:3,pu:2,div:1} @18
@@ -2029,10 +2073,12 @@ E Palpation|pick
 - Abdominal mass {ob:1,ibd:1,div:1} @x110
 - Palpable gallbladder {chol:2} @x111
 E Percussion|pick
+M Dull or resonant? Then shifting dullness|Percuss from the midline out to the flank, roll the patient towards you, wait, percuss again
 - Tympanic distension {ob:2} @28
 - Loss of liver dullness (free gas) {pu:2} @29
 - Shifting dullness {pu:1,ob:1} @x112
 E Auscultation|pick
+M Listen for a full minute|Bowel sounds · bruits · succussion splash
 - Tinkling bowel sounds {ob:5} @30
 - Absent bowel sounds {pu:2,app:1} @31
 - Hyperactive bowel sounds {gast:3} @32
@@ -2047,6 +2093,13 @@ E When indicated|pick
 - Basal crackles or bronchial breathing {mi:2} @38
 - Hernial orifices tender or irreducible {ob:3} @x115
 @bowel|Change in bowel habit|Gastrointestinal|Medicine
+Y Function and diet|ibs,imp|Abdomen
+Y Infection and inflammation|inf,ibd|Blood and mucus,Exposure
+Y Tumour|ca|Weight and appetite,Family history
+Y Malabsorption|coel|Outside the gut
+Y Hormones and nerves|thy,hypo,dm|Thyroid,Autonomic
+Y Diverticula|div|Abdomen
+Y Drugs|drug|Drugs
 SC
 I FBC, CRP, U&E, TFT, ferritin, coeliac serology; stool culture, faecal calprotectin, FIT; stool ova and parasites; colonoscopy or flexible sigmoidoscopy; CT colonography
 D ibs|Irritable bowel syndrome||1.5
@@ -2153,6 +2206,7 @@ E General|pick
 - Dry mouth, dehydrated {inf:3,ibd:1} @x105
 - Cold peripheries {hypo:1} @x106
 E Inspection|pick
+M Look from the end of the bed, then at eye level|Distension · scars · visible peristalsis · pulsation · hernial orifices (ask to cough)
 - Distension {imp:1,ca:1} @15
 - Scars {ibd:1} @16
 - Visible peristalsis {ca:2,imp:1} @x107
@@ -2160,6 +2214,7 @@ E Inspection|pick
 - Caput medusae @x109
 - Visible hernia {ca:1} @x110
 E Palpation|pick
+M Light, then deep, starting away from the pain|All 9 regions · then liver · spleen · kidneys (ballot) · watch the face
 - Abdominal mass {ca:3,ibd:1} @17
 - Right iliac fossa mass {ibd:3} @18
 - Left iliac fossa tenderness {div:4} @19
@@ -2173,10 +2228,12 @@ E Palpation|pick
 - Pulsatile expansile mass @x116
 - Irreducible hernia {ca:1} @x117
 E Percussion|pick
+M Dull or resonant? Then shifting dullness|Percuss from the midline out to the flank, roll the patient towards you, wait, percuss again
 - Shifting dullness {ca:1} @22
 - Tympanic distension {ca:2,imp:1,drug:1} @x118
 - Loss of liver dullness (free gas) {div:3} @x119
 E Auscultation|pick
+M Listen for a full minute|Bowel sounds · bruits · succussion splash
 - Hyperactive bowel sounds {inf:2} @23
 - Tinkling bowel sounds {ca:3} @x120
 - Absent bowel sounds {div:1,dm:1,drug:1} @x121
@@ -2196,6 +2253,9 @@ E Thyroid|pick
 - Tremor, goitre, warm sweaty hands {thy:5} @13
 - Dry skin, slow-relaxing reflexes {hypo:2} @14
 @jaundice|Jaundice|Gastrointestinal|Medicine
+Y Before the liver|hem,gil|Anaemia
+Y Liver|hep,cirr,drug,aih,wil,mal,rhd|Hepatitis,Liver failure,Exposure,Drugs before onset
+Y After the liver|gall,chang,panc|Obstruction and infection,Weight
 SC cp
 I LFTs (conjugated vs unconjugated bilirubin, ALP, GGT, ALT), FBC with film, reticulocytes, INR; hepatitis serology; USS abdomen; MRCP or CT; ERCP; CA19-9 if pancreatic; autoimmune screen, ferritin, caeruloplasmin
 D hep|Viral / alcoholic hepatitis||1.2
@@ -2317,6 +2377,7 @@ E Legs|pick
 - Leg oedema {cirr:1,rhd:1} @18
 - Raised JVP {rhd:3} @19
 E Inspection|pick
+M Look from the end of the bed, then at eye level|Distension · scars · visible peristalsis · pulsation · hernial orifices (ask to cough)
 - Distended abdomen {cirr:2} @20
 - Caput medusae {cirr:3} @21
 - Visible peristalsis @x110
@@ -2324,6 +2385,7 @@ E Inspection|pick
 - Does not move with breathing {chang:1} @x112
 - Visible hernia @x113
 E Palpation|pick
+M Light, then deep, starting away from the pain|All 9 regions · then liver · spleen · kidneys (ballot) · watch the face
 - Tender smooth liver {hep:3,rhd:2,chang:2} @22
 - Hard, knobbly liver {mal:5} @23
 - Liver not palpable, shrunken {cirr:4} @24
@@ -2341,10 +2403,12 @@ E Palpation|pick
 - Pulsatile expansile mass @x120
 - Irreducible hernia @x121
 E Percussion|pick
+M Dull or resonant? Then shifting dullness|Percuss from the midline out to the flank, roll the patient towards you, wait, percuss again
 - Shifting dullness (ascites) {cirr:3} @30
 - Tympanic distension @x122
 - Loss of liver dullness (free gas) @x123
 E Auscultation|pick
+M Listen for a full minute|Bowel sounds · bruits · succussion splash
 - Tinkling bowel sounds @x124
 - Absent bowel sounds @x125
 - Hyperactive bowel sounds @x126
@@ -2360,6 +2424,11 @@ E When indicated|pick
 - Basal crackles or bronchial breathing @x132
 - Hernial orifices tender or irreducible @x133
 @hematuria|Haematuria|Genitourinary|Medicine
+Y Kidney|gn,pkd,rca,pyelo|Kidney disease,Tumour
+Y Stone|stone|Pain
+Y Bladder and prostate|bca,bph,uti|Urinary,Infection,Tumour
+Y TB and schistosoma|tb|Exposure
+Y Bleeding|coag,trauma|Bleeding,Drugs
 SC
 I Urine dipstick, MSU culture and microscopy (RBC casts, dysmorphic RBCs); U&E, creatinine, eGFR, FBC, coagulation; urine cytology; USS KUB; CT urogram; cystoscopy; PSA after counselling; urine ACR/PCR; complement, ANA, ASOT
 D uti|UTI / cystitis||1.5
@@ -2484,6 +2553,13 @@ E Rectal and pelvic|pick
 - Enlarged smooth prostate {bph:4} @x118
 - Pelvic mass {bca:1} @x119
 @edema|Generalised oedema|Renal / Cardiac|Medicine
+Y Heart|hf,cp|Heart and lungs
+Y Kidney|nephr,nephritic|Kidney
+Y Liver and gut|cld,malnut|Liver and gut
+Y Thyroid|hypo|Thyroid
+Y Lungs and sleep|osa|Sleep
+Y Drugs|drug|Drugs
+Y Local and other|vi,preg,allerg|Other causes
 SC
 I FBC; U&E, creatinine; urinalysis; urine PCR or 24 h protein; albumin, LFT, INR; lipids; TFT; ECG, BNP, echo; CXR; renal USS; leg Doppler
 D hf|Heart failure||1.5
@@ -2635,6 +2711,14 @@ E Rectal and pelvic|pick
 - Tender boggy prostate @x131
 - Pelvic mass {preg:2,vi:2} @x132
 @wtloss|Weight loss|Endocrine|Medicine
+Y Diabetes|dm|Diabetes
+Y Thyroid|thy|Thyroid
+Y Cancer|ca|Lumps
+Y Gut|gi|Gut
+Y Infection (TB)|tb|Infection,Chest
+Y Mood|dep|Mood
+Y Organ failure|ckd,adr,copd|Adrenal and organ failure
+Y Drugs and alcohol|drug|Habits,Drugs
 SC
 I Fasting glucose or HbA1c; TFT; FBC, ESR and CRP; U&E, LFT, calcium; coeliac serology; CXR; HIV test; urine dip; FIT; CT chest, abdomen and pelvis; endoscopy; 9 am cortisol or synacthen test
 D dm|Diabetes mellitus (new)||1
@@ -2791,6 +2875,11 @@ E Fundi|pick
 - Diabetic retinopathy on fundoscopy {dm:3} @16
 - Hypertensive retinopathy {ckd:2} @x113
 @thyroid|Goitre / thyroid disease|Endocrine|Medicine
+Y Too much thyroid|graves,mng,thyt|Too much thyroid,Eyes
+Y Too little thyroid|hash|Too little thyroid
+Y Lump or cancer|ca,simple|Pressure symptoms,Course
+Y Drugs and treatment|drug,post|Drugs,Past history
+Y Not thyroid|anx|Too much thyroid
 SC
 I TSH, fT4, fT3; TPO antibodies, TRAb; USS thyroid; fine-needle aspiration of a nodule; radioiodine uptake scan; calcitonin if medullary carcinoma suspected; ECG; CXR or CT neck for retrosternal extension
 D graves|Graves' disease||1
@@ -2945,6 +3034,10 @@ E Interpret the neck findings|pick
 - Large firm nodes near the goitre {ca:5} @x130
 - Fixed, immobile goitre {ca:4} @x131
 @dysph|Dysphagia|Upper GI|Surgery
+Y Inside the gullet|ca,strict,web,eosi,can|Onset and course,Weight and blood
+Y Pressing from outside|ext|Chest
+Y Muscle (motility)|ach,spasm,sc|What is difficult,Regurgitation,Skin
+Y Nerves|neuro|Neuro,Swallow itself
 SC
 I Urgent OGD with biopsy if alarm features; barium swallow (achalasia: bird's beak); manometry; CT chest and abdomen for staging; endoscopic ultrasound; videofluoroscopy and speech therapy review; FBC, ferritin
 D ca|Oesophageal carcinoma|!|1
@@ -3055,6 +3148,13 @@ E Abdomen|pick
 - Ascites {ca:2}
 
 @neck|Neck lump|Head and Neck|Surgery
+Y Lymph nodes|inf,tb,lym,met|Infection,Head and neck cancer,B symptoms
+Y Thyroid|thyroid|Thyroid,Moves with
+Y Congenital cysts|tgc,bcc|Site,Moves with
+Y Salivary gland|sal|Site
+Y Vessels|cb|Site
+Y Skin|seb|Duration
+Y Pouch|pouch|Pouch
 SC
 I FBC, ESR; USS neck with FNAC or core biopsy; TFT; CXR; CT or MRI neck; nasoendoscopy; excision biopsy if lymphoma suspected; Mantoux or IGRA and AFB; sialogram or CT for salivary lumps
 D inf|Reactive / infective lymph node||1.5
@@ -3132,6 +3232,7 @@ E General|pick
 - Night sweats {lym:2,tb:2} @x102
 G The lump
 E Position|pick
+M Where in the neck?|Anterior or posterior triangle · midline or lateral · level
 N Examine from the front, then behind. Note side, level and triangle of the neck.
 - Midline, moves on swallowing {thyroid:5}
 - Midline, moves on tongue protrusion {tgc:5}
@@ -3154,6 +3255,7 @@ N Size, shape, surface, edge, consistency, tenderness, temperature, fluctuation,
 - Skin ulceration or fungation {met:3} @x246
 - Left supraclavicular (Virchow) node {met:3} @x248
 E Thyroid lumps|pick
+M Swallow, then tongue|Moves on swallowing: thyroid · also moves on tongue protrusion: thyroglossal cyst · trachea · retrosternal extension · bruit
 - Trachea deviated {thyroid:3}
 - Cannot get below it (retrosternal) {thyroid:3}
 - Pemberton sign {thyroid:3}
@@ -3163,6 +3265,7 @@ E Thyroid lumps|pick
 - Dilated veins over the neck and upper chest {thyroid:2} @x212
 G Complete the examination
 E Find the source|pick
+M Look where it drains|Scalp · ears · mouth and throat (use a light) · other node groups · liver and spleen
 N Scalp, ears, nose, mouth, pharynx; bimanual palpation of the floor of the mouth; facial and hypoglossal nerves; then axillae, groins, liver and spleen.
 - Lesion in the scalp, mouth or throat {met:1}
 - Stone in a salivary duct {sal:2}
@@ -3174,6 +3277,10 @@ N Scalp, ears, nose, mouth, pharynx; bimanual palpation of the floor of the mout
 - Chest signs or enlarged supraclavicular nodes {tb:1,met:1} @x256
 
 @breast|Breast lump|Breast|Surgery
+Y Benign lumps|fib,cyst,fcc,phyll,gal|Age,Onset and course
+Y Cancer|ca|Nipple,Skin,Spread,Family history
+Y Infection and inflammation|abs,fn,mond|Pain
+Y Nipple and ducts|duct,ecz|Nipple
 SC
 I Triple assessment: clinical examination, imaging (USS under 40, mammography from 40) and core biopsy or FNAC; if malignant: CXR, LFT, bone scan, CT staging; BRCA counselling when indicated
 D fib|Fibroadenoma||1.2
@@ -3246,6 +3353,7 @@ H Habits|pick
 - Obesity after menopause {ca:1}
 G Inspection
 E Inspection|pick
+M Arms down, arms up, hands on hips|Size · symmetry · skin (dimpling, peau d'orange) · nipple
 N Chaperone. Sitting, hands on hips, then hands above the head, then leaning forward. Compare both sides.
 - Asymmetry or visible mass {ca:1}
 ! Skin dimpling or tethering on raising the arms {ca:5}
@@ -3265,6 +3373,7 @@ N Chaperone. Sitting, hands on hips, then hands above the head, then leaning for
 - Tender cord-like vein on the breast or chest wall (Mondor) {mond:5} @x312
 G Palpation
 E The lump|pick
+M 5S, then consistency and fixation|Site (quadrant, clock face) · Size · Shape · Surface · Skin → consistency → fixation
 N Patient at 45 degrees, hand behind the head. Normal breast first, then all four quadrants, the axillary tail and behind the nipple.
 ! Hard, irregular, fixed lump {ca:5}
 - Smooth, firm, very mobile lump {fib:5}
@@ -3284,6 +3393,7 @@ N Patient at 45 degrees, hand behind the head. Normal breast first, then all fou
 - Firm, rubbery consistency {fib:3} @x219
 - Hot, tender breast {abs:4} @x220
 E Fixation|pick
+M Skin first, then muscle|Move the lump and watch the skin · then hands on hips to tense pectoralis and move it again
 - Fixed to the skin {ca:3}
 - Fixed to pectoralis (test with hands pressed on hips) {ca:4}
 - Fixed to the chest wall {ca:4} @x106
@@ -3295,6 +3405,7 @@ E Nipple|pick
 - Bloody discharge {ca:2,duct:2} @x107
 G Lymph nodes and spread
 E Nodes|pick
+M Axilla, then above the clavicle|Axillary groups: anterior · posterior · central · lateral · apical → supraclavicular
 ! Axillary nodes {ca:5,abs:1}
 ! Supraclavicular nodes {ca:4}
 - Axillary nodes mobile and tender {abs:2} @x108
@@ -3310,6 +3421,11 @@ E Spread|pick
 - Papilloedema or focal neurology {ca:1} @x328
 
 @groin|Groin lump / hernia|Hernia|Surgery
+Y Hernia|ing,dir,fem|Comes and goes,Obstruction,Raised abdominal pressure
+Y Lymph nodes|node|Nodes and abscess
+Y Vessels|sal,fa,var|Comes and goes
+Y Cord and testis|hyd,und|Testis
+Y Other|psoas,lip|Nodes and abscess
 SC
 I Usually a clinical diagnosis; USS groin if unclear; CT for complex cases; Doppler if vascular; if strangulation suspected: FBC, U&E, lactate, group and save, early theatre; FNAC or biopsy of nodes
 D ing|Indirect inguinal hernia||1.5
@@ -3388,6 +3504,7 @@ N Examine standing first, both sides, then lying. Ask the patient to cough. Note
 - Bulge on both sides {dir:2} @x213
 G Palpation
 E The lump|pick
+M Above or below? Cough? Reduces?|Above the inguinal ligament and medial to the pubic tubercle: inguinal · below and lateral: femoral · cough impulse · reducible
 N Size, shape, consistency, tenderness, reducibility, cough impulse; can you get above it?
 - Reducible {ing:4,dir:4,fem:3}
 - Reduces up, laterally and back {ing:4}
@@ -3405,6 +3522,7 @@ N Size, shape, consistency, tenderness, reducibility, cough impulse; can you get
 - Swelling in the canal with no cough impulse {lip:3} @x220
 ! Rebound tenderness or no cough impulse over a tense lump {fem:2,ing:2} @x222
 E Deep ring test|pick
+M Indirect or direct?|Indirect: reduces up, then laterally and back; controlled by pressure over the deep ring; can reach the scrotum · Direct: reduces straight back; not controlled; rarely in the scrotum
 N Reduce the hernia, press over the deep ring (midpoint of the inguinal ligament) and ask the patient to cough.
 - Controlled by pressure on the deep ring {ing:4}
 - Not controlled by deep ring pressure {dir:5}
@@ -3423,6 +3541,9 @@ E Causes of raised pressure|pick
 - Ascites or an abdominal mass {ing:1,dir:1,fem:1} @x236
 
 @prbleed|Rectal bleeding|Colorectal|Surgery
+Y Anus|haem,fiss,fist|Anal,Pain
+Y Colon|div,ca,ibd,inf,isch,ang|Bowel habit,General
+Y Upper gut|ugib|Upper GI
 SC gbs
 I FBC, ferritin, U&E, coagulation, group and save if heavy; PR and proctoscopy; flexible sigmoidoscopy or colonoscopy; CT angiogram for brisk bleeding; OGD if upper GI source; stool culture
 D haem|Haemorrhoids||2
@@ -3526,6 +3647,11 @@ E Proctoscopy|pick
 - Inflamed mucosa {ibd:2,fist:2}
 
 @acuteabd|Acute abdomen (surgical)|Emergency|Surgery
+Y Perforation|pu,div|Gut,Past history
+Y Inflammation|app,chol,pan|Gut,Infection
+Y Obstruction|ob,vol|Gut
+Y Vessels|aaa,mes|Collapse
+Y Gynae|ect|Women
 SC alv,qsofa,news
 I Resuscitate first; bedside lactate, ABG, glucose; FBC, U&E, CRP, amylase or lipase, LFT, coagulation, group and save or crossmatch; urine and beta-hCG; ECG; erect CXR; contrast CT abdomen and pelvis once stable; early senior surgical review
 D pu|Perforated peptic ulcer|!|1
@@ -3615,6 +3741,7 @@ E Appearance|pick
 - Pale {aaa:1,ect:1} @x102
 G Abdominal examination
 E Inspection|pick
+M Look from the end of the bed, then at eye level|Distension · scars · visible peristalsis · pulsation · hernial orifices (ask to cough)
 - Distension with visible loops {ob:2,vol:2}
 - Scars {ob:2}
 - Flank or umbilical bruising {pan:3}
@@ -3623,6 +3750,7 @@ E Inspection|pick
 - Distension: fat, fluid, flatus, faeces or fetus (the 5 Fs) {ob:1} @x304
 - Skin striae, caput medusae or dilated flank veins @x305
 E Palpation|pick
+M Light, then deep, starting away from the pain|All 9 regions · then liver · spleen · kidneys (ballot) · watch the face
 ! Board-like rigidity {pu:5,div:2}
 - Guarding {app:1,pu:1,div:1}
 - Rebound or percussion tenderness {app:1,pu:1,div:1}
@@ -3642,9 +3770,11 @@ E Palpation|pick
 - Pain on coughing {app:1,pu:1,div:1} @x203
 - Pain when the bed is shaken {app:1,pu:1,div:1} @x302
 E Percussion|pick
+M Dull or resonant? Then shifting dullness|Percuss from the midline out to the flank, roll the patient towards you, wait, percuss again
 - Loss of liver dullness (free gas) {pu:5}
 - Tympanic {ob:2,vol:2}
 E Auscultation|pick
+M Listen for a full minute|Bowel sounds · bruits · succussion splash
 - Hyperactive, tinkling {ob:2}
 - Absent bowel sounds {ob:1,pu:1}
 - Aortic bruit {aaa:2} @x109
@@ -3658,6 +3788,10 @@ E Rectal and pelvic|pick
 - Blood on the glove {mes:2,div:1} @x110
 
 @limb|Leg ischaemia / claudication|Vascular|Surgery
+Y Arteries|claud,clti,ali,popl,bu|Walking distance,Acute features,Risk factors,Embolic source
+Y Veins|dvt|Other
+Y Nerves and spine|neuro,dpn|Other
+Y Joints|oa|Relieved by
 SC news
 I ABPI and toe pressures; arterial duplex; CT or MR angiography; glucose, lipids, FBC, U&E; ECG and echo for embolic source; acute ischaemia: heparin and urgent vascular review, do not delay for imaging; risk-factor control: statin, antiplatelet, stop smoking, supervised exercise
 D claud|Chronic limb ischaemia (claudication)||1.5
@@ -3771,6 +3905,11 @@ N Buerger's test, then sensation and power; ABPI with a hand-held Doppler.
 - Monofilament not felt {dpn:2}
 
 @ulcer|Leg ulcer|Vascular|Surgery
+Y Veins|ven,mix|Venous
+Y Arteries|art|Arterial
+Y Nerves and pressure|neu,prs|Nerves
+Y Cancer|scc|Duration and course
+Y Systemic|pg,vas,inf|Systemic
 SC
 I ABPI before any compression; wound swab; measurement and photograph; arterial and venous duplex; biopsy if suspicious; glucose and HbA1c; FBC, ESR; foot X-ray for osteomyelitis; treatment follows the cause: compression (venous), revascularisation (arterial), offloading (neuropathic)
 D ven|Venous ulcer||2
@@ -3825,6 +3964,7 @@ H Habits|pick
 - Smoker {art:1,mix:1}
 G The ulcer
 E Size and edge|pick
+M Base, Edge, Depth, Discharge|Then the surrounding skin, local arteries and nerves, and the draining nodes
 N Site, size, shape, edge, base, depth, discharge, surrounding skin; measure and photograph.
 - Sloping, shallow, irregular edge {ven:4}
 - Punched-out edge {art:5,neu:2}
@@ -3860,6 +4000,10 @@ E Nerves and nodes|pick
 ! Inguinal nodes {scc:3,inf:2}
 
 @trauma|Trauma (primary survey)|Emergency|Surgery
+Y A: Airway|ao|Airway
+Y B: Breathing|tp,ps,ff,ht|Look,Feel,Percuss and listen
+Y C: Circulation|tam,hem|Shock,Where is the blood?
+Y D: Disability|hi,sc|Neurology
 SC gcs,news
 I ATLS: ABCDE with simultaneous treatment; two large-bore IVs, bloods including crossmatch, lactate and ABG; FAST; CXR and pelvic X-ray; CT head, C-spine and trunk when stable; tranexamic acid within 3 hours; tertiary survey
 D ao|Airway obstruction|!|0.5
@@ -3950,6 +4094,12 @@ N Fully expose, log-roll, examine the back and perineum, then cover and keep war
 - Hypothermia {hem:1}
 
 @headache|Headache|Neurology|Medicine
+Y Primary|mig,tth,clus,moh|Migraine,Painkillers
+Y Bleed|sah|Onset
+Y Infection|mening|Meningism
+Y Pressure|mass|Raised pressure
+Y Arteries|gca|Temporal arteritis
+Y Eye and sinus|glau,sinus|Eye,Nose
 SC gcs
 I Neurological exam and fundoscopy first; if red flags: urgent CT head, then lumbar puncture if CT is clear and SAH or meningitis suspected; ESR/CRP if over 50 (giant cell arteritis); BP; blood glucose; FBC, U&E; MRI/MRV if raised ICP features; sinus imaging only if indicated
 D mig|Migraine||2
@@ -4066,6 +4216,12 @@ E Head and face|pick
 - Tender scalp and neck muscles {tth:1}
 
 @dizzy|Dizziness / vertigo|Neurology|Medicine
+Y Ear|bppv,vn,men,mass|Ear
+Y Brain|post|Brainstem
+Y Heart and BP|orth,arr|Heart
+Y Blood and sugar|anaem,hypog|Anaemia and sugar
+Y Drugs|drug|Drugs
+Y Mind|anx|Anxiety
 SC
 I Lying and standing BP; ECG; glucose; FBC; Dix-Hallpike and HINTS exam; audiometry; MRI brain if central signs; echocardiogram or Holter if cardiac cause suspected
 D bppv|BPPV||1.5
@@ -4171,6 +4327,10 @@ E Positional test|pick
 - Dix-Hallpike positive: torsional nystagmus after a short delay {bppv:6}
 
 @syncope|Syncope / collapse|Cardiovascular|Medicine
+Y Reflex faint|vv,sit,carot|Situation,Warning
+Y Standing BP and bleeding|orth,bleed|Bleeding,Trigger
+Y Heart|arr,as,pe|Past medical history,Clot,Family history
+Y Mimics (fit, sugar, stroke)|sz,hypog,dka,cns|During,After,Sugar and neurology
 SC
 I ECG in all; lying and standing BP; glucose; FBC; troponin if chest pain; echo; 24 h Holter or event recorder; tilt-table test if vasovagal unclear; CTPA if PE suspected; EEG/CT head only if seizure or injury suspected
 D vv|Vasovagal||2
@@ -4291,6 +4451,12 @@ E Legs and rectal|pick
 - Focal neurological signs
 
 @seizure|Seizure / fit|Neurology|Medicine
+Y Epilepsy|epi|Epilepsy,During
+Y Faint|syn|Before
+Y Sugar and substances|hypog,alc|Substances
+Y Brain|strk,inf,trauma|Infection,Brain
+Y Pregnancy|eclamp|Pregnancy
+Y Non-epileptic|pnes|After
 SC gcs
 I ABC and glucose first; U&E, Ca, Mg, glucose, FBC, LFT; toxicology and alcohol level; ECG; CT head; EEG; MRI brain; lumbar puncture if infection suspected; pregnancy test and BP if woman of child-bearing age; prolactin within 20 minutes if available
 D epi|Epilepsy (generalised or focal)||1.5
@@ -4387,6 +4553,12 @@ E Urine|pick
 - Protein on urine dipstick in pregnancy {eclamp:2}
 
 @weak|Limb weakness / stroke|Neurology|Medicine
+Y Brain|strk,tia,mass|Stroke symptoms
+Y Spinal cord|cord|Spinal
+Y Nerves|gbs,pn,mnd|Sensation
+Y Muscle and junction|mg,myop,hypok|Muscle
+Y MS|ms|Course
+Y Sugar|hypog|Other
 SC gcs
 I Blood glucose and ABC first; urgent CT or MRI brain; ECG and telemetry; FBC, U&E, glucose, lipids, ESR; carotid imaging; echo; thrombolysis or thrombectomy window decided by stroke team; MRI spine and lumbar puncture, nerve conduction studies as indicated for non-stroke causes
 D strk|Stroke (ischaemic / haemorrhagic)|!|1.2
@@ -4498,6 +4670,11 @@ E Sensation|pick
 - Normal sensation {mnd:2,myop:1,mg:1}
 
 @haem|Haematemesis / melaena|Gastrointestinal|Medicine
+Y Ulcer and gastritis|pu,gast,oes|Before the bleed,Drugs
+Y Varices|var|Liver,Alcohol
+Y Tear|mw|Before the bleed
+Y Cancer|ca|Cancer
+Y Bleeding tendency|coag,ang|Drugs
 SC gbs
 I ABC, two large-bore IVs, crossmatch, FBC, U&E (urea raised), LFT, INR; ECG; transfuse to a restrictive target; urgent endoscopy within 24 h (sooner if unstable or variceal); IV PPI before endoscopy if ulcer likely; terlipressin and antibiotics if variceal bleeding suspected
 D pu|Peptic ulcer|!|1.5
@@ -4580,6 +4757,12 @@ E Rectal examination|pick
 - Fresh blood on the glove {var:1}
 
 @ascites|Abdominal distension / ascites|Gastrointestinal|Medicine
+Y Liver|cirr,budd,sbp|Liver,Infected ascites
+Y Cancer|mal|Cancer
+Y Heart|hf|Heart
+Y Kidney|nephr|Kidney
+Y TB|tb|TB
+Y Not fluid|obes,ovar|Gut and pregnancy
 SC cp
 I Ascitic tap: cell count and neutrophils (over 250 = SBP), albumin (SAAG), protein, culture, cytology; LFT, albumin, INR, FBC, U&E; urine protein; USS with Doppler; CT abdomen; AFP; echo if cardiac; upper endoscopy for varices
 D cirr|Cirrhosis / portal hypertension||1.5
@@ -4648,10 +4831,12 @@ E General|pick
 - Ankle oedema {hf:3}
 G Abdominal examination
 E Inspection|pick
+M Look from the end of the bed, then at eye level|Distension · scars · visible peristalsis · pulsation · hernial orifices (ask to cough)
 - Everted umbilicus, flanks full {cirr:1,mal:1}
 - Caput medusae {cirr:3}
 - Hard umbilical nodule {mal:3}
 E Palpation|pick
+M Light, then deep, starting away from the pain|All 9 regions · then liver · spleen · kidneys (ballot) · watch the face
 - Tender abdomen with fever {sbp:6}
 - Hard nodular liver {mal:3}
 - Tender smooth liver {budd:5,hf:3}
@@ -4659,6 +4844,7 @@ E Palpation|pick
 - Pelvic or abdominal mass {mal:2,ovar:4}
 - Fetal parts {obes:3}
 E Percussion|pick
+M Dull or resonant? Then shifting dullness|Percuss from the midline out to the flank, roll the patient towards you, wait, percuss again
 N Percuss from the midline to the flanks; then roll the patient for shifting dullness; fluid thrill if tense.
 - Shifting dullness {cirr:2,mal:2,hf:2,nephr:2,tb:2,sbp:1}
 - Fluid thrill {cirr:2,mal:2,hf:2,nephr:2,tb:2}
@@ -4669,6 +4855,13 @@ E Chest|pick
 - Pleural effusion {cirr:1,mal:1,hf:1}
 
 @fever|Fever / pyrexia|General|Medicine
+Y Head and neck|mening,vir|Head and neck
+Y Chest and heart|pneu,tb,ie|Chest
+Y Abdomen|abs,ent|Abdomen
+Y Urine|uti|Urine
+Y Skin and joints|ctd|Skin and joints
+Y Sepsis|sep|General
+Y Not infection|lym,drug|General,Drugs
 SC qsofa,news
 I Blood cultures before antibiotics if unwell; FBC, CRP, U&E, LFT, lactate; urine dip and culture; CXR; malaria film if travel; Widal, Brucella serology, typhoid culture in endemic areas; echo if murmur; sputum AFB; CT if abscess or malignancy suspected; HIV test
 D vir|Viral infection||2
@@ -4776,6 +4969,12 @@ E Joints|pick
 - Swollen joints {ctd:2}
 
 @polyuria|Polyuria / polydipsia|Endocrine|Medicine
+Y Sugar|dm,dka|Diabetes,DKA
+Y Calcium|hyperca|Calcium
+Y Water hormone or drinking|di,psych|Thirst
+Y Kidney|ckd|Past history
+Y Drugs|drug|Drugs
+Y Bladder|ups|Bladder
 SC
 I Capillary and plasma glucose, HbA1c, ketones; U&E, calcium, osmolality (serum and urine); urine dip; FBC; TFT; water deprivation test if diabetes insipidus suspected; ABG/VBG if ketotic
 D dm|Diabetes mellitus||2
@@ -4860,6 +5059,13 @@ E Other|pick
 - Normal examination {di:2,psych:2}
 
 @htn|Hypertension|Cardiovascular|Medicine
+Y Essential|ess|Risk factors
+Y Kidney|ren,rav|Kidney
+Y Hormones|pa,phaeo,cush|Hormones
+Y Aorta|coarct|Legs
+Y Drugs|drug|Drugs
+Y Sleep apnoea|osa|Sleep
+Y Pregnancy|preg|Pregnancy
 SC chads
 I Repeat BP (both arms, ambulatory or home monitoring); urine dip and ACR; U&E and eGFR; HbA1c or glucose; lipids; ECG; fundoscopy; renin and aldosterone if hypokalaemia or resistant; echo; renal USS; urgent assessment for end-organ damage if BP over 180/120 with symptoms
 D ess|Essential hypertension||3
@@ -4953,6 +5159,10 @@ E Urine and legs|pick
 - Oedema {preg:2,ren:1}
 
 @joint|Joint pain / swelling|Rheumatology|Medicine
+Y Wear and injury|oa,trauma|Timing
+Y Inflammatory|ra,ps,sle|Skin and nails,General
+Y Crystals|gout|Diet
+Y Infection|sept,react,viral|Infection,Preceding illness
 SC
 I FBC, ESR/CRP; uric acid; RF and anti-CCP; ANA; HLA-B27 if spondyloarthropathy suspected; X-ray; joint aspiration with Gram stain, culture and crystal microscopy if a hot swollen joint; urgent orthopaedic or rheumatology review if septic arthritis is possible
 D oa|Osteoarthritis||2
@@ -5060,6 +5270,12 @@ E Special tests|pick
 - Reduced lumbar flexion (Schober) {ps:3}
 
 @backpain|Back pain|Musculoskeletal|Medicine
+Y Mechanical|mech,disc,stenosis|Exacerbating and relieving,Radiation
+Y Cord and cauda equina|cord|Cauda equina and cord
+Y Cancer and infection|mets,inf|Cancer and infection
+Y Bone|osteop|Past history
+Y Inflammatory|ank|Timing
+Y Referred|aaa,renal|Other causes
 SC
 I Neurological examination and PR/anal tone if neurological signs; no imaging for simple mechanical pain; urgent MRI spine for red flags (cord compression, cauda equina, infection, cancer); FBC, ESR/CRP, calcium, ALP, PSA, protein electrophoresis, myeloma screen; X-ray; DEXA; urinalysis; AAA ultrasound if age and risk factors
 D mech|Mechanical back pain||3
@@ -5165,6 +5381,11 @@ E Abdomen and rectal|pick
 - Hard irregular prostate {mets:1}
 
 @rash|Skin rash|Dermatology|Medicine
+Y Skin itself|ecz,pso|Character
+Y Allergy and drugs|urt,sjs|Drugs
+Y Infection|inf,viral,mening|Contacts,Systemic
+Y Vessels|vas|Danger
+Y Immune|sle|Systemic
 SC
 I Examine skin, mucosae, nails and scalp in good light; skin scrapings or swab; FBC, ESR, CRP; ANA and ENA; urine dip; skin biopsy if diagnosis unclear; patch testing for contact dermatitis; stop likely drugs; urgent senior review for blistering, mucosal involvement or non-blanching rash
 D ecz|Eczema / dermatitis||1.5
@@ -5251,6 +5472,9 @@ E Mucosa and nails|pick
 - Nail pitting {pso:3}
 
 @aki|Oliguria / acute kidney injury|Renal|Medicine
+Y Pre-renal|pre,hrs|Fluid loss,Shock
+Y Renal|atn,gn,ain,rhab,ckd|Kidney itself,Drugs
+Y Post-renal|post|Obstruction
 SC qsofa,news
 I Urgent U&E, creatinine, K+, bicarbonate; ABG; urine dip, microscopy, urine sodium; bladder scan and catheter if retention; renal USS (obstruction); CK if rhabdomyolysis; ECG for hyperkalaemia; stop nephrotoxins; fluid challenge if hypovolaemic; nephrology review if no recovery
 D pre|Pre-renal (dehydration, shock, heart failure)||2
@@ -5330,6 +5554,11 @@ E Rectal|pick
 - Enlarged prostate {post:3}
 
 @uti|Dysuria / urinary tract infection|Renal|Medicine
+Y Bladder|cys,ca|Urinary symptoms
+Y Kidney|pyelo,urosep|Kidney infection,Sepsis
+Y Urethra and STI|urethr,vag|Discharge
+Y Prostate|pros|Men
+Y Stone|stone|Stone
 SC qsofa
 I Urine dipstick (nitrites, leucocytes), MSU culture; pregnancy test; urethral and cervical swabs or NAAT if STI suspected; U&E and CRP if systemic; blood cultures if septic; USS KUB if recurrent, male, or pyelonephritis not responding; PSA only after counselling
 D cys|Cystitis||2.5
@@ -5400,6 +5629,12 @@ E Bedside tests|pick
 - Nitrites and leucocytes on dipstick {cys:5,pyelo:4}
 
 @legswell|Unilateral leg swelling|Vascular|Medicine
+Y Clot|dvt|Clot risk,PE
+Y Infection|cell|Infection
+Y Joint|bak|Pain
+Y Veins and lymph|ven,lymph|Extent
+Y Pelvic mass|ca|Cancer
+Y Injury|trauma|Onset
 SC
 I Wells DVT score; D-dimer if low or moderate probability; compression Doppler USS of the leg; start anticoagulation if high probability and imaging is delayed; CT abdomen and pelvis for pelvic mass if unprovoked; cellulitis: bloods and skin swab; Baker's cyst: USS
 D dvt|DVT|!|1
@@ -5479,6 +5714,14 @@ E Abdomen and groin|pick
 - Inguinal nodes {ca:4}
 
 @confusion|Confusion / altered consciousness|Neurology|Medicine
+Y Infection|del,mening|Infection
+Y Drugs and alcohol|alc|Drugs and bowels,Alcohol
+Y Brain|strk,ict|Brain
+Y Sugar|hypog,dka|Sugar
+Y Oxygen|hyp|Breathing
+Y Liver and kidney|hepat,ur|Liver and kidney
+Y Salts|elec|Electrolytes
+Y Memory and mood|dem,dep|Mood,Baseline
 SC gcs,news,qsofa
 I ABC, glucose first; GCS and observations; FBC, U&E, Ca, LFT, ammonia, glucose, blood ketones, osmolality, ABG, CRP, TFT, B12; blood and urine cultures; urine dip; ECG; CXR; CT head; lumbar puncture if infection suspected; toxicology; 4AT or MMSE/MOCA for cognition; thiamine before glucose in alcohol-dependent patients
 D del|Delirium (infection, drugs, metabolic)|!|2
@@ -5595,6 +5838,12 @@ E Chest, abdomen, bladder|pick
 - Pericardial rub {ur:4}
 
 @vomit|Vomiting / nausea|Gastrointestinal|Medicine
+Y Gut|gast,pu,ob,panc|Gut
+Y Head|cns|Head
+Y Metabolic|dka|Metabolic
+Y Pregnancy|preg|Pregnancy
+Y Heart|mi|Chest
+Y Drugs|drug|Drugs and habits
 SC
 I Pregnancy test; glucose, ketones, U&E, Ca, LFT, amylase or lipase; FBC, CRP; urine dip; ECG if epigastric pain; AXR or CT if obstruction; OGD if upper GI alarm features; stop likely drugs; rehydrate
 D gast|Gastroenteritis||2
@@ -5665,14 +5914,17 @@ E Hydration and vitals|pick
 - Jaundice {panc:2}
 G Abdominal examination
 E Inspection|pick
+M Look from the end of the bed, then at eye level|Distension · scars · visible peristalsis · pulsation · hernial orifices (ask to cough)
 - Distension {ob:2}
 - Hernia {ob:3}
 - Flank or umbilical bruising {panc:2}
 E Palpation|pick
+M Light, then deep, starting away from the pain|All 9 regions · then liver · spleen · kidneys (ballot) · watch the face
 - Epigastric tenderness {pu:4,panc:4}
 - Diffuse mild tenderness {gast:3}
 - Guarding {panc:2}
 E Auscultation|pick
+M Listen for a full minute|Bowel sounds · bruits · succussion splash
 - Tinkling bowel sounds {ob:3}
 - Hyperactive bowel sounds {gast:3}
 G Complete the examination
@@ -5682,6 +5934,13 @@ E Neuro and rectal|pick
 - Signs of heart failure {mi:2}
 
 @scrotum|Scrotal swelling / testicular pain|Urology|Surgery
+Y Twist|tors,tort|Onset
+Y Infection|epid|With pain
+Y Fluid|hyd,spc|Character
+Y Veins|var|Timing
+Y Tumour|ca|Tumour
+Y Hernia|hern|Character
+Y Injury|trauma|Onset
 SC
 I Torsion is a clinical diagnosis: do not delay surgery for imaging if suspected; urine dip and MSU; STI screen; scrotal Doppler USS; tumour markers (AFP, beta-hCG, LDH) and CT chest, abdomen and pelvis for suspected testicular cancer; FBC, CRP
 D tors|Testicular torsion|!|0.8
@@ -5738,6 +5997,7 @@ N Standing and lying; both sides.
 - Scrotal skin red and oedematous {epid:2} @x101
 G Palpation
 E Can you get above it?|pick
+M Three questions|Can you get above it? · Is it separate from the testis? · Does it transilluminate?
 N Start with the normal side. Can you get above the swelling? Is the testis felt separately?
 - Cannot get above it {hern:1}
 - Can get above it {hyd:1,ca:1,spc:1}
@@ -5763,6 +6023,12 @@ E Spread|pick
 - Gynaecomastia {ca:1}
 
 @luts|Lower urinary tract symptoms / retention|Urology|Surgery
+Y Prostate|bph,pca|Voiding,Cancer
+Y Infection|uti|Infection
+Y Urethra|str|Past history
+Y Bladder|bca,oab|Storage
+Y Nerves|neuro|Spine
+Y Drugs and bowel|drug,constip|Drugs,Bowel
 SC
 I Urine dip and MSU; U&E and creatinine; PSA after counselling; bladder scan and post-void residual; catheterise for acute retention and record residual volume; renal and bladder USS; urodynamics; cystoscopy; flow rate; frequency-volume chart
 D bph|Benign prostatic hyperplasia||2
@@ -5854,6 +6120,11 @@ E Neurology|pick
 - Reduced ankle reflexes {neuro:2} @x108
 
 @loin|Loin pain / renal colic|Urology|Surgery
+Y Stone|stone|Character,Urine
+Y Infection|pyelo,pyon|Infection
+Y Aorta|aaa|Other causes
+Y Referred|tors,gall,hz|Gut,Other causes
+Y Muscle|msk|Exacerbating and relieving
 SC qsofa
 I Urine dip (blood), MSU; pregnancy test; U&E, creatinine, CRP, calcium, urate; non-contrast CT KUB within 24 h; USS if pregnant or young; analgesia (NSAID, opioid); urgent decompression (stent or nephrostomy) if infected obstructed kidney; metabolic stone work-up
 D stone|Ureteric colic / stone||2
@@ -5943,6 +6214,13 @@ E Urine|pick
 - Nitrites or leucocytes {pyelo:3,pyon:2} @x107
 
 @anal|Anal pain / lump|Colorectal|Surgery
+Y Piles|haem,thromb|Lump
+Y Fissure|fiss|Character
+Y Pus|abs,fist|Bleeding and discharge
+Y Cancer|ca|General
+Y Prolapse|prolaps|Lump
+Y Skin|pruritus|Bleeding and discharge
+Y Crohn's|crohn|General
 SC
 I Inspect, then gentle PR; proctoscopy or examination under anaesthetic if too painful; FBC, CRP; MRI pelvis for complex fistula; colonoscopy if bleeding or bowel change; incision and drainage for abscess; stool softener and topical GTN or diltiazem for fissure; haemorrhoid banding or surgery by grade
 D haem|Haemorrhoids||1.5
@@ -6023,6 +6301,10 @@ E Nodes|pick
 ! Inguinal lymph nodes {ca:3}
 
 @obstr|Vomiting and distension (bowel obstruction)|Emergency|Surgery
+Y Outside the wall|adh,herni,vol|Before this,Past history
+Y In the wall|ca,crohn,div|Before this
+Y In the lumen|gall,intus|Before this
+Y No blockage (ileus)|ileus|Ileus causes
 SC news
 I Resuscitate: nil by mouth, IV fluids, NG tube if vomiting, catheter for fluid balance; U&E, lactate, FBC, CRP, amylase, group and save; erect CXR and AXR; contrast CT abdomen and pelvis; early surgical review; urgent theatre if strangulation or peritonism
 D adh|Adhesional small bowel obstruction||1.5
@@ -6081,20 +6363,24 @@ E Vital signs and hydration|pick
 - Fever {herni:1,vol:1}
 G Abdominal examination
 E Inspection|pick
+M Look from the end of the bed, then at eye level|Distension · scars · visible peristalsis · pulsation · hernial orifices (ask to cough)
 - Distension {adh:2,ca:2,vol:3}
 - Visible peristalsis {adh:2,ca:2}
 - Surgical scars {adh:6}
 - Asymmetrical distension {vol:3}
 - Visible hernia {herni:3} @x101
 E Palpation|pick
+M Light, then deep, starting away from the pain|All 9 regions · then liver · spleen · kidneys (ballot) · watch the face
 ! Peritonism or localised tenderness {herni:2,vol:1,ca:1}
 ! Tender, red, irreducible hernia {herni:3}
 - Abdominal mass {ca:4}
 - Right iliac fossa mass {crohn:3,intus:3}
 - Mass at a hernial orifice {herni:3} @x102
 E Percussion|pick
+M Dull or resonant? Then shifting dullness|Percuss from the midline out to the flank, roll the patient towards you, wait, percuss again
 - Tympanic {adh:2,ca:2,vol:3}
 E Auscultation|pick
+M Listen for a full minute|Bowel sounds · bruits · succussion splash
 - Tinkling, high-pitched bowel sounds {adh:5,ca:4,vol:4,herni:4}
 - Absent bowel sounds {ileus:6}
 G Complete the examination
@@ -6105,6 +6391,14 @@ N Always check the hernial orifices.
 - Blood on the glove {intus:3,ca:2} @x103
 
 @mass|Abdominal mass|Gastrointestinal|Surgery
+Y Liver|hep|Liver and spleen
+Y Spleen|spl|Liver and spleen
+Y Kidney|kid|Kidney
+Y Bowel|ca,crohn,fecal,divm|Gut
+Y Aorta|aaa|Where
+Y Pancreas|panc|Gut
+Y Pelvis|ovar|Pelvis
+Y Nodes and psoas|lym,psoas|Other
 SC
 I FBC, CRP, U&E, LFT; tumour markers as guided (CEA, CA19-9, CA-125, AFP, beta-hCG); USS abdomen and pelvis; contrast CT chest, abdomen and pelvis; colonoscopy for lower GI mass; OGD for epigastric mass; biopsy under imaging guidance; urgent referral if cancer suspected
 D ca|Colorectal / gastric cancer|!|1
@@ -6176,6 +6470,7 @@ E General|pick
 - Supraclavicular node {ca:2}
 G Abdominal examination
 E Inspection|pick
+M Look from the end of the bed, then at eye level|Distension · scars · visible peristalsis · pulsation · hernial orifices (ask to cough)
 N Note the region, and whether it moves with breathing.
 - Visible mass {ca:1,ovar:1}
 - Visible pulsation {aaa:2}
@@ -6185,6 +6480,7 @@ N Note the region, and whether it moves with breathing.
 - Pulsation in the epigastrium that stays in every position {aaa:3} @x302
 - Wasted, sunken abdomen {ca:2} @x303
 E Palpation|pick
+M Light, then deep, starting away from the pain|All 9 regions · then liver · spleen · kidneys (ballot) · watch the face
 N Site, size, shape, surface, edge, consistency, tenderness, pulsatility, mobility; can you get above or below it?
 - Hard, irregular, fixed {ca:5,ovar:2}
 - Liver edge hard and craggy {hep:5}
@@ -6208,6 +6504,7 @@ N Site, size, shape, surface, edge, consistency, tenderness, pulsatility, mobili
 - Pulsatile liver {hep:1} @x308
 - Pulsation disappears on knee-elbow position (transmitted) {ca:2,panc:2} @x312
 E Percussion|pick
+M Dull or resonant? Then shifting dullness|Percuss from the midline out to the flank, roll the patient towards you, wait, percuss again
 - Dull over the mass {ovar:2,hep:1,spl:1}
 - Resonant in front (kidney) {kid:3}
 - Shifting dullness {lym:1,ca:1,hep:1}
@@ -6222,6 +6519,10 @@ E Rectal and nodes|pick
 - Pelvic mass felt on rectal examination {ovar:3} @x103
 
 @varicose|Varicose veins / venous disease|Vascular|Surgery
+Y Superficial valves|prim,scj,spj|Where,Symptoms
+Y Deep veins|dvt|Risk factors
+Y Thrombophlebitis|acute|Acute
+Y Arteries|art,av|Arterial
 SC
 I Duplex ultrasound of the leg to map reflux (saphenofemoral and saphenopopliteal junctions); ABPI before compression; consider thrombophilia screen only in young or unprovoked DVT; treatment ladder: compression, endovenous ablation, foam sclerotherapy, ligation and stripping
 D prim|Primary varicose veins||2
@@ -6305,7 +6606,7 @@ Y Infection|abs|Symptoms
 Y Tendon sheath|gang|Where is it
 Y Lymph node|node|Cause,Nodes and local tissues
 Y Deep tissue|sarc|Relations
-R Look (4S + skin) -> Feel (3T, edge, consistency) -> What is it made of? -> Relations -> Nodes and local tissues -> Whole patient
+R Look (5S) -> Feel (3T, edge, consistency) -> What is it made of? -> Relations -> Nodes and local tissues -> Whole patient
 G History of the lump (Browse)
 M 7 questions|When? · How noticed? · Symptoms? · Changed? · Ever disappears? · Other lumps? · Cause?
 H Where is it|pick|Site:
@@ -6357,7 +6658,7 @@ H Risk factors|pick|Risk factor:
 G Examination
 E Look|pick
 N Site in exact anatomical terms, measured from bony points. Size in 3 dimensions with a tape. Shape (lumps are three-dimensional: dome, pear, dumb-bell). Surface. Colour and texture of the overlying skin.
-M 4S + Skin|Site · Size · Shape · Surface · Skin over it (colour, texture, punctum, ulcer)
+M 5S|Site · Size · Shape · Surface · Skin over it (colour, texture, punctum, ulcer)
 - Central punctum {seb:6} @0
 - Red, hot, swollen skin {abs:6} @1
 ! Mole: Asymmetric, irregular Border, several Colours, Diameter over 6 mm, Evolving (ABCDE) {mel:2} @2
@@ -6402,6 +6703,11 @@ N Never examine only the lump: examine the whole patient.
 - Other lumps elsewhere {lip:1,node:1} @x208
 - Signs of systemic illness (weight loss, fever) {node:1,sarc:1} @x209
 @dyspep|Dyspepsia / epigastric pain|Upper GI|Surgery
+Y Oesophagus|gerd|Reflux
+Y Stomach|pu,gast,hpylori,gastropar|Stomach
+Y Cancer|ca|Alarm features
+Y Gallbladder and pancreas|gall,panc|Radiation
+Y Heart|mi|Cardiac
 SC
 I Test and treat for H. pylori; urgent OGD if alarm features (age over 55 with new symptoms, dysphagia, weight loss, anaemia, vomiting, melaena, mass); FBC, ferritin, LFT, amylase or lipase; ECG if chest pain; USS biliary; trial of PPI; stop NSAIDs
 D gerd|GORD||2
@@ -6487,11 +6793,13 @@ E General|pick
 - Jaundice {gall:3,ca:2,panc:2}
 - Hypotension or sweating {mi:2}
 E Inspection|pick
+M Look from the end of the bed, then at eye level|Distension · scars · visible peristalsis · pulsation · hernial orifices (ask to cough)
 - Distension {gastropar:1} @x101
 - Scars from previous surgery {pu:1} @x102
 - Visible mass {ca:2} @x103
 G Abdominal examination
 E Palpation|pick
+M Light, then deep, starting away from the pain|All 9 regions · then liver · spleen · kidneys (ballot) · watch the face
 - Epigastric tenderness {pu:4,gast:3,panc:3}
 - Tender with guarding {panc:4,pu:3}
 - Murphy's sign {gall:6}
@@ -6500,11 +6808,18 @@ E Palpation|pick
 - Normal examination {gerd:4,gast:4}
 - Right upper quadrant tenderness {gall:3} @x104
 E Auscultation|pick
+M Listen for a full minute|Bowel sounds · bruits · succussion splash
 - Succussion splash {gastropar:5,ca:3}
 E Rectal examination|pick
 - Melaena on the glove {pu:3,ca:2} @x105
 
 @postop|Post-operative review / complication|Emergency|Surgery
+Y Wind (chest)|atel|Chest
+Y Water (urine)|uti,ret|Urine
+Y Wound|wi,dehis,bleed|Wound
+Y Walking (clots)|vte|Legs and lines
+Y Wonder drugs and lines|drug,line,hypoca|Other,Legs and lines
+Y Abdomen|leak,abs,ileus|Abdomen
 SC qsofa,news
 I Check the operation note and post-operative day (POD); full vitals, NEWS2, urine output and fluid balance chart; wound inspection and swab; drain output and character; FBC, CRP, U&E, calcium after neck surgery, lactate, blood, urine and wound cultures; CXR; urine dip; Doppler leg (DVT) or CTPA (PE); CT abdomen and pelvis for collection or leak; early senior review
 D bleed|Haemorrhage (primary, reactionary or secondary)|!|0.5
@@ -8890,6 +9205,7 @@ function unitHTML(e,P,u,idx){
   var title=covName(u.g||s0.title,idx);
   var h='<section class="card unit'+(done&&n?' done':'')+(open?'':' shut')+'" data-u="'+esc(secKey(P,s0))+'"><h3 class="sech" data-act="secToggle" data-sk="'+esc(secKey(P,s0))+'" data-i="'+idx+'" role="button" tabindex="0" aria-expanded="'+open+'"><span><i class="chev">'+(open?'▾':'▸')+'</i> '+esc(title)+'</span><span class="cnt">'+n+'/'+t+'</span></h3>';
   if(open&&s0.gmn)h+=mnHTML(s0.gmn);
+  else if(open&&s0.kind==='H'&&u.g&&/pain|socrates/i.test(u.g))h+=mnHTML({t:'SOCRATES',x:'Site \u00B7 Onset \u00B7 Character \u00B7 Radiation \u00B7 Associated \u00B7 Timing \u00B7 Exacerbating and relieving \u00B7 Severity'});
   if(open)u.secs.forEach(function(s){
     if(u.g)h+='<div class="sst"><span>'+esc(covName(s.title,u.secs.indexOf(s),'Part'))+(s.mode==='one'?' <i>pick one</i>':'')+'</span></div>';
     if(s.note)h+='<p class="snote">'+esc(s.note)+'</p>';
@@ -8901,12 +9217,21 @@ function unitHTML(e,P,u,idx){
 function secBody(e,P,s){
   if(s.mode==='yn')return s.items.map(function(it){return triRow(e,P,it,s.kind)}).join('');
   var H=s.kind==='H',ok=P.id+'_'+s.kind+s.ix,ov=(e.ot||{})[ok]||'',any=false,un=false;
-  var h='<div class="pks" data-sx="'+s.ix+'" data-m="'+s.mode+'">'+s.items.map(function(it){
+  var showAll=s.items.length<=4||(UI.more||{})[ok]||covOn(),keep={},nHid=0;
+  if(!showAll){
+    /* key questions: red flags, already answered, and the three that best separate the differential */
+    var mw=s.items.map(function(it,i){var m=0;for(var k in it.w)if(it.w[k]>m)m=it.w[k];return {i:i,m:m}}).sort(function(a,b){return b.m-a.m||a.i-b.i});
+    mw.slice(0,3).forEach(function(x){keep[x.i]=1});
+    s.items.forEach(function(it,i){if(it.flag||e.f[fkey(P,it)])keep[i]=1;if(!keep[i])nHid++});
+  }
+  var h='<div class="pks" data-sx="'+s.ix+'" data-m="'+s.mode+'">'+s.items.map(function(it,ii){
+    if(!showAll&&!keep[ii])return '';
     var st=e.f[fkey(P,it)]||0;if(st)any=true;else un=true;
     if(!covShown(e,P,it))return '<button class="pk cov'+(it.flag?' rf':'')+'" data-act="unc" data-k="'+it.k+'" data-kd="'+s.kind+'" aria-label="Covered line. Tap to uncover">TAP</button>';
     var cls='pk'+(st===1?(H?' y':' a'):st===-1?(s.mode==='one'?' dim':' n'):'')+(it.flag?' rf':'');
     return '<button class="'+cls+'" data-act="chip" data-k="'+it.k+'" aria-pressed="'+(st===1)+'">'+esc(it.c)+'</button>'}).join('');
   var oo=ov||(UI.oo||{})[ok];
+  if(nHid)h+='<button class="pk more" data-act="moreQ" data-ok="'+ok+'" aria-label="Show '+nHid+' more">+ '+nHid+' more</button>';
   if(!oo)h+='<button class="pk ot" data-act="otOpen" data-ok="'+ok+'">+ Other</button>';
   h+='</div>';
   if(oo)h+='<input type="text" class="otin" data-b="ot.'+ok+'" value="'+esc(ov)+'" placeholder="Other: type it" autocomplete="off">';
@@ -9052,7 +9377,8 @@ function stepFind(P,sk){var S2=stepsFor(P)||[],r=null;S2.forEach(function(s,i){i
 function stageExam(e,P){
   var gen=[['G0','Washed hands, introduced self, took consent'],['G1','Patient positioned and exposed appropriately, chaperone offered'],['G2','Inspected the bed space and general appearance']];
   var h='<p class="tip">Tap an abnormal finding (red). Tap again to record it as normal, a third time to clear. "Rest normal" marks everything you did not tap as normal.</p>';
-  if(P.route)h+='<div class="route"><span class="eyebrow">Exam route</span><div>'+P.route.split(/\s*(?:->|\u2192)\s*/).map(function(x,i){return '<span><i>'+(i+1)+'</i>'+esc(x)+'</span>'}).join('')+'</div></div>';
+  var rt=P.route;if(!rt){var SP0=stepsFor(P);if(SP0&&SP0.length>2)rt=SP0.map(function(x){return x.t}).join(' -> ')}
+  if(rt)h+='<div class="route"><span class="eyebrow">Exam route</span><div>'+rt.split(/\s*(?:->|\u2192)\s*/).map(function(x,i){return '<span><i>'+(i+1)+'</i>'+esc(x)+'</span>'}).join('')+'</div></div>';
   h+='<section class="card"><h3>Before you start</h3>'+gen.map(function(g){var st=e.f['gen.'+g[0]];return '<div class="it" data-gk="'+g[0]+'"><div class="t">'+g[1]+'</div><div class="seg one"><button class="y'+(st?' on':'')+'" data-act="gen" aria-pressed="'+(!!st)+'">Done</button></div></div>'}).join('')+'</section>';
   if(CORE_OF[P.id]&&gById(CORE_OF[P.id]))h+='<button class="btn" data-act="coreOpen" data-id="'+CORE_OF[P.id]+'" style="margin-block-end:10px">Open the full '+esc(gById(CORE_OF[P.id]).n.replace(' (Internal medicine)',''))+'</button><p class="small muted" style="margin-block:-4px 10px">The ticks below record findings. The full exam lists every step, with this complaint’s extras in colour.</p>';
   (function(){var cm=CORE_MAP[P.id],g0=cm&&gById(cm.g);if(g0&&g0.cx&&g0.cx.length>1)h+=legendHTML(g0,cm.cx)})();
@@ -9943,6 +10269,7 @@ var ACT={
     UI.pick=false;UI.stage='hist';UI.pq='';saveSoon();render();
   },
   moreToggle:function(){UI.moreOpen=!UI.moreOpen;render(true)},
+  moreQ:function(t){UI.more=UI.more||{};UI.more[t.dataset.ok]=true;var e=curEnc();if(!e)return;var P=getP(e.pid),sx=+t.closest('.pks').dataset.sx,sec=P.sections[sx];if(sec)unitRefresh(e,P,sec);else render(true)},
   czGo:function(t){
     var e=curEnc();if(!e)return;var P=getP(e.pid),c=P.cz[+t.dataset.i];if(!c)return;
     var s=null;P.sections.forEach(function(x){if(!s&&c.secs.indexOf(x.title)>=0)s=x});if(!s)return;
