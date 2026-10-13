@@ -10797,6 +10797,8 @@ function aidsAll(){
 function findingsAll(){
   var out=[];
   GUIDES.forEach(function(g){if(g.id==='drains')return;var fx=FX[g.id]||{};g.st.forEach(function(st){if(g.id==='postop'&&/^Vital signs/.test(st[0]))return;(fx[st[0]]||(st[2]&&st[2].f)||[]).forEach(function(p,i){out.push({k:'fx:'+g.id+':'+st[0]+':'+i,gid:g.id,grp:/^imc_/.test(g.id)?'med':'surg',f:p[0],m:p[1],g:g.n.replace(/ \((Internal medicine|Browse|handbook|handbook and Browse|post-op lecture|drains lecture|college record)\)$/,''),st:st[0]})})})});
+  /* the same finding and meaning can come from two guides (thyroid guide and handbook endocrine): keep one card */
+  var seen={};out=out.filter(function(x){var k=(x.f+'|'+x.m).toLowerCase().replace(/[^a-z|]/g,'');if(seen[k])return false;seen[k]=1;return true});
   return out;
 }
 /* two answers clash if both could be right: same text, one inside the other, a shared key word, or the same hernia family (indirect vs direct are true opposites, so they may appear together) */
@@ -10871,12 +10873,17 @@ function drillNew(kind){
   if(kind==='cz'){d.P=getP(k.slice(3))}
   else if(kind==='rf'){
     var P=getP(k.slice(3)),fl=flagsOf(P),ok=rnd(fl),pool=[];
-    P.sections.forEach(function(s){if(s.kind!=='H')return;s.items.forEach(function(it){if(!it.flag&&fl.indexOf(it.c)<0&&pool.indexOf(it.c)<0)pool.push(it.c)})});
+    P.sections.forEach(function(s){if(s.kind!=='H')return;s.items.forEach(function(it){if(it.flag||fl.indexOf(it.c)>=0||pool.indexOf(it.c)>=0)return;
+      /* a wrong option must not itself be alarming: skip anything that points strongly to a must-not-miss cause */
+      if(Object.keys(it.w).some(function(k){return P.dmap[k]&&P.dmap[k].mnm&&it.w[k]>=2}))return;pool.push(it.c)})});
     d.P=P;d.opts=shuffle([{t:ok,ok:true}].concat(shuffle(pool).slice(0,3).map(function(t){return {t:t}})));
   }else{
     var all=findingsAll(),x=all.filter(function(y){return y.k===k})[0],wrong=[];
     /* wrong options come from the same guide first, then the same kind of guide (medicine or surgery) */
-    var add=function(list){shuffle(list).forEach(function(y){if(wrong.length<3&&!fxClash(x.m,y.m)&&!wrong.some(function(w){return fxClash(w,y.m)}))wrong.push(y.m)})};
+    /* meanings that are also right for this finding elsewhere (e.g. retinopathy: hypertension or diabetes) are never offered as wrong */
+    var nf=function(t){return t.toLowerCase().replace(/\([^)]*\)/g,'').replace(/[^a-z ]/g,'').trim()},fx0=nf(x.f);
+    var alsoRight=all.filter(function(z){var f=nf(z.f);return f===fx0||f.indexOf(fx0)>=0||fx0.indexOf(f)>=0}).map(function(z){return z.m});
+    var add=function(list){shuffle(list).forEach(function(y){if(wrong.length<3&&!fxClash(x.m,y.m)&&!alsoRight.some(function(r){return fxClash(r,y.m)})&&!wrong.some(function(w){return fxClash(w,y.m)}))wrong.push(y.m)})};
     add(all.filter(function(y){return y.gid===x.gid}));
     add(all.filter(function(y){return (FX_REL[x.gid]||[]).indexOf(y.gid)>=0}));
     add(all.filter(function(y){return y.gid!==x.gid&&y.grp===x.grp}));
