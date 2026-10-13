@@ -572,6 +572,38 @@ input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 
 .xfo .dg{background:#F6C6BF;color:#5A120B}
 .xfn{align-self:center;font-size:.66rem;font-weight:800;text-transform:uppercase;color:var(--muted);margin-block:2px -2px;padding:1px 8px;border-radius:99px;background:var(--surface2)}
 .genpin{position:relative}.genpin .srcmk{position:absolute;inset-inline-end:12px;top:12px;padding:0!important}.genpin img{position:static!important}.genpin span:not(.srcmk){padding-inline-end:34px}
+
+/* practice menu */
+.prtiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.prtiles button{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:start;padding:14px;border:1px solid var(--line);border-radius:var(--rad);background:var(--surface);color:inherit;font:inherit;cursor:pointer;box-shadow:var(--sh);min-height:104px}
+.prtiles b{font-size:1rem;color:var(--accent)}.prtiles span{font-size:.8rem;color:var(--muted);line-height:1.3}
+.prtiles em{font-style:normal;font-size:.72rem;font-weight:800;color:var(--ok);background:var(--ok-bg);border-radius:99px;padding:1px 8px;margin-block-start:auto}
+.prback{min-height:32px;font-size:.82rem}
+.segc.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:520px){.segc.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.aidc{padding:10px 12px}
+.vphead b{display:block;font-size:1.02rem;margin-block:2px}
+.vpg summary{cursor:pointer;min-height:32px;display:flex;align-items:center}
+.vpok{border-color:var(--ok);background:var(--ok-bg)}.vpok h3{color:var(--ok)}
+.vpno{border-color:var(--danger);background:var(--danger-bg)}.vpno h3{color:var(--danger)}
+/* one-page summary */
+.sumpage{background:var(--surface);border:1px solid var(--line);border-radius:var(--rad);padding:14px;box-shadow:var(--sh)}
+.sumtop{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid var(--accent);padding-bottom:6px;margin-bottom:10px}
+.sumgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px;margin-block:8px}
+.sumb{border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-block:8px;font-size:.84rem}
+.sumgrid .sumb{margin:0}
+.sumb h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin:0 0 4px}
+.sumb ul{margin:2px 0;padding-inline-start:16px}.sumb.red{border-color:var(--danger);background:var(--danger-bg)}.sumb.red h3{color:var(--danger)}
+.sumb.aid{background:var(--warn-bg);border-color:color-mix(in srgb,var(--warn) 40%,var(--line))}.sumb.aid h3{color:var(--warn)}
+.sumcz{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:6px}
+.sumc{border:1px solid var(--line);border-inline-start:4px solid var(--accent);border-radius:8px;padding:6px 8px}
+.sumc .dx{color:var(--g1);font-weight:700;font-size:.78rem;margin-block:2px}.sumc .m{color:var(--danger)}
+@media print{
+  .nav,.top,.dock,.toast,.upd,.noprint,.compn,.credit,.main>p.small.muted{display:none!important}
+  body,.main{background:#fff!important;padding:0!important}.sumpage{border:0;box-shadow:none;padding:0}
+  .sumb,.sumc{break-inside:avoid}
+}
+.vpg .pk.n{text-decoration:none;border-style:solid;color:var(--muted)}
 </style></head><body>
 <div class="app" id="app"></div>
 <div class="toast" id="toast" hidden></div>
@@ -8530,7 +8562,7 @@ var SCMAP={};SCORES.forEach(function(s){SCMAP[s.id]=s});
 /* Layout switches. Set LAYOUT_A=false to bring back the old busy top. Set SHOW_MARKALL=true to bring back the 'Mark all steps done' button. */
 var SURG_STEPS=true,LAYOUT_A=true,SHOW_MARKALL=false;
 var UI={tab:'enc',stage:'hist',pick:false,pickMode:'new',pq:'',logq:'',signq:'',signsys:'All',note:'sheet',infoOpen:true,
-  osce:null,oscePid:'',osceMins:8,quiz:null,quizPid:'',qRecent:[],qDiff:'med',qPat:'dx',pr:'quiz',flOpen:null,armed:null,lbOpen:false};
+  osce:null,oscePid:'',osceMins:8,quiz:null,quizPid:'',qRecent:[],qDiff:'med',qPat:'dx',pr:'',flOpen:null,armed:null,lbOpen:false};
 function curEnc(){if(!DB.curId)return null;for(var i=0;i<DB.encs.length;i++)if(DB.encs[i].id===DB.curId)return DB.encs[i];return DRAFT&&DRAFT.id===DB.curId?DRAFT:null}
 var DRAFT=null;
 function newEnc(pid){return {id:uid(),t0:Date.now(),t:Date.now(),pid:pid,pt:{ref:'',age:'',sex:'',loc:'',occ:'',mar:'',res:'',adm:'',rel:'',hdt:'',mref:'',marr:''},dur:'',cc:'',f:{},x:{},soc:{},tx:{hpc:'',pmh:'',psh:'',dh:'',all:'',fh:'',sh:'',occ:'',ros:'',exn:'',dx:'',plan:''},v:{},sc:{},smk:{p:'',y:''},touched:false}}
@@ -9099,7 +9131,7 @@ IC.ref=IC.sc;
 /* ================= views ================= */
 function moreMenu(e){
   if(!UI.moreOpen)return '';
-  return '<div class="card moremenu"><div class="chips"><button class="btn small" data-act="help">Help</button><button class="btn small" data-act="accent"><span class="dot"></span>Style</button><button class="btn small" data-act="theme">Theme: '+(DB.theme==='dark'?'Dark':DB.theme==='light'?'Light':'Auto')+'</button><button class="btn small" data-act="ddxToggle" aria-pressed="'+(!DB.hideDdx)+'">DDx: '+(DB.hideDdx?'Hidden':'Shown')+'</button></div>'+srcLine(SRC_P[e.pid])+'</div>';
+  return '<div class="card moremenu"><div class="chips"><button class="btn small" data-act="help">Help</button><button class="btn small" data-act="accent"><span class="dot"></span>Style</button><button class="btn small" data-act="theme">Theme: '+(DB.theme==='dark'?'Dark':DB.theme==='light'?'Light':'Auto')+'</button><button class="btn small" data-act="ddxToggle" aria-pressed="'+(!DB.hideDdx)+'">DDx: '+(DB.hideDdx?'Hidden':'Shown')+'</button></div>'+studyLinks(e)+srcLine(SRC_P[e.pid])+'</div>';
 }
 function render(keepScroll){
   var e=curEnc();
@@ -9869,8 +9901,17 @@ function histFlow(P){
 
 /* ---- Practice ---- */
 function viewPractice(){
-  var h='<h2 style="margin-block-end:10px">Practice</h2><div class="segc" role="group" aria-label="Practice mode" style="margin-block-end:12px"><button class="chip" data-act="prMode" data-m="quiz" aria-pressed="'+(UI.pr==='quiz')+'">Diagnosis quiz</button><button class="chip" data-act="prMode" data-m="guide" aria-pressed="'+(UI.pr==='guide')+'">Exam guides</button><button class="chip" data-act="prMode" data-m="flow" aria-pressed="'+(UI.pr==='flow')+'">History flowcharts</button></div>';
-  return h+(UI.pr==='guide'?viewGuides():UI.pr==='flow'?viewFlow():viewQuiz());
+  if(!UI.pr){
+    var due=0;['cz','fx','rf'].forEach(function(k){due+=srsDue(drillKeys(k))});var vs=DB.vpst||{c:0,t:0};
+    var sub={vp:vs.t?vs.c+' of '+vs.t+' correct':'',learn:due?due+' cards due':''};
+    return '<h2 style="margin-block-end:10px">Practice</h2><div class="prtiles">'+PR_TILES.map(function(t){return '<button data-act="prMode" data-m="'+t[0]+'"><b>'+t[1]+'</b><span>'+t[2]+'</span>'+(sub[t[0]]?'<em>'+sub[t[0]]+'</em>':'')+'</button>'}).join('')+'</div>';
+  }
+  if(UI.pr==='vp')return viewVP();
+  if(UI.pr==='learn')return viewLearn();
+  if(UI.pr==='sum')return viewSummary();
+  var inner=(UI.pr==='guide'&&UI.guide)||(UI.pr==='flow'&&UI.flOpen);
+  var title={quiz:'Diagnosis quiz',guide:'Exam guides',flow:'History flowcharts'}[UI.pr]||'';
+  return (inner?'':prBack()+'<h2 style="margin-block:6px 10px">'+title+'</h2>')+(UI.pr==='guide'?viewGuides():UI.pr==='flow'?viewFlow():viewQuiz());
 }
 function presOptions(sel){return '<option value="">Random</option>'+PRES.map(function(p){return '<option value="'+p.id+'"'+(sel===p.id?' selected':'')+'>'+esc(p.name)+'</option>'}).join('')}
 function osceItems(pid){
@@ -10701,6 +10742,177 @@ function applyAccent(){
   st.textContent=':root{'+r(a.l)+'}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){'+r(a.d)+'}}:root[data-theme="dark"]{'+r(a.d)+'}';
 }
 function applyTheme(){var r=document.documentElement;if(DB.theme)r.setAttribute('data-theme',DB.theme);else r.removeAttribute('data-theme')}
+
+/* ================= Learn & memory, virtual patient, summary page, study shortcuts =================
+   Everything here is built from the verified complaints (SRC_P) and the source-based exam guides. */
+function vPres(){return PRES.filter(function(p){return SRC_P[p.id]&&p.cz&&p.cz.length})}
+function rnd(a){return a[Math.floor(Math.random()*a.length)]}
+/* spaced repetition: box 1-5, next due after 0, 1, 3, 7, 14 days */
+var SRS_GAP=[0,0,1,3,7,14];
+function srsGet(k){DB.srs=DB.srs||{};return DB.srs[k]||{b:1,d:0}}
+function srsMark(k,ok){var c=srsGet(k);c.b=ok?Math.min(5,c.b+1):1;c.d=Date.now()+SRS_GAP[c.b]*86400000;DB.srs[k]=c;saveSoon()}
+function srsPick(keys){var now=Date.now(),due=keys.filter(function(k){return srsGet(k).d<=now});return rnd(due.length?due:keys)}
+function srsDue(keys){var now=Date.now();return keys.filter(function(k){return srsGet(k).d<=now}).length}
+function aidsAll(){
+  var out=[],seen={};
+  vPres().concat(PRES.filter(function(p){return SRC_P[p.id]&&!(p.cz&&p.cz.length)})).forEach(function(P){
+    P.sections.forEach(function(s){[s.gmn,s.mn].forEach(function(m){if(!m)return;var k=m.t+'|'+m.x;if(seen[k]){if(seen[k].ps.indexOf(P.name)<0)seen[k].ps.push(P.name);return}var o={t:m.t,x:m.x,ps:[P.name],where:(s.kind==='E'?'Exam: ':'History: ')+s.title};seen[k]=o;out.push(o)})});
+    var hk=HOOKS[P.id];if(hk){var k2='hook|'+P.id;out.push({t:hk[0],x:'Causes to cover',ps:[P.name],where:'Causes'})}
+  });
+  return out;
+}
+function findingsAll(){
+  var out=[];
+  GUIDES.forEach(function(g){var fx=FX[g.id]||{};g.st.forEach(function(st){(fx[st[0]]||(st[2]&&st[2].f)||[]).forEach(function(p,i){out.push({k:'fx:'+g.id+':'+st[0]+':'+i,f:p[0],m:p[1],g:g.n.replace(/ \((Internal medicine|Browse|handbook|handbook and Browse|post-op lecture|drains lecture|college record)\)$/,''),st:st[0]})})})});
+  return out;
+}
+function flagsOf(P){var o=[];P.sections.forEach(function(s){if(s.kind!=='H')return;s.items.forEach(function(it){if(it.flag&&o.indexOf(it.c)<0)o.push(it.c)})});return o}
+
+/* ---------- Practice menu ---------- */
+var PR_TILES=[['vp','Virtual patient','Ask questions, the patient answers, then commit to a diagnosis'],['learn','Learn and memory','Memory aids, name the causes, match the finding, red flags'],['quiz','Diagnosis quiz','Clues to diagnosis, three levels'],['guide','Exam guides','Step-by-step examination flowcharts'],['flow','History flowcharts','Red flags, story, causes, diagnoses']];
+function prBack(){return '<button class="chip prback" data-act="prMode" data-m="">‹ Practice</button>'}
+
+/* ---------- Learn and memory ---------- */
+function viewLearn(){
+  UI.lt=UI.lt||'aids';
+  var t=[['aids','Memory aids'],['cz','Name the causes'],['fx','Match the finding'],['rf','Red flags']];
+  var h=prBack()+'<h2 style="margin-block:6px 10px">Learn and memory</h2><div class="segc four" role="group" aria-label="Learn mode" style="margin-block-end:12px">'+t.map(function(x){return '<button class="chip" data-act="ltab" data-v="'+x[0]+'" aria-pressed="'+(UI.lt===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
+  if(UI.lt==='aids')return h+aidsView();
+  return h+drillView(UI.lt);
+}
+function aidsView(){
+  var q=(UI.aq||'').toLowerCase(),list=aidsAll().filter(function(a){return !q||(a.t+' '+a.x+' '+a.ps.join(' ')+' '+a.where).toLowerCase().indexOf(q)>=0});
+  return '<div class="srch">'+IC.search+'<input type="search" id="aq" placeholder="Search, e.g. SOCRATES, lump, 7 Ds" value="'+esc(UI.aq||'')+'" aria-label="Search memory aids"></div><p class="small muted" style="margin-block:-4px 10px">'+list.length+' memory aids from the verified complaints.</p><div id="aidList">'+aidsList(list)+'</div>';
+}
+function aidsList(list){return list.length?list.map(function(a){return '<div class="card aidc"><div class="eyebrow">'+esc(a.ps.slice(0,3).join(', ')+(a.ps.length>3?' and more':''))+' · '+esc(a.where)+'</div><div class="mn" style="margin:6px 0 0"><span class="mnl">Remember</span><b>'+esc(a.t)+'</b>'+(a.x?'<span>'+esc(a.x)+'</span>':'')+'</div></div>'}).join(''):'<div class="empty">No memory aid matches.</div>'}
+function drillKeys(kind){
+  if(kind==='cz')return vPres().map(function(p){return 'cz:'+p.id});
+  if(kind==='rf')return vPres().filter(function(p){return flagsOf(p).length}).map(function(p){return 'rf:'+p.id});
+  return findingsAll().map(function(x){return x.k});
+}
+function drillNew(kind){
+  var keys=drillKeys(kind);if(!keys.length)return null;var k=srsPick(keys),d={kind:kind,k:k};
+  if(kind==='cz'){d.P=getP(k.slice(3))}
+  else if(kind==='rf'){
+    var P=getP(k.slice(3)),fl=flagsOf(P),ok=rnd(fl),pool=[];
+    P.sections.forEach(function(s){if(s.kind!=='H')return;s.items.forEach(function(it){if(!it.flag&&fl.indexOf(it.c)<0&&pool.indexOf(it.c)<0)pool.push(it.c)})});
+    d.P=P;d.opts=shuffle([{t:ok,ok:true}].concat(shuffle(pool).slice(0,3).map(function(t){return {t:t}})));
+  }else{
+    var all=findingsAll(),x=all.filter(function(y){return y.k===k})[0],wrong=[];
+    shuffle(all).forEach(function(y){if(wrong.length<3&&y.m!==x.m&&wrong.indexOf(y.m)<0)wrong.push(y.m)});
+    d.x=x;d.opts=shuffle([{t:x.m,ok:true}].concat(wrong.map(function(t){return {t:t}})));
+  }
+  return d;
+}
+function drillView(kind){
+  var D=UI.drill&&UI.drill.kind===kind?UI.drill:(UI.drill=drillNew(kind));if(!D)return '<div class="empty">Nothing to practise yet.</div>';
+  var keys=drillKeys(kind),st=DB.drs&&DB.drs[kind]||{c:0,t:0};
+  var h='<div class="row" style="justify-content:space-between;margin-block-end:8px"><span class="small muted">'+srsDue(keys)+' of '+keys.length+' cards due · cards you miss come back sooner</span><span class="mono small">'+st.c+'/'+st.t+'</span></div>';
+  if(kind==='cz'){
+    var P=D.P,hk=HOOKS[P.id];
+    h+='<div class="card gq"><div class="eyebrow">Name the causes, system by system</div><div class="gqt">'+esc(P.name)+'</div><p class="small muted">'+P.cz.length+' cause groups. Say them aloud first, then reveal.</p>';
+    if(!D.shown)h+='<button class="btn primary" data-act="drShow">Reveal</button>';
+    else{
+      h+=(hk?'<div class="czm" style="margin-block:4px 8px">'+esc(hk[0])+'</div>':'')+'<div class="czl">'+P.cz.map(function(c,i){return '<div class="czr on" style="--hue:'+czHue[i%czHue.length]+';cursor:default"><span class="czn">'+esc(c.n)+'</span><span class="czd">'+c.dd.map(function(k){var d=P.dmap[k];return d?(d.mnm?'<u>'+esc(d.name)+'</u>':esc(d.name)):''}).join(', ')+'</span><span></span></div>'}).join('')+'</div>';
+      h+=D.res==null?'<div class="gqb two" style="margin-block-start:10px"><button class="y" data-act="drSelf" data-v="1">I got them all</button><button class="n" data-act="drSelf" data-v="0">Missed some</button></div>':'<button class="btn primary" style="margin-block-start:10px" data-act="drNext">Next card</button>';
+    }
+    return h+'</div>';
+  }
+  var title=kind==='rf'?'Which of these is a red flag?':'What does this finding mean?';
+  var stem=kind==='rf'?esc(D.P.name):esc(D.x.f);
+  var sub=kind==='rf'?'':'<p class="small muted">'+esc(D.x.g)+' · '+esc(D.x.st)+'</p>';
+  h+='<div class="card gq"><div class="eyebrow">'+title+'</div><div class="gqt">'+stem+'</div>'+sub+D.opts.map(function(o,i){var cls=D.ans==null?'':o.ok?' right':(i===D.ans?' wrong':'');return '<button class="opt'+cls+'" data-act="drAns" data-i="'+i+'">'+esc(o.t)+'</button>'}).join('');
+  if(D.ans!=null)h+='<button class="btn primary" style="margin-block-start:6px" data-act="drNext">Next card</button>';
+  return h+'</div>';
+}
+function drScore(kind,ok){DB.drs=DB.drs||{};var s=DB.drs[kind]||(DB.drs[kind]={c:0,t:0});s.t++;if(ok)s.c++}
+
+/* ---------- Virtual patient ---------- */
+var VP_FEMALE={ect:1,preg:1,eclamp:1,ovar:1};
+function vpNew(pid){
+  var list=vPres().filter(function(p){return p.dd.length>1});var P=pid?getP(pid):rnd(list);if(!P||!P.dd.length)return null;
+  var tot=0;P.dd.forEach(function(d){tot+=d.prior});var r=Math.random()*tot,dx=P.dd[0];P.dd.some(function(d){r-=d.prior;if(r<=0){dx=d;return true}return false});
+  var ans={};P.sections.forEach(function(s){if(s.kind!=='H')return;s.items.forEach(function(it){var w=it.w[dx.k]||0;ans[it.k]=w>=2?true:w>=1?Math.random()<.65:(it.flag?false:Math.random()<.06)})});
+  var fem=VP_FEMALE[dx.k]||P.id==='breast'?true:Math.random()<.5;
+  return {pid:P.id,dx:dx.k,ans:ans,asked:{},sex:fem?'woman':'man',age:20+Math.floor(Math.random()*55),done:false,guess:null};
+}
+function viewVP(){
+  var V=UI.vp,h=prBack()+'<h2 style="margin-block:6px 10px">Virtual patient</h2>';
+  if(!V){
+    return h+'<div class="card"><p style="margin-block-end:10px">A patient arrives with a complaint. Tap the questions you would ask: the patient answers yes or no. When you are ready, commit to a diagnosis and see what you missed.</p><label class="f">Complaint<select id="vpPid"><option value="">Random verified complaint</option>'+vPres().filter(function(p){return p.dd.length>1}).sort(function(a,b){return a.name<b.name?-1:1}).map(function(p){return '<option value="'+p.id+'">'+esc(p.name)+'</option>'}).join('')+'</select></label><button class="btn primary" style="margin-block-start:12px" data-act="vpStart">Start</button></div>';
+  }
+  var P=getP(V.pid),dx=P.dmap[V.dx],n=Object.keys(V.asked).length;
+  h+='<div class="card vphead"><div class="eyebrow">Your patient</div><b>A '+V.age+'-year-old '+V.sex+' with '+esc(P.name.toLowerCase())+'</b><div class="small muted">'+n+' questions asked</div></div>';
+  if(V.done){
+    var right=V.guess===V.dx,key=[],miss=[],fl=[];
+    P.sections.forEach(function(s){if(s.kind!=='H')return;s.items.forEach(function(it){var w=it.w[V.dx]||0;if(w>=2){key.push(it);if(!V.asked[it.k])miss.push(it)}if(it.flag&&!V.asked[it.k])fl.push(it)})});
+    h+='<div class="card '+(right?'vpok':'vpno')+'"><h3>'+(right?'Correct':'Not this time')+'</h3><p>The diagnosis was <b>'+esc(dx.name)+'</b>'+(dx.mnm?' (must not miss)':'')+'.'+(right?'':' You said '+esc((P.dmap[V.guess]||{}).name||'')+'.')+'</p></div>';
+    if(miss.length)h+='<div class="card"><h3>Key questions you did not ask</h3><ul style="margin:0;padding-inline-start:18px">'+miss.slice(0,8).map(function(it){return '<li>'+esc(it.t)+' <span class="small muted">(patient: '+(V.ans[it.k]?'yes':'no')+')</span></li>'}).join('')+'</ul></div>';
+    if(fl.length)h+='<div class="alert"><b>Red flags you did not ask:</b><ul>'+fl.slice(0,8).map(function(it){return '<li>'+esc(it.c)+'</li>'}).join('')+'</ul></div>';
+    h+='<div class="row"><button class="btn primary" data-act="vpAgain">New patient</button><button class="btn" data-act="vpSame">Same complaint again</button></div>';
+    return h;
+  }
+  var units={};P.sections.forEach(function(s){if(s.kind!=='H')return;var g=s.g||s.title;(units[g]=units[g]||[]).push(s)});
+  Object.keys(units).forEach(function(g){
+    h+='<details class="card vpg"'+(g===Object.keys(units)[0]?' open':'')+'><summary><b>'+esc(g)+'</b></summary>';
+    units[g].forEach(function(s){
+      h+='<div class="sst"><span>'+esc(s.title)+'</span></div><div class="pks">'+s.items.map(function(it){var a=V.asked[it.k];return '<button class="pk'+(a?(V.ans[it.k]?' y':' n'):'')+(it.flag?' rf':'')+'" data-act="vpAsk" data-k="'+it.k+'">'+esc(it.c)+(a?' — '+(V.ans[it.k]?'yes':'no'):'')+'</button>'}).join('')+'</div>';
+    });
+    h+='</details>';
+  });
+  h+='<div class="card"><label class="f">Your diagnosis<select id="vpGuess"><option value="">Choose...</option>'+P.dd.map(function(d){return '<option value="'+d.k+'">'+esc(d.name)+'</option>'}).join('')+'</select></label><button class="btn primary" style="margin-block-start:10px" data-act="vpCommit">Commit</button></div>';
+  return h;
+}
+
+/* ---------- One-page summary ---------- */
+function viewSummary(){
+  var P=getP(UI.sumId);if(!P)return prBack();
+  var H=P.sections.filter(function(s){return s.kind==='H'}),E=P.sections.filter(function(s){return s.kind==='E'});
+  var flags=flagsOf(P),story=H.filter(function(s){return s.g===H[0].g}),bg=H.filter(function(s){return /^background/i.test(s.g||'')});
+  var sa=story[0]&&story[0].gmn,ba=bg[0]&&bg[0].gmn,hk=HOOKS[P.id];
+  var h='<div class="noprint row" style="justify-content:space-between;margin-block-end:8px"><button class="chip" data-act="sumBack">‹ Back</button><button class="btn small primary" data-act="sumPrint">Save as PDF / print</button></div>';
+  h+='<div class="sumpage"><div class="sumtop"><div><h2>'+esc(P.name)+'</h2><div class="small muted">'+esc(P.g+' · '+P.sys)+' · one-page summary</div></div>'+srcMark(1,22)+'</div>';
+  if(hk||P.cz.length)h+='<div class="hook"><b>Think of the causes: '+esc(hk?hk[0]:P.cz.map(function(c){return c.n}).join(' · '))+'</b></div>';
+  h+='<div class="sumgrid">'+(flags.length?'<div class="sumb red"><h3>Red flags: ask first</h3><ul>'+flags.map(function(f){return '<li>'+esc(f)+'</li>'}).join('')+'</ul></div>':'')+'<div class="sumb aid"><h3>The story</h3>'+(sa?'<b>'+esc(sa.t)+'</b><br>'+esc(sa.x):esc(story.map(function(s){return s.title}).join(' · ')))+'</div></div>';
+  if(P.cz.length)h+='<div class="sumb"><h3>Screen each cause</h3><div class="sumcz">'+P.cz.map(function(c){var q=[];P.sections.forEach(function(s){if(c.secs.indexOf(s.title)<0)return;s.items.forEach(function(it){if((it.hy||it.flag)&&q.indexOf(it.c)<0)q.push(it.c)})});return '<div class="sumc"><b>'+esc(c.n)+'</b><div class="dx">'+c.dd.map(function(k){var d=P.dmap[k];return d?(d.mnm?'<span class="m">'+esc(d.name)+'</span>':esc(d.name)):''}).join(' · ')+'</div><ul>'+q.slice(0,4).map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul></div>'}).join('')+'</div></div>';
+  var aids=E.filter(function(s){return s.mn||s.gmn}).map(function(s){var m=s.mn||s.gmn;return '<li><b>'+esc(s.title)+':</b> '+esc(m.t)+'</li>'});
+  h+='<div class="sumgrid"><div class="sumb"><h3>Background</h3>'+(ba?'<b>'+esc(ba.t)+'</b> — '+esc(ba.x):'')+'<ul>'+bg.map(function(s){var it=s.items.filter(function(i){return i.hy}).map(function(i){return esc(i.c)});return it.length?'<li><b>'+esc(s.title)+':</b> '+it.join(', ')+'</li>':''}).join('')+'</ul></div>'+(aids.length?'<div class="sumb aid"><h3>Exam memory aids</h3><ul>'+aids.join('')+'</ul></div>':'')+'</div>';
+  var rt=P.route;if(!rt){var SP=stepsFor(P);if(SP&&SP.length>2)rt=SP.map(function(x){return x.t}).join(' -> ')}
+  if(rt)h+='<div class="sumb"><h3>Exam route</h3><div class="route" style="border:0;box-shadow:none;padding:0;margin:0"><div>'+rt.split(/\s*(?:->|→)\s*/).map(function(x,i){return '<span><i>'+(i+1)+'</i>'+esc(x)+'</span>'}).join('')+'</div></div></div>';
+  return h+'<p class="small muted">Red = must not miss. Generated from the verified content. A revision aid: compare with your handbook and supervisor.</p></div>';
+}
+
+/* ---------- study shortcuts (inside the ⋯ menu) ---------- */
+var GUIDE_FOR={neck:'nodes',breast:'breast',groin:'hernia',skinlump:'lump',postop:'postop',drain:'drains',acuteabd:'abd',mass:'abd',obstr:'abd',ascites:'abd',dyspep:'abd',vomit:'abd',haem:'abd',dysph:'abd'};
+function studyLinks(e){
+  if(!SRC_P[e.pid])return '';var P=getP(e.pid),g=CORE_OF[e.pid]||GUIDE_FOR[e.pid],b=[];
+  if(P.cz&&P.cz.length)b.push('<button class="btn small" data-act="goFlow" data-id="'+e.pid+'">Flowchart</button>');
+  if(g&&gById(g))b.push('<button class="btn small" data-act="goGuide" data-id="'+g+'">Exam guide</button>');
+  b.push('<button class="btn small" data-act="goSum" data-id="'+e.pid+'">Summary</button>');
+  return '<div class="eyebrow" style="margin-block:8px 6px">Study this complaint</div><div class="chips" style="flex-wrap:wrap;overflow:visible;margin-inline:0;padding-inline:0">'+b.join('')+'</div>';
+}
+
+(function(){
+  var A={
+    ltab:function(t){UI.lt=t.dataset.v;UI.drill=null;render(true)},
+    drShow:function(){UI.drill.shown=true;render(true)},
+    drSelf:function(t){var ok=t.dataset.v==='1';UI.drill.res=ok;srsMark(UI.drill.k,ok);drScore('cz',ok);render(true)},
+    drAns:function(t){var D=UI.drill;if(D.ans!=null)return;D.ans=+t.dataset.i;var ok=!!D.opts[D.ans].ok;srsMark(D.k,ok);drScore(D.kind,ok);render(true)},
+    drNext:function(){UI.drill=drillNew(UI.lt);render(true)},
+    vpStart:function(){UI.vp=vpNew($('#vpPid').value);render(true)},
+    vpAsk:function(t){var V=UI.vp;if(!V||V.done)return;V.asked[t.dataset.k]=1;var a=V.ans[t.dataset.k];t.classList.add(a?'y':'n');t.textContent=t.textContent.replace(/ — (yes|no)$/,'')+' — '+(a?'yes':'no');var c=document.querySelector('.vphead .small');if(c)c.textContent=Object.keys(V.asked).length+' questions asked'},
+    vpCommit:function(){var g=$('#vpGuess').value;if(!g){toast('Choose a diagnosis first');return}UI.vp.guess=g;UI.vp.done=true;DB.vpst=DB.vpst||{c:0,t:0};DB.vpst.t++;if(g===UI.vp.dx)DB.vpst.c++;saveSoon();render()},
+    vpAgain:function(){UI.vp=null;render()},
+    vpSame:function(){UI.vp=vpNew(UI.vp.pid);render()},
+    goFlow:function(t){UI.moreOpen=false;UI.tab='prac';UI.pr='flow';UI.flOpen=t.dataset.id;render()},
+    goGuide:function(t){UI.moreOpen=false;UI.tab='prac';UI.pr='guide';UI.guide=t.dataset.id;render()},
+    goSum:function(t){UI.moreOpen=false;UI.sumFrom=UI.tab;UI.tab='prac';UI.pr='sum';UI.sumId=t.dataset.id;render()},
+    sumBack:function(){UI.pr='';if(UI.sumFrom==='enc'){UI.tab='enc'}render()},
+    sumPrint:function(){window.print()}
+  };
+  for(var k in A)ACT[k]=A[k];
+  document.addEventListener('input',function(ev){if(ev.target&&ev.target.id==='aq'){UI.aq=ev.target.value;var l=$('#aidList');if(l){var q=UI.aq.toLowerCase();l.innerHTML=aidsList(aidsAll().filter(function(a){return !q||(a.t+' '+a.x+' '+a.ps.join(' ')+' '+a.where).toLowerCase().indexOf(q)>=0}))}}});
+})();
 
 /* ================= boot ================= */
 applyTheme();applyAccent();
