@@ -670,7 +670,7 @@ N Ask the patient to point with one finger.
 - Left or right side of chest {msk:1,pneu:1,ptx:1,pe:1} @1
 - One spot, points with a finger {msk:2} @3
 - Epigastric {gerd:2} @4
-- Between the shoulder blades {dis:3} @5
+- Between the shoulder blades {dis:3,acs:1,ang:1} @5
 H Onset|one|Onset:
 * Sudden, worst at the start {dis:3,ptx:2,pe:2} @6
 - Built up over minutes {acs:2,ang:1} @7
@@ -696,7 +696,7 @@ H Exacerbating factors|pick|Worse with:
 * Breathing in or coughing (pleuritic) {pe:2,pneu:2,peri:2,ptx:2} @25
 - Lying flat {peri:3} @26
 - Moving or pressing on the chest {msk:4} @27
-- Meals, bending or lying after food {gerd:3} @28
+- Meals, bending or lying after food {gerd:3,ang:1} @28
 H Relieving factors|pick|Better with:
 * Rest within minutes {ang:3} @30
 * GTN spray {ang:2,acs:1} @31
@@ -800,7 +800,7 @@ M Radial -> Brachial -> Carotid -> Femoral|Rate and rhythm (radial) · Character
 - Tar staining {acs:1,ang:1} @17
 - Collapsing pulse {dis:2} @x104
 - Slow-rising, low-volume pulse {ang:2} @x105
-- Radio-femoral delay {dis:2} @x106
+- Radio-femoral delay (coarctation) {dis:1} @x106
 E Blood pressure|pick
 M Both arms, then lying and standing|A difference over 20 mmHg between arms suggests dissection
 ! Hypotension {acs:1,dis:1,pe:1,ptx:1} @6
@@ -1144,7 +1144,7 @@ H Past history|pick|Past history:
 * Asthma {ast:2} @41
 * COPD {copd:2} @42
 * TB {ild:1} @43
-- Pneumonia, measles or whooping cough in childhood {copd:1} @44
+- Pneumonia, measles or whooping cough in childhood @44
 * IHD {hf:1} @45
 - Hypertension {hf:1} @46
 - Diabetes {hf:1} @47
@@ -1293,8 +1293,12 @@ H Amount and smell|pick|Sputum:
 - Teaspoons @17
 * Cupfuls every day {bron:3} @18
 * Foul-smelling (bronchiectasis, abscess) {bron:3} @19
+H Consistency|pick|Sputum:
+- Mucoid (clear and sticky) {copd:1,ast:1} @x501
+- Purulent {pneu:2,bron:2} @x502
+- Frothy {hf:3} @x503
 G Screen the causes, one at a time
-M Infection · Airways · TB and cancer · Nose and gut · Heart · Drugs|Handbook commonest causes: cold and chest infections, rhinitis, smoking, TB, asthma, reflux, pneumonia, heart failure, bronchiectasis, ACE inhibitors.
+M Infection · Airways · Cancer · Nose and gut · Heart · Drugs|Handbook commonest causes: cold and chest infections, rhinitis, smoking, TB, asthma, reflux, pneumonia, heart failure, bronchiectasis, ACE inhibitors.
 H Infection|pick
 * Fever {pneu:2} @20
 - Rigors {pneu:2} @21
@@ -1457,7 +1461,7 @@ H Airways|pick
 - Recurrent chest infections {bron:2} @14
 H Injury|pick
 - Chest trauma {fb:3} @29
-* Choked on something {fb:6} @30
+* Choked on something {fb:5} @30
 H Infection and TB|pick
 * Fever {tb:1,pneu:1} @15
 * Night sweats {tb:1,ca:1} @18
@@ -1480,6 +1484,7 @@ H Bleeding and vasculitis|pick
 G Background for this complaint
 M Past · Exposure · Drugs|Old TB or bronchiectasis · smoking, TB contact, dogs and sheep · blood thinners
 H Past history|pick|Past history:
+- Recent dental surgery {pneu:1} @x501
 * TB or old TB cavity {tb:1,hyd:2} @31
 - Bronchiectasis or severe childhood whooping cough {bron:2} @32
 - Rheumatic fever {mitral:1} @33
@@ -1646,6 +1651,7 @@ H Drugs|pick|Takes:
 H Family history|pick|Family history:
 * Anaemia or transfusions {thal:2} @42
 - Thalassaemia or sickle cell {thal:2} @43
+- Mediterranean, Middle Eastern, African or Asian origin {thal:1} @x501
 G Examination
 E Vital signs|pick
 ! Tachycardia with hypotension {bl:5} @0
@@ -1659,12 +1665,12 @@ E Pallor|pick
 - Pale skin @x103
 E Jaundice and bleeding spots|pick
 - Lemon-yellow tinge {b12:3} @9
-- Jaundice {hem:5} @10
+- Jaundice {hem:3,b12:1} @10
 - Petechiae or bruising {bm:2} @11
 - Purpura {bm:3} @x104
 - Bleeding spots in the mouth {bm:3} @x105
 E Nails, tongue and hands|pick
-- Koilonychia {ida:2,b12:1} @5
+- Koilonychia {ida:3} @5
 - Glossitis {ida:2,b12:1} @7
 - Smooth beefy tongue {b12:3} @8
 - Clubbing @x106
@@ -1721,7 +1727,7 @@ D tb|Tuberculosis||1
 D lym|Lymphoma|!|0.8
 D leuk|Leukaemia|!|0.5
 D met|Metastatic malignancy|!|0.8
-D sle|Autoimmune (SLE, RA, sarcoid)||0.5
+D sle|Autoimmune (SLE, RA, vasculitis, Still's, sarcoid)||0.5
 D hiv|HIV / chronic infection||0.4
 D drug|Drug reaction||0.2
 Y Infection|inf,tb,hiv|Infection,Exposure
@@ -1912,7 +1918,8 @@ H Where it bleeds|pick|Bleeding:
 * Heavy periods {itp:1,vwd:1} @4
 * Into joints {hem:2} @5
 - Into muscles {hem:2} @6
-- Black stool or blood in vomit @7
+- Black stool or blood in vomit {itp:1,vwd:1} @7
+- Same single site again and again (local cause) @x501
 - Blood in urine {vas:1} @8
 H Since when|one|Started:
 * Since childhood {hem:3,vwd:2} @9
@@ -1958,8 +1965,8 @@ H Past history|pick|Past history:
 - Kidney disease @37
 - Diabetes, IHD, DVT or hypertension @x300
 H Drugs|pick|Takes:
-* Warfarin or other anticoagulant {drug:1} @38
-* Aspirin or NSAIDs {drug:1} @39
+* Warfarin or other anticoagulant {drug:3} @38
+* Aspirin or NSAIDs {drug:3} @39
 - Steroids {drug:1} @40
 - Sulfa drugs {drug:1} @41
 - New drug recently {drug:1} @42
@@ -2216,7 +2223,7 @@ M Light, then deep, starting away from the pain|All 9 regions · then liver · s
 - Epigastric tenderness {pu:3,pan:3} @22
 - Left iliac fossa tenderness {div:3} @23
 - Left iliac fossa mass {div:3} @24
-! Pulsatile expansile mass {aaa:3} @25
+! Pulsatile expansile mass {aaa:5} @25
 - Irreducible hernia {ob:2} @26
 - Renal angle tenderness {ren:4} @27
 - Hepatomegaly {chol:1} @x108
@@ -2234,7 +2241,6 @@ M Listen for a full minute|Bowel sounds · bruits · succussion splash
 - Absent bowel sounds {pu:2,app:1} @31
 - Hyperactive bowel sounds {gast:3} @32
 - Aortic bruit {aaa:3} @33
-- Aortic or renal bruit {aaa:2} @x113
 - Friction rub over the liver or spleen @x114
 E When indicated|pick
 - Rectal tenderness {app:1,div:1,ibd:1} @34
@@ -2399,7 +2405,6 @@ M Listen for a full minute|Bowel sounds · bruits · succussion splash
 E When indicated|pick
 - Perianal fistula, skin tags or fissure {ibd:2} @24
 - Rectal mass {ca:3} @25
-- Blood on the glove {ca:2,ibd:1} @26
 - Impacted hard stool {imp:3} @27
 - Rectal tenderness {div:1,ibd:1} @x124
 - Blood or melaena on the glove {ca:3,ibd:2,div:1} @x125
@@ -2408,7 +2413,7 @@ E When indicated|pick
 - Hernial orifices tender or irreducible {ca:1} @x128
 E Thyroid|pick
 - Tremor, goitre, warm sweaty hands {thy:5} @13
-- Dry skin, slow-relaxing reflexes {hypo:2} @14
+- Dry skin, slow-relaxing reflexes {hypo:4} @14
 @jaundice|Jaundice|Gastrointestinal|Medicine
 SC cp
 I LFTs (conjugated vs unconjugated bilirubin, ALP, GGT, ALT), FBC with film, reticulocytes, INR; hepatitis serology; USS abdomen; MRCP or CT; ERCP; CA19-9 if pancreatic; autoimmune screen, ferritin, caeruloplasmin
@@ -2544,7 +2549,7 @@ E Palpation|pick
 M Light, then deep, starting away from the pain|All 9 regions · then liver · spleen · kidneys (ballot) · watch the face
 - Tender smooth liver {hep:3,rhd:2,chang:2} @22
 - Hard, knobbly liver {mal:5} @23
-- Liver not palpable, shrunken {cirr:4} @24
+- Reduced liver span on percussion {cirr:2} @24
 - Pulsatile liver {rhd:3} @25
 - Splenomegaly {cirr:3,hem:4,aih:1} @26
 - Murphy's sign {gall:2,chang:2} @27
@@ -2555,7 +2560,6 @@ M Light, then deep, starting away from the pain|All 9 regions · then liver · s
 - Hepatomegaly {hep:2,rhd:3,mal:3,cirr:1,aih:1,wil:1} @x116
 - Abdominal mass {panc:2,mal:2} @x117
 - Renal angle tenderness @x118
-- Palpable gallbladder {panc:4} @x119
 - Pulsatile expansile mass @x120
 - Irreducible hernia @x121
 E Percussion|pick
@@ -2613,7 +2617,7 @@ H Pain|one|Haematuria is:
 H Timing in the stream|one|Blood is:
 - At the start of the stream {bph:2} @6
 * Throughout the stream {bca:2,rca:2,gn:1} @7
-- At the end of the stream {bca:2,uti:1} @8
+- At the end of the stream {bca:2,uti:1,tb:2} @8
 H Clots and colour|pick|Urine:
 * Clots {bca:3,rca:2,stone:1} @9
 - Smoky or cola-coloured {gn:3} @10
@@ -2694,7 +2698,7 @@ E Kidneys|pick
 - One palpable kidney {rca:4} @12
 - Both kidneys palpable {pkd:5} @13
 - Palpable liver cysts {pkd:1} @14
-- Smooth enlarged kidneys {pkd:2} @x111
+- Smooth enlarged kidneys {pkd:1} @x111
 - Irregular enlarged kidneys {pkd:4,rca:1} @x112
 E Bladder|pick
 - Palpable bladder {bph:4,bca:1} @15
@@ -2707,7 +2711,7 @@ E Pulses and bruits|pick
 - Abdominal aortic bruit @x117
 E Rectal and pelvic|pick
 - Left varicocele {rca:1} @17
-- Enlarged hard irregular prostate {bph:2} @18
+! Enlarged hard irregular prostate (cancer) {bph:4} @18
 - Tender boggy prostate {bph:2} @19
 - Enlarged smooth prostate {bph:4} @x118
 - Pelvic mass {bca:1} @x119
@@ -2807,7 +2811,7 @@ E Vital signs|pick
 - Hypertension {nephritic:4,nephr:2,hf:1} @0
 - Tachycardia {hf:1} @1
 - Bradycardia {hypo:2} @2
-- Pulsus paradoxus {cp:3} @3
+- Pulsus paradoxus {cp:1} @3
 - Fever @x101
 - Postural drop in blood pressure {cld:1,malnut:1} @x102
 E The oedema|pick
@@ -2924,6 +2928,7 @@ H Thyroid|pick
 * Heat intolerance and sweating {thy:1} @11
 * Palpitations {thy:1} @12
 - Tremor, nervousness {thy:1} @13
+- Muscle weakness {thy:2} @x501
 * Neck swelling {thy:2} @14
 - Eye changes {thy:2} @15
 - Lighter or absent periods {thy:1} @16
@@ -2999,7 +3004,7 @@ E Eyes|pick
 - Chemosis {thy:2} @x102
 - Periorbital oedema {ckd:1} @x103
 E Hydration and vitamins|pick
-- Dry mouth, poor skin turgor {dm:2} @3
+- Dry mouth, poor skin turgor {dm:2,gi:1} @3
 - Ketotic breath {dm:2} @4
 - Oral thrush {tb:2} @17
 - Pigmented buccal mucosa {adr:2} @18
@@ -3015,7 +3020,7 @@ E Hands|pick
 - Carpal tunnel signs @x109
 E Nails|pick
 - Onycholysis or thyroid acropachy {thy:2} @11
-- Clubbing {ca:2,gi:3,copd:1} @12
+- Clubbing {ca:2,gi:3} @12
 - Koilonychia {gi:2,ca:1} @13
 E Neck|pick
 - Goitre (diffuse or nodular) {thy:3} @19
@@ -3029,9 +3034,9 @@ E Pulse|pick
 - Bradycardia {dep:1} @x111
 - Collapsing or bounding pulse {thy:2} @x112
 E Legs|pick
-- Pretibial myxoedema or leg oedema {thy:1,ckd:1} @31
+- Pretibial myxoedema or leg oedema {thy:2,ckd:2} @31
 E Chest|pick
-- Pleural effusion {ca:1,tb:1,copd:1} @22
+- Pleural effusion {ca:1,tb:1} @22
 - Consolidation or apical signs {ca:1,tb:1} @23
 - Hyper-expanded chest {copd:2} @24
 E Abdomen|pick
@@ -3130,7 +3135,8 @@ E Demeanour|pick
 - Pallor {hash:1} @x102
 E Eyes|pick
 - Lid retraction or lid lag {graves:3,mng:2} @11
-- Exophthalmos or proptosis {graves:2} @12
+- Exophthalmos or proptosis {graves:5} @12
+! Blurred or lost vision, faded colours {graves:3} @x501
 - Restricted eye movements {graves:2} @13
 - Chemosis {graves:2} @14
 - Periorbital oedema {hash:3} @x103
@@ -3160,10 +3166,8 @@ E Skin and hair|pick
 E Skin and hair (hypothyroid)|pick
 - Dry coarse skin {hash:2,post:2} @15
 - Thin hair, outer third of eyebrows lost {hash:2,post:2} @16
-- Rough dry skin {hash:3,post:2} @x118
 - Dry coarse hair {hash:3,post:2} @x119
-- Loss of the outer third of the eyebrows {hash:3,post:2} @x120
-- Buffy face {hash:3,post:2} @x121
+- Puffy face {hash:3,post:2} @x121
 E Thyroid inspection|pick
 - Visible goitre {simple:1,graves:1,mng:1} @17
 - Moves with swallowing @18
@@ -3185,10 +3189,10 @@ E Pulse|pick
 - Tachycardia {graves:1,mng:1,thyt:1} @2
 - AF {graves:1,mng:1,thyt:1} @3
 - Bradycardia {hash:1,post:1} @4
-- Hypertension {hash:1,post:1} @5
+- Hypertension {hash:1,post:1,graves:1,mng:1} @5
 - Collapsing or bounding pulse {graves:2,mng:2,thyt:1} @x123
 E Legs|pick
-- Pretibial myxoedema {graves:3} @30
+- Pretibial myxoedema {graves:5} @30
 - Non-pitting leg oedema {hash:2,post:2} @31
 - Signs of heart failure {graves:2,mng:2} @35
 E Fundi|pick
@@ -3275,7 +3279,7 @@ H Habits|pick
 H Past history|pick|Past history:
 - Barrett's oesophagus {ca:1} @32
 - Achalasia {ca:1} @33
-* Swallowed caustic {ca:1} @34
+* Swallowed caustic {strict:4,ca:1} @34
 - Asthma, eczema or allergies {eosi:2} @35
 - Immunosuppressed or HIV {can:2} @36
 * Stroke {neuro:2} @37
@@ -3315,7 +3319,7 @@ N Inspect, then palpate from behind; give the patient water and watch the swallo
 - Hoarse voice {ca:2,ext:2} @x104
 G Chest and abdomen
 E Chest|pick
-- Signs of aspiration {ach:2,neuro:2,ca:1}
+- Signs of aspiration {ach:2,neuro:2,web:2,ca:1}
 - Lung mass or effusion {ext:5}
 E Abdomen|pick
 - Epigastric mass {ca:2}
@@ -3409,7 +3413,7 @@ G General examination
 E General|pick
 - Pulse fast, tremor, sweaty palms {thyroid:1}
 - Eye signs of thyroid disease {thyroid:1}
-- Fever {inf:1,tb:1}
+- Fever {inf:2,lym:1,tb:1}
 - Looks thin or wasted {met:1,lym:1,tb:1} @x101
 G The lump
 E Position|pick
@@ -3454,13 +3458,12 @@ N Scalp, ears, nose, mouth, pharynx; bimanual palpation of the floor of the mout
 - Facial or hypoglossal nerve palsy {sal:2,met:1}
 - Nodes in the axilla or groin {lym:1}
 - Splenomegaly or hepatomegaly {lym:1}
-- Tubercles on the tonsils or a midline pharyngeal swelling {tb:3} @x254
 - Breast lump {met:2} @x255
 - Chest signs or enlarged supraclavicular nodes {tb:1,met:1} @x256
 
 @breast|Breast lump|Breast|Surgery
 SC
-I Triple assessment: clinical examination, imaging (USS under 40, mammography from 40) and core biopsy or FNAC; if malignant: CXR, LFT, bone scan, CT staging; BRCA counselling when indicated
+I Triple assessment: clinical examination, imaging (ultrasound at any age, plus mammography from 40) and core biopsy (FNAC is less reliable); if malignant: CXR, LFT, bone scan, CT staging; BRCA counselling when indicated
 D fib|Fibroadenoma||1.2
 D ca|Breast carcinoma|!|1
 D cyst|Breast cyst||1
@@ -3486,7 +3489,7 @@ H The lump|pick|Lump:
 * Appeared suddenly {cyst:3} @3
 ! Painless and growing {ca:5} @4
 * Slow-growing, moves easily {fib:5} @5
-- Large and growing fast {phyll:5} @6
+- Large and smooth, like a big fibroadenoma, middle age {phyll:4} @6
 - Came after an injury or surgery {fn:2} @7
 - Milky cyst after breastfeeding stopped {gal:4} @x305
 * Lumpiness in both breasts {fcc:3,cyst:1} @11
@@ -3499,7 +3502,8 @@ M Nipple: the 7 Ds (Browse)|Destruction · Depression (inversion) · Discolourat
 H Nipple and skin|pick|Has:
 ! Bloody discharge {ca:3,duct:4} @12
 ! Newly pulled in {ca:5} @14
-* Eczema of the nipple {ca:3} @15
+* One nipple, not itchy, nipple eroded (Paget's) {ca:4} @15
+- Itchy rash on both nipples, nipple intact (eczema) {ecz:3} @x501
 - Green or sticky discharge {duct:5} @13
 - Clear or straw-coloured discharge {fcc:2,duct:2} @x201
 - Pus from the nipple {abs:3} @x202
@@ -3600,7 +3604,6 @@ M Spine · chest · liver (Browse)|Spinal tenderness · pleural effusion · hepa
 - Spinal tenderness {ca:1}
 - Chest signs {ca:1}
 - Swollen arm on that side {ca:2} @x225
-- Mass on rectal or pelvic examination {ca:1} @x227
 - Ascites {ca:1} @x326
 - Papilloedema or focal neurology {ca:1} @x328
 
@@ -3626,13 +3629,13 @@ Y Psoas|psoas|Nodes and abscess
 G The lump story (Browse)
 M Comes on standing, goes lying down?|Hernias occur at a weak spot, reduce on lying down or with pressure, and have an expansile cough impulse (Browse).
 H Patient|pick
-- Woman {fem:3} @0
+- Woman (femoral is commoner in women, but inguinal is still the commonest) {fem:2,ing:1} @0
 - Older man {dir:3} @1
 - Child or young man {ing:2} @2
 H Comes and goes|pick|Lump:
-* Appears on standing or coughing {ing:3,dir:3,fem:2,sal:2} @3
-* Goes away lying down {ing:3,dir:3,fem:2,sal:2} @4
-- Always there {lip:1,node:1} @5
+* Appears on standing or coughing {ing:3,dir:3,sal:2} @3
+* Goes away lying down {ing:3,dir:3,sal:2} @4
+- Always there {lip:1,node:1,fem:2} @5
 * Goes down into the scrotum {ing:4,hyd:1} @6
 - On both sides {dir:3} @7
 - Came back after a repair {dir:2} @8
@@ -3679,15 +3682,15 @@ G Inspection
 E Inspection|pick
 M Stand, both sides, cough|Standing first, compare both sides, ask to cough, then lie down. Look for scars.
 N Examine standing first, both sides, then lying. Ask the patient to cough. Note scars.
-* Cough impulse {ing:5,dir:5,fem:4,sal:4}
+* Cough impulse {ing:5,dir:5,sal:4}
 * Lump above and medial to the pubic tubercle {ing:4,dir:4}
-* Lump below and lateral to the pubic tubercle {fem:3}
+* Lump below and lateral to the pubic tubercle {fem:5}
 - Extends into the scrotum {ing:2}
 - Bulge comes straight forward {dir:3}
 - Scars of previous groin or appendix surgery {dir:1}
 - Blue swelling that empties lying down {sal:5}
 - Bag of worms above the testis {var:5}
-- Visible lump only on standing or coughing {ing:2,dir:2,fem:2,sal:2} @x101
+- Visible lump only on standing or coughing {ing:2,dir:2,sal:2} @x101
 - Pear-shaped (pyriform) lump running obliquely {ing:3} @x211
 - Round (globular) lump {dir:3,fem:1} @x212
 - Bulge on both sides {dir:2} @x213
@@ -3695,7 +3698,7 @@ G Palpation
 E The lump|pick
 M Above or below? Cough? Reduces?|Above the inguinal ligament and medial to the pubic tubercle: inguinal · below and lateral: femoral · cough impulse · reducible
 N Size, shape, consistency, tenderness, reducibility, cough impulse; can you get above it?
-* Reducible {ing:4,dir:4,fem:3}
+* Reducible {ing:4,dir:4}
 * Reduces up, laterally and back {ing:4}
 - Reduces straight back {dir:3}
 ! Tender, red, tense and irreducible {fem:3,ing:2}
@@ -3874,6 +3877,7 @@ H Character|pick|Character:
 * Colicky {ob:2,vol:1} @10
 * Constant {pu:1,app:1,pan:1,div:1} @11
 H Radiation|pick|Radiates to:
+- Groin {aaa:2} @x503
 * Back {pan:2,aaa:3} @12
 * Moved from the umbilicus to the right iliac fossa {app:5} @13
 - Right shoulder {chol:2} @14
@@ -3912,12 +3916,14 @@ H Past history|pick|Past history:
 - Gallstones {pan:2,chol:1} @32
 - Known diverticular disease {div:2} @33
 * Known aneurysm or hypertension in an older man {aaa:3} @35
+* Smoker {aaa:2,mes:1} @x501
+- Previous PID or fertility problems {ect:2} @x502
 - Chronic constipation or neuropsychiatric illness {vol:4} @36
 - Diabetes @x20
 - Kidney disease or dialysis @x21
 H Drugs and habits|pick|Takes:
 * NSAIDs {pu:2} @37
-- Steroids {pu:2} @38
+- Steroids (can mask fever and peritonism) {pu:2} @38
 * Alcohol {pan:2} @39
 - Anticoagulants {mes:1} @40
 G General examination
@@ -3929,7 +3935,7 @@ E Vital signs and perfusion|pick
 - Fever {chol:2,div:2,app:1}
 E Appearance|pick
 - Lies still, grey and sweaty {pu:2,app:1}
-- Restless, cannot get comfortable {ob:1,mes:1}
+- Restless, cannot get comfortable {ob:1,aaa:1,ect:1,chol:1}
 - Jaundice {chol:2}
 - Dehydrated @x101
 - Pale {aaa:1,ect:1} @x102
@@ -3938,7 +3944,7 @@ E Inspection|pick
 M Look from the end of the bed, then at eye level|Distension · scars · visible peristalsis · pulsation · hernial orifices (ask to cough)
 - Distension with visible loops {ob:2,vol:2}
 - Scars {ob:2}
-- Flank or umbilical bruising {pan:3}
+- Flank or umbilical bruising {pan:3,aaa:2}
 - Does not move with breathing {pu:2}
 - Visible hernia {ob:3} @x103
 - Distension: fat, fluid, flatus, faeces or fetus (the 5 Fs) {ob:1} @x304
@@ -3952,7 +3958,7 @@ M Light, then deep, starting away from the pain|All 9 regions · then liver · s
 - Rovsing's sign {app:2}
 - Psoas sign {app:2}
 - Murphy's sign {chol:5}
-! Soft abdomen despite severe pain {mes:5}
+! Soft abdomen despite severe pain {mes:5,pan:2,aaa:1}
 ! Pulsatile expansile mass {aaa:5}
 ! Tender irreducible hernia {ob:5}
 - Epigastric tenderness {pan:3,pu:2} @x104
@@ -4914,12 +4920,13 @@ H Past history|pick|Past history:
 * Previous ulcer {pu:2} @17
 * Known liver disease or varices {var:3} @18
 - Bleeding disorder {coag:2} @19
-- Aortic stenosis or aortic graft {ang:4} @20
+- Aortic stenosis {ang:3} @20
+! Previous aortic graft (aorto-enteric fistula) @x501
 - Recurrent bleeds with no cause found {ang:2} @21
 - Kidney disease or dialysis {ang:2} @x20
 - Hypertension, IHD or stroke on aspirin {coag:1} @x21
 H Drugs|pick|Takes:
-* NSAIDs or aspirin {pu:1,gast:1,oes:1} @22
+* NSAIDs or aspirin {pu:3,gast:3,oes:1} @22
 * Steroids {pu:1,gast:1} @23
 - Bisphosphonates {oes:1} @24
 * Warfarin or a DOAC {coag:2} @25
@@ -5045,7 +5052,8 @@ E Percussion|pick
 M Dull or resonant? Then shifting dullness|Percuss from the midline out to the flank, roll the patient towards you, wait, percuss again
 N Percuss from the midline to the flanks; then roll the patient for shifting dullness; fluid thrill if tense.
 - Shifting dullness {cirr:2,mal:2,hf:2,nephr:2,tb:2,sbp:1}
-- Fluid thrill {cirr:2,mal:2,hf:2,nephr:2,tb:2}
+- Fluid thrill {cirr:2,mal:2,hf:2,nephr:2,tb:2,ovar:2}
+- Central dullness, resonant flanks, does not shift; cannot get below it {ovar:4} @x501
 - Resonant, no shifting dullness {obes:3}
 G Chest
 E Chest|pick
@@ -6511,7 +6519,7 @@ D adh|Adhesional small bowel obstruction||1.5
 D herni|Obstructed or strangulated hernia|!|0.8
 D ca|Colorectal cancer obstruction|!|0.6
 D vol|Sigmoid or caecal volvulus|!|0.3
-D ileus|Paralytic ileus||0.8
+D ileus|Paralytic ileus / pseudo-obstruction||0.8
 D gall|Gallstone ileus||0.1
 D crohn|Crohn's stricture||0.2
 D intus|Intussusception||0.1
@@ -6526,12 +6534,14 @@ Y No blockage (ileus)|ileus|Ileus causes
 G The 4 cardinal symptoms (Browse)
 M Pain · Vomiting · Distension · Absolute constipation|High small bowel: frequent colic and early vomiting, slight central distension · low large bowel: infrequent colic, absolute constipation, peripheral distension, late or no vomiting
 H Pain|one|Pain:
-* Colicky, central {adh:4,herni:3,ca:3,vol:3} @0
-! Constant and severe (strangulation) {herni:2,vol:1} @1
+* Colicky, central {adh:4,herni:3} @0
+- Colicky, lower abdomen, every 30 minutes or more {ca:3,vol:3,div:1} @x501
+! Constant and severe (strangulation) {herni:2,vol:1,adh:1} @1
 - Little or no pain {ileus:2} @2
 H Vomiting|one|Vomiting:
 * Early and profuse {adh:3,herni:2} @3
-- Late, faeculent {ca:3,vol:3} @4
+- Late or none {ca:2,vol:2} @4
+- Faeculent (brown, foul) {adh:2,herni:1,ca:1} @x502
 H Distension|one|Distension:
 * Mild {adh:1,herni:1} @5
 - Marked {ca:3,vol:3} @6
@@ -6607,6 +6617,7 @@ D spl|Splenomegaly||0.6
 D kid|Renal mass (RCC, polycystic, hydronephrosis)||0.4
 D aaa|Abdominal aortic aneurysm|!|0.3
 D ovar|Ovarian mass / fibroid / full bladder||0.6
+D preg|Pregnancy||0.4
 D panc|Pancreatic mass / pseudocyst||0.2
 D crohn|Crohn's / appendix mass||0.2
 D lym|Lymphoma / lymph node mass||0.2
@@ -6619,7 +6630,7 @@ Y Kidney|kid|Kidney
 Y Bowel|ca,crohn,fecal,divm|Gut
 Y Aorta|aaa|Noticed
 Y Pancreas|panc|Gut
-Y Pelvis|ovar|Pelvis
+Y Pelvis|ovar,preg|Pelvis
 Y Nodes and psoas|lym,psoas|Liver and spleen,Other
 G The mass
 M Where is it? Think of the organ underneath|Right upper: liver · left upper: spleen · loin: kidney · epigastrium: stomach, pancreas, aorta · right iliac fossa: Crohn's, caecum · left iliac fossa: faeces, diverticular, colon · pelvis: ovary, bladder
@@ -6657,6 +6668,7 @@ H Kidney|pick
 - Loin pain {kid:3} @24
 H Pelvis|pick
 * Pelvic pain or period changes {ovar:2} @25
+* Missed period, could she be pregnant? {preg:5} @x501
 - Bloating or urinary frequency {ovar:2} @26
 H Other|pick
 - Back pain {aaa:2} @27
@@ -6694,7 +6706,7 @@ M Describe any mass (Browse)|Position · shape · size · surface · edge · con
 N Site, size, shape, surface, edge, consistency, tenderness, pulsatility, mobility; can you get above or below it?
 - Hard, irregular, fixed {ca:5,ovar:2}
 - Liver edge hard and craggy {hep:5}
-- Has a notch, moves to the right iliac fossa, cannot get above it {spl:3}
+- Has a notch, grows towards the umbilicus, cannot get above it, not ballotable {spl:3}
 - Ballotable on bimanual palpation {kid:3}
 ! Expansile pulsation {aaa:6}
 - Rises from the pelvis, cannot get below it {ovar:3}
@@ -6727,6 +6739,7 @@ E Rectal and nodes|pick
 - Rectal mass {ca:2}
 - Blood on the glove {ca:3} @x102
 - Pelvic mass felt on rectal examination {ovar:3} @x103
+- Scrotum: testis missing or a testicular mass {lym:2} @x502
 
 @varicose|Varicose veins / venous disease|Vascular|Surgery
 Y Superficial valves|prim,scj,spj|Where,Symptoms
@@ -6839,12 +6852,12 @@ N Pain usually means inflammation, not cancer. A painless lump is not reassuring
 * Painless {lip:1,sarc:1} @9
 * Painful, red and hot (throbbing) {abs:2} @10
 - Discharges cheesy material {seb:4} @11
-! Bleeds or itches (mole) {mel:1} @12
+! Bleeds or itches (mole) {mel:3} @12
 - Crusted or ulcerated {scc:4,bcc:2} @13
 - Interferes with movement, breathing or swallowing @x305
 H Changed since noticed|pick|Lump:
 ! Growing quickly {scc:4,sarc:2} @5
-! Mole changed in size, shape or colour {mel:1} @8
+! Mole changed in size, shape or colour {mel:4} @8
 - Same size for a long time {lip:1,seb:1} @x306
 H Ever disappears|one|Lump:
 N Ask even if it is there now: a lump can vanish on lying down or between episodes.
@@ -6891,7 +6904,7 @@ M Temperature and tenderness, then Edge and Consistency|Temperature · Tendernes
 E What is it made of?|pick
 N Fluctuation: press the centre, feel two opposite sides bulge; test in two planes. Fluid thrill for large lumps. Transillumination: bright light from the side in a dark room. Percuss for resonance (gas). Rest your fingers on it for pulsation: expansile (aneurysm) or transmitted. Compress it and see if it refills. Try to reduce it and feel for a cough impulse. Listen for a bruit.
 M Fluid, gas or blood?|Fluctuation · Fluid thrill · Transillumination (fluid) · Resonance (gas) · Pulsation · Bruit (blood) · Compressible · Reducible with cough impulse
-* Fluctuant {abs:6} @8
+* Fluctuant {abs:3,seb:2,gang:2} @8
 * Transilluminates (near a tendon sheath) {gang:4} @10
 * Pulsatile: expansile (think aneurysm) @x203
 * Reducible with a cough impulse (think hernia) @x204
@@ -6945,7 +6958,7 @@ H Character|pick|Character:
 - Colicky {gall:2} @8
 - Tight {mi:3} @9
 H Radiation|pick|Radiates to:
-* Through to the back {panc:2} @10
+* Through to the back {panc:2,pu:1} @10
 - Right shoulder {gall:3} @11
 - Arm or jaw {mi:3} @12
 H Timing|pick|Timing:
@@ -6971,12 +6984,12 @@ H Stomach|pick
 - Bloating {gast:2} @25
 * Feeling full early {gast:2,ca:1} @26
 - Nausea {gast:2} @27
-- Vomiting undigested food hours later {gastropar:4,ca:1} @28
+- Vomiting undigested food hours later {pu:2,ca:2,gastropar:3} @28
 H Alarm features|pick
 N Any of these needs an urgent endoscopy.
-! Difficulty swallowing {ca:1,pu:1} @29
+! Difficulty swallowing {ca:2,gerd:1} @29
 ! Persistent vomiting {ca:1,pu:1} @30
-! Weight loss {ca:1,pu:1} @31
+! Weight loss {ca:3} @31
 ! Tiredness or pallor (anaemia) {ca:1,pu:1} @32
 ! Vomiting blood or black stool {ca:1,pu:1} @33
 ! New symptoms over 55 {ca:3} @34
@@ -7024,7 +7037,7 @@ M Light, then deep, starting away from the pain|All 9 regions · then liver · s
 - Right upper quadrant tenderness {gall:3} @x104
 E Auscultation|pick
 M Listen for a full minute|Bowel sounds · bruits · succussion splash
-- Succussion splash {gastropar:5,ca:3}
+- Succussion splash {pu:2,ca:3,gastropar:3}
 E Rectal examination|pick
 - Melaena on the glove {pu:3,ca:2} @x105
 
@@ -7058,7 +7071,7 @@ N Read the operation note first: what was done, when, and any complications.
 - Days 1 to 2 (wind: chest) {atel:5} @1
 - Days 3 to 4 (water: urine) {uti:5,ret:2} @2
 - Days 5 to 6 (walking: legs and lungs) {vte:5} @3
-- Day 7 or later (wound, collection, leak) {wi:3,abs:3,leak:3,dehis:2} @4
+- Day 7 or later (wound, collection, leak, secondary bleeding) {wi:3,abs:3,leak:3,dehis:2,bleed:1} @4
 H The operation|pick|Operation:
 * Bowel surgery with an anastomosis {leak:2,ileus:1} @5
 - Emergency or contaminated surgery {wi:2,leak:1} @6
@@ -7077,6 +7090,7 @@ H Water: urine|pick
 H Walking: legs|pick
 * Calf pain or swelling {vte:3} @21
 H Wound and bleeding|pick
+! Hoarse voice or noisy breathing after neck surgery {bleed:2,hypoca:1} @x501
 * Pain, redness or swelling {wi:2} @14
 * Discharge {wi:2} @15
 ! Burst open, or pink fluid leaking on coughing {dehis:3} @16
@@ -7187,6 +7201,7 @@ N Volume over 24 hours and its trend; colour.
 * Faecal
 - Chylous (milky)
 - Stopped suddenly
+* Sudden increase in volume or change in colour @x501
 - Serous or serosanguinous @x103
 - Amount since the last check charted @x104
 E Exit site and wound|pick
@@ -8658,6 +8673,7 @@ DR('jaundice.aih',{sx:{F:1.6,M:.5}});
 DR('bowel.ibs chest.anx palp.anx',{sx:{F:1.3}});
 DR('bleed.hem',{sx:{M:1.8,F:.05},sm:{F:.25}});
 DR('wtloss.dep',{sx:{F:1.3}});
+DR('mass.preg',{sex:'F',a:'REPRO'});
 function demoAdj(pid,d,pt){
   var r=DEMO[pid+'.'+d.k],out={m:1,na:false};if(!r||!pt)return out;
   var sex=pt.sex,age=parseFloat(pt.age);
@@ -10918,7 +10934,7 @@ function drScore(kind,ok){DB.drs=DB.drs||{};var s=DB.drs[kind]||(DB.drs[kind]={c
 var VP_FEMALE={ect:1,preg:1,eclamp:1,ovar:1};
 var VP_CHILD={intus:1};
 var VP_EXCL=[[/^painless/i,/pain|ache|tender|hurts|throbbing/i],[/^weight stable/i,/weight loss|loss of appetite|weight gain/i],[/^normal-coloured urine/i,/dark urine|pale stool|itch/i],[/^always there/i,/appears|goes away|comes and goes|reduces/i],[/^no (stool|wind)/i,/^(diarrhoea|loose)/i]];
-var VP_FONLY=/\b(periods?|menstrua\w*|pregnan\w*|vaginal|breast tenderness|contracepti\w*|HRT|childbirth|miscarriage|postpartum)\b/i,VP_MONLY=/\b(prostat\w*|testis|testes|testicle|scrotum|scrotal|penile|erectile)\b/i;
+var VP_FONLY=/\b(woman|periods?|menstrua\w*|pregnan\w*|vaginal|breast tenderness|contracepti\w*|HRT|childbirth|miscarriage|postpartum)\b/i,VP_MONLY=/\b(prostat\w*|testis|testes|testicle|scrotum|scrotal|penile|erectile)\b/i;
 /* age stated in the item text, e.g. "Under 30", "30 to 50", "Over 50 with a new change", "(child)", "older": true/false for this age, or null */
 function vpAgeOK(t,age){
   var u='(?!\\s*(?:%|mm|mL|cm|kg|m\\b|metres|minutes|min|hours|h\\b|days|weeks|months|years|seconds|beats|of 10|C\\b|mmHg))';
