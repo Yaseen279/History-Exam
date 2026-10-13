@@ -1899,8 +1899,8 @@ D leuk|Leukaemia / marrow failure|!|0.5
 D vas|Vessel disorder (HSP, vasculitis, scurvy)||0.5
 D vitk|Vitamin K deficiency / malabsorption||0.3
 Y Vessels|vas|Vessels
-Y Platelets|itp,leuk,dic|Marrow and platelets,Recent events
-Y Clotting factors|hem,vwd,liv,vitk|Where it bleeds,Liver and gut,Family history
+Y Platelets (and vWD)|itp,vwd,leuk,dic|Where it bleeds,Marrow and platelets,Recent events
+Y Clotting factors|hem,liv,vitk|Where it bleeds,Liver and gut,Family history
 Y Drugs|drug|Drugs
 G The bleeding (handbook)
 M Where · Since when · What starts it · After surgery|Skin, gums, nose, periods = platelets (or vWD) · joints and muscles = clotting factor · one site again and again = local cause · immediate after surgery = platelets, delayed = clotting factor
@@ -2337,7 +2337,7 @@ N Ask about all medicines, including over-the-counter remedies.
 - Antacids {drug:1} @44
 - Metformin {drug:2} @45
 H Family history|pick|Family history:
-* Bowel cancer {ca:1} @46
+* Bowel cancer in a relative {ca:1} @46
 - IBD {ibd:1} @47
 - Coeliac disease {coel:1} @48
 G Examination
@@ -2606,7 +2606,7 @@ N Rule out menstrual blood, beetroot, rifampicin and other red urine.
 * Not menstrual blood @0
 * No beetroot or rifampicin @1
 H Pain|one|Haematuria is:
-! Painless {bca:4,rca:3,gn:1} @2
+! Painless blood in the urine {bca:4,rca:3,gn:1} @2
 - With colicky loin-to-groin pain {stone:5} @3
 - With burning on passing urine {uti:3} @4
 - With loin ache {pyelo:2,pkd:1,rca:1} @5
@@ -3353,9 +3353,9 @@ H Where is it|one|Site:
 - Under the jaw {sal:2,inf:1} @3
 - In front of the ear {sal:2} @4
 - Above the collarbone {met:2,lym:1} @5
-H Moves with|pick|Moves with:
-* Swallowing {thyroid:4} @14
-* Sticking out the tongue {tgc:5} @15
+H Moves with|pick
+* Moves on swallowing {thyroid:4} @14
+* Moves on sticking out the tongue {tgc:5} @15
 H When first noticed|one|Present for:
 - Under 3 weeks {inf:2} @6
 - Over 3 weeks {met:2,lym:2,tb:2} @7
@@ -3621,7 +3621,7 @@ D var|Varicocele||0.2
 D lip|Lipoma||0.3
 Y Hernia|ing,dir,fem|Comes and goes,Obstruction or strangulation,Why is the pressure up?
 Y Lymph nodes|node|Nodes and abscess
-Y Vessels|sal,fa,var|Pain and pulsation
+Y Vessels|sal,fa,var|Pain and pulsation,Inspection,The lump
 Y Cord and testis|hyd,und,lip|Testis
 Y Psoas|psoas|Nodes and abscess
 G The lump story (Browse)
@@ -4880,7 +4880,7 @@ Y Ulcer and erosions|pu,gast,oes|Before the bleed,Drugs
 Y Varices|var|Liver,Alcohol
 Y Tear|mw|Before the bleed
 Y Cancer|ca|Cancer
-Y Bleeding tendency|coag,ang|Drugs
+Y Clotting and vessel lesions|coag,ang|Drugs
 G The bleed (Browse)
 M Vomited · Coffee grounds · Melaena|Make sure it was vomited, not coughed up · coffee grounds = blood altered by stomach acid · melaena = black tarry stool from an upper GI bleed
 H What came up|pick|Vomited:
@@ -6064,7 +6064,7 @@ H Onset|one|Onset:
 - Over days {ob:1,dka:1,preg:1} @1
 - Weeks {pu:1,cns:1,preg:1} @2
 H What comes up|pick|Vomit:
-* Food {gast:1,pu:1} @3
+* Food, no bile {gast:1,pu:1} @3
 ! Bile (green) {ob:1} @4
 ! Faeculent {ob:2} @5
 ! Blood or coffee grounds {pu:2} @6
@@ -6946,7 +6946,7 @@ H Character|pick|Character:
 - Colicky {gall:2} @8
 - Tight {mi:3} @9
 H Radiation|pick|Radiates to:
-* Back {panc:2} @10
+* Through to the back {panc:2} @10
 - Right shoulder {gall:3} @11
 - Arm or jaw {mi:3} @12
 H Timing|pick|Timing:
@@ -7521,7 +7521,7 @@ pallor:['Lose · Make · Break (blood loss, low production, destruction)'],
 lymph:['Infection \u00B7 Cancer \u00B7 Inflammation (immune) \u00B7 Drugs','hb'],
 bleed:['Vessels \u00B7 Platelets \u00B7 Clotting factors','hb'],
 abd:['Gut \u00B7 Bile and pancreas \u00B7 Kidney \u00B7 Pelvis \u00B7 Vessels \u00B7 Outside the abdomen'],
-bowel:['Diet and fibre \u00B7 Functional (IBS) \u00B7 Infection and inflammation \u00B7 Tumour \u00B7 Hormones \u00B7 Drugs \u00B7 Nerves'],
+bowel:['Function and diet \u00B7 Infection and inflammation \u00B7 Tumour \u00B7 Malabsorption \u00B7 Thyroid and diabetes \u00B7 Diverticula \u00B7 Drugs'],
 jaundice:['Before the liver \u00B7 In the liver \u00B7 After the liver','hb'],
 hematuria:['Kidney disease \u00B7 Tumour \u00B7 Infection (UTI, TB, schisto) \u00B7 Stones \u00B7 Cysts \u00B7 Clotting problem \u00B7 Hard exercise','hb'],
 edema:['Heart \u00B7 Liver \u00B7 Kidney \u00B7 Gut and protein loss \u00B7 Thyroid \u00B7 Drugs \u00B7 Veins and lymph','hb'],
@@ -9898,24 +9898,29 @@ function viewFlow(){
 /* Decision tree in the style of the reference algorithms, generated from the complaint content */
 function histFlow(P){
   var H=P.sections.filter(function(s){return s.kind==='H'});
-  var flags=[];H.forEach(function(s){s.items.forEach(function(it){if(it.flag&&flags.indexOf(it.c)<0)flags.push(it.c)})});
+  var flags=[];H.forEach(function(s){if(s.mode==='yn'&&/resuscitat/i.test(s.title))return;s.items.forEach(function(it){if(it.flag&&flags.indexOf(it.c)<0)flags.push(it.c)})});
   var mnm=P.dd.filter(function(d){return d.mnm}).map(function(d){return d.name});
   var story=H.filter(function(s){return s.g===H[0].g}),bgS=H.filter(function(s){return /^background/i.test(s.g||'')});
-  var aid=function(ss){return ss.length&&ss[0].gmn?ss[0].gmn:null};
+  var aid=function(ss){return ss.length&&ss[0].gmn&&!/^if /i.test(ss[0].gmn.t)?ss[0].gmn:null};
   var hk=HOOKS[P.id],h='<div class="xf"><div class="xfs"><span>'+esc(P.name)+'</span></div>';
   if(hk)h+='<div class="xfa"></div><div class="xfq"><b>Think of the causes</b>'+esc(hk[0])+'</div>';
-  if(flags.length){
+  if(flags.length&&mnm.length){
     h+='<div class="xfa"></div><div class="xfr"><div class="xfg"><b>Any red flag?</b><ul>'+flags.slice(0,7).map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul></div><div class="xfc"><i>yes</i></div><div class="xfo"><div class="dg"><span>Prioritise</span><b>'+(mnm.length?esc(mnm.join(', ')):'The dangerous causes')+'</b></div></div></div><div class="xfn">no</div>';
   }
   var sa=aid(story);
   h+='<div class="xfa"></div><div class="xfq"><b>Take the story'+(H[0].g?': '+esc(H[0].g.replace(/ \((handbook|Browse)\)$/,'')):'')+'</b>'+(sa?esc(sa.t+(sa.x?' · '+sa.x:'')):esc(story.map(function(s){return s.title}).join(' · ')))+'</div>';
   h+='<div class="xfa"></div><div class="xfq soft"><b>Then screen each cause</b>Ask the key questions in each box; a yes points to the diagnoses on the right. There can be more than one.</div>';
   /* a question belongs in a cause's box unless its weights point only at other causes (e.g. tongue protrusion is thyroglossal cyst, not thyroid) */
-  var fits=function(it,c){var any=false;for(var k in it.w){any=true;if(c.dd.indexOf(k)>=0)return true}return !any};
+  /* the question goes in this box only if this cause is its strongest link */
+  var own={};P.cz.forEach(function(c){c.secs.forEach(function(t){own[t]=(own[t]||0)+1})});
+  var fits=function(it,c,s){var top=0,mine=0;for(var k in it.w){if(it.w[k]>top)top=it.w[k];if(c.dd.indexOf(k)>=0&&it.w[k]>mine)mine=it.w[k]}return !top||(mine>0&&(mine===top||(s&&s.kind==='H'&&own[s.title]===1)))};
   P.cz.forEach(function(c){
     var feats=[];
-    P.sections.forEach(function(s){if(c.secs.indexOf(s.title)<0)return;s.items.forEach(function(it){if((it.hy||it.flag)&&fits(it,c)&&feats.indexOf(it.c)<0)feats.push(it.c)})});
-    if(!feats.length)P.sections.forEach(function(s){if(c.secs.indexOf(s.title)<0)return;s.items.forEach(function(it){if(feats.length<3&&fits(it,c)&&feats.indexOf(it.c)<0)feats.push(it.c)})});
+    P.sections.forEach(function(s){if(c.secs.indexOf(s.title)<0)return;s.items.forEach(function(it){if((it.hy||it.flag)&&fits(it,c,s)&&feats.indexOf(it.c)<0)feats.push(it.c)})});
+    /* every diagnosis in the box gets at least its best question */
+    c.dd.forEach(function(k){var best=null,bw=0,has=false;P.sections.forEach(function(s){if(c.secs.indexOf(s.title)<0)return;s.items.forEach(function(it){var w=it.w[k]||0;if(!w||!fits(it,c,s))return;if(feats.indexOf(it.c)>=0)has=true;if(w>bw){bw=w;best=it}})});if(!has&&best)feats.push(best.c)});
+    if(!feats.length)P.sections.forEach(function(s){if(c.secs.indexOf(s.title)<0)return;s.items.forEach(function(it){if(feats.length<3&&fits(it,c,s)&&feats.indexOf(it.c)<0)feats.push(it.c)})});
+    feats=feats.filter(function(t){var l=t.toLowerCase();return !feats.some(function(u){return u!==t&&u.toLowerCase().indexOf(l)>=0})});
     var dx=c.dd.map(function(k){var d=P.dmap[k];return d?'<li'+(d.mnm?' class="m"':'')+'>'+esc(d.name)+'</li>':''}).join('');
     h+='<div class="xfa"></div><div class="xfr"><div class="xfb"><div class="xfh"><b>'+esc(c.n)+'</b></div><ul>'+feats.slice(0,6).map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul></div><div class="xfc"><i>yes</i></div><div class="xfo"><div><ul>'+dx+'</ul></div></div></div>';
   });
