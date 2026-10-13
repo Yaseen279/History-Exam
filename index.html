@@ -623,6 +623,10 @@ input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 
 .aidx:first-of-type{border-top:0}
 .aidx b{display:block;color:var(--accent);font-size:.88rem;padding-inline-end:52px}.aidx span{display:block;color:var(--ink);opacity:.85;font-size:.83rem}
 .aidx i{position:absolute;inset-inline-end:0;top:7px;font-style:normal;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--surface2);border-radius:99px;padding:1px 7px}
+
+.prtiles button.rec{border:2px solid var(--accent);background:color-mix(in srgb,var(--accent-soft) 55%,var(--surface))}
+.recb{text-decoration:none;align-self:flex-start;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink);background:var(--accent);border-radius:99px;padding:2px 8px}
+.recb.inl{vertical-align:middle;margin-inline-start:6px;font-size:.6rem;position:relative;top:-2px}
 </style></head><body>
 <div class="app" id="app"></div>
 <div class="toast" id="toast" hidden></div>
@@ -9923,10 +9927,11 @@ function viewPractice(){
   if(!UI.pr){
     var due=0;['cz','fx','rf'].forEach(function(k){due+=srsDue(drillKeys(k))});var vs=DB.vpst||{c:0,t:0};
     var sub={vp:vs.t?vs.c+' of '+vs.t+' correct':'',learn:due?due+' cards due':''};
-    return '<h2 style="margin-block-end:10px">Practice</h2><div class="prtiles">'+PR_TILES.map(function(t){return '<button data-act="prMode" data-m="'+t[0]+'"><b>'+t[1]+'</b><span>'+t[2]+'</span>'+(sub[t[0]]?'<em>'+sub[t[0]]+'</em>':'')+'</button>'}).join('')+'</div>';
+    return '<h2 style="margin-block-end:10px">Practice</h2><div class="prtiles">'+PR_TILES.map(function(t){return '<button data-act="prMode" data-m="'+t[0]+'"'+(t[0]==='aids'?' class="rec"':'')+'>'+(t[0]==='aids'?'<u class="recb">Recommended</u>':'')+'<b>'+t[1]+'</b><span>'+t[2]+'</span>'+(sub[t[0]]?'<em>'+sub[t[0]]+'</em>':'')+'</button>'}).join('')+'</div>';
   }
   if(UI.pr==='vp')return viewVP();
   if(UI.pr==='learn')return viewLearn();
+  if(UI.pr==='aids')return prBack()+'<h2 style="margin-block:6px 4px">Memory aids <u class="recb inl">Recommended</u></h2><p class="small muted" style="margin-block-end:10px">Start here: the causes to think of for each complaint, then the key aids. Tap a card to open it.</p>'+aidsView();
   if(UI.pr==='sum')return viewSummary();
   var inner=(UI.pr==='guide'&&UI.guide)||(UI.pr==='flow'&&UI.flOpen);
   var title={quiz:'Diagnosis quiz',guide:'Exam guides',flow:'History flowcharts'}[UI.pr]||'';
@@ -10799,15 +10804,14 @@ function fxClash(a,b){
 function flagsOf(P){var o=[];P.sections.forEach(function(s){if(s.kind!=='H')return;s.items.forEach(function(it){if(it.flag&&o.indexOf(it.c)<0)o.push(it.c)})});return o}
 
 /* ---------- Practice menu ---------- */
-var PR_TILES=[['vp','Virtual patient','Ask questions, the patient answers, then commit to a diagnosis'],['learn','Learn and memory','Memory aids, name the causes, match the finding, red flags'],['quiz','Diagnosis quiz','Clues to diagnosis, three levels'],['guide','Exam guides','Step-by-step examination flowcharts'],['flow','History flowcharts','Red flags, story, causes, diagnoses']];
+var PR_TILES=[['aids','Memory aids','The causes and key aids for every verified complaint, grouped and explained'],['vp','Virtual patient','Ask questions, the patient answers, then commit to a diagnosis'],['learn','Learn and memory','Drills: name the causes, match the finding, red flags'],['quiz','Diagnosis quiz','Clues to diagnosis, three levels'],['guide','Exam guides','Step-by-step examination flowcharts'],['flow','History flowcharts','Red flags, story, causes, diagnoses']];
 function prBack(){return '<button class="chip prback" data-act="prMode" data-m="">‹ Practice</button>'}
 
 /* ---------- Learn and memory ---------- */
 function viewLearn(){
-  UI.lt=UI.lt||'aids';
-  var t=[['aids','Memory aids'],['cz','Name the causes'],['fx','Match the finding'],['rf','Red flags']];
-  var h=prBack()+'<h2 style="margin-block:6px 10px">Learn and memory</h2><div class="segc four" role="group" aria-label="Learn mode" style="margin-block-end:12px">'+t.map(function(x){return '<button class="chip" data-act="ltab" data-v="'+x[0]+'" aria-pressed="'+(UI.lt===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
-  if(UI.lt==='aids')return h+aidsView();
+  if(!UI.lt||UI.lt==='aids')UI.lt='cz';
+  var t=[['cz','Name the causes'],['fx','Match the finding'],['rf','Red flags']];
+  var h=prBack()+'<h2 style="margin-block:6px 10px">Learn and memory</h2><div class="segc" role="group" aria-label="Learn mode" style="margin-block-end:12px">'+t.map(function(x){return '<button class="chip" data-act="ltab" data-v="'+x[0]+'" aria-pressed="'+(UI.lt===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
   return h+drillView(UI.lt);
 }
 /* Memory aids, curated: shared frameworks once, then one collapsible card per complaint with its causes explained and a few key aids */
