@@ -10909,12 +10909,57 @@ function drScore(kind,ok){DB.drs=DB.drs||{};var s=DB.drs[kind]||(DB.drs[kind]={c
 
 /* ---------- Virtual patient ---------- */
 var VP_FEMALE={ect:1,preg:1,eclamp:1,ovar:1};
+var VP_CHILD={intus:1};
+var VP_EXCL=[[/^painless/i,/pain|ache|tender|hurts|throbbing/i],[/^weight stable/i,/weight loss|loss of appetite|weight gain/i],[/^normal-coloured urine/i,/dark urine|pale stool|itch/i],[/^always there/i,/appears|goes away|comes and goes|reduces/i],[/^no (stool|wind)/i,/^(diarrhoea|loose)/i]];
+var VP_FONLY=/\b(periods?|menstrua\w*|pregnan\w*|vaginal|breast tenderness|contracepti\w*|HRT|childbirth|miscarriage|postpartum)\b/i,VP_MONLY=/\b(prostat\w*|testis|testes|testicle|scrotum|scrotal|penile|erectile)\b/i;
+/* age stated in the item text, e.g. "Under 30", "30 to 50", "Over 50 with a new change", "(child)", "older": true/false for this age, or null */
+function vpAgeOK(t,age){
+  var u='(?!\\s*(?:%|mm|mL|cm|kg|m\\b|metres|minutes|min|hours|h\\b|days|weeks|months|years|seconds|beats|of 10|C\\b|mmHg))';
+  var m;
+  if((m=t.match(new RegExp('^(\\d+) to (\\d+)'+u+'(?:$|[ ,])','i'))))return age>=+m[1]&&age<=+m[2];
+  if((m=t.match(new RegExp('^under (\\d+)'+u+'(?:$|[ ,])','i'))))return age<+m[1];
+  if((m=t.match(new RegExp('(?:^| )over (\\d+)'+u+'(?:$| with|,)','i')))&&!/weight|bp|pulse|temperature|span|refill|calf|abpi|spo2|rate/i.test(t))return age>+m[1];
+  if(/\((child)\)|\bchild\b(?!hood)/i.test(t))return age<16;
+  if(/\b(older|elderly)\b/i.test(t))return age>=65;
+  if(/\byoung (adult|man|woman|patient)\b/i.test(t))return age<40;
+  return null;
+}
 function vpNew(pid){
   var list=vPres().filter(function(p){return p.dd.length>1});var P=pid?getP(pid):rnd(list);if(!P||!P.dd.length)return null;
   var tot=0;P.dd.forEach(function(d){tot+=d.prior});var r=Math.random()*tot,dx=P.dd[0];P.dd.some(function(d){r-=d.prior;if(r<=0){dx=d;return true}return false});
-  var ans={};P.sections.forEach(function(s){if(s.kind!=='H')return;s.items.forEach(function(it){var w=it.w[dx.k]||0;ans[it.k]=w>=2?true:w>=1?Math.random()<.65:(it.flag?false:Math.random()<.06)})});
-  var fem=VP_FEMALE[dx.k]||P.id==='breast'?true:Math.random()<.5;
-  return {pid:P.id,dx:dx.k,ans:ans,asked:{},sex:fem?'woman':'man',age:20+Math.floor(Math.random()*55),done:false,guess:null};
+  /* a believable patient for this diagnosis: sample sex and age, keep the one the age and sex profile favours */
+  var best=null;
+  for(var i=0;i<40;i++){
+    var sx=VP_FEMALE[dx.k]||P.id==='breast'?'F':Math.random()<.5?'F':'M',ag=VP_CHILD[dx.k]?1+Math.floor(Math.random()*6):17+Math.floor(Math.random()*68);
+    var adj=demoAdj(P.id,dx,{sex:sx,age:ag});if(adj.na)continue;var sc=adj.m*Math.random();if(!best||sc>best.sc)best={sc:sc,sex:sx,age:ag};
+  }
+  if(!best)best={sex:Math.random()<.5?'F':'M',age:40};
+  var fem=best.sex==='F',age=best.age;
+  var fit=function(it){if(fem&&VP_MONLY.test(it.c))return false;if(!fem&&VP_FONLY.test(it.c))return false;var a=vpAgeOK(it.c,age);return a};
+  var ans={};
+  P.sections.forEach(function(s){if(s.kind!=='H')return;
+    if(s.mode==='one'){
+      /* exactly one answer is yes: the age-matching option, else the option that best fits the diagnosis */
+      var ok=s.items.filter(function(it){return fit(it)!==false}),pick=null;
+      var byAge=ok.filter(function(it){return fit(it)===true});
+      if(byAge.length)pick=byAge[0];
+      else{var mw=0;ok.forEach(function(it){var w=it.w[dx.k]||0;if(w>mw)mw=w});
+        var top=ok.filter(function(it){return (it.w[dx.k]||0)===mw&&mw>0});
+        if(top.length)pick=rnd(top);
+        else{var nf=ok.filter(function(it){return !it.flag&&!Object.keys(it.w).some(function(k){var d=P.dmap[k];return d&&d.mnm&&it.w[k]>=2})});pick=nf.length?rnd(nf):ok.length?rnd(ok):null}}
+      s.items.forEach(function(it){ans[it.k]=it===pick});
+      return;
+    }
+    s.items.forEach(function(it){var f=fit(it);if(f!==null){ans[it.k]=f;return}var w=it.w[dx.k]||0;ans[it.k]=w>=2?true:w>=1?Math.random()<.65:(it.flag?false:Math.random()<.06)});
+  });
+  /* never give opposite answers: keep whichever fits the diagnosis better */
+  var H=[],one={};P.sections.forEach(function(s){if(s.kind==='H'){H=H.concat(s.items);if(s.mode==='one')s.items.forEach(function(it){one[it.k]=1})}});
+  VP_EXCL.forEach(function(pr){
+    H.forEach(function(a){if(!ans[a.k]||!pr[0].test(a.c))return;
+      H.forEach(function(b){if(a===b||!ans[b.k]||pr[0].test(b.c)||!pr[1].test(b.c))return;
+        if(one[a.k]&&one[b.k])return;
+        if(one[a.k]||(!one[b.k]&&(a.w[dx.k]||0)>=(b.w[dx.k]||0)))ans[b.k]=false;else ans[a.k]=false})})});
+  return {pid:P.id,dx:dx.k,ans:ans,asked:{},sex:fem?'woman':'man',age:age,done:false,guess:null};
 }
 function viewVP(){
   var V=UI.vp,h=prBack()+'<h2 style="margin-block:6px 10px">Virtual patient</h2>';
@@ -10922,7 +10967,7 @@ function viewVP(){
     return h+'<div class="card"><p style="margin-block-end:10px">A patient arrives with a complaint. Tap the questions you would ask: the patient answers yes or no. When you are ready, commit to a diagnosis and see what you missed.</p><label class="f">Complaint<select id="vpPid"><option value="">Random verified complaint</option>'+vPres().filter(function(p){return p.dd.length>1}).sort(function(a,b){return a.name<b.name?-1:1}).map(function(p){return '<option value="'+p.id+'">'+esc(p.name)+'</option>'}).join('')+'</select></label><button class="btn primary" style="margin-block-start:12px" data-act="vpStart">Start</button></div>';
   }
   var P=getP(V.pid),dx=P.dmap[V.dx],n=Object.keys(V.asked).length;
-  h+='<div class="card vphead"><div class="eyebrow">Your patient</div><b>A '+V.age+'-year-old '+V.sex+' with '+esc(P.name.toLowerCase())+'</b><div class="small muted">'+n+' questions asked</div></div>';
+  h+='<div class="card vphead"><div class="eyebrow">Your patient</div><b>A '+V.age+'-year-old '+(V.age<16?(V.sex==='woman'?'girl':'boy'):V.sex)+' with '+esc(P.name.toLowerCase())+'</b><div class="small muted">'+n+' questions asked</div></div>';
   if(V.done){
     var right=V.guess===V.dx,key=[],miss=[],fl=[];
     P.sections.forEach(function(s){if(s.kind!=='H')return;s.items.forEach(function(it){var w=it.w[V.dx]||0;if(w>=2){key.push(it);if(!V.asked[it.k])miss.push(it)}if(it.flag&&!V.asked[it.k])fl.push(it)})});
