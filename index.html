@@ -571,6 +571,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 
 .xfo li.m{color:#8E1B12}.xfo li.m::after{content:' (must not miss)';font-weight:600;font-size:.7rem}
 .xfo .dg{background:#F6C6BF;color:#5A120B}
 .xfn{align-self:center;font-size:.66rem;font-weight:800;text-transform:uppercase;color:var(--muted);margin-block:2px -2px;padding:1px 8px;border-radius:99px;background:var(--surface2)}
+.genpin{position:relative}.genpin .srcmk{position:absolute;inset-inline-end:12px;top:12px;padding:0!important}.genpin img{position:static!important}.genpin span:not(.srcmk){padding-inline-end:34px}
 </style></head><body>
 <div class="app" id="app"></div>
 <div class="toast" id="toast" hidden></div>
@@ -9214,6 +9215,7 @@ function viewPick(e){
   h+='<div class="srch">'+IC.search+'<input type="search" id="pq" placeholder="Search, e.g. chest pain or cough" value="'+esc(UI.pq)+'" aria-label="Search presentations"></div>';
   if(UI.pickMode!=='change')h+=recentHTML();
   h+=specBar();
+  if(!UI.pq)h+='<button class="genpin" data-act="pick" data-id="genhx"><b>Complete history (full record)</b><span>The college history-taking record, system by system. Use it when you are not taking a focused history.</span>'+srcMark(1,20)+'</button>';
   h+='<div id="pickList">'+pickList(q)+'</div>';
   h+='<div class="compn" style="margin-block-start:16px"><div class="srcln">'+srcMark(1,20)+'<span><b>The crest with a green tick</b> marks complaints verified against College of Medicine, University of Baghdad sources: the medicine handbook, Browse’s surgical chapters, the post-op and drains lectures and the history-taking record.</span></div><p><b>A companion, not a source.</b> This app is a revision aid for the bedside. Do not rely on it alone: compare every question, finding and diagnosis with your own sources and your supervisor.</p></div>';
   return h;
@@ -9521,7 +9523,7 @@ function stageDDx(e,P){
 }
 function stageNote(e,P){
   var txt=UI.note==='sheet'?buildSheet(e):buildPres(e);
-  return '<div class="row" style="margin-block-end:10px"><button class="chip" data-act="noteMode" data-m="sheet" aria-pressed="'+(UI.note==='sheet')+'">Case sheet</button><button class="chip" data-act="noteMode" data-m="pres" aria-pressed="'+(UI.note==='pres')+'">60-second presentation</button></div><div class="card"><textarea id="noteTxt" rows="22" class="mono" style="font-size:.82rem" readonly>'+esc(txt)+'</textarea><div class="row" style="margin-block-start:10px"><button class="btn primary" data-act="pdfNote">Save as PDF</button>'+(canShare()?'<button class="btn" data-act="shareNote">Share</button>':'')+'<button class="btn" data-act="copyNote">Copy</button><button class="btn" data-act="saveNote">Save as .txt</button></div><p class="small muted" style="margin-block-start:8px">'+(UI.note==='pres'?'<b>'+presStats(e).txt+'</b> Read it aloud, then try it again without looking.':'Generated from what you ticked and typed. Edit it after pasting.')+'</p></div>';
+  return '<div class="row" style="margin-block-end:10px"><button class="chip" data-act="noteMode" data-m="sheet" aria-pressed="'+(UI.note==='sheet')+'">Case sheet</button><button class="chip" data-act="noteMode" data-m="pres" aria-pressed="'+(UI.note==='pres')+'">60-second presentation</button></div><div class="card"><textarea id="noteTxt" aria-label="Generated note" rows="22" class="mono" style="font-size:.82rem" readonly>'+esc(txt)+'</textarea><div class="row" style="margin-block-start:10px"><button class="btn primary" data-act="pdfNote">Save as PDF</button>'+(canShare()?'<button class="btn" data-act="shareNote">Share</button>':'')+'<button class="btn" data-act="copyNote">Copy</button><button class="btn" data-act="saveNote">Save as .txt</button></div><p class="small muted" style="margin-block-start:8px">'+(UI.note==='pres'?'<b>'+presStats(e).txt+'</b> Read it aloud, then try it again without looking.':'Generated from what you ticked and typed. Edit it after pasting.')+'</p></div>';
 }
 
 /* ---- Log ---- */
