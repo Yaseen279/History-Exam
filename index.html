@@ -2295,6 +2295,7 @@ M Function · Infection · Tumour · Malabsorption · Thyroid · Diabetes · Dru
 H Abdominal symptoms|pick
 * Pain relieved by opening the bowels {ibs:2} @18
 - Bloating {ibs:2} @19
+- Known diverticular disease {div:2} @x401
 * Vomiting {inf:2} @20
 H Weight and appetite|pick
 ! Weight loss {ca:2,ibd:1,coel:1,thy:1} @21
@@ -9909,10 +9910,12 @@ function histFlow(P){
   var sa=aid(story);
   h+='<div class="xfa"></div><div class="xfq"><b>Take the story'+(H[0].g?': '+esc(H[0].g.replace(/ \((handbook|Browse)\)$/,'')):'')+'</b>'+(sa?esc(sa.t+(sa.x?' · '+sa.x:'')):esc(story.map(function(s){return s.title}).join(' · ')))+'</div>';
   h+='<div class="xfa"></div><div class="xfq soft"><b>Then screen each cause</b>Ask the key questions in each box; a yes points to the diagnoses on the right. There can be more than one.</div>';
+  /* a question belongs in a cause's box unless its weights point only at other causes (e.g. tongue protrusion is thyroglossal cyst, not thyroid) */
+  var fits=function(it,c){var any=false;for(var k in it.w){any=true;if(c.dd.indexOf(k)>=0)return true}return !any};
   P.cz.forEach(function(c){
     var feats=[];
-    P.sections.forEach(function(s){if(c.secs.indexOf(s.title)<0)return;s.items.forEach(function(it){if((it.hy||it.flag)&&feats.indexOf(it.c)<0)feats.push(it.c)})});
-    if(!feats.length)P.sections.forEach(function(s){if(c.secs.indexOf(s.title)<0)return;s.items.slice(0,3).forEach(function(it){if(feats.indexOf(it.c)<0)feats.push(it.c)})});
+    P.sections.forEach(function(s){if(c.secs.indexOf(s.title)<0)return;s.items.forEach(function(it){if((it.hy||it.flag)&&fits(it,c)&&feats.indexOf(it.c)<0)feats.push(it.c)})});
+    if(!feats.length)P.sections.forEach(function(s){if(c.secs.indexOf(s.title)<0)return;s.items.forEach(function(it){if(feats.length<3&&fits(it,c)&&feats.indexOf(it.c)<0)feats.push(it.c)})});
     var dx=c.dd.map(function(k){var d=P.dmap[k];return d?'<li'+(d.mnm?' class="m"':'')+'>'+esc(d.name)+'</li>':''}).join('');
     h+='<div class="xfa"></div><div class="xfr"><div class="xfb"><div class="xfh"><b>'+esc(c.n)+'</b></div><ul>'+feats.slice(0,6).map(function(t){return '<li>'+esc(t)+'</li>'}).join('')+'</ul></div><div class="xfc"><i>yes</i></div><div class="xfo"><div><ul>'+dx+'</ul></div></div></div>';
   });
