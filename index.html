@@ -10763,8 +10763,19 @@ function aidsAll(){
 }
 function findingsAll(){
   var out=[];
-  GUIDES.forEach(function(g){var fx=FX[g.id]||{};g.st.forEach(function(st){(fx[st[0]]||(st[2]&&st[2].f)||[]).forEach(function(p,i){out.push({k:'fx:'+g.id+':'+st[0]+':'+i,f:p[0],m:p[1],g:g.n.replace(/ \((Internal medicine|Browse|handbook|handbook and Browse|post-op lecture|drains lecture|college record)\)$/,''),st:st[0]})})})});
+  GUIDES.forEach(function(g){if(g.id==='drains')return;var fx=FX[g.id]||{};g.st.forEach(function(st){if(g.id==='postop'&&/^Vital signs/.test(st[0]))return;(fx[st[0]]||(st[2]&&st[2].f)||[]).forEach(function(p,i){out.push({k:'fx:'+g.id+':'+st[0]+':'+i,gid:g.id,grp:/^imc_/.test(g.id)?'med':'surg',f:p[0],m:p[1],g:g.n.replace(/ \((Internal medicine|Browse|handbook|handbook and Browse|post-op lecture|drains lecture|college record)\)$/,''),st:st[0]})})})});
   return out;
+}
+/* two answers clash if both could be right: same text, one inside the other, a shared key word, or the same hernia family (indirect vs direct are true opposites, so they may appear together) */
+var FX_STOP={disease:1,cancer:1,failure:1,syndrome:1,obstruction:1,deficiency:1};
+/* guides close enough to borrow wrong options from */
+var FX_REL={breast:['lump','nodes','thy'],lump:['ulcer','breast','hernia','nodes'],ulcer:['lump'],hernia:['lump','abd'],nodes:['lump','thy'],thy:['imc_endo','nodes'],abd:['imc_abd','hernia'],imc_endo:['thy'],imc_abd:['abd'],imc_cvs:['imc_resp','imc_renal'],imc_resp:['imc_cvs'],imc_renal:['imc_cvs','imc_haem'],imc_haem:['imc_renal'],postop:['ulcer','lump']};
+function fxClash(a,b){
+  var A=a.toLowerCase(),B=b.toLowerCase();if(A===B||A.indexOf(B)>=0||B.indexOf(A)>=0)return true;
+  var fam=function(t){return /indirect/.test(t)?'ind':/\bdirect\b/.test(t)?'dir':/hernia|inguinal/.test(t)?'gen':/graves|hyperthyroid/.test(t)?'hyper':''},fa=fam(A),fb=fam(B);
+  if(fa&&fb&&(fa==='hyper'?fb==='hyper':fb!=='hyper')&&!((fa==='ind'&&fb==='dir')||(fa==='dir'&&fb==='ind')))return true;
+  var wa=A.match(/[a-z]{6,}/g)||[],wb=B.match(/[a-z]{6,}/g)||[];
+  return wa.some(function(w){return !FX_STOP[w]&&wb.indexOf(w)>=0});
 }
 function flagsOf(P){var o=[];P.sections.forEach(function(s){if(s.kind!=='H')return;s.items.forEach(function(it){if(it.flag&&o.indexOf(it.c)<0)o.push(it.c)})});return o}
 
@@ -10791,7 +10802,7 @@ function drillKeys(kind){
   return findingsAll().map(function(x){return x.k});
 }
 function drillNew(kind){
-  var keys=drillKeys(kind);if(!keys.length)return null;var k=srsPick(keys),d={kind:kind,k:k};
+  var keys=drillKeys(kind);if(!keys.length)return null;var prev=UI.drill&&UI.drill.k,pool=keys.length>1?keys.filter(function(x){return x!==prev}):keys;var k=srsPick(pool),d={kind:kind,k:k};
   if(kind==='cz'){d.P=getP(k.slice(3))}
   else if(kind==='rf'){
     var P=getP(k.slice(3)),fl=flagsOf(P),ok=rnd(fl),pool=[];
@@ -10799,7 +10810,11 @@ function drillNew(kind){
     d.P=P;d.opts=shuffle([{t:ok,ok:true}].concat(shuffle(pool).slice(0,3).map(function(t){return {t:t}})));
   }else{
     var all=findingsAll(),x=all.filter(function(y){return y.k===k})[0],wrong=[];
-    shuffle(all).forEach(function(y){if(wrong.length<3&&y.m!==x.m&&wrong.indexOf(y.m)<0)wrong.push(y.m)});
+    /* wrong options come from the same guide first, then the same kind of guide (medicine or surgery) */
+    var add=function(list){shuffle(list).forEach(function(y){if(wrong.length<3&&!fxClash(x.m,y.m)&&!wrong.some(function(w){return fxClash(w,y.m)}))wrong.push(y.m)})};
+    add(all.filter(function(y){return y.gid===x.gid}));
+    add(all.filter(function(y){return (FX_REL[x.gid]||[]).indexOf(y.gid)>=0}));
+    add(all.filter(function(y){return y.gid!==x.gid&&y.grp===x.grp}));
     d.x=x;d.opts=shuffle([{t:x.m,ok:true}].concat(wrong.map(function(t){return {t:t}})));
   }
   return d;
