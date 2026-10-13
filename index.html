@@ -8420,7 +8420,7 @@ var LOGO='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFQAAABkCAYAAAAYERdsAABM
 /* Crest with a green tick = checked against the college sources (medicine handbook, Browse’s surgical chapters, post-op and drains lectures, history-taking record) */
 var SRC_P={genhx:1,chest:1,palp:1,breath:1,cough:1,hemopt:1,pallor:1,lymph:1,bleed:1,abd:1,bowel:1,jaundice:1,hematuria:1,edema:1,wtloss:1,thyroid:1,neck:1,breast:1,groin:1,acuteabd:1,skinlump:1,postop:1,drain:1,obstr:1,mass:1,dysph:1,haem:1,ascites:1,vomit:1,dyspep:1};
 /* Surgical guides rebuilt from the college sources */
-var SRC_G={hist:1,gen:1,abd:1,hernia:1,lump:1,ulcer:1,thy:1,nodes:1,breast:1,postop:1,drains:1};
+var SRC_G={hist:1,abd:1,hernia:1,lump:1,ulcer:1,thy:1,nodes:1,breast:1,postop:1,drains:1};
 function srcMark(on,sz){return on?'<span class="srcmk vb" title="Verified against College of Medicine, University of Baghdad sources"><img src="'+LOGO+'" alt="Verified against College of Medicine, University of Baghdad sources" style="width:'+(sz||18)+'px;height:auto"><i aria-hidden="true">\u2713</i></span>':''}
 function srcLine(on){return on?'<div class="srcln">'+srcMark(1,22)+'<span>Verified against College of Medicine, University of Baghdad sources</span></div>':''}
 (function(){
@@ -9215,7 +9215,6 @@ function viewPick(e){
   h+='<div class="srch">'+IC.search+'<input type="search" id="pq" placeholder="Search, e.g. chest pain or cough" value="'+esc(UI.pq)+'" aria-label="Search presentations"></div>';
   if(UI.pickMode!=='change')h+=recentHTML();
   h+=specBar();
-  if(!UI.pq)h+='<button class="genpin" data-act="pick" data-id="genhx"><b>Complete history (full record)</b><span>The college history-taking record, system by system. Use it when you are not taking a focused history.</span>'+srcMark(1,20)+'</button>';
   h+='<div id="pickList">'+pickList(q)+'</div>';
   h+='<div class="compn" style="margin-block-start:16px"><div class="srcln">'+srcMark(1,20)+'<span><b>The crest with a green tick</b> marks complaints verified against College of Medicine, University of Baghdad sources: the medicine handbook, Browse’s surgical chapters, the post-op and drains lectures and the history-taking record.</span></div><p><b>A companion, not a source.</b> This app is a revision aid for the bedside. Do not rely on it alone: compare every question, finding and diagnosis with your own sources and your supervisor.</p></div>';
   return h;
@@ -9611,7 +9610,7 @@ var CORE_OF={chest:'imc_cvs',palp:'imc_cvs',breath:'imc_resp',cough:'imc_resp',h
 
 /* ---- Guides rebuilt from the college sources only (history-taking record, Browse, post-op and drains lectures, medicine handbook).
    Guides with no source are removed. ---- */
-var GUIDE_DROP={pvd:1,varic:1,cvs:1,resp:1,cn:1,ul:1,ll:1,gals:1,pr:1,scr:1,foot:1,pres:1};
+var GUIDE_DROP={gen:1,pvd:1,varic:1,cvs:1,resp:1,cn:1,ul:1,ll:1,gals:1,pr:1,scr:1,foot:1,pres:1};
 var GUIDE_NEW=[
 {id:'hist',n:'History taking (college record)',s:'History',st:[
  ['Patient data','Name, age, gender, occupation, marital status, residency, religion, date of admission, date of taking the history, mode of referral, mode of arrival.'],
@@ -9625,16 +9624,6 @@ var GUIDE_NEW=[
  ['Occupational history','What did they do, for how long, and was anything medically relevant (mining, painting, farming, cheese work, pigeon keeping)?'],
  ['Drug history','Prescribed and over-the-counter medicines, alternative therapies such as herbs.'],
  ['Allergies','Drug allergies and the type of reaction; other allergies (latex, food); problems with anaesthetics.']]},
-{id:'gen',n:'General examination and hands (Browse)',s:'Examination',st:[
- ['General assessment','While taking the history: demeanour, mental state, memory and speech; posture, mobility, weight, body build. Glasgow Coma Scale if admitted as an emergency.',{f:[['Wasting','Children: gastroenteritis, malabsorption · young adults: TB, blood disorders, anorexia nervosa'],['Weight gain','Obesity, pregnancy, fluid retention (renal, cardiac, liver failure), ascites or big ovarian cyst, myxoedema, Cushing’s']]}],
- ['Colour','Look at the skin and the mucous membranes in good light.',{f:[['Pale conjunctiva and mucous membranes','Anaemia'],['Yellow sclera and skin','Jaundice: prehepatic, hepatic or posthepatic'],['Blue lips and tongue','Central cyanosis: heart or lung defect'],['Blue fingers only','Peripheral cyanosis: poor tissue perfusion']]}],
- ['Hands','Hold the hand and count the pulse. Then the nails, the fingers and any callosities.',{f:[['Spoon-shaped nails (koilonychia)','Anaemia'],['Clubbing (nail-fold angle over 180 degrees)','Lung, heart-lung or gut disease'],['Nicotine staining','Smoking'],['Callosities','May show the occupation']]}],
- ['Eyes','Lids, conjunctiva, sclera, pupils, eye position.',{f:[['Exophthalmos','Thyrotoxicosis (commonest), orbital tumours'],['Small pupil, ptosis, dry warm cheek','Horner’s syndrome'],['Ptosis','Horner’s, myasthenia, IIIrd nerve palsy']]}],
- ['Ears and nose','Often forgotten: essential if there may be head and neck disease. Use an auroscope.'],
- ['Mouth','Lips, tongue, gums, teeth, mucosa, tonsils.'],
- ['Neck','Lymph nodes, thyroid, trachea, neck veins.'],
- ['Heart, lungs, abdomen and limbs','Then examine each system in turn.'],
- ['Urine, faeces and sputum','Look at the urine colour and smell before the dipstick; look at the faeces on the glove after rectal examination; look at any sputum.']]},
 {id:'abd',n:'Abdominal examination (Browse)',s:'Examination',st:[
  ['Prepare','Warm, private room and good light. Patient flat on a firm couch with the backrest raised 15 to 20 degrees, exposed from nipples to knees. Sit or kneel beside the bed with your forearm level with the abdomen. Warm hands; press only during expiration.'],
  ['General','Pallor, jaundice, dry mouth, dehydration, clubbing, leg oedema, rash, spider naevi, bleeding spots (handbook).'],
