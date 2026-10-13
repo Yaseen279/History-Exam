@@ -3219,7 +3219,7 @@ D neuro|Neurological (stroke, bulbar palsy, MND, myasthenia)||0.5
 D spasm|Diffuse oesophageal spasm||0.3
 D can|Candida oesophagitis||0.4
 D sc|Systemic sclerosis||0.2
-Y Inside the gullet|ca,strict,web,eosi,can|Onset and course,Weight and blood
+Y The gullet itself|ca,strict,web,eosi,can|Onset and course,Weight and blood
 Y Pressing from outside|ext|Chest
 Y Muscle (motility)|ach,spasm,sc|What is difficult,Regurgitation,Skin
 Y Nerves|neuro|Neuro,Swallow itself
@@ -3342,7 +3342,7 @@ Y Thyroglossal cyst|tgc|Moves with
 Y Branchial cyst|bcc|Where is it
 Y Salivary gland|sal|Salivary gland
 Y Carotid body|cb|Changes
-Y Skin|seb|When first noticed
+Y Skin and soft tissue|seb|When first noticed
 Y Pouch|pouch|Pouch
 G The lump story (Browse)
 M 7 questions|When noticed · How noticed · Symptoms · Changed? · Ever disappears? · Other lumps? · Cause?
@@ -3852,7 +3852,7 @@ D ect|Ruptured ectopic / ovarian torsion|!|0.5
 Y Perforation|pu,div|Perforation
 Y Inflammation|app,chol,pan|Inflammation
 Y Obstruction|ob,vol|Obstruction
-Y Bleeding inside|aaa,ect|Bleeding inside
+Y Bleeding and pelvis|aaa,ect|Bleeding inside
 Y Ischaemia|mes|Ischaemia
 G First: is the patient stable?
 H Resuscitation|yn
@@ -6882,7 +6882,7 @@ M 5S|Site · Size · Shape · Surface · Skin over it (colour, texture, punctum,
 - Pigmented {mel:2} @x104
 E Feel|pick
 N Temperature with the backs of your fingers. Tenderness: feel the non-tender part first and watch the face. Edge: clear or indistinct. Consistency on a scale: stony hard, firm, rubbery, spongy, soft.
-M 3T, then Edge and Consistency|Temperature · Tenderness · (Transillumination comes next) → Edge → Consistency
+M Temperature and tenderness, then Edge and Consistency|Temperature · Tenderness → Edge → Consistency (transillumination comes with the fluid tests)
 - Hot {abs:3} @x200
 * Tender {abs:3} @x201
 * Soft, lobulated, slips under the fingers {lip:6} @6
@@ -7510,7 +7510,7 @@ var OSCE_GEN=[
 
 /* One-line memory hooks: what to ask about, in order. std = a widely taught mnemonic or framework; others are organ- or cause-based. */
 var HOOKS={
-chest:['Heart and aorta \u00B7 Lungs \u00B7 Clot \u00B7 Gut \u00B7 Wall \u00B7 Mind'],
+chest:['Heart \u00B7 Aorta \u00B7 Lungs \u00B7 Clot \u00B7 Gut \u00B7 Chest wall \u00B7 Mind'],
 palp:['Rhythm · Thyroid · Blood · Drugs · Mind'],
 htn:['Essential (most) \u00B7 Kidney \u00B7 Hormones \u00B7 Aorta \u00B7 Drugs \u00B7 Sleep apnoea \u00B7 Pregnancy'],
 syncope:['Reflex faint · Standing BP · Heart · Mimics (fit, sugar, bleed)'],
@@ -7527,12 +7527,12 @@ hematuria:['Kidney disease \u00B7 Tumour \u00B7 Infection (UTI, TB, schisto) \u0
 edema:['Heart \u00B7 Liver \u00B7 Kidney \u00B7 Gut and protein loss \u00B7 Thyroid \u00B7 Drugs \u00B7 Veins and lymph','hb'],
 wtloss:['Eat less \u00B7 Absorb less \u00B7 Burn more \u00B7 Lose in urine (sugar)'],
 thyroid:['Overactive · Underactive · Lump · Drugs'],
-dysph:['Inside the tube · In the wall · Outside · Nerve and muscle'],
+dysph:['The gullet itself · Pressing from outside · Muscle (motility) · Nerves'],
 neck:['Nodes · Thyroid · Glands · Cysts · Vessels'],
-breast:['Cyst · Benign solid lump · Infection · Cancer'],
-groin:['Hernia · Nodes · Vessels · Testis and cord'],
+breast:['Benign lumps · Cancer · Infection and inflammation · Nipple and ducts'],
+groin:['Hernia · Nodes · Vessels · Cord and testis · Psoas'],
 prbleed:['Anus · Colon · Upper gut'],
-acuteabd:['Perforation · Obstruction · Inflammation · Ischaemia · Bleeding'],
+acuteabd:['Perforation · Inflammation · Obstruction · Bleeding and pelvis · Ischaemia'],
 limb:['Acute: Pain · Pallor · Pulseless · Paraesthesia · Paralysis · Perishing cold (6 Ps)','std'],
 ulcer:['Arterial · Venous · Neuropathic · Cancer · Other'],
 trauma:['A · B · C · D · E: Airway · Breathing · Circulation · Disability · Exposure','std'],
@@ -7540,7 +7540,7 @@ headache:['Primary (migraine, tension, cluster) · Danger: bleed, infection, pre
 dizzy:['Ear · Brain · Heart and BP · Blood and sugar · Drugs · Mind'],
 seizure:['Epilepsy · Faint · Metabolic · Drugs and alcohol · Brain lesion or infection · Non-epileptic'],
 weak:['Brain · Cord · Nerve · Junction · Muscle'],
-haem:['Ulcer · Varices · Gastritis · Tear · Tumour'],
+haem:['Ulcer and erosions · Varices · Tear · Cancer · Clotting and vessel lesions'],
 ascites:['Liver · Heart · Kidney · Cancer · Infection (TB)'],
 fever:['Infection · Cancer · Inflammation · Drugs'],
 polyuria:['Sugar · Calcium · Kidney · Water hormone · Drugs'],
@@ -7551,7 +7551,7 @@ aki:['Before the kidney · In the kidney · After the kidney','std'],
 uti:['Urethra · Bladder · Prostate · Kidney (and STI)'],
 legswell:['Clot · Infection · Muscle and cyst · Veins and lymph · Pelvis'],
 confusion:['AEIOU TIPS: Alcohol · Epilepsy · Insulin · Overdose · Uraemia · Trauma · Infection · Psychiatric · Stroke','std'],
-vomit:['Gut · Brain · Metabolic · Drugs · Pregnancy'],
+vomit:['Gut · Brain · Metabolic · Pregnancy · Drugs · Heart'],
 scrotum:['Torsion first · Infection · Fluid · Tumour · Hernia'],
 luts:['Prostate · Urethra · Bladder · Nerves · Drugs and infection'],
 loin:['Stone · Infection · Muscle and bone · Vessel · Referred'],
@@ -10831,7 +10831,7 @@ function aidsGroups(){
   var per=vs.map(function(P){
     var hk=HOOKS[P.id],aids=[],seen={};
     var norm=function(t){return t.toLowerCase().replace(/\([^)]*\)/g,'').replace(/^[^:]*:\s*/,'').trim()};
-    P.sections.forEach(function(s){[s.gmn,s.mn].forEach(function(m){if(!m||seen[norm(m.t)]||cnt[m.t]>=3||AID_SKIP.test(m.t))return;if(hk&&m.t.replace(/\s/g,'')===hk[0].replace(/\s/g,''))return;if(/^(heart and aorta|gut ·|vessels ·|foreign body|ulcer ·|micturition|oesophagus ·|perforation ·|heart ·|infection ·|bronchial ·|nodes first|liver ·|function ·|rhythm ·)/i.test(m.t))return;seen[norm(m.t)]=1;aids.push({t:m.t,x:m.x,ex:s.kind==='E'})})});
+    P.sections.forEach(function(s){[s.gmn,s.mn].forEach(function(m){if(!m||seen[norm(m.t)]||cnt[m.t]>=3||AID_SKIP.test(m.t))return;if(hk&&hk[0].replace(/\s/g,'').toLowerCase().indexOf(m.t.replace(/\s/g,'').toLowerCase())===0)return;if(/^(heart and aorta|gut ·|vessels ·|foreign body|ulcer ·|micturition|oesophagus ·|perforation ·|heart ·|infection ·|bronchial ·|nodes first|liver ·|function ·|rhythm ·)/i.test(m.t))return;seen[norm(m.t)]=1;aids.push({t:m.t,x:m.x,ex:s.kind==='E'})})});
     return {P:P,hook:hk?hk[0]:'',aids:aids.slice(0,5)};
   });
   return {shared:shared,per:per};
