@@ -2044,7 +2044,7 @@ E Rectal|pick
 - Rectal mass @x141
 - Enlarged prostate @x142
 E Neurology|pick
-! Headache, drowsiness or focal signs {itp:1,hem:1} @20
+! Drowsy or focal neurological signs {itp:1,hem:1} @20
 - Peripheral neuropathy @x143
 - Loss of vibration and joint position sense @x144
 - Ataxia @x145
@@ -3410,8 +3410,7 @@ E General|pick
 - Pulse fast, tremor, sweaty palms {thyroid:1}
 - Eye signs of thyroid disease {thyroid:1}
 - Fever {inf:1,tb:1}
-- Weight loss {met:1,lym:1,tb:1} @x101
-- Night sweats {lym:2,tb:2} @x102
+- Looks thin or wasted {met:1,lym:1,tb:1} @x101
 G The lump
 E Position|pick
 M Where in the neck?|Anterior or posterior triangle · midline or lateral · level
@@ -7004,7 +7003,7 @@ H Social|pick
 G General examination
 E General|pick
 ! Pallor {ca:2}
-! Weight loss {ca:2}
+! Looks thin or wasted {ca:2}
 ! Supraclavicular node {ca:2}
 - Jaundice {gall:3,ca:2,panc:2}
 - Hypotension or sweating {mi:2}
@@ -7037,7 +7036,7 @@ D atel|Atelectasis / chest infection||1.5
 D uti|UTI / catheter infection||1
 D ret|Urinary retention||0.6
 D wi|Surgical site infection||2
-D dehis|Wound dehiscence||0.5
+D dehis|Wound dehiscence|!|0.5
 D vte|DVT / PE|!|0.8
 D leak|Anastomotic leak / intra-abdominal collection|!|0.6
 D abs|Intra-abdominal abscess||0.5
@@ -9918,7 +9917,9 @@ function histFlow(P){
     var feats=[];
     P.sections.forEach(function(s){if(c.secs.indexOf(s.title)<0)return;s.items.forEach(function(it){if((it.hy||it.flag)&&fits(it,c,s)&&feats.indexOf(it.c)<0)feats.push(it.c)})});
     /* every diagnosis in the box gets at least its best question */
-    c.dd.forEach(function(k){var best=null,bw=0,has=false;P.sections.forEach(function(s){if(c.secs.indexOf(s.title)<0)return;s.items.forEach(function(it){var w=it.w[k]||0;if(!w||!fits(it,c,s))return;if(feats.indexOf(it.c)>=0)has=true;if(w>bw){bw=w;best=it}})});if(!has&&best)feats.push(best.c)});
+    c.dd.forEach(function(k){var best=null,bw=0,has=false;P.sections.forEach(function(s){if(c.secs.indexOf(s.title)<0)return;s.items.forEach(function(it){var w=it.w[k]||0;if(!w||!fits(it,c,s))return;if(feats.indexOf(it.c)>=0)has=true;if(w>bw){bw=w;best=it}})});if(!has&&best)feats.push(best.c);
+      /* nothing in the group's own sections: take its best question from anywhere in the complaint (history first; an exam sign only if clearly stronger) */
+      if(!has&&!best){var bs=0,bt=null;P.sections.forEach(function(s){s.items.forEach(function(it){var w=it.w[k]||0;if(!w||!fits(it,c))return;var sc=w+(s.kind==='H'?1.5:0);if(sc>bs){bs=sc;var tx=s.pre&&it.c.split(' ').length<=3?s.pre.replace(/ for:$/,'')+' '+lcFirst(it.c):it.c;bt=s.kind==='H'?tx:tx+' (exam)'}})});if(bt&&feats.indexOf(bt)<0)feats.push(bt)}});
     if(!feats.length)P.sections.forEach(function(s){if(c.secs.indexOf(s.title)<0)return;s.items.forEach(function(it){if(feats.length<3&&fits(it,c,s)&&feats.indexOf(it.c)<0)feats.push(it.c)})});
     feats=feats.filter(function(t){var l=t.toLowerCase();return !feats.some(function(u){return u!==t&&u.toLowerCase().indexOf(l)>=0})});
     var dx=c.dd.map(function(k){var d=P.dmap[k];return d?'<li'+(d.mnm?' class="m"':'')+'>'+esc(d.name)+'</li>':''}).join('');
