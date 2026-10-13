@@ -604,6 +604,25 @@ input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 
   .sumb,.sumc{break-inside:avoid}
 }
 .vpg .pk.n{text-decoration:none;border-style:solid;color:var(--muted)}
+
+/* memory aids: calm collapsible cards */
+.aidd{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-block-end:6px;box-shadow:var(--sh);overflow:hidden}
+.aidd summary{list-style:none;cursor:pointer;display:flex;flex-direction:column;gap:2px;padding:10px 38px 10px 12px;position:relative;min-height:44px;justify-content:center}
+.aidd summary::-webkit-details-marker{display:none}
+.aidd summary::after{content:'';position:absolute;inset-inline-end:14px;top:50%;width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg);transition:transform .15s ease}
+.aidd[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.aidn{font-weight:800;font-size:.95rem;color:var(--ink)}
+.aidh{font-size:.8rem;color:var(--accent);font-weight:600;line-height:1.3}
+.aidd[open] summary{border-bottom:1px solid var(--line)}
+.aidb{padding:8px 12px 10px;font-size:.86rem;line-height:1.4}
+.aidsub{font-size:.66rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:6px 0 4px}
+.aidcz{display:grid;grid-template-columns:minmax(90px,30%) 1fr;gap:8px;padding:5px 0;border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+.aidcz:first-of-type{border-top:0}
+.aidcz b{font-size:.84rem}.aidcz span{color:var(--muted);font-size:.82rem}.aidcz em{font-style:normal;color:var(--danger);font-weight:600}
+.aidx{position:relative;padding:6px 0 6px;border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+.aidx:first-of-type{border-top:0}
+.aidx b{display:block;color:var(--accent);font-size:.88rem;padding-inline-end:52px}.aidx span{display:block;color:var(--ink);opacity:.85;font-size:.83rem}
+.aidx i{position:absolute;inset-inline-end:0;top:7px;font-style:normal;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--surface2);border-radius:99px;padding:1px 7px}
 </style></head><body>
 <div class="app" id="app"></div>
 <div class="toast" id="toast" hidden></div>
@@ -10791,11 +10810,44 @@ function viewLearn(){
   if(UI.lt==='aids')return h+aidsView();
   return h+drillView(UI.lt);
 }
-function aidsView(){
-  var q=(UI.aq||'').toLowerCase(),list=aidsAll().filter(function(a){return !q||(a.t+' '+a.x+' '+a.ps.join(' ')+' '+a.where).toLowerCase().indexOf(q)>=0});
-  return '<div class="srch">'+IC.search+'<input type="search" id="aq" placeholder="Search, e.g. SOCRATES, lump, 7 Ds" value="'+esc(UI.aq||'')+'" aria-label="Search memory aids"></div><p class="small muted" style="margin-block:-4px 10px">'+list.length+' memory aids from the verified complaints.</p><div id="aidList">'+aidsList(list)+'</div>';
+/* Memory aids, curated: shared frameworks once, then one collapsible card per complaint with its causes explained and a few key aids */
+var AID_SKIP=/^(past|risks|exposure|occupation|travel|habits|drugs|wound risks|browse.s breast history|then |if diabetic|age first|socrates|both arms|eyes, then|45 degrees|look, feel|sit forward|lie flat|where in the neck|arms down|stand, both|chart first|skin first|axilla, then)/i;
+function aidsGroups(){
+  var cnt={},where={},vs=PRES.filter(function(p){return SRC_P[p.id]&&p.id!=='genhx'});
+  vs.forEach(function(P){var seen={};P.sections.forEach(function(s){[s.gmn,s.mn].forEach(function(m){if(!m)return;var k=m.t;if(seen[k])return;seen[k]=1;cnt[k]=(cnt[k]||0)+1;where[k]=m})})});
+  var shared=Object.keys(cnt).filter(function(k){return cnt[k]>=3&&!AID_SKIP.test(k)}).map(function(k){return where[k]});
+  var per=vs.map(function(P){
+    var hk=HOOKS[P.id],aids=[],seen={};
+    var norm=function(t){return t.toLowerCase().replace(/\([^)]*\)/g,'').replace(/^[^:]*:\s*/,'').trim()};
+    P.sections.forEach(function(s){[s.gmn,s.mn].forEach(function(m){if(!m||seen[norm(m.t)]||cnt[m.t]>=3||AID_SKIP.test(m.t))return;if(hk&&m.t.replace(/\s/g,'')===hk[0].replace(/\s/g,''))return;if(/^(heart and aorta|gut ·|vessels ·|foreign body|ulcer ·|micturition|oesophagus ·|perforation ·|heart ·|infection ·|bronchial ·|nodes first|liver ·|function ·|rhythm ·)/i.test(m.t))return;seen[norm(m.t)]=1;aids.push({t:m.t,x:m.x,ex:s.kind==='E'})})});
+    return {P:P,hook:hk?hk[0]:'',aids:aids.slice(0,5)};
+  });
+  return {shared:shared,per:per};
 }
-function aidsList(list){return list.length?list.map(function(a){return '<div class="card aidc"><div class="eyebrow">'+esc(a.ps.slice(0,3).join(', ')+(a.ps.length>3?' and more':''))+' · '+esc(a.where)+'</div><div class="mn" style="margin:6px 0 0"><span class="mnl">Remember</span><b>'+esc(a.t)+'</b>'+(a.x?'<span>'+esc(a.x)+'</span>':'')+'</div></div>'}).join(''):'<div class="empty">No memory aid matches.</div>'}
+function aidCard(P,hook,aids,open){
+  var cz=(P.cz||[]).map(function(c){return '<div class="aidcz"><b>'+esc(c.n)+'</b><span>'+c.dd.map(function(k){var d=P.dmap[k];return d?(d.mnm?'<em>'+esc(d.name)+'</em>':esc(d.name)):''}).join(', ')+'</span></div>'}).join('');
+  return '<details class="aidd"'+(open?' open':'')+'><summary><span class="aidn">'+esc(P.name)+'</span>'+(hook?'<span class="aidh">'+esc(hook)+'</span>':'')+'</summary><div class="aidb">'+
+    (cz?'<div class="aidsub">Causes to think of</div>'+cz:'')+
+    (aids.length?'<div class="aidsub">Also remember</div>'+aids.map(function(a){return '<div class="aidx"><b>'+esc(a.t)+'</b>'+(a.x?'<span>'+esc(a.x)+'</span>':'')+'<i>'+(a.ex?'Exam':'History')+'</i></div>'}).join(''):'')+
+    '</div></details>';
+}
+function aidsView(){
+  return '<div class="srch">'+IC.search+'<input type="search" id="aq" placeholder="Search, e.g. chest pain, lump, 7 Ds" value="'+esc(UI.aq||'')+'" aria-label="Search memory aids"></div><div id="aidList">'+aidsList()+'</div>';
+}
+function aidsList(){
+  var q=(UI.aq||'').toLowerCase().trim(),G=aidsGroups(),h='';
+  var match=function(t){return !q||t.toLowerCase().indexOf(q)>=0};
+  var fw=[{n:'SOCRATES (any pain)',h:'Site · Onset · Character · Radiation · Associated · Timing · Exacerbating and relieving · Severity',l:[]}];
+  if(G.shared.length)fw.push({n:'Abdominal examination',h:'Look · Feel · Percuss · Listen',l:G.shared});
+  fw=fw.filter(function(f){return match(f.n+' '+f.h+' '+f.l.map(function(m){return m.t+' '+m.x}).join(' '))});
+  if(fw.length)h+='<div class="eyebrow" style="margin-block:4px 6px">Use for every patient</div>'+fw.map(function(f){return '<details class="aidd"'+(q?' open':'')+'><summary><span class="aidn">'+esc(f.n)+'</span><span class="aidh">'+esc(f.h)+'</span></summary><div class="aidb">'+(f.l.length?f.l.map(function(m){return '<div class="aidx"><b>'+esc(m.t)+'</b><span>'+esc(m.x)+'</span></div>'}).join(''):'<div class="aidx"><span>Ask every pain in this order. The causes cards below tell you what each answer points to.</span></div>')+'</div></details>'}).join('');
+  ['Medicine','Surgery','General'].forEach(function(g){
+    var l=G.per.filter(function(o){if(o.P.g!==g)return false;var txt=o.P.name+' '+o.hook+' '+o.aids.map(function(a){return a.t+' '+a.x}).join(' ')+' '+(o.P.cz||[]).map(function(c){return c.n+' '+c.dd.map(function(k){return (o.P.dmap[k]||{}).name}).join(' ')}).join(' ');return match(txt)}).sort(function(a,b){return a.P.name<b.P.name?-1:1});
+    if(!l.length)return;
+    h+='<div class="eyebrow" style="margin-block:14px 6px">'+g+'</div>'+l.map(function(o){return aidCard(o.P,o.hook,o.aids,!!q)}).join('');
+  });
+  return h||'<div class="empty">Nothing matches.</div>';
+}
 function drillKeys(kind){
   if(kind==='cz')return vPres().map(function(p){return 'cz:'+p.id});
   if(kind==='rf')return vPres().filter(function(p){return flagsOf(p).length}).map(function(p){return 'rf:'+p.id});
@@ -10926,7 +10978,7 @@ function studyLinks(e){
     sumPrint:function(){window.print()}
   };
   for(var k in A)ACT[k]=A[k];
-  document.addEventListener('input',function(ev){if(ev.target&&ev.target.id==='aq'){UI.aq=ev.target.value;var l=$('#aidList');if(l){var q=UI.aq.toLowerCase();l.innerHTML=aidsList(aidsAll().filter(function(a){return !q||(a.t+' '+a.x+' '+a.ps.join(' ')+' '+a.where).toLowerCase().indexOf(q)>=0}))}}});
+  document.addEventListener('input',function(ev){if(ev.target&&ev.target.id==='aq'){UI.aq=ev.target.value;var l=$('#aidList');if(l)l.innerHTML=aidsList()}});
 })();
 
 /* ================= boot ================= */
