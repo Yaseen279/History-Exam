@@ -135,6 +135,18 @@ textarea{min-height:76px;resize:vertical;line-height:1.4}
 .fab:active{transform:scale(.95)}
 .stages .tg{flex:0 0 auto;border:1.5px solid var(--line);color:var(--ink);margin-inline-start:auto}
 .rosd{border-top:1px solid var(--line);padding-block:4px}
+.stps{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-block:2px 10px;padding-block:2px}
+.stps button{flex:none;display:flex;align-items:center;gap:6px;min-height:40px;padding:4px 12px 4px 5px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:.8rem;font-weight:600;cursor:pointer}
+.stps button.part{border-color:var(--accent-soft)}
+.stps button.ok{background:var(--ok-bg);border-color:transparent}
+.stn{flex:none;display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--surface2);color:var(--ink);font-family:var(--f-mono);font-size:.8rem;font-weight:700}
+.stps .part .stn{background:var(--accent-soft);color:var(--accent-ink)}
+.stn.ok,.stps .ok .stn{background:var(--ok);color:#fff}
+.stph{display:flex;align-items:center;gap:10px;margin-block:22px 10px;padding-block-end:8px;border-bottom:2px solid var(--line);scroll-margin-top:72px}
+.stph .grow{display:flex;flex-direction:column;min-width:0}
+.stph b{font-family:var(--f-disp);font-size:1.05rem}
+.stph .stn{width:32px;height:32px;background:var(--accent);color:var(--accent-ink)}
+.stph .stn.ok{background:var(--ok);color:#fff}
 .rosd summary{display:flex;justify-content:space-between;align-items:center;gap:10px;cursor:pointer;font-weight:600;min-height:44px;list-style:none}
 .rosd summary::-webkit-details-marker{display:none}
 .side{display:none}
@@ -3248,6 +3260,7 @@ H Swallow itself|pick|Swallowing:
 * Choking or coughing on swallowing {neuro:2} @10
 - Fluid comes out of the nose {neuro:2} @11
 * Painful swallowing {can:4,ca:2,eosi:1} @12
+! Can only manage liquids now @x600
 H Regurgitation|pick|Regurgitation:
 * Undigested food hours later {web:2,ach:2} @13
 - At night, on the pillow {ach:3} @14
@@ -3531,6 +3544,7 @@ H Past history|pick|Past history:
 * Previous breast lump or cancer {ca:1} @30
 - Previous breast surgery or implants {fn:2,abs:1} @31
 - Chest radiotherapy {ca:1} @32
+- Previous biopsy or breast imaging @x600
 H Family history|pick|Family history:
 * Breast cancer (note the relative's age) {ca:1} @33
 - Ovarian cancer {ca:1} @34
@@ -3926,6 +3940,7 @@ H Drugs and habits|pick|Takes:
 - Steroids (can mask fever and peritonism) {pu:2} @38
 * Alcohol {pan:2} @39
 - Anticoagulants {mes:1} @40
+- Time of last meal or drink noted (for theatre) @x600
 G General examination
 E Vital signs and perfusion|pick
 ! Tachycardia {aaa:1,mes:1,pu:1,ect:1,vol:1}
@@ -4335,6 +4350,7 @@ H Timing|pick|Timing:
 - Most days {moh:2,tth:1}
 ! Worse in the morning on waking {mass:1}
 ! New headache after 50 {gca:3,mass:1}
+! Different from their usual headaches @x600
 H Exacerbating factors|pick|Worse with:
 ! Coughing, straining or lying flat {mass:1}
 - Bending forward {sinus:2}
@@ -4493,6 +4509,7 @@ H Past history|pick|Past history:
 - Anaemia, heavy periods or GI bleeding {anaem:3} @x23
 - Parkinson's disease {orth:2} @x24
 - Kidney disease @x25
+- Falls in the last year @x600
 H Drugs|pick|Takes:
 - Blood pressure tablets or diuretics {drug:2,orth:1}
 - Sedatives {drug:2}
@@ -4578,6 +4595,7 @@ H After|pick|After:
 - Confused for minutes to hours {sz:3}
 ! Injured {arr:2}
 - Flushed on recovery {arr:2}
+- Drives or works at heights (safety advice) @x600
 G Associated symptoms
 H Bleeding|pick
 ! Black stool or vomiting blood {bleed:3}
@@ -5085,6 +5103,7 @@ D sep|Sepsis (any source)|!|0.5
 G The fever
 H Duration|one|Fever for:
 - Under 2 weeks {vir:2}
+- 2 to 3 weeks @x604
 - Over 3 weeks without a clear source {tb:3,lym:3,ie:2,ctd:2,abs:2,ent:2}
 H Pattern|pick|Pattern:
 - Step-ladder, rising each day {ent:2}
@@ -5092,6 +5111,7 @@ H Pattern|pick|Pattern:
 - Spikes every 2 to 3 days after travel to a malaria area {ent:5}
 - Evening fever with night sweats {tb:2,lym:1}
 - Shaking chills (rigors) {sep:2,uti:1,abs:1}
+- Settles with paracetamol, then comes back @x600
 G Where is the source?
 N Go system by system: head, chest, abdomen, urine, skin, joints.
 H Head and neck|pick
@@ -5125,6 +5145,8 @@ H Exposure|pick|Exposure:
 - TB contact {tb:2}
 - Sick contacts {vir:1}
 - Injecting drugs {ie:3}
+- Unsafe water or street food {ent:2} @x601
+- Similar illness in the family or neighbours {vir:1,ent:1} @x602
 H Past history|pick|Past history:
 - Valve disease or prosthetic valve {ie:3}
 - Recent dental work {ie:3}
@@ -5138,6 +5160,7 @@ H Past history|pick|Past history:
 - HIV {tb:2,sep:1} @x25
 - Recent hospital stay or catheter {uti:2,sep:1} @x26
 - Hypertension @x27
+- Not fully vaccinated @x603
 H Drugs|pick|Takes:
 - New drug in the last 2 to 3 weeks {drug:6}
 - Recent antibiotics
@@ -5290,6 +5313,7 @@ H How found|pick|Found:
 - Diagnosed under 30 {coarct:3,ren:1,pa:1}
 - Came on quickly or suddenly worse {rav:3}
 - Hard to control on 3 drugs {pa:2,rav:1}
+- Years ago, on treatment since @x600
 H Emergency symptoms|pick|Now:
 N Any of these with very high BP is a hypertensive emergency.
 ! Severe headache {preg:1}
@@ -5334,6 +5358,7 @@ H Drugs|pick|Takes:
 - Contraceptive pill {drug:2}
 - Decongestants {drug:2}
 - Liquorice or cocaine {drug:2}
+- Misses doses or has stopped the tablets @x601
 H End-organ damage|pick|History of:
 - IHD or heart failure
 - Stroke or TIA
@@ -5736,6 +5761,7 @@ H Past history|pick|Past history:
 - Heart failure {pre:2}
 - Cirrhosis {pre:1,hrs:3}
 - Alcohol excess {hrs:2}
+- Baseline creatinine known from before @x600
 G General examination
 E Fluid status|pick
 N Pulse, BP lying and standing, capillary refill, mucosa, JVP, oedema, lung bases; weigh the patient.
@@ -5786,6 +5812,10 @@ H Urinary symptoms|pick|With:
 - No frequency {urethr:2,vag:1}
 - Blood in urine {cys:1,stone:2}
 - Painless blood in urine {ca:2}
+- Burning at the start of the stream {urethr:1} @x600
+- Burning at the end of the stream {cys:1} @x601
+- Getting up at night to pass urine {cys:1} @x602
+- Cloudy or smelly urine {cys:2} @x603
 H Discharge|pick|Discharge:
 - From the urethra {urethr:2}
 - Vaginal, itchy {vag:4}
@@ -5815,6 +5845,8 @@ H Risk factors|pick|Risk factor:
 - Prostate problems {pros:2} @x21
 - Immunosuppressed {urosep:1} @x22
 - Hypertension @x23
+- Unprotected sex {urethr:2,vag:1} @x604
+- Recent catheter change or cystoscopy {cys:1,pyelo:1} @x605
 G General examination
 E Vital signs|pick
 - Fever {pyelo:4}
@@ -8554,12 +8586,12 @@ saveNow();
 
 /* ================= content parser ================= */
 function parse(raw){
-  var P=[],cur=null,sec=null,grp=null,gk='',gNew=false,gMn=null;
+  var P=[],cur=null,sec=null,grp=null,gk='',gNew=false,gMn=null,gNote='';
   raw.split('\n').forEach(function(line){
     line=line.replace(/\s+$/,'');
     if(!line)return;
     var c=line.charAt(0);
-    if(c==='@'){var a=line.slice(1).split('|');cur={id:a[0],name:a[1],sys:a[2],g:a[3],sc:[],inv:'',dd:[],sections:[],n:{H:0,E:0},pain:false,cz:[],route:''};P.push(cur);sec=null;grp=null;gk='';gMn=null;return}
+    if(c==='@'){var a=line.slice(1).split('|');cur={id:a[0],name:a[1],sys:a[2],g:a[3],sc:[],inv:'',dd:[],sections:[],n:{H:0,E:0},pain:false,cz:[],route:''};P.push(cur);sec=null;grp=null;gk='';gMn=null;gNote='';return}
     if(!cur)return;
     if(line.slice(0,2)==='SC'&&(line.length===2||line.charAt(2)===' ')){cur.sc=line.slice(2).trim().split(',').filter(Boolean);return}
     if(line.slice(0,2)==='I '){cur.inv=line.slice(2).trim();return}
@@ -8570,12 +8602,15 @@ function parse(raw){
     /* M title|expansion: a memory aid; after G it heads the group, after H/E it heads that section */
     if(line.slice(0,2)==='M '){var mm=line.slice(2).split('|'),mo={t:mm[0].trim(),x:(mm[1]||'').trim()};if(gNew||!sec)gMn=mo;else sec.mn=mo;return}
     if(line.slice(0,2)==='R '){cur.route=line.slice(2).trim();return}
+    /* N straight after G belongs to the group's first section, not the previous one */
+    if(line.slice(0,2)==='N '&&(gNew||!sec)){gNote=(gNote?gNote+' ':'')+line.slice(2).trim();return}
     if(line.slice(0,2)==='N '&&sec){sec.note=(sec.note?sec.note+' ':'')+line.slice(2).trim();return}
     if(line==='H'||line==='E'||line.slice(0,2)==='H '||line.slice(0,2)==='E '){
       if(gk&&gk!==c&&!gNew)grp=null;gk=c;gNew=false;
       var hd=line.slice(2).split('|');
       sec={kind:c,title:hd[0].trim()||(c==='H'?'History':'Examination'),mode:(hd[1]||'yn').trim(),pre:(hd[2]||'').trim(),g:grp,note:'',items:[],ix:cur.sections.length};
       if(gMn){sec.gmn=gMn;gMn=null}
+      if(gNote){sec.note=gNote;gNote=''}
       if(c==='H'&&grp&&/^pain/i.test(grp))cur.pain=true;
       cur.sections.push(sec);return}
     if((c==='-'||c==='!'||c==='*')&&sec){
@@ -8771,6 +8806,107 @@ function rosPres(e){
   return pos.length?'Systems review is positive for '+pos.join(', ')+', and otherwise negative.':'Systems review is negative.';
 }
 
+/* ================= characterise the complaint ================= */
+/* The parts every history needs (college record: how it started, how it progressed, previous episodes, treatment).
+   A complaint shows only the rows its own questions do not already cover. */
+var CHZ=[
+ ['onset','Onset',0,['Sudden','Over hours','Gradual'],/onset|when did it start|since when|starts and stops|when first noticed|^noticed$/i],
+ ['dur','Duration',0,['Hours','Days','Weeks','Months','Years'],/duration|how long|since when|^over$|when first noticed/i],
+ ['course','Course since it started',0,['Getting worse','Getting better','Fluctuating','Unchanged'],/course|chang|progress/i],
+ ['pat','Pattern',1,['Constant','Comes and goes','Worse at night','Worse in the morning'],/^timing$|pattern|periodicity|comes and goes|how often|duration of episodes|tap the rhythm/i],
+ ['agg','Brought on or made worse by',1,['Exertion','Food','Position or movement','Stress','Cold or heat','Nothing obvious'],/trigger|brought on|exacerbat|aggravat|what starts it|situation/i],
+ ['rel','Relieved by',1,['Rest','Medication','Change of position','Food','Nothing helps'],/reliev|stopped by/i],
+ ['sev','Severity',0,['Mild','Moderate','Severe'],/severity/i],
+ ['imp','Effect on daily life',0,['None','Limits some activities','Stops daily activities','Off work or bed-bound'],/impact|exercise tolerance|baseline|walking distance/i],
+ ['prev','Previous episodes',1,['First time','Similar episodes before','Investigated or treated before'],/previous episodes|recurren/i],
+ ['trt','Treatment so far',0,['None','Helped','Partly helped','Did not help'],/treatment|tried/i]
+];
+var CHZ_NONE={trauma:1,drain:1,postop:1,genhx:1},CHZ_LUMP=/^(neck|breast|skinlump|mass|thyroid|groin|lymph|ulcer|varicose)$/;
+/* complaints where only some rows make sense (acute emergencies, signs rather than symptoms) */
+var CHZ_ONLY={acuteabd:'onset dur course prev trt',obstr:'onset dur course prev trt',haem:'onset dur prev trt',aki:'onset dur course prev trt',confusion:'dur course prev trt',seizure:'dur prev trt',syncope:'onset dur prev trt',
+ htn:'dur trt',wtloss:'course imp prev trt',jaundice:'dur pat imp prev trt',ascites:'dur imp prev trt',hematuria:'onset dur pat imp prev trt',polyuria:'onset dur course imp prev trt',luts:'onset dur course sev imp prev trt'};
+function chzRows(P){
+  if(CHZ_NONE[P.id])return [];
+  var tt=P.sections.filter(function(s){return s.kind==='H'&&!bgUnit(P,{g:s.g,secs:[s]})}).map(function(s){return s.title});
+  return CHZ.filter(function(d){
+    if(CHZ_ONLY[P.id]&&CHZ_ONLY[P.id].split(' ').indexOf(d[0])<0)return false;
+    if(CHZ_LUMP.test(P.id)&&!/^(onset|dur|course|imp|prev|trt)$/.test(d[0]))return false;
+    if(P.pain&&/^(onset|pat|agg|rel|sev)$/.test(d[0]))return false;
+    return !tt.some(function(t){return d[4].test(t)});
+  });
+}
+function chzHas(e,d){var v=(e.chz||{})[d[0]];return d[2]?!!(v&&v.length):!!v}
+function chzCard(e,P){
+  var R=chzRows(P);if(!R.length)return '';
+  var c=e.chz||{},n=R.filter(function(d){return chzHas(e,d)}).length;
+  var h='<section class="card unit chz" id="chzCard"><h3><span>Characterise the complaint</span><span class="cnt" id="chzCnt">'+n+'/'+R.length+'</span></h3><p class="small muted" style="margin-block:2px 4px">What this complaint’s own questions do not cover. Ask all of them in every history.</p>';
+  R.forEach(function(d){var v=c[d[0]];
+    h+='<div class="sst"><span>'+esc(d[1])+(d[2]?'':' <i>pick one</i>')+'</span></div><div class="pks">'+d[3].map(function(o){var on=d[2]?(v||[]).indexOf(o)>=0:v===o;return '<button class="pk'+(on?' y':'')+'" data-act="chzPick" data-d="'+d[0]+'" data-o="'+esc(o)+'" aria-pressed="'+on+'">'+esc(o)+'</button>'}).join('')+'</div>'});
+  return h+'</section>';
+}
+function chzText(e){
+  var P=getP(e.pid),c=e.chz||{},o=[];
+  chzRows(P).forEach(function(d){if(!chzHas(e,d)||(d[0]==='dur'&&e.dur))return;var v=c[d[0]];o.push(d[1]+': '+(d[2]?v.join(', '):v).toLowerCase())});
+  return o.join('; ');
+}
+
+/* ================= structured background (college history record) ================= */
+var BGS=[
+ {k:'pmh',n:'Past medical history',nil:'No significant past medical history',i:['Similar condition before','Diabetes','Hypertension','Angina or myocardial infarction','Jaundice','TB','Rheumatic fever','Epilepsy','Asthma','Stroke','Previous hospital admission'],ph:'Details: when diagnosed, control, complications, admissions'},
+ {k:'psh',n:'Past surgical history',nil:'No previous operations or procedures',i:['Previous operation (general or local anaesthesia)','Other procedure (e.g. angioplasty, endoscopy)','Post-operative complications','Blood transfusion'],ph:'Which operation, when, where, and any complication'},
+ {k:'dh',n:'Drug history',nil:'No regular or over-the-counter medication',i:['Regular prescribed medication','Over-the-counter medication','Herbs or other alternative therapy'],ph:'Name, dose, how often, how long; anticoagulants, steroids, NSAIDs'},
+ {k:'all',n:'Allergies',nil:'No known allergies',none:'No known allergies',i:['Drug allergy','Other allergy (latex, food)','Problems with anaesthetics'],ph:'What, and the type of reaction'},
+ {k:'fh',n:'Family history',nil:'No relevant family history',i:['Similar illness in the family','Hypertension','Diabetes','Ischaemic heart disease','TB','Serious illness or early death in a first-degree relative'],ph:'Parents and siblings: age, health, cause of death'},
+ {k:'sh',n:'Personal and social history',nil:'',i:['Smoking','Alcohol','Living alone','Needing help at home or with mobility','Poor or special diet','Unsafe water supply','Recent travel abroad','Relevant hobbies','Animals in the house','Relevant sexual history'],ph:'Pack-years, alcohol amount and type, home and help, diet, water, travel, animals'},
+ {k:'occ',n:'Occupational history',nil:'No relevant occupational exposure',i:['Relevant exposure at work (mining, painting, farming, dust, pigeons)','Off work because of this illness'],ph:'What they did, for how long, and anything medically relevant'}
+];
+function bgsState(e,k,i){return e.f['bg.'+k+i]||0}
+function bgsSec(k){return BGS.filter(function(x){return x.k===k})[0]}
+function bgsStatus(e,sec){
+  var pos=0,neg=0;sec.i.forEach(function(t,i){var st=bgsState(e,sec.k,i);if(st===1)pos++;else if(st===-1)neg++});
+  if(pos)return [pos+' positive','amber'];
+  if(neg===sec.i.length)return [sec.k==='all'?'None known':'Negative','green'];
+  if(neg)return ['Partly asked','grey'];
+  if((e.tx[sec.k]||'').trim()||(sec.k==='occ'&&e.pt.occ))return ['Written','green'];
+  return ['Not asked','grey'];
+}
+function bgsCard(e){
+  var h='<section class="card" id="bgsCard"><h3>Background history</h3><p class="small muted" style="margin-block-end:8px">In the order of the college history record. Tap Yes or No for each, then write the details. Ask every section in every patient.</p>';
+  BGS.forEach(function(sec){
+    var s=bgsStatus(e,sec);
+    h+='<details class="rosd" data-bgk="'+sec.k+'"><summary><span>'+esc(sec.n)+'</span><span class="pill '+s[1]+'" id="bgst-'+sec.k+'">'+s[0]+'</span></summary><div class="row" style="margin-block:4px 2px"><button class="btn small" data-act="bgNone" data-sk="'+sec.k+'">'+(sec.none||'All no')+'</button></div>';
+    sec.i.forEach(function(t,i){var st=bgsState(e,sec.k,i);h+='<div class="it" data-bk="'+sec.k+i+'"><div class="t">'+esc(t)+'</div><div class="seg"><button class="y'+(st===1?' on':'')+'" data-act="bgTri" data-v="1" aria-pressed="'+(st===1)+'">Yes</button><button class="n'+(st===-1?' on':'')+'" data-act="bgTri" data-v="-1" aria-pressed="'+(st===-1)+'">No</button></div></div>'});
+    h+='<label class="f" style="margin-block:8px 6px">Details<textarea data-b="tx.'+sec.k+'" rows="2" placeholder="'+esc(sec.ph)+'">'+esc(e.tx[sec.k])+'</textarea></label></details>';
+  });
+  return h+'</section>';
+}
+function bgsPill(e,k){var sec=bgsSec(k),s=bgsStatus(e,sec),p=document.getElementById('bgst-'+k);if(p){p.textContent=s[0];p.className='pill '+s[1]}}
+function lcw(t){return /^[A-Z]{2}/.test(t)?t:t.charAt(0).toLowerCase()+t.slice(1)}
+/* short: positives only (for the spoken presentation) */
+function bgsLine(e,k,short){
+  var sec=bgsSec(k),pos=[],neg=[];
+  sec.i.forEach(function(t,i){var st=bgsState(e,k,i);if(st===1)pos.push(t);else if(st===-1)neg.push(t)});
+  if(!pos.length&&!neg.length)return '';
+  if(!pos.length&&neg.length===sec.i.length)return sec.nil;
+  var s=pos.length?pos.map(function(t,i){return i?lcw(t):t}).join(', '):'';
+  if(neg.length&&!short)s+=(s?'; denies ':'Denies ')+neg.map(lcw).join(', ');
+  return s;
+}
+function bgUnit(P,u){return /^background/i.test(u.g||'')||(P.id==='genhx'&&/past|family|social|occupational|drug|allerg/i.test(u.secs[0].title))}
+
+/* ================= completeness of the history ================= */
+function histGaps(e,P){
+  var g=[],tx=bgTx(e);
+  chzRows(P).forEach(function(d){if(!chzHas(e,d)&&!(d[0]==='dur'&&e.dur))g.push({s:'Characterise',t:d[1]})});
+  if(P.id!=='genhx')BGS.forEach(function(sec){if(!(tx[sec.k]||'').trim()&&!(sec.k==='occ'&&e.pt.occ))g.push({s:'Background',t:sec.n})});
+  ROS.forEach(function(sys){if(!rosAllowed(e,sys.k,0,''))return;if(rosStatus(e,sys)[0]==='Not asked')g.push({s:'Systems review',t:sys.n})});
+  return g;
+}
+function gapsHTML(g,lim){
+  var by={};g.forEach(function(x){(by[x.s]=by[x.s]||[]).push(x.t)});
+  return Object.keys(by).map(function(s){var l=by[s];return '<div class="small" style="padding-block:3px"><b>'+esc(s)+':</b> '+esc(lim&&l.length>lim?l.slice(0,lim).join(', ')+' and '+(l.length-lim)+' more':l.join(', '))+'</div>'}).join('');
+}
+
 /* ================= vitals ================= */
 function news2(v){
   var rr=num(v.rr),sp=num(v.spo2),sb=num(v.sbp),hr=num(v.hr),t=num(v.temp),parts={},tot=0,miss=[];
@@ -8860,15 +8996,17 @@ function sheetBlocks(e){
   F('Complaint',(e.cc||(P.id==='other'?'':P.name))+(e.dur?', for '+e.dur:''));
   H('History of present illness');
   var so=socText(e);if(so)B.push({k:'p',text:so+'.'});var pt=paText(e);if(pt)B.push({k:'p',text:pt+'.'});
+  var cz=chzText(e);if(cz)B.push({k:'p',text:cz+'.'});
   gxLines(e).forEach(function(t){B.push({k:'b',text:t})});
   if(tx.hpc)B.push({k:'p',text:tx.hpc});
   L('Positive points',c.hp);L('Pertinent negatives',c.hn);
-  if(!tx.hpc&&!so&&!gxLines(e).length&&!c.hp.length&&!c.hn.length)B.push({k:'p',text:'Not recorded.'});
+  if(!tx.hpc&&!so&&!cz&&!gxLines(e).length&&!c.hp.length&&!c.hn.length)B.push({k:'p',text:'Not recorded.'});
+  var gp=histGaps(e,P);if(gp.length)B.push({k:'flag',label:'Not yet asked:',text:gp.map(function(x){return x.t}).join('; ')});
   var rf=redFlags(e);if(rf.length)B.push({k:'flag',label:'Red flags present:',text:rf.map(function(i){return i.t}).join('; ')});
   H('Review of systems');
   var rs=rosSummary(e);B.push({k:'p',text:(rs||'Not recorded.')+(tx.ros?' Other: '+tx.ros:'')});
   H('Background history');
-  F('Past medical',tx.pmh);F('Past surgical',tx.psh);F('Family history',tx.fh);F('Personal and social',tx.sh);F('Occupational',tx.occ);F('Drugs',tx.dh);F('Allergies',tx.all);
+  F('Past medical',tx.pmh);F('Past surgical',tx.psh);F('Drugs',tx.dh);F('Allergies',tx.all);F('Family history',tx.fh);F('Personal and social',tx.sh);F('Occupational',tx.occ);
   H('Examination');
   var vl=vitLine(v);F('Vital signs',vl);
   var n=news2(v);if(n.any&&!n.miss.length)F('NEWS2',String(n.tot));
@@ -8905,19 +9043,21 @@ function lowerFirst(s){return s.charAt(0).toLowerCase()+s.slice(1)}
 /* Ward-round case presentation, in the order a consultant expects: one-liner, HPI, background, examination,
    impression, plan. Capped so that it fits about one minute of speech (about 150 words). */
 function presParts(e){
-  var P=getP(e.pid),c=collect(e),tx=bgTx(e),v=e.v||{},ds=ddxScores(e),hid=DB.hideDdx,S=[];
+  var P=getP(e.pid),c=collect(e),tx=bgTx(e,true),v=e.v||{},ds=ddxScores(e),hid=DB.hideDdx,S=[];
   var cc=e.cc?lowerFirst(e.cc):(P.id==='other'?'an unspecified complaint':P.name.toLowerCase());
-  var pm=[tx.pmh,tx.psh?'previous surgery: '+tx.psh:''].filter(Boolean).join('; ');var pmh=pm?(' with a background of '+pm.replace(/\.$/,'')):'';
+  var neg=function(x){return /^No /.test(x||'')};
+  var pm=[neg(tx.pmh)?'':tx.pmh,tx.psh&&!neg(tx.psh)?'previous surgery: '+tx.psh:''].filter(Boolean).join('; ');var pmh=pm?(' with a background of '+pm.replace(/\.$/,'')):'';
   S.push(['Opening','This is '+(e.pt.ref?e.pt.ref+', a ':'a ')+ptWho(e)+pmh+', presenting with '+cc+(e.dur?' for '+e.dur:'')+'.']);
   var h=[];
   if(socText(e))h.push(socText(e)+'.');
   if(paText(e))h.push(paText(e)+'.');
+  if(chzText(e))h.push(chzText(e)+'.');
   if(tx.hpc)h.push(tx.hpc.replace(/\s+$/,'').replace(/\.?$/,'.'));
   if(c.hp.length)h.push(cap(c.hp,6)+'.');
   if(c.hn.length)h.push('Negatives: '+cap(c.hn,4)+'.');
   var rp=rosPres(e);if(rp)h.push(rp);
   if(h.length)S.push(['History',h.join(' ')]);
-  var bg=[];if(tx.dh)bg.push('on '+tx.dh);if(tx.all)bg.push('allergic to '+tx.all);if(tx.sh)bg.push(tx.sh);if(tx.occ)bg.push('works as/exposure: '+tx.occ);if(tx.fh)bg.push('family history of '+tx.fh);
+  var bg=[];if(tx.dh)bg.push(neg(tx.dh)?lowerFirst(tx.dh):'on '+tx.dh);if(tx.all)bg.push(neg(tx.all)?lowerFirst(tx.all):'allergic to '+tx.all);if(tx.sh)bg.push(tx.sh);if(tx.occ&&!neg(tx.occ))bg.push('works as/exposure: '+tx.occ);if(tx.fh&&!neg(tx.fh))bg.push('family history of '+tx.fh);
   if(bg.length)S.push(['Background',bg.join('; ').replace(/\.$/,'')+'.']);
   var x=[],vl=vitLine(v);if(vl)x.push('Vitals: '+vl+'.');
   if(c.ep.length)x.push('Positive findings: '+cap(c.ep,6)+'.');
@@ -9413,24 +9553,51 @@ function paHTML(e){
     h+='<input type="text" class="otin" data-b="pa.oth" value="'+esc(a.oth||'')+'" placeholder="Other details about the pain" autocomplete="off">';}
   return h+'</section>';
 }
+function unitCount(e,P,u){var n=0,t=0;u.secs.forEach(function(s){s.items.forEach(function(it){t++;if(e.f[fkey(P,it)])n++})});return [n,t]}
+/* The history in numbered steps, in the order of the college record */
+function histSteps(e,P){
+  var U=units(P,'H'),S=[],first=[],mid=[],bg=[];
+  U.forEach(function(u,i){var o={u:u,i:i};if(bgUnit(P,u))bg.push(o);else if(!i||(first.length===i&&(/resuscitat/i.test(U[i-1].g||U[i-1].secs[0].title)||/^(during|after|the pain)/i.test(u.g||'')))||(P.id==='genhx'))first.push(o);else mid.push(o)});
+  var cnt=function(L){return L.reduce(function(a,o){var c=unitCount(e,P,o.u);return [a[0]+c[0],a[1]+c[1]]},[0,0])};
+  var c1=cnt(first),R=chzRows(P),cr=R.filter(function(d){return chzHas(e,d)}).length;
+  S.push({k:'pc',n:'Presenting complaint',sub:'The story: how it started and how it has behaved',L:first,d:c1[0]+cr,t:c1[1]+R.length,ok:(c1[0]>0||!c1[1])&&cr===R.length});
+  if(mid.length||(P.cz&&P.cz.length)){var c2=cnt(mid),cz=(P.cz||[]).filter(function(c){return czState(e,P,c).n}).length;
+    S.push({k:'cz',n:P.cz&&P.cz.length?'Screen the causes':'Associated symptoms',sub:P.cz&&P.cz.length?'A few questions for each cause':'Ask about each one',L:mid,d:P.cz&&P.cz.length?cz:c2[0],t:P.cz&&P.cz.length?P.cz.length:c2[1],ok:P.cz&&P.cz.length?cz===P.cz.length:c2[0]>0})}
+  var bd=BGS.filter(function(sec){return bgsStatus(e,sec)[0]!=='Not asked'}).length;
+  S.push({k:'bg',n:'Background history',sub:P.id==='genhx'?'Past medical, surgical, family, social, occupational, drugs, allergies':'For this complaint first, then the full record',L:bg,d:P.id==='genhx'?cnt(bg)[0]:bd,t:P.id==='genhx'?cnt(bg)[1]:BGS.length,ok:P.id==='genhx'?cnt(bg)[0]>0:bd===BGS.length});
+  var rs=ROS.filter(function(x){return rosAllowed(e,x.k,0,'')}),ra=rs.filter(function(x){return rosStatus(e,x)[0]!=='Not asked'}).length;
+  S.push({k:'ros',n:'Systems review',sub:'One or two questions for each system',L:[],d:ra,t:rs.length,ok:ra===rs.length});
+  S.push({k:'sum',n:'Summary',sub:'Say the story in your own words, then check for gaps',L:[],d:(e.tx.hpc||'').trim()?1:0,t:1,ok:!!(e.tx.hpc||'').trim()});
+  return S;
+}
+function stepHead(st,i){return '<div class="stph" id="stp-'+st.k+'"><span class="stn'+(st.ok?' ok':'')+'">'+(st.ok?'✓':i+1)+'</span><div class="grow"><b>'+esc(st.n)+'</b><span class="small muted">'+esc(st.sub)+'</span></div><span class="cnt">'+st.d+'/'+st.t+'</span></div>'}
 function stageHist(e,P){
-  var h=czHTML(e,P)+'<p class="tip">Go in story order. Tap what the patient has. Tap again to mark it as denied, a third time to clear. Red ! = red flag, \u2605 = high-yield: ask these first.</p>';
+  var S=histSteps(e,P),h='';
+  h+='<nav class="stps" aria-label="History steps">'+S.map(function(st,i){return '<button data-act="stpGo" data-k="'+st.k+'" class="'+(st.ok?'ok':st.d?'part':'')+'"><span class="stn">'+(st.ok?'✓':i+1)+'</span><span>'+esc(st.n)+'</span></button>'}).join('')+'</nav>';
   h+=secBar(P,'H');
-  units(P,'H').forEach(function(u,i){h+=unitHTML(e,P,u,i);if(i===0&&!P.pain&&P.id!=='genhx')h+=paHTML(e)});
-  if(!units(P,'H').length&&!P.pain)h+=paHTML(e);
+  h+='<p class="tip">Go through the steps in order. Tap what the patient has. Tap again to mark it as denied, a third time to clear. Red ! = red flag, ★ = high-yield: ask these first.</p>';
   var T=function(k,label,ph,rows){return '<label class="f">'+label+'<textarea data-b="tx.'+k+'" rows="'+(rows||2)+'" placeholder="'+esc(ph)+'">'+esc(e.tx[k])+'</textarea></label>'};
-  h+='<section class="card"><h3>History of presenting complaint</h3>'+T('hpc','Details in your own words','When last well, how it started and progressed, previous episodes, treatments tried and response',3)+'</section>';
-  h+=pkCard();
-  h+='<section class="card"><h3>Background history</h3><div class="grid2">'
-   +T('pmh','Past medical history','HTN, DM, IHD, stroke, asthma, TB, rheumatic fever, anaemia, transfusions')
-   +T('psh','Past surgical history','Previous operations and dates, anaesthetic problems, complications')
-   +T('dh','Drug history','Regular and over-the-counter: ACE inhibitors, NSAIDs, steroids, anticoagulants, inhalers, antibiotics')
-   +T('all','Allergies','Drug, food or latex, and the reaction')
-   +T('fh','Family history','IHD or stroke (men under 55, women under 65), TB, asthma, cancer, diabetes, thyroid, bleeding disorders')
-   +T('sh','Personal and social history','Smoking pack-years, alcohol, home situation, mobility and help at home, diet, water supply, travel, hobbies, animals, sexual history')
-   +T('occ','Occupational history','What they did, for how long, and any exposure (mining, painting, farming, dust, pigeons)')
-   +'</div></section>';
-  h+=rosCard(e);
+  S.forEach(function(st,si){
+    h+=stepHead(st,si);
+    if(st.k==='pc'){
+      st.L.forEach(function(o){h+=unitHTML(e,P,o.u,o.i)});
+      h+=chzCard(e,P);
+      if(!P.pain&&P.id!=='genhx')h+=paHTML(e);
+    }else if(st.k==='cz'){
+      h+=czHTML(e,P);
+      st.L.forEach(function(o){h+=unitHTML(e,P,o.u,o.i)});
+    }else if(st.k==='bg'){
+      st.L.forEach(function(o){h+=unitHTML(e,P,o.u,o.i)});
+      if(P.id!=='genhx')h+=bgsCard(e);
+      h+=pkCard();
+    }else if(st.k==='ros'){
+      h+=rosCard(e);
+    }else{
+      var g=histGaps(e,P);
+      h+='<section class="card"><h3>History of presenting complaint</h3>'+T('hpc','The story in your own words','When last well, how it started and progressed, previous episodes, treatments tried and response',3)+'</section>';
+      h+='<section class="card" id="gapCard"><h3>Before you examine</h3>'+(g.length?'<p class="small muted" style="margin-block-end:4px">Not asked yet. A full history covers these:</p>'+gapsHTML(g,6):'<p class="small">Every part of the history has been covered.</p>')+'</section>';
+    }
+  });
   return h;
 }
 
@@ -9873,6 +10040,8 @@ function stageReview(e,P){
   var nRF=P.sections.reduce(function(a,s){return a+s.items.filter(function(it){return it.flag}).length},0),aRF=nRF-flagMiss.length;
   var tile=function(lab,big,sub,pc,cls){return '<div class="stat'+(cls||'')+'"><span class="eyebrow">'+lab+'</span><b class="big">'+big+'</b><span class="mbar" aria-hidden="true"><i style="width:'+pc+'%"></i></span><span class="small muted">'+sub+'</span></div>'};
   h+='<div class="card"><h3>How complete was this encounter?</h3><div class="stats">'+tile('History',pctH+'%',pr.h+' of '+pr.ht,pctH)+tile('Exam',pctE+'%',pr.x+' of '+pr.xt,pctE)+tile('Red flags',aRF+'/'+nRF,'asked',nRF?Math.round(aRF/nRF*100):100,nRF&&aRF<nRF?' hi':' lo')+'</div></div>';
+  var hg=histGaps(e,P);
+  h+='<div class="card"><h3>Is the history complete?</h3>'+(hg.length?'<p class="small muted" style="margin-block-end:4px">A full history (college record) also needs these. Ask them before you present.</p>'+gapsHTML(hg)+'<div class="row" style="margin-block-start:8px"><button class="btn small" data-act="stage" data-s="hist">Back to the history</button></div>':'<p class="small">Characterisation, background and systems review are all covered.</p>')+'</div>';
   if(flagMiss.length)h+='<div class="alert" role="alert"><b>Red flags you have not asked about:</b><ul style="margin:4px 0 0;padding-inline-start:18px">'+flagMiss.map(function(it){return '<li>'+esc(it.t)+'</li>'}).join('')+'</ul></div>';
   if(!DB.hideDdx&&P.dd.length){
     var ds=ddxScores(e),top=ds.res.slice(0,3),seen={},hv=[];
@@ -10511,9 +10680,9 @@ function bgLines(e,field){
   return o.join('. ');
 }
 function gItemK(P,kk){var r=null;P.sections.forEach(function(sx){sx.items.forEach(function(it){if(it.k===kk)r=it})});return r}
-function bgTx(e){
+function bgTx(e,short){
   var t=Object.assign({},e.tx);
-  BG.forEach(function(b){var l=bgLines(e,b[0]);if(l)t[b[0]]=[e.tx[b[0]],l].filter(Boolean).join('. ')});
+  BG.forEach(function(b){var k=b[0],l=bgLines(e,k),q=bgsLine(e,k,short);t[k]=[q,(e.tx[k]||'').trim(),l].filter(Boolean).map(function(x){return x.replace(/\.$/,'')}).join('. ')});
   return t;
 }
 function gxLines(e){
@@ -10545,6 +10714,29 @@ var ACT={
     var st=e.f[key]||0,bs=row.querySelectorAll('button');
     bs[0].classList.toggle('on',st===1);bs[0].setAttribute('aria-pressed',st===1);bs[1].classList.toggle('on',st===-1);bs[1].setAttribute('aria-pressed',st===-1);
     rosPill(e,t.closest('details').dataset.sk);touch();
+  },
+  stpGo:function(t){var el=document.getElementById('stp-'+t.dataset.k);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})},
+  chzPick:function(t){
+    var e=curEnc();if(!e)return;var c=e.chz||(e.chz={}),d=t.dataset.d,o=t.dataset.o,dim=CHZ.filter(function(x){return x[0]===d})[0];
+    if(dim[2]){var l=c[d]||(c[d]=[]),i=l.indexOf(o);if(i>=0)l.splice(i,1);else l.push(o);t.classList.toggle('y',i<0);t.setAttribute('aria-pressed',i<0)}
+    else{c[d]=c[d]===o?'':o;t.parentNode.querySelectorAll('.pk').forEach(function(b){var on=b.dataset.o===c[d];b.classList.toggle('y',on);b.setAttribute('aria-pressed',on)})}
+    var P=getP(e.pid),R=chzRows(P),n=document.getElementById('chzCnt');if(n)n.textContent=R.filter(function(x){return chzHas(e,x)}).length+'/'+R.length;
+    touch();
+  },
+  bgTri:function(t){
+    var e=curEnc(),row=t.closest('[data-bk]'),key='bg.'+row.dataset.bk,v=parseInt(t.dataset.v,10);
+    if(e.f[key]===v)delete e.f[key];else e.f[key]=v;
+    var st=e.f[key]||0,bs=row.querySelectorAll('button');
+    bs[0].classList.toggle('on',st===1);bs[0].setAttribute('aria-pressed',st===1);bs[1].classList.toggle('on',st===-1);bs[1].setAttribute('aria-pressed',st===-1);
+    bgsPill(e,t.closest('details').dataset.bgk);touch();
+  },
+  bgNone:function(t){
+    var e=curEnc(),sk=t.dataset.sk,sec=bgsSec(sk),det=t.closest('details');
+    var allNo=sec.i.every(function(x,i){return bgsState(e,sk,i)===-1});
+    sec.i.forEach(function(x,i){var key='bg.'+sk+i;if(allNo)delete e.f[key];else e.f[key]=-1;
+      var row=det.querySelector('[data-bk="'+sk+i+'"]'),bs=row.querySelectorAll('button'),st=e.f[key]||0;
+      bs[0].classList.toggle('on',false);bs[0].setAttribute('aria-pressed',false);bs[1].classList.toggle('on',st===-1);bs[1].setAttribute('aria-pressed',st===-1)});
+    bgsPill(e,sk);touch();
   },
   rosNone:function(t){
     var e=curEnc(),sk=t.dataset.sk,sys=ROS.filter(function(x){return x.k===sk})[0];
