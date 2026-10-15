@@ -97,7 +97,9 @@ def bullet(text):
 def numbered(text):
     p = doc.add_paragraph(style='List Number'); add_runs(p, text); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     p.paragraph_format.space_after = Pt(3); return p
-def H(text, lvl=1): return doc.add_heading(text, level=lvl)
+HEADS = []
+def H(text, lvl=1):
+    HEADS.append((lvl, text)); return doc.add_heading(text, level=lvl)
 def page_break(): doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
 
 def add_field(run, instr, cached='1'):
@@ -237,6 +239,9 @@ H('Acknowledgment')
 P('[To be completed by the authors.]', indent=False)
 P('We thank all the participants who gave their time to complete this survey, and [names of supervisor, department and any others to be acknowledged].')
 page_break()
+
+# TABLE OF CONTENTS (filled at the end)
+H('Table of Contents'); TOC_anchor = doc.add_paragraph(); page_break()
 
 # LIST OF ABBREVIATIONS
 H('List of Abbreviations')
@@ -593,9 +598,24 @@ unused = [k for k in REFS if k not in order]
 
 # ------------------------------------------------------------------ APPENDIX
 page_break()
-H('Appendix')
+H('Appendices')
+H('Appendix A. Item-by-item correlations between the SHAI-14 and CSS-12', 2)
 P(f'Item-by-item Spearman correlations between all 14 SHAI-14 items and all 12 CSS-12 items (168 pairs). Correction for multiple testing was applied within this family of 168 tests: {ib["sig_fdr"]} pairs were significant after Benjamini–Hochberg FDR correction and {ib["sig_holm"]} after Holm–Bonferroni correction. Full values are given in the supplementary workbook (sheet T28_item_by_item).', indent=False)
 figure(f'{FIG}/fig9_item_by_item.png', 'Item-by-item correlations between SHAI-14 and CSS-12 items (Spearman ρ). * significant after FDR correction across the 168 pairs; ** also significant after Holm–Bonferroni correction.', width=16)
+
+page_break()
+H('Appendix B. Study questionnaire', 2)
+P('The bilingual (English–Arabic) questionnaire as administered through Google Forms is reproduced below (41 questions).', indent=False)
+import glob
+from PIL import Image as _Im
+QIMGS = sorted(glob.glob(f'{OUT}/questionnaire/c-*.png'))   # pages cropped to content; they flow onto pages naturally
+for qi in QIMGS:
+    w_px, h_px = _Im.open(qi).size
+    w_cm = min(12.5, 12.5 * w_px / 760)                     # same scale for every page; two form pages fit per A4 page
+    if w_cm * h_px / w_px > 23.5: w_cm = 23.5 * w_px / h_px  # never taller than the page body
+    pq = doc.add_paragraph(); pq.alignment = WD_ALIGN_PARAGRAPH.CENTER; pq.paragraph_format.space_after = Pt(4)
+    pq.paragraph_format.line_spacing = 1.0
+    pq.add_run().add_picture(qi, width=Cm(w_cm))
 
 # ------------------------------------------------------------------ fill lists of tables/figures
 PAGES = json.load(open(sys.argv[3])) if len(sys.argv) > 3 else {}
@@ -619,6 +639,24 @@ def fill_list(anchor, items, kind):
         if i == len(items): r3._r.append(fld('end'))
         prev_el._p.addnext(p._p); prev_el = p
 fill_list(LT_anchor, tables_list, 'Table'); fill_list(LF_anchor, figures_list, 'Figure')
+
+# table of contents: Word TOC field over Heading 1-2 (refreshes on open); cached entries carry rendered page numbers
+start = next(i for i, (l, t) in enumerate(HEADS) if t.startswith('Summary'))
+TOC = HEADS[start:]
+json.dump(TOC, open(f'{OUT}/toc_entries.json', 'w'))
+from docx.enum.text import WD_TAB_ALIGNMENT, WD_TAB_LEADER
+prev_el = TOC_anchor
+for i, (lvl, t_) in enumerate(TOC):
+    p = doc.add_paragraph(); p.paragraph_format.line_spacing = 1.15; p.paragraph_format.space_after = Pt(3 if lvl > 1 else 5)
+    p.paragraph_format.left_indent = Cm(0 if lvl == 1 else 0.8)
+    p.paragraph_format.tab_stops.add_tab_stop(Cm(15.5), WD_TAB_ALIGNMENT.RIGHT, WD_TAB_LEADER.DOTS)
+    if i == 0:
+        r0 = p.add_run(); r0._r.append(fld('begin'))
+        it = OxmlElement('w:instrText'); it.set(qn('xml:space'), 'preserve'); it.text = 'TOC \\o "1-2" \\h \\z \\u'; r0._r.append(it); r0._r.append(fld('separate'))
+    r = p.add_run(t_); r.font.size = Pt(13 if lvl == 1 else 12); r.bold = (lvl == 1)
+    r3 = p.add_run(f'\t{PAGES.get("H::" + t_, "")}'); r3.font.size = Pt(13 if lvl == 1 else 12)
+    if i == len(TOC) - 1: r3._r.append(fld('end'))
+    prev_el._p.addnext(p._p); prev_el = p
 
 # ------------------------------------------------------------------ page numbering
 def page_number_footer(section, fmt, start, title_page=False):

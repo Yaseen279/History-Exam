@@ -58,6 +58,17 @@ N = dict(
  ms_r=f'{R["medstud_corr"]["r_med"]:.2f}', ot_r=f'{R["medstud_corr"]["r_other"]:.2f}',
 )
 
+# numbers + figure aspect ratios for the slide deck
+from PIL import Image as _Im
+_asp = {f: _Im.open(f'{FIG}/{f}').size for f in os.listdir(FIG) if f.endswith('.png')}
+_extra = dict(tools=[float(d.ai_user.mean()*100), float(d.tool_search.mean()*100), float(d.tool_medplat.mean()*100), float(d.tool_social.mean()*100)],
+              motives=[float(d[c].mean()*100) for c in ['mot_convenience', 'mot_triage', 'mot_reassurance', 'mot_selfdx', 'mot_cost']],
+              behav=[float(d[c].mean()*100) for c in ['beh_delay_reassured', 'beh_ignore', 'beh_multidoc', 'beh_urgent', 'beh_selfmed', 'beh_delay_terrified']],
+              share=[float((d.share == k).mean()*100) for k in ['Always', 'Sometimes', 'Never (fear of judgement)']],
+              subr=[float(sub[k]['pearson']) for k in ['Excessiveness', 'Distress', 'Compulsion', 'Reassurance']],
+              aspect={k: v[0] / v[1] for k, v in _asp.items()}, figdir=FIG)
+json.dump({**{k: (v if isinstance(v, (int, float, str)) else str(v)) for k, v in N.items()}, **_extra}, open(f'{ST}/numbers.json', 'w'), indent=1)
+
 CSS_BASE = """
 @page { size: A4; margin: 14mm 15mm 14mm 15mm; }
 :root { --ink:#0b0b0b; --ink2:#52514e; --muted:#898781; --rule:#e1e0d9; --blue:#2a78d6; --blue-l:#eaf2fc; --orange:#eb6834; --orange-l:#fdeee7; --green:#0a7d4f; --green-l:#e6f4ee; }
