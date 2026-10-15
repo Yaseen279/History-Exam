@@ -166,6 +166,22 @@ textarea{min-height:76px;resize:vertical;line-height:1.4}
 .hch{flex:none;display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:99px;background:var(--surface);color:var(--ink);font-size:.72rem;font-weight:600;white-space:nowrap}
 .hch i{font-style:normal;font-family:var(--f-mono);color:var(--accent);font-size:.66rem}
 .hch.m{text-decoration:underline;text-underline-offset:2px}.hch.none{color:var(--muted);background:transparent}
+.hch.up{background:var(--ok-bg);color:var(--ok)}.hch.dn{opacity:.75}
+.harr{font-weight:800;margin-inline-start:2px;animation:harr 2.4s ease forwards}
+@keyframes harr{0%,70%{opacity:1}100%{opacity:0}}
+.stpw .pk[data-act="chip"],.stpw .czr{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.lphint{margin:-4px 0 8px;font-size:.74rem;color:var(--muted)}
+.lpb{position:fixed;z-index:60;padding:12px 14px 10px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 32px rgba(0,0,0,.28);display:flex;flex-direction:column;gap:8px;font-size:.86rem;line-height:1.4}
+.lpq{font-weight:700}
+.lpl{display:flex;flex-direction:column;gap:2px;padding-inline-start:9px;border-inline-start:3px solid var(--line)}
+.lpl b{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.lpl.yes{border-color:var(--ok)}.lpl.no{border-color:var(--muted)}.lpl.pic{border-color:var(--accent)}
+.lpx{text-align:end;font-size:.7rem}
+.fup{display:inline-flex;align-items:center;gap:6px;margin:6px 0 2px;padding:5px 12px;border-radius:99px;border:1.5px dashed var(--accent);background:var(--accent-soft);color:var(--accent);font:inherit;font-size:.8rem;font-weight:700;cursor:pointer;animation:fupin .25s ease}
+.fup span{font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+@keyframes fupin{from{opacity:0;transform:translateY(-4px)}}
+.pk.flash{outline:3px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.harr,.fup{animation:none}}
 .hseg{position:absolute;inset-inline:0;bottom:0;display:flex;gap:2px;height:3px}.hseg i{flex:1;background:var(--surface2)}.hseg i.past,.hseg i.on{background:hsl(var(--sh) 62% 50%)}
 .stpw .stph{scroll-margin-top:var(--hereoff,110px)}
 .stpw .unit .cnt,.stpw .chz .cnt,.stpw .cz .cnt{display:none}
@@ -9624,13 +9640,19 @@ function hereUpd(){
   bar.style.setProperty('--sh',STEP_HUE[st.k]);
   var hasDd=P.dd.length>0,on=hasDd&&UI.hddx!==false&&!DB.hideDdx,mid='';
   if(hasDd){
-    if(on){var ds=ddxScores(e);
-      var ch=ds.nF?ds.res.slice(0,6).map(function(r,i){return '<span class="hch'+(r.d.mnm?' m':'')+'"><i>'+(i+1)+'</i>'+esc(r.d.name)+'</span>'}).join(''):'<span class="hch none">Tick findings</span>';
+    if(on){var ds=ddxScores(e),prev=bar._sc,now={},key=e.id+P.id;
+      ds.res.forEach(function(r){now[r.d.k]=r.s});
+      var same=prev&&prev.key===key&&Object.keys(now).every(function(k){return Math.abs((prev.s[k]||0)-now[k])<1e-6});
+      var mvm=same?(bar._mv||{}):{};
+      if(!same&&prev&&prev.key===key&&ds.nF)Object.keys(now).forEach(function(k){var a=prev.s[k];if(a!=null&&Math.abs(now[k]-a)>1e-6)mvm[k]=now[k]>a?' up':' dn'});
+      bar._mv=mvm;var mv=function(k){return mvm[k]||''};
+      var ch=ds.nF?ds.res.slice(0,6).map(function(r,i){var m=mv(r.d.k);return '<span class="hch'+(r.d.mnm?' m':'')+m+'"><i>'+(i+1)+'</i>'+esc(r.d.name)+(m?'<b class="harr" aria-label="'+(m===' up'?'moved up':'moved down')+'">'+(m===' up'?'↑':'↓')+'</b>':'')+'</span>'}).join(''):'<span class="hch none">Tick findings</span>';
+      bar._sc={key:key,s:now};
       mid='<div class="hdx on" role="button" tabindex="0" data-act="hereDdx" aria-pressed="true" aria-label="Differential, tap to hide"><span class="hsw" aria-hidden="true"></span><span class="hdl">'+ch+'</span></div>';
     }else mid='<div class="hdx" role="button" tabindex="0" data-act="hereDdx" aria-pressed="false" aria-label="Show differential"><span class="hsw" aria-hidden="true"></span><span class="hoff">DDx</span></div>';
   }
   var hh='<span class="hstn" title="'+esc(st.n)+'">'+(cur+1)+'</span>'+(on?'':'<b class="grow">'+esc(st.n)+'</b>')+mid+(nx?'<button class="hnext" data-act="stpGo" data-k="'+nx.k+'" aria-label="Next step: '+esc(nx.n)+'" title="Next: '+esc(nx.n)+'">›</button>':'<button class="hnext" data-act="stage" data-s="exam" aria-label="Go to exam" title="Go to exam">›</button>')+'<span class="hseg" aria-hidden="true">'+S.map(function(x,i){return '<i class="'+(i===cur?'on':i<cur?'past':'')+'" style="--sh:'+STEP_HUE[x.k]+'"></i>'}).join('')+'</span>';
-  if(bar._h!==hh){bar._h=hh;bar.firstChild.innerHTML=hh}
+  if(bar._h!==hh){bar._h=hh;bar.firstChild.innerHTML=hh;var up=bar.querySelector('.hch.up'),dl=bar.querySelector('.hdl');if(up&&dl)dl.scrollLeft=Math.max(0,up.offsetLeft-dl.offsetLeft-30)}
 }
 var hereRaf=0;window.addEventListener('scroll',function(){if(hereRaf||!document.getElementById('hereBar'))return;hereRaf=requestAnimationFrame(function(){hereRaf=0;hereUpd()})},{passive:true});
 function stageHistSkel(e,P){
@@ -9642,11 +9664,11 @@ function stageHistSkel(e,P){
     var n=si+1;
     h+='<div class="stpw" style="--sh:'+STEP_HUE[st.k]+'"><div class="stph" id="stp-'+st.k+'"><span class="stn'+(st.ok?' ok':'')+'">'+(st.ok?'\u2713':n)+'</span><div class="grow"><b>'+esc(st.n)+'</b><span class="small muted">'+esc(st.sub)+'</span></div></div>';
     if(st.k==='pc'){
-      h+=sklLab(n+'A','The story',true,P);st.L.forEach(function(o){h+=unitHTML(e,P,o.u,o.i)});
+      h+=sklLab(n+'A','The story',true,P)+'<p class="lphint">Press and hold any question to see why it matters.</p>';st.L.forEach(function(o){h+=unitHTML(e,P,o.u,o.i)});
       var cz=chzCard(e,P);if(cz)h+=sklLab(n+'B','Characterise it',false,P)+cz;
       if(!P.pain)h+=sklLab(n+'C','Pain, if there is any',false,P)+paHTML(e);
     }else if(st.k==='cz'){
-      h+=sklLab(n+'A','Red flags and causes',true,P)+czHTML(e,P);st.L.forEach(function(o){h+=unitHTML(e,P,o.u,o.i)});
+      h+=sklLab(n+'A','Red flags and causes',true,P)+'<p class="lphint">Press and hold a cause to see a typical patient.</p>'+czHTML(e,P);st.L.forEach(function(o){h+=unitHTML(e,P,o.u,o.i)});
     }else if(st.k==='bg'){
       h+=sklLab(n+'A','Background for '+nm,true,P);st.L.forEach(function(o){h+=unitHTML(e,P,o.u,o.i)});
       h+=sklLab(n+'B','Full background (college record)',false,P)+bgsCard(e)+pkCard();
@@ -9660,6 +9682,86 @@ function stageHistSkel(e,P){
     h+='</div>';
   });
   return h;
+}
+/* ---- Sample (chest pain and fever): learning aids that stay hidden until used ----
+   Press and hold a question: what a yes and a no mean. Press and hold a cause: a typical patient.
+   After a yes: the natural next question. The differential strip shows what moved. */
+var FUP={
+ chest:{H22:'H30',H24:'H30',H9:'H20',H6:'H11',H11:'H16',H25:'H45',H45:'H53',H51:'H53',H53:'H54',H20:'H43',H26:'H32',H52:'H32',H12:'H60',H28:'H33',H27:'Hx301',H48:'H50'},
+ fever:{H1:'H21',H5:'H27',H6:'H16',H9:'H10',H10:'H18',H11:'H12',H13:'H5',H16:'H17',H14:'H32',H2:'H15',H15:'Hx601',H19:'H26',H21:'H23',H23:'H22',H29:'H30',H30:'H31'}
+};
+var CZPIC={
+ chest:{'Heart':'A 58-year-old smoker with diabetes: heavy central pain for 30 minutes spreading to the left arm, sweating and nauseated.',
+  'Aorta':'A 65-year-old with long-standing high blood pressure: sudden tearing pain going through to the back, worst at the very start.',
+  'Lungs':'Three days of fever and cough with rusty sputum, then sharp pain on one side that catches on breathing in.',
+  'Clot':'Ten days after a hip operation: sudden breathlessness, sharp pain on breathing in and one swollen calf.',
+  'Gut':'Burning pain behind the breastbone after large meals and on lying down, with an acid taste; better with antacids.',
+  'Chest wall':'Sharp pain in one spot after moving furniture, worse on twisting and when the spot is pressed.',
+  'Mind':'A young adult with sudden fear of dying, racing heart, fast breathing and tingling around the mouth that settles within 20 minutes.'},
+ fever:{'Head and neck':'Fever and a severe headache since this morning, neck stiffness, light hurts the eyes, and a rash that does not fade when pressed.',
+  'Chest and heart':'Weeks of evening fevers, night sweats and a chronic cough in a TB contact. Or weeks of fever after dental work in someone with a heart valve problem.',
+  'Abdomen':'Step-ladder fever, headache and constipation after drinking unsafe water. Or fever with rigors and right upper abdominal pain after abdominal surgery.',
+  'Urine':'A young woman with burning on passing urine and frequency, then fever with rigors and loin pain.',
+  'Skin and joints':'A young woman with weeks of low fever, painful joints, mouth ulcers and a rash on the face after sun.',
+  'Sepsis':'An older patient with diabetes: fever with rigors, now confused and dizzy on standing, with a fast pulse.',
+  'Not infection':'Weeks of fever, night sweats, weight loss, itch and painless lumps in the neck. Or a fever that began 1 to 2 weeks after a new drug.'}
+};
+function lpItem(P,k){var f=null;P.sections.forEach(function(s){s.items.forEach(function(it){if(it.k===k)f=it})});return f}
+function whyHTML(P,it){
+  var ws=Object.keys(it.w).map(function(k){return {d:P.dmap[k],w:it.w[k]}}).filter(function(x){return x.d}).sort(function(a,b){return b.w-a.w});
+  var nm=function(x){return x.d.mnm?'<u>'+esc(x.d.name)+'</u>':esc(x.d.name)};
+  var h='<div class="lpq">'+esc(it.t)+'</div>';
+  if(!ws.length)return h+'<div class="lpl"><b>Why ask</b><span>It completes the background. It does not change the differential on its own.</span></div>';
+  var st=ws.filter(function(x){return x.w>=3}),md=ws.filter(function(x){return x.w===2}),wk=ws.filter(function(x){return x.w<2});
+  var y=[];if(st.length)y.push('strongly points to '+st.map(nm).join(', '));if(md.length)y.push('points to '+md.map(nm).join(', '));if(wk.length)y.push('slightly supports '+wk.map(nm).join(', '));
+  h+='<div class="lpl yes"><b>If yes</b><span>It '+y.join('; ')+'.</span></div>';
+  var ng=ws.filter(function(x){return x.w>=2});
+  h+='<div class="lpl no"><b>If no</b><span>'+(ng.length?'Counts a little against '+ng.map(nm).join(', ')+', but does not rule '+(ng.length>1?'them':'it')+' out.':'Changes little on its own. Still worth asking.')+'</span></div>';
+  return h;
+}
+function lpShow(el,html){
+  var b=document.getElementById('lpb');if(!b){b=document.createElement('div');b.id='lpb';b.className='lpb';b.setAttribute('role','dialog');document.body.appendChild(b)}
+  b.innerHTML=html+'<div class="lpx small muted">Tap anywhere to close</div>';b.hidden=false;
+  var r=el.getBoundingClientRect(),vw=window.innerWidth,vh=window.innerHeight,w=Math.min(340,vw-24);
+  b.style.width=w+'px';b.style.left=Math.max(12,Math.min(vw-w-12,r.left+r.width/2-w/2))+'px';
+  var bh=b.offsetHeight,below=r.bottom+8+bh<vh-90;b.style.top=(below?r.bottom+8:Math.max(12,r.top-8-bh))+'px';
+}
+function lpHide(){var b=document.getElementById('lpb');if(b)b.hidden=true}
+var LP={t:0,fired:false,x:0,y:0};
+document.addEventListener('pointerdown',function(ev){
+  var b=document.getElementById('lpb');if(b&&!b.hidden&&!b.contains(ev.target)){lpHide();LP.eat=true;setTimeout(function(){LP.eat=false},400)}
+  var el=ev.target.closest&&ev.target.closest('.stpw .pk[data-act="chip"],.stpw .czr');if(!el)return;
+  var e=curEnc();if(!e)return;var P=getP(e.pid);if(!SKEL[P.id])return;
+  LP.fired=false;LP.x=ev.clientX;LP.y=ev.clientY;clearTimeout(LP.t);
+  LP.t=setTimeout(function(){
+    var html='';
+    if(el.classList.contains('czr')){var c=P.cz[+el.dataset.i];if(!c)return;var pic=(CZPIC[P.id]||{})[c.n];if(!pic)return;html='<div class="lpq">'+esc(c.n)+'</div><div class="lpl pic"><b>A typical patient</b><span>'+esc(pic)+'</span></div>'}
+    else{var it=lpItem(P,el.dataset.k);if(!it)return;html=whyHTML(P,it)}
+    LP.fired=true;lpShow(el,html);if(navigator.vibrate)try{navigator.vibrate(12)}catch(x){}
+  },450);
+},true);
+['pointerup','pointercancel'].forEach(function(n){document.addEventListener(n,function(){clearTimeout(LP.t)},true)});
+document.addEventListener('pointermove',function(ev){if(Math.abs(ev.clientX-LP.x)+Math.abs(ev.clientY-LP.y)>10)clearTimeout(LP.t)},true);
+document.addEventListener('contextmenu',function(ev){if(ev.target.closest&&ev.target.closest('.stpw .pk[data-act="chip"],.stpw .czr'))ev.preventDefault()});
+window.addEventListener('scroll',function(){var b=document.getElementById('lpb');if(b&&!b.hidden)lpHide()},{passive:true});
+/* after a yes: offer the natural next question */
+function fupAfter(t){
+  var e=curEnc();if(!e)return;var P=getP(e.pid),k=t.dataset.k,to=(FUP[P.id]||{})[k];
+  document.querySelectorAll('.fup').forEach(function(x){x.remove()});
+  if(!to||e.f[P.id+'.'+k]!==1||e.f[P.id+'.'+to])return;
+  var it=lpItem(P,to);if(!it)return;
+  var chip=document.querySelector('.stpw .pk[data-act="chip"][data-k="'+k+'"]');if(!chip)return;
+  var box=chip.closest('.pks'),f=document.createElement('button');
+  f.className='fup';f.dataset.act='fupGo';f.dataset.k=to;f.innerHTML='<span>Then ask</span>'+esc(it.c)+' \u203A';
+  box.parentNode.insertBefore(f,box.nextSibling);
+}
+function fupGo(t){
+  var e=curEnc();if(!e)return;var P=getP(e.pid),k=t.dataset.k,sec=null;
+  P.sections.forEach(function(s){s.items.forEach(function(it){if(it.k===k)sec=s})});if(!sec)return;
+  UI.so=UI.so||{};units(P,'H').forEach(function(u){if(u.secs.indexOf(sec)>=0)UI.so[secKey(P,u.secs[0])]=true});
+  UI.more=UI.more||{};UI.more[P.id+'_'+sec.kind+sec.ix]=true;render(true);
+  var c=document.querySelector('.stpw .pk[data-act="chip"][data-k="'+k+'"]');
+  if(c){c.scrollIntoView({behavior:'smooth',block:'center'});c.classList.add('flash');setTimeout(function(){c.classList.remove('flash')},1800)}
 }
 function stageHist(e,P){
   if(SKEL[P.id])return stageHistSkel(e,P);
@@ -10806,6 +10908,7 @@ var ACT={
     bs[0].classList.toggle('on',st===1);bs[0].setAttribute('aria-pressed',st===1);bs[1].classList.toggle('on',st===-1);bs[1].setAttribute('aria-pressed',st===-1);
     rosPill(e,t.closest('details').dataset.sk);touch();
   },
+  fupGo:function(t){fupGo(t)},
   hereDdx:function(){if(DB.hideDdx){DB.hideDdx=false;UI.hddx=true;saveSoon();render(true);return}UI.hddx=(UI.hddx===false);hereUpd()},
   stpGo:function(t){var el=document.getElementById('stp-'+t.dataset.k);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})},
   chzPick:function(t){
@@ -10995,8 +11098,11 @@ function scUpdate(s,st,t){
   if(t&&t.dataset.act==='scChk'){var i=parseInt(t.dataset.i,10),on=st.v[i]===1,opt=s.items[i][1][1][1];t.classList.toggle('on',on);t.setAttribute('aria-pressed',on);t.textContent=on?'Yes (+'+opt+')':'Yes'}
 }
 document.addEventListener('click',function(ev){
+  if(LP.fired||LP.eat){LP.fired=false;LP.eat=false;ev.preventDefault();ev.stopPropagation();return}
   var t=ev.target.closest('[data-act]');if(!t)return;
+  var inSk=t.dataset.act==='chip'&&!!t.closest('.stpw');
   var a=ACT[t.dataset.act];if(a)a(t,ev);
+  if(inSk)fupAfter(t);
   if(document.getElementById('hereBar'))setTimeout(hereUpd,0);
 });
 function refreshLog(){var n=filtered().length,c=$('#logCount');if(c)c.textContent=n+' of '+DB.encs.length+' shown';$('#logList').innerHTML=logList();var m=$('#lbPanel');if(m)m.innerHTML=lbPanel(n)}
