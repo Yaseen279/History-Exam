@@ -135,6 +135,31 @@ textarea{min-height:76px;resize:vertical;line-height:1.4}
 .fab:active{transform:scale(.95)}
 .stages .tg{flex:0 0 auto;border:1.5px solid var(--line);color:var(--ink);margin-inline-start:auto}
 .rosd{border-top:1px solid var(--line);padding-block:4px}
+.stpw{--sc:hsl(var(--sh) 62% 46%);--sc-soft:hsl(var(--sh) 70% 94%)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .stpw,:root:not([data-theme="light"]) .here,:root:not([data-theme="light"]) .stps button{--sc:hsl(var(--sh) 70% 66%);--sc-soft:hsl(var(--sh) 35% 20%)}}
+:root[data-theme="dark"] .stpw,:root[data-theme="dark"] .here,:root[data-theme="dark"] .stps button{--sc:hsl(var(--sh) 70% 66%);--sc-soft:hsl(var(--sh) 35% 20%)}
+.here,.stps button[style]{--sc:hsl(var(--sh) 62% 46%);--sc-soft:hsl(var(--sh) 70% 94%)}
+.stpw .stph{border-bottom-color:var(--sc)}
+.stpw .stph .stn{background:var(--sc);color:var(--bg)}
+.stpw .card{border-inline-start:4px solid var(--sc)}
+.stps button[style] .stn{background:var(--sc-soft);color:var(--sc)}
+.stps button[style].ok .stn{background:var(--sc);color:var(--bg)}
+.skl{display:flex;align-items:center;flex-wrap:wrap;gap:6px 8px;margin-block:14px 8px;font-size:.86rem}
+.skn{font-family:var(--f-mono);font-weight:700;font-size:.74rem;padding:2px 7px;border-radius:7px;background:var(--sc-soft);color:var(--sc)}
+.tag{font-size:.68rem;font-weight:700;letter-spacing:.02em;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.tag.own{background:var(--accent);color:var(--accent-ink)}
+.tag.same{background:var(--surface2);color:var(--muted);border:1px dashed var(--line)}
+.skbar{display:flex;gap:3px;height:10px;margin-block-start:8px;border-radius:99px;overflow:hidden}
+.skbar .own{background:var(--accent)}.skbar .same{background:var(--surface2);border:1px dashed var(--muted)}
+.skelintro .ownk{color:var(--accent)}
+.here{position:sticky;z-index:15;margin-inline:-4px;margin-block:0 10px;padding:8px 10px 9px;background:var(--surface);border:1px solid var(--line);border-inline-start:4px solid var(--sc);border-radius:12px;box-shadow:var(--sh)}
+.here:empty{display:none}
+.hseg{display:flex;gap:4px;margin-block-end:7px}.hseg i{flex:1;height:4px;border-radius:99px;background:var(--surface2)}
+.hseg i.part{background:hsl(var(--sh) 50% 75%)}.hseg i.ok,.hseg i.on{background:hsl(var(--sh) 62% 50%)}.hseg i.on{height:6px;margin-block-start:-1px}
+.hrow{display:flex;align-items:center;gap:9px}.hrow .grow{display:flex;flex-direction:column;min-width:0;line-height:1.2}.hrow b{font-size:.95rem}
+.hstn{flex:none;display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--sc);color:var(--bg);font-family:var(--f-mono);font-weight:700;font-size:.85rem}
+.hnext span{display:block;font-size:.66rem;font-weight:600;opacity:.8}
+.hnext{flex:none;min-height:36px;padding:4px 10px;border-radius:10px;border:0;background:var(--sc-soft);color:var(--sc);font:inherit;font-size:.78rem;font-weight:700;cursor:pointer;max-width:42%;text-align:end}
 .stps{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-block:2px 10px;padding-block:2px}
 .stps button{flex:none;display:flex;align-items:center;gap:6px;min-height:40px;padding:4px 12px 4px 5px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:.8rem;font-weight:600;cursor:pointer}
 .stps button.part{border-color:var(--accent-soft)}
@@ -9372,7 +9397,7 @@ if(window.ResizeObserver){try{new ResizeObserver(syncNav).observe(document.body)
 function autoDir(r){try{(r||document).querySelectorAll('textarea,input[type=text],input[type=search]').forEach(function(el){el.setAttribute('dir','auto')})}catch(e){}}
 document.addEventListener('focusin',function(ev){var t=ev.target;if(t&&t.tagName&&(t.tagName==='TEXTAREA'||(t.tagName==='INPUT'&&(t.type==='text'||t.type==='search'))))t.setAttribute('dir','auto')});
 function afterRender(){
-  syncNav();autoDir();
+  syncNav();autoDir();hereUpd();
   if(UI.tab==='prac'&&UI.osce&&UI.osce.running&&!UI.osce.done)startTimer();
 }
 
@@ -9571,7 +9596,57 @@ function histSteps(e,P){
   return S;
 }
 function stepHead(st,i){return '<div class="stph" id="stp-'+st.k+'"><span class="stn'+(st.ok?' ok':'')+'">'+(st.ok?'✓':i+1)+'</span><div class="grow"><b>'+esc(st.n)+'</b><span class="small muted">'+esc(st.sub)+'</span></div><span class="cnt">'+st.d+'/'+st.t+'</span></div>'}
+/* ---- Sample (chest pain and fever): one skeleton for every complaint, shared vs specific, "you are here" ---- */
+var SKEL={chest:1,fever:1},STEP_HUE={pc:212,cz:276,bg:168,ros:30,sum:140};
+function sklLab(code,name,own,P){return '<div class="skl"><span class="skn">'+code+'</span><b>'+esc(name)+'</b>'+(own?'<span class="tag own">Specific to '+esc(P.name.replace(/ \/.*$/,''))+'</span>':'<span class="tag same">Same in every history</span>')+'</div>'}
+function skelCounts(e,P,S){
+  var own=0;S.forEach(function(st){st.L.forEach(function(o){own+=unitCount(e,P,o.u)[1]})});
+  var same=chzRows(P).length+BGS.reduce(function(a,x){return a+x.i.length},0)+ROS.filter(function(x){return rosAllowed(e,x.k,0,'')}).reduce(function(a,x){return a+x.i.length},0);
+  return [own,same];
+}
+function hereHTML(){return '<div class="here" id="hereBar" aria-live="polite"></div>'}
+function hereUpd(){
+  var bar=document.getElementById('hereBar'),e=curEnc();if(!bar||!e)return;
+  var P=getP(e.pid),S=histSteps(e,P),stg=document.querySelector('.stages'),off=(stg?stg.getBoundingClientRect().height:0);
+  bar.style.top=off+'px';
+  var cur=0,lim=off+bar.getBoundingClientRect().height+24;
+  S.forEach(function(st,i){var el=document.getElementById('stp-'+st.k);if(el&&el.getBoundingClientRect().top<=lim)cur=i});
+  var st=S[cur],nx=S[cur+1];
+  bar.style.setProperty('--sh',STEP_HUE[st.k]);
+  bar.innerHTML='<div class="hseg">'+S.map(function(x,i){return '<i class="'+(i===cur?'on':x.ok?'ok':x.d?'part':'')+'" style="--sh:'+STEP_HUE[x.k]+'"></i>'}).join('')+'</div><div class="hrow"><span class="hstn">'+(cur+1)+'</span><span class="grow"><span class="small muted">Step '+(cur+1)+' of '+S.length+'</span><b>'+esc(st.n)+'</b></span><span class="cnt">'+st.d+'/'+st.t+'</span>'+(nx?'<button class="hnext" data-act="stpGo" data-k="'+nx.k+'"><span>Next</span>'+esc(nx.n)+' \u203A</button>':'<button class="hnext" data-act="stage" data-s="exam">Go to exam \u203A</button>')+'</div>';
+}
+var hereRaf=0;window.addEventListener('scroll',function(){if(hereRaf||!document.getElementById('hereBar'))return;hereRaf=requestAnimationFrame(function(){hereRaf=0;hereUpd()})},{passive:true});
+function stageHistSkel(e,P){
+  var S=histSteps(e,P),h='',T=function(k,label,ph,rows){return '<label class="f">'+label+'<textarea data-b="tx.'+k+'" rows="'+(rows||2)+'" placeholder="'+esc(ph)+'">'+esc(e.tx[k])+'</textarea></label>'};
+  var cn=skelCounts(e,P,S),nm=P.name.replace(/ \/.*$/,'');
+  h+='<section class="card skelintro"><div class="eyebrow">Every history has the same 5 steps</div><div class="skbar"><span class="own" style="flex:'+cn[0]+'"></span><span class="same" style="flex:'+cn[1]+'"></span></div><p class="small" style="margin-block:6px 0"><b class="ownk">'+cn[0]+' questions are specific to '+esc(nm)+'.</b> <span class="samek">The other '+cn[1]+' are the same in every history:</span> learn them once and they work for every patient.</p></section>';
+  h+='<nav class="stps" aria-label="History steps">'+S.map(function(st,i){return '<button data-act="stpGo" data-k="'+st.k+'" class="'+(st.ok?'ok':st.d?'part':'')+'" style="--sh:'+STEP_HUE[st.k]+'"><span class="stn">'+(st.ok?'\u2713':i+1)+'</span><span>'+esc(st.n)+'</span></button>'}).join('')+'</nav>';
+  h+=hereHTML()+secBar(P,'H');
+  S.forEach(function(st,si){
+    var n=si+1;
+    h+='<div class="stpw" style="--sh:'+STEP_HUE[st.k]+'">'+stepHead(st,si);
+    if(st.k==='pc'){
+      h+=sklLab(n+'A','The story',true,P);st.L.forEach(function(o){h+=unitHTML(e,P,o.u,o.i)});
+      var cz=chzCard(e,P);if(cz)h+=sklLab(n+'B','Characterise it',false,P)+cz;
+      if(!P.pain)h+=sklLab(n+'C','Pain, if there is any',false,P)+paHTML(e);
+    }else if(st.k==='cz'){
+      h+=sklLab(n+'A','Red flags and causes',true,P)+czHTML(e,P);st.L.forEach(function(o){h+=unitHTML(e,P,o.u,o.i)});
+    }else if(st.k==='bg'){
+      h+=sklLab(n+'A','Background for '+nm,true,P);st.L.forEach(function(o){h+=unitHTML(e,P,o.u,o.i)});
+      h+=sklLab(n+'B','Full background (college record)',false,P)+bgsCard(e)+pkCard();
+    }else if(st.k==='ros'){
+      h+=sklLab(n+'A','One or two questions per system',false,P)+rosCard(e);
+    }else{
+      var g=histGaps(e,P);
+      h+=sklLab(n+'A','The story in your own words',false,P)+'<section class="card">'+T('hpc','History of presenting complaint','When last well, how it started and progressed, previous episodes, treatments tried and response',3)+'</section>';
+      h+=sklLab(n+'B','Check for gaps',false,P)+'<section class="card" id="gapCard">'+(g.length?'<p class="small muted" style="margin-block-end:4px">Not asked yet. A full history covers these:</p>'+gapsHTML(g,6):'<p class="small">Every part of the history has been covered.</p>')+'</section>';
+    }
+    h+='</div>';
+  });
+  return h;
+}
 function stageHist(e,P){
+  if(SKEL[P.id])return stageHistSkel(e,P);
   var S=histSteps(e,P),h='';
   h+='<nav class="stps" aria-label="History steps">'+S.map(function(st,i){return '<button data-act="stpGo" data-k="'+st.k+'" class="'+(st.ok?'ok':st.d?'part':'')+'"><span class="stn">'+(st.ok?'✓':i+1)+'</span><span>'+esc(st.n)+'</span></button>'}).join('')+'</nav>';
   h+=secBar(P,'H');
@@ -10905,6 +10980,7 @@ function scUpdate(s,st,t){
 document.addEventListener('click',function(ev){
   var t=ev.target.closest('[data-act]');if(!t)return;
   var a=ACT[t.dataset.act];if(a)a(t,ev);
+  if(document.getElementById('hereBar'))setTimeout(hereUpd,0);
 });
 function refreshLog(){var n=filtered().length,c=$('#logCount');if(c)c.textContent=n+' of '+DB.encs.length+' shown';$('#logList').innerHTML=logList();var m=$('#lbPanel');if(m)m.innerHTML=lbPanel(n)}
 function onField(ev){
