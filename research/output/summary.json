@@ -47,7 +47,7 @@
  },
  "css4_std_loadings_range": [
   0.6143338540614421,
-  0.9225522944218334
+  0.9225522944218335
  ],
  "main_corr": {
   "SHAI_CSS": {
@@ -203,5 +203,37 @@
  "dates": [
   "2026-07-17",
   "2026-09-11"
- ]
+ ],
+ "item_by_item": {
+  "n": 168,
+  "sig_fdr": 111,
+  "sig_holm": 58,
+  "top": [
+   [
+    "Fear of serious illness",
+    "Panic on reading of rare/serious condition",
+    0.4250097611716198
+   ],
+   [
+    "Interpreting bodily sensations",
+    "Search unexplained sensation online",
+    0.41523077646810014
+   ],
+   [
+    "Distraction from health thoughts",
+    "Panic on reading of rare/serious condition",
+    0.40806594173526844
+   ],
+   [
+    "Fear of serious illness",
+    "More anxious after searching",
+    0.3656076443516105
+   ],
+   [
+    "Thinking you are ill",
+    "Panic on reading of rare/serious condition",
+    0.3509942297677383
+   ]
+  ]
+ }
 }

@@ -560,6 +560,15 @@ for it, nm in zip(SHAI, shai_names):
     end.append(dict(Scale='SHAI-14', Item=nm, pct_often_always=round((d[it] >= 2).mean()*100, 1), mean=round(d[it].mean(), 2)))
 T['T27_item_endorsement'] = pd.DataFrame(end)
 
+# item x item: every SHAI item with every CSS item (14 x 12 = 168 Spearman tests, FDR within the family)
+ii = []
+for si, sn in zip(SHAI, shai_names):
+    for ci_, cn in zip(CSS, css_names):
+        r_, p_ = stats.spearmanr(d[si], d[ci_]); ii.append(dict(SHAI_item=si.upper(), SHAI_content=sn, CSS_item=ci_.upper(), CSS_content=cn, rho=r_, p=p_))
+II = pd.DataFrame(ii); II['q_FDR'] = multipletests(II.p, method='fdr_bh')[1]; II['p_Holm'] = multipletests(II.p, method='holm')[1]
+T['T28_item_by_item'] = II.round(4)
+R['item_by_item'] = dict(n=len(II), sig_fdr=int((II.q_FDR < .05).sum()), sig_holm=int((II.p_Holm < .05).sum()),
+                         top=II.sort_values('rho', ascending=False).head(5)[['SHAI_content', 'CSS_content', 'rho']].values.tolist())
 d.to_pickle(f'{OUT}/analysed.pkl')
 with pd.ExcelWriter(f'{OUT}/tables/all_results.xlsx') as xw:
     for k, v in T.items(): v.to_excel(xw, sheet_name=k[:31])

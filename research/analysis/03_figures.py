@@ -144,4 +144,25 @@ diagram(axs[0], models[0], 'Health anxiety\n(SHAI)', 'Excessive searching\n(CSS-
 diagram(axs[1], models[2], 'Health anxiety\n(SHAI)', 'Post-search distress\n(CSS-Distress)', 'Reassurance-seeking\n(CSS-Reassurance)', 'B. Distress as a pathway to doctor visits')
 fig.text(0.01, -0.03, 'Standardised coefficients adjusted for age, gender, health background, chronic illness, trust and AI use; 5,000 bootstrap resamples. * p<0.05, ** p<0.01, *** p<0.001.', fontsize=8, color=INK2)
 save(fig, 'fig8_mediation')
+# Fig 9: SHAI item x CSS item heatmap
+ii = x['T28_item_by_item']
+M = ii.pivot_table(index='SHAI_item', columns='CSS_item', values='rho', sort=False)
+Q = ii.pivot_table(index='SHAI_item', columns='CSS_item', values='q_FDR', sort=False)
+H = ii.pivot_table(index='SHAI_item', columns='CSS_item', values='p_Holm', sort=False)
+rl = ii.drop_duplicates('SHAI_item').set_index('SHAI_item').SHAI_content
+cl = ii.drop_duplicates('CSS_item').set_index('CSS_item').CSS_content
+fig, ax = plt.subplots(figsize=(11, 8.2))
+im = ax.imshow(M.values, cmap=cmap, vmin=-0.6, vmax=0.6, aspect='auto')
+for i in range(M.shape[0]):
+    for j in range(M.shape[1]):
+        v = M.values[i, j]; mark = '**' if H.values[i, j] < .05 else ('*' if Q.values[i, j] < .05 else '')
+        ax.text(j, i, f'{v:.2f}{mark}', ha='center', va='center', fontsize=7.5, color='white' if abs(v) > .4 else INK)
+ax.set_yticks(range(M.shape[0])); ax.set_yticklabels([f'{k} {rl[k]}' for k in M.index], fontsize=8.5)
+ax.set_xticks(range(M.shape[1])); ax.set_xticklabels([f'{k} {cl[k]}' for k in M.columns], rotation=50, ha='right', fontsize=8.5)
+for j0, lab_ in zip([1, 4, 7, 10], ['Excessiveness', 'Compulsion', 'Distress', 'Reassurance']):
+    ax.text(j0, -0.9, lab_, ha='center', fontsize=9, color=INK2, fontweight='bold')
+for jb in [2.5, 5.5, 8.5]: ax.axvline(jb, color='white', lw=2)
+for s_ in ax.spines.values(): s_.set_visible(False)
+cb = fig.colorbar(im, ax=ax, shrink=.6); cb.set_label('Spearman ρ'); cb.outline.set_visible(False)
+save(fig, 'fig9_item_by_item')
 print('figures done')
