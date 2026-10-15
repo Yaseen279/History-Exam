@@ -1,0 +1,80 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Summary of Findings</title><style>
+@page { size: A4; margin: 14mm 15mm 14mm 15mm; }
+:root { --ink:#0b0b0b; --ink2:#52514e; --muted:#898781; --rule:#e1e0d9; --blue:#2a78d6; --blue-l:#eaf2fc; --orange:#eb6834; --orange-l:#fdeee7; --green:#0a7d4f; --green-l:#e6f4ee; }
+* { box-sizing: border-box; }
+body { font-family: 'Inter', 'Liberation Sans', sans-serif; color: var(--ink); margin: 0; background: #fff; font-size: 10pt; line-height: 1.45; }
+h1 { font-size: 18pt; line-height: 1.2; margin: 0 0 4px; letter-spacing: -0.01em; }
+h2 { font-size: 13pt; margin: 18px 0 6px; color: var(--ink); border-bottom: 2px solid var(--blue); padding-bottom: 3px; }
+h3 { font-size: 11pt; margin: 12px 0 4px; color: var(--blue); }
+p { margin: 4px 0 6px; }
+.muted { color: var(--ink2); }
+.small { font-size: 8.5pt; }
+table { border-collapse: collapse; width: 100%; font-size: 9pt; margin: 6px 0 10px; }
+th, td { border-bottom: 1px solid var(--rule); padding: 4px 6px; text-align: left; vertical-align: top; }
+th { background: #f5f5f2; font-weight: 600; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.box { border-radius: 6px; padding: 8px 11px; margin: 8px 0; }
+.say { background: var(--blue-l); border-left: 4px solid var(--blue); }
+.warn { background: var(--orange-l); border-left: 4px solid var(--orange); }
+.ok { background: var(--green-l); border-left: 4px solid var(--green); }
+.tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin: 8px 0; }
+.tile { border: 1px solid var(--rule); border-radius: 6px; padding: 7px 9px; }
+.tile .v { font-size: 17pt; font-weight: 700; color: var(--blue); line-height: 1.1; }
+.tile .l { font-size: 8pt; color: var(--ink2); line-height: 1.25; margin-top: 2px; }
+img { max-width: 100%; display: block; margin: 6px auto; }
+.fig { break-inside: avoid; margin: 8px 0 12px; }
+.fig .cap { font-size: 8.5pt; color: var(--ink2); text-align: center; }
+.qa { break-inside: avoid; margin: 0 0 9px; }
+.qa .q { font-weight: 600; }
+.qa .a { margin-left: 14px; }
+.page-break { break-before: page; }
+ol, ul { margin: 4px 0 6px 26px; padding: 0; }
+h2, h3 { break-after: avoid; page-break-after: avoid; }
+li { margin: 2px 0; }
+.slide { border: 1px solid var(--rule); border-radius: 6px; padding: 7px 10px; margin: 0 0 8px; break-inside: avoid; }
+.slide .h { font-weight: 700; color: var(--blue); }
+.tag { display: inline-block; font-size: 7.5pt; font-weight: 600; padding: 1px 6px; border-radius: 9px; background: #f0efec; color: var(--ink2); margin-left: 6px; }
+
+@page { margin: 11mm 13mm; }
+body { font-size: 9.7pt; line-height: 1.42; }
+h2 { font-size: 10.5pt; margin: 9px 0 4px; }
+.find li { margin: 3px 0; }
+.two { display: grid; grid-template-columns: 1.15fr 1fr; gap: 12px; }
+</style></head><body>
+<div class="muted small">Graduation research · One-page summary of findings</div>
+<h1>Artificial Intelligence, Search Engines, and Cyberchondria: A Study of Patient Pre-Consultation Behavior in Baghdad</h1>
+<p class="small muted"><b>Design:</b> analytical cross-sectional online survey (Google Forms), Baghdad, 17 July 2026 – 11 September 2026 · <b>n = 300</b> adults · <b>Tools:</b> Short Health Anxiety Inventory (SHAI-14, 0–42) and Cyberchondria Severity Scale short form (CSS-12, 12–60; four subscales) · <b>Analysis:</b> Spearman/Pearson and partial correlation, non-parametric tests with FDR correction, robust hierarchical and logistic regression, bootstrapped mediation and moderation.</p>
+<div class="tiles">
+ <div class="tile"><div class="v">88.7%</div><div class="l">use AI chatbots for symptoms (search engines 56.3%)</div></div>
+ <div class="tile"><div class="v">19%</div><div class="l">clinically relevant health anxiety (SHAI ≥ 18; 95% CI 15.0–23.8%)</div></div>
+ <div class="tile"><div class="v">r = 0.47</div><div class="l">health anxiety ↔ cyberchondria (95% CI 0.38–0.55), p &lt; 0.001</div></div>
+ <div class="tile"><div class="v">31.7%</div><div class="l">never tell their doctor about online/AI searches</div></div>
+</div>
+<div class="two"><div>
+<h2>Key findings</h2>
+<ol class="find">
+ <li><b>AI is now the main gateway.</b> 88.7% use AI chatbots (ChatGPT 59.3% of all), ahead of search engines (56.3%); 41.0% use AI without any search engine. Convenience (80.0%), "do I need a doctor?" (57.7%) and instant reassurance (51.0%) are the main motives.</li>
+ <li><b>Health anxiety and cyberchondria travel together.</b> r = 0.47; unchanged after adjusting for all covariates (partial r = 0.48). Strongest for <i>excessive searching</i> (r = 0.46) and <i>post-search distress</i> (r = 0.45); weaker for compulsion (0.25) and reassurance seeking (0.24).</li>
+ <li><b>Health anxiety is the dominant predictor of cyberchondria</b> (β = 0.48); demographics explain almost nothing (R² = 0.030); adding health anxiety raises R² from 0.133 to 0.317.</li>
+ <li><b>What drives searching is fear, not noticing.</b> Fear of serious illness and interpreting sensations track cyberchondria; mere awareness of aches and sensations does not (111/168 item pairs significant after FDR).</li>
+ <li><b>Pattern consistent with a cycle:</b> health anxiety → excessive searching → post-search distress (indirect effect 0.16) → reassurance-seeking visits (distress almost fully mediates; direct effect 0.01). The reverse path is also significant: compatible with mutual reinforcement, not proof of it.</li>
+ <li><b>Who is most anxious:</b> younger people, those with a chronic condition, social-media searchers, and those searching for instant reassurance (AOR 3.83).</li>
+</ol>
+</div><div>
+<h2>Pre-consultation behaviour</h2>
+<ul>
+ <li>34.7% delay or skip care because the search reassured them; 30.0% ignore the symptom.</li>
+ <li>25.3% visit several doctors; 22.0% seek urgent care/ER; 21.3% self-medicate.</li>
+ <li>Higher cyberchondria → more urgent visits (AOR 1.51/SD), less ignoring (AOR 0.65/SD).</li>
+ <li><b>Concealment paradox:</b> higher health anxiety → <i>more</i> hiding of searches from the doctor (AOR 1.47); higher cyberchondria → <i>less</i> (AOR 0.57).</li>
+ <li>34.7% say searching has complicated or reduced their trust in physicians.</li>
+</ul>
+<h2>AI chatbots</h2>
+<p>AI users had higher cyberchondria (B = +5.3 points, adjusted), mainly excessiveness and reassurance seeking, <b>but</b> this depends on classifying 32 inconsistent answers and on only 34 non-users. AI use did not change the strength of the anxiety–cyberchondria link.</p>
+<h2>Quality of evidence</h2>
+<p>Reliable scales (α 0.81 and 0.86); CSS-12 four-factor structure confirmed; Arabic and English responders equivalent; results robust to sensitivity analyses and replicated by an independent analysis (except the AI effect).</p>
+</div></div>
+<h2>Implications</h2>
+<p><b>Clinicians:</b> ask every patient, without judgement, what they searched or asked an AI; treat repeated searching plus distress as a marker of health anxiety. <b>Public health:</b> digital and AI health-literacy campaigns in Arabic; warn about false reassurance. <b>AI developers:</b> anxiety-aware answers that avoid escalating rare diagnoses. <b>Research:</b> longitudinal studies to test the direction of the cycle.</p>
+<p class="small muted"><b>Limitations:</b> cross-sectional (no causality); online convenience sample, young and 44% medical students; Arabic wording not formally back-translated; single-item behaviour measures; self-report.</p>
+</body></html>
