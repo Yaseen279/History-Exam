@@ -1,3 +1,4 @@
 # Raw/row-level participant data is kept out of the repository
 output/analysed.pkl
 *.xlsx.raw
+__pycache__/
