@@ -155,6 +155,11 @@ textarea{min-height:76px;resize:vertical;line-height:1.4}
 .hin .grow{flex:1;min-width:0;font-size:.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hstn{flex:none;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--sc);color:var(--bg);font-family:var(--f-mono);font-weight:700;font-size:.78rem}
 .hnext{flex:none;min-height:30px;padding:2px 10px;border-radius:99px;border:0;background:var(--sc-soft);color:var(--sc);font:inherit;font-size:.78rem;font-weight:700;cursor:pointer}
+.hddx{flex:none;min-height:30px;padding:2px 10px;border-radius:99px;border:1px solid var(--line);background:var(--surface2);color:var(--ink);font:inherit;font-size:.78rem;font-weight:700;cursor:pointer}
+.hddx[aria-expanded="true"]{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.hpan{position:absolute;inset-inline:-4px;top:48px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:8px}
+.hdd{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px;font-size:.88rem}
+.hdd li{display:flex;align-items:center;gap:8px}.hrk{flex:none;display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-family:var(--f-mono);font-size:.7rem;font-weight:700}
 .hseg{position:absolute;inset-inline:0;bottom:0;display:flex;gap:2px;height:3px}.hseg i{flex:1;background:var(--surface2)}.hseg i.past,.hseg i.on{background:hsl(var(--sh) 62% 50%)}
 .stpw .stph{scroll-margin-top:var(--hereoff,110px)}
 .stpw .unit .cnt,.stpw .chz .cnt,.stpw .cz .cnt{display:none}
@@ -9361,7 +9366,7 @@ function render(keepScroll){
     top='<header class="top slim"><div class="grow tt"><div class="eyebrow">'+esc(P0.g)+' / '+esc(P0.sys)+'</div><h2>'+esc(P0.name)+'</h2></div>'+(saveOK?'':'<span class="pill red" title="Browser storage is blocked. Export your log often.">Not saving</span>')+'<button class="btn small" data-act="pickOpen" data-m="change" title="Change the presenting complaint">Change</button><button class="btn small primary" data-act="newEnc" title="Start a new patient">'+IC.plus+'<span>New</span></button><button class="ibtn" data-act="moreToggle" aria-expanded="'+(!!UI.moreOpen)+'" aria-label="More options" title="More options">'+IC.more+'</button></header>'+moreMenu(e)+(UI.stage==='hist'&&P0.cz&&P0.cz.length?'':hookHTML(P0.id));
   }
   var dock='';
-  if(UI.tab==='enc'&&e&&!UI.pick&&getP(e.pid).dd.length&&(UI.stage==='hist'||UI.stage==='exam'||UI.stage==='vit')){dock='<div class="dock" id="dock"'+(DB.hideDdx?'':' data-act="stage" data-s="ddx"')+'>'+dockHTML(e)+'</div>'}
+  if(UI.tab==='enc'&&e&&!UI.pick&&getP(e.pid).dd.length&&(UI.stage==='hist'||UI.stage==='exam'||UI.stage==='vit')&&!(UI.stage==='hist'&&SKEL[e.pid])){dock='<div class="dock" id="dock"'+(DB.hideDdx?'':' data-act="stage" data-s="ddx"')+'>'+dockHTML(e)+'</div>'}
   var fab='';
   $('#app').innerHTML=nav+'<main class="main" id="main">'+top+stylePanel()+helpPanel()+body+'<p class="small muted" style="text-align:center;margin-block:18px 0">Companion tool only. Compare everything with your textbooks, handbook and supervisor.</p><p class="small muted credit" style="text-align:center;margin-block:4px">Made by <b>Yaseen Omar Lutfi</b> &middot; Telegram <a href="https://t.me/YaseenOmarLutfi" target="_blank" rel="noopener">@YaseenOmarLutfi</a></p>'+'</main>'+dock+fab;
   if(!keepScroll)window.scrollTo(0,0);
@@ -9599,7 +9604,14 @@ function stepHead(st,i){return '<div class="stph" id="stp-'+st.k+'"><span class=
 var SKEL={chest:1,fever:1},STEP_HUE={pc:212,cz:276,bg:168,ros:30,sum:140};
 function sklLab(code,name,own,P){return '<div class="skl"><span class="skn">'+code+'</span><b>'+esc(name)+'</b>'+(own?'<span class="tag own">Specific to '+esc(P.name.replace(/ \/.*$/,''))+'</span>':'<span class="tag same">Same in every history</span>')+'</div>'}
 var STEP_SHORT={pc:'Complaint',cz:'Causes',bg:'Background',ros:'Systems',sum:'Summary'};
-function hereHTML(){return '<div class="here off" id="hereBar"><div class="hin" aria-live="polite"></div></div>'}
+function hereHTML(){return '<div class="here off" id="hereBar"><div class="hin" aria-live="polite"></div><div class="hpan" id="herePan" hidden></div></div>'}
+function herePan(e,P){
+  if(!P.dd.length)return '';
+  if(DB.hideDdx)return '<p class="small muted">The differential is hidden so you can think first.</p><div class="row"><button class="btn small" data-act="ddxToggle">Show differential</button></div>';
+  var ds=ddxScores(e);
+  var rows=ds.nF?ds.res.slice(0,4).map(function(r,i){return '<li><span class="hrk">'+(i+1)+'</span>'+(r.d.mnm?'<u>'+esc(r.d.name)+'</u>':esc(r.d.name))+'</li>'}).join(''):'';
+  return (rows?'<ol class="hdd">'+rows+'</ol>':'<p class="small muted">Tick findings to rank the differential.</p>')+'<div class="row" style="gap:6px"><button class="btn small" data-act="stage" data-s="ddx">Full DDx</button><button class="btn small" data-act="ddxToggle">Hide differential</button></div>';
+}
 function hereUpd(){
   var bar=document.getElementById('hereBar'),e=curEnc();if(!bar||!e)return;
   var P=getP(e.pid),S=histSteps(e,P),stg=document.querySelector('.stages'),off=(stg?stg.getBoundingClientRect().bottom:0),strip=document.querySelector('.stps');
@@ -9610,7 +9622,9 @@ function hereUpd(){
   S.forEach(function(st,i){var el=document.getElementById('stp-'+st.k);if(el&&el.getBoundingClientRect().top<=lim)cur=i});
   var st=S[cur],nx=S[cur+1];
   bar.style.setProperty('--sh',STEP_HUE[st.k]);
-  bar.firstChild.innerHTML='<span class="hstn">'+(cur+1)+'</span><b class="grow">'+esc(st.n)+'</b>'+(nx?'<button class="hnext" data-act="stpGo" data-k="'+nx.k+'" aria-label="Next step: '+esc(nx.n)+'">'+esc(STEP_SHORT[nx.k])+' \u203A</button>':'<button class="hnext" data-act="stage" data-s="exam">Exam \u203A</button>')+'<span class="hseg" aria-hidden="true">'+S.map(function(x,i){return '<i class="'+(i===cur?'on':i<cur?'past':'')+'" style="--sh:'+STEP_HUE[x.k]+'"></i>'}).join('')+'</span>';
+  var pan=document.getElementById('herePan'),hasDd=P.dd.length>0;
+  if(pan){pan.hidden=!(UI.hddx&&hasDd&&!bar.classList.contains('off'));if(!pan.hidden)pan.innerHTML=herePan(e,P)}
+  bar.firstChild.innerHTML='<span class="hstn">'+(cur+1)+'</span><b class="grow">'+esc(st.n)+'</b>'+(hasDd?'<button class="hddx" data-act="hereDdx" aria-expanded="'+!!UI.hddx+'">DDx '+(UI.hddx?'\u25B4':'\u25BE')+'</button>':'')+(nx?'<button class="hnext" data-act="stpGo" data-k="'+nx.k+'" aria-label="Next step: '+esc(nx.n)+'">'+esc(STEP_SHORT[nx.k])+' \u203A</button>':'<button class="hnext" data-act="stage" data-s="exam">Exam \u203A</button>')+'<span class="hseg" aria-hidden="true">'+S.map(function(x,i){return '<i class="'+(i===cur?'on':i<cur?'past':'')+'" style="--sh:'+STEP_HUE[x.k]+'"></i>'}).join('')+'</span>';
 }
 var hereRaf=0;window.addEventListener('scroll',function(){if(hereRaf||!document.getElementById('hereBar'))return;hereRaf=requestAnimationFrame(function(){hereRaf=0;hereUpd()})},{passive:true});
 function stageHistSkel(e,P){
@@ -10786,6 +10800,7 @@ var ACT={
     bs[0].classList.toggle('on',st===1);bs[0].setAttribute('aria-pressed',st===1);bs[1].classList.toggle('on',st===-1);bs[1].setAttribute('aria-pressed',st===-1);
     rosPill(e,t.closest('details').dataset.sk);touch();
   },
+  hereDdx:function(){UI.hddx=!UI.hddx;hereUpd()},
   stpGo:function(t){var el=document.getElementById('stp-'+t.dataset.k);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})},
   chzPick:function(t){
     var e=curEnc();if(!e)return;var c=e.chz||(e.chz={}),d=t.dataset.d,o=t.dataset.o,dim=CHZ.filter(function(x){return x[0]===d})[0];
