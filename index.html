@@ -150,16 +150,22 @@ textarea{min-height:76px;resize:vertical;line-height:1.4}
 .tag.own{background:var(--accent);color:var(--accent-ink)}
 .tag.same{background:var(--surface2);color:var(--muted);border:1px dashed var(--line)}
 .here{position:sticky;z-index:15;height:0;--sc:hsl(var(--sh) 62% 46%);--sc-soft:hsl(var(--sh) 70% 94%)}
-.hin{position:absolute;inset-inline:-4px;top:2px;display:flex;align-items:center;gap:8px;height:40px;padding:0 6px 0 8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh);overflow:hidden;transition:opacity .18s,transform .18s}
+.hin{position:absolute;inset-inline:-4px;top:7px;display:flex;align-items:center;gap:8px;height:40px;padding:0 6px 0 8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh);overflow:hidden;transition:opacity .18s,transform .18s}
 .here.off .hin{opacity:0;transform:translateY(-6px);pointer-events:none}
 .hin .grow{flex:1;min-width:0;font-size:.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hstn{flex:none;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--sc);color:var(--bg);font-family:var(--f-mono);font-weight:700;font-size:.78rem}
-.hnext{flex:none;min-height:30px;padding:2px 10px;border-radius:99px;border:0;background:var(--sc-soft);color:var(--sc);font:inherit;font-size:.78rem;font-weight:700;cursor:pointer}
-.hddx{flex:none;min-height:30px;padding:2px 10px;border-radius:99px;border:1px solid var(--line);background:var(--surface2);color:var(--ink);font:inherit;font-size:.78rem;font-weight:700;cursor:pointer}
-.hddx[aria-expanded="true"]{background:var(--accent);color:var(--accent-ink);border-color:transparent}
-.hpan{position:absolute;inset-inline:-4px;top:48px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:8px}
-.hdd{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px;font-size:.88rem}
-.hdd li{display:flex;align-items:center;gap:8px}.hrk{flex:none;display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-family:var(--f-mono);font-size:.7rem;font-weight:700}
+.hnext{flex:none;width:30px;min-height:30px;padding:0;font-size:1.1rem!important;line-height:1;border-radius:50%;border:0;background:var(--sc-soft);color:var(--sc);font:inherit;font-size:.78rem;font-weight:700;cursor:pointer}
+.hdx{flex:1 1 auto;min-width:0;display:flex;align-items:center;gap:6px;height:30px;padding:0 4px 0 6px;border-radius:99px;border:1px solid var(--line);background:var(--surface2);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hdx:not(.on){flex:0 0 auto;color:var(--muted);font-size:.78rem;font-weight:700;padding-inline-end:10px}
+.hdx.on{background:var(--accent-soft);border-color:transparent}
+.hsw{flex:none;position:relative;width:22px;height:13px;border-radius:99px;background:var(--line);transition:background .15s}
+.hsw::after{content:"";position:absolute;top:2px;left:2px;width:9px;height:9px;border-radius:50%;background:var(--surface);transition:transform .15s}
+.hdx.on .hsw{background:var(--accent)}.hdx.on .hsw::after{transform:translateX(9px)}
+.hdl{flex:1;min-width:0;display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 82%,transparent)}
+.hdl::-webkit-scrollbar{display:none}
+.hch{flex:none;display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:99px;background:var(--surface);color:var(--ink);font-size:.72rem;font-weight:600;white-space:nowrap}
+.hch i{font-style:normal;font-family:var(--f-mono);color:var(--accent);font-size:.66rem}
+.hch.m{text-decoration:underline;text-underline-offset:2px}.hch.none{color:var(--muted);background:transparent}
 .hseg{position:absolute;inset-inline:0;bottom:0;display:flex;gap:2px;height:3px}.hseg i{flex:1;background:var(--surface2)}.hseg i.past,.hseg i.on{background:hsl(var(--sh) 62% 50%)}
 .stpw .stph{scroll-margin-top:var(--hereoff,110px)}
 .stpw .unit .cnt,.stpw .chz .cnt,.stpw .cz .cnt{display:none}
@@ -428,6 +434,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 
 .stages button[aria-current="step"] .sbar i{background:var(--accent-ink)}
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (max-width:375px){.stages button{font-size:.68rem}}
+.stages{padding:3px}.stages button{min-height:32px;padding:2px 0;gap:2px;border-radius:9px}.stages .sbar{height:2px}
 .top.slim .tt .eyebrow{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:none;letter-spacing:0;font-weight:600}
 .dock .tops{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}
 .dock .tops::-webkit-scrollbar{display:none}
@@ -9604,27 +9611,26 @@ function stepHead(st,i){return '<div class="stph" id="stp-'+st.k+'"><span class=
 var SKEL={chest:1,fever:1},STEP_HUE={pc:212,cz:276,bg:168,ros:30,sum:140};
 function sklLab(code,name,own,P){return '<div class="skl"><span class="skn">'+code+'</span><b>'+esc(name)+'</b>'+(own?'<span class="tag own">Specific to '+esc(P.name.replace(/ \/.*$/,''))+'</span>':'<span class="tag same">Same in every history</span>')+'</div>'}
 var STEP_SHORT={pc:'Complaint',cz:'Causes',bg:'Background',ros:'Systems',sum:'Summary'};
-function hereHTML(){return '<div class="here off" id="hereBar"><div class="hin" aria-live="polite"></div><div class="hpan" id="herePan" hidden></div></div>'}
-function herePan(e,P){
-  if(!P.dd.length)return '';
-  if(DB.hideDdx)return '<p class="small muted">The differential is hidden so you can think first.</p><div class="row"><button class="btn small" data-act="ddxToggle">Show differential</button></div>';
-  var ds=ddxScores(e);
-  var rows=ds.nF?ds.res.slice(0,4).map(function(r,i){return '<li><span class="hrk">'+(i+1)+'</span>'+(r.d.mnm?'<u>'+esc(r.d.name)+'</u>':esc(r.d.name))+'</li>'}).join(''):'';
-  return (rows?'<ol class="hdd">'+rows+'</ol>':'<p class="small muted">Tick findings to rank the differential.</p>')+'<div class="row" style="gap:6px"><button class="btn small" data-act="stage" data-s="ddx">Full DDx</button><button class="btn small" data-act="ddxToggle">Hide differential</button></div>';
-}
+function hereHTML(){return '<div class="here off" id="hereBar"><div class="hin" aria-live="polite"></div></div>'}
 function hereUpd(){
   var bar=document.getElementById('hereBar'),e=curEnc();if(!bar||!e)return;
   var P=getP(e.pid),S=histSteps(e,P),stg=document.querySelector('.stages'),off=(stg?stg.getBoundingClientRect().bottom:0),strip=document.querySelector('.stps');
   bar.style.top=Math.max(0,stg?stg.getBoundingClientRect().height:0)+'px';
-  document.documentElement.style.setProperty('--hereoff',(off+52)+'px');
+  document.documentElement.style.setProperty('--hereoff',(off+58)+'px');
   bar.classList.toggle('off',!!strip&&strip.getBoundingClientRect().bottom>off+4);
   var cur=0,lim=off+60;
   S.forEach(function(st,i){var el=document.getElementById('stp-'+st.k);if(el&&el.getBoundingClientRect().top<=lim)cur=i});
   var st=S[cur],nx=S[cur+1];
   bar.style.setProperty('--sh',STEP_HUE[st.k]);
-  var pan=document.getElementById('herePan'),hasDd=P.dd.length>0;
-  if(pan){pan.hidden=!(UI.hddx&&hasDd&&!bar.classList.contains('off'));if(!pan.hidden)pan.innerHTML=herePan(e,P)}
-  bar.firstChild.innerHTML='<span class="hstn">'+(cur+1)+'</span><b class="grow">'+esc(st.n)+'</b>'+(hasDd?'<button class="hddx" data-act="hereDdx" aria-expanded="'+!!UI.hddx+'">DDx '+(UI.hddx?'\u25B4':'\u25BE')+'</button>':'')+(nx?'<button class="hnext" data-act="stpGo" data-k="'+nx.k+'" aria-label="Next step: '+esc(nx.n)+'">'+esc(STEP_SHORT[nx.k])+' \u203A</button>':'<button class="hnext" data-act="stage" data-s="exam">Exam \u203A</button>')+'<span class="hseg" aria-hidden="true">'+S.map(function(x,i){return '<i class="'+(i===cur?'on':i<cur?'past':'')+'" style="--sh:'+STEP_HUE[x.k]+'"></i>'}).join('')+'</span>';
+  var hasDd=P.dd.length>0,on=hasDd&&UI.hddx!==false&&!DB.hideDdx,mid='';
+  if(hasDd){
+    if(on){var ds=ddxScores(e);
+      var ch=ds.nF?ds.res.slice(0,6).map(function(r,i){return '<span class="hch'+(r.d.mnm?' m':'')+'"><i>'+(i+1)+'</i>'+esc(r.d.name)+'</span>'}).join(''):'<span class="hch none">Tick findings</span>';
+      mid='<div class="hdx on" role="button" tabindex="0" data-act="hereDdx" aria-pressed="true" aria-label="Differential, tap to hide"><span class="hsw" aria-hidden="true"></span><span class="hdl">'+ch+'</span></div>';
+    }else mid='<div class="hdx" role="button" tabindex="0" data-act="hereDdx" aria-pressed="false" aria-label="Show differential"><span class="hsw" aria-hidden="true"></span><span class="hoff">DDx</span></div>';
+  }
+  var hh='<span class="hstn" title="'+esc(st.n)+'">'+(cur+1)+'</span>'+(on?'':'<b class="grow">'+esc(st.n)+'</b>')+mid+(nx?'<button class="hnext" data-act="stpGo" data-k="'+nx.k+'" aria-label="Next step: '+esc(nx.n)+'" title="Next: '+esc(nx.n)+'">›</button>':'<button class="hnext" data-act="stage" data-s="exam" aria-label="Go to exam" title="Go to exam">›</button>')+'<span class="hseg" aria-hidden="true">'+S.map(function(x,i){return '<i class="'+(i===cur?'on':i<cur?'past':'')+'" style="--sh:'+STEP_HUE[x.k]+'"></i>'}).join('')+'</span>';
+  if(bar._h!==hh){bar._h=hh;bar.firstChild.innerHTML=hh}
 }
 var hereRaf=0;window.addEventListener('scroll',function(){if(hereRaf||!document.getElementById('hereBar'))return;hereRaf=requestAnimationFrame(function(){hereRaf=0;hereUpd()})},{passive:true});
 function stageHistSkel(e,P){
@@ -10800,7 +10806,7 @@ var ACT={
     bs[0].classList.toggle('on',st===1);bs[0].setAttribute('aria-pressed',st===1);bs[1].classList.toggle('on',st===-1);bs[1].setAttribute('aria-pressed',st===-1);
     rosPill(e,t.closest('details').dataset.sk);touch();
   },
-  hereDdx:function(){UI.hddx=!UI.hddx;hereUpd()},
+  hereDdx:function(){if(DB.hideDdx){DB.hideDdx=false;UI.hddx=true;saveSoon();render(true);return}UI.hddx=(UI.hddx===false);hereUpd()},
   stpGo:function(t){var el=document.getElementById('stp-'+t.dataset.k);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})},
   chzPick:function(t){
     var e=curEnc();if(!e)return;var c=e.chz||(e.chz={}),d=t.dataset.d,o=t.dataset.o,dim=CHZ.filter(function(x){return x[0]===d})[0];
