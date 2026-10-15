@@ -61,11 +61,11 @@ from matplotlib.colors import LinearSegmentedColormap
 cmap = LinearSegmentedColormap.from_list('div', ['#184f95', '#6da7ec', '#f0efec', '#ef8a89', '#b42e2e'])
 rho = x['T7_corr_matrix_rho']; q = x['T7_corr_matrix_q']
 fig, ax = plt.subplots(figsize=(8.2, 6.8))
-mask = np.triu(np.ones_like(rho, bool), 0)
+rho = rho.iloc[1:, :-1]; q = q.iloc[1:, :-1]   # drop empty first row / last column of the lower triangle
+mask = np.triu(np.ones_like(rho, bool), 1)
 im = ax.imshow(np.where(mask, np.nan, rho.values), cmap=cmap, vmin=-1, vmax=1)
 for i in range(len(rho)):
     for j in range(i+1):
-        if i == j: continue
         v = rho.values[i, j]; star = '***' if q.values[i, j] < .001 else '**' if q.values[i, j] < .01 else '*' if q.values[i, j] < .05 else ''
         ax.text(j, i, f'{v:.2f}{star}', ha='center', va='center', fontsize=7.5, color='white' if abs(v) > .55 else INK)
 ax.set_xticks(range(len(rho))); ax.set_xticklabels(rho.columns, rotation=45, ha='right', fontsize=8.5)

@@ -66,7 +66,7 @@ def multi(cols, labels, title):
     return pd.DataFrame({'Variable': title, 'Category': labels, 'n': [int(d[c].sum()) for c in cols],
                          '%': [round(d[c].mean()*100, 1) for c in cols]})
 tab2 = pd.concat([
-    multi(['tool_ai', 'tool_search', 'tool_medplat', 'tool_social'], ['AI chatbots', 'Search engines', 'Dedicated medical platforms', 'Social media'], 'Tools used (multiple)'),
+    multi(['ai_user', 'tool_search', 'tool_medplat', 'tool_social'], ['AI chatbots*', 'Search engines', 'Dedicated medical platforms', 'Social media'], 'Tools used (multiple)'),
     freq('ai_model', ['ChatGPT', 'Gemini', 'Claude', 'Other AI', 'None reported'], 'Main AI chatbot'),
     freq('tool_profile', ['AI + search engine', 'AI without search engine', 'No AI (search/other only)'], 'Tool profile'),
     multi(['mot_convenience', 'mot_triage', 'mot_reassurance', 'mot_selfdx', 'mot_cost'],
