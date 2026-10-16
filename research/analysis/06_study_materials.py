@@ -349,7 +349,7 @@ guide = f"""<!doctype html><html><head><meta charset="utf-8"><title>Study and De
 <tr><td>Indirect effect (excess. → distress)</td><td class="num">{N['mA']}</td><td>Direct HA → reassurance after distress</td><td class="num">{N['mCd']} (ns)</td></tr>
 <tr><td>Delay care (reassured)</td><td class="num">{N['dr']}</td><td>Never disclose to doctor</td><td class="num">{N['never']}</td></tr>
 <tr><td>Urgent care / ER</td><td class="num">{N['urg']}</td><td>Relationship complicated / reduced trust</td><td class="num">{N['relneg']}</td></tr>
-<tr><td>Item pairs significant (FDR)</td><td class="num">{N['ibF']}/168</td><td>References</td><td class="num">47 (Vancouver)</td></tr>
+<tr><td>Item pairs significant (FDR)</td><td class="num">{N['ibF']}/168</td><td>References</td><td class="num">52 (Vancouver)</td></tr>
 </table>
 
 <h2 class="page-break">9. Presentation plan: slide by slide (≈ 12–15 minutes)</h2>
