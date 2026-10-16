@@ -122,7 +122,7 @@ save(fig, 'fig7_forest_HA')
 med = x['T21_mediation']
 def diagram(ax, model, xl, ml, yl, title):
     s = med[med.Model == model].set_index('Path')
-    a = s.iloc[0]; b = s.iloc[1]; tot = s.loc['Total']; dr = s.loc['Direct']; ind = s.loc['Indirect']
+    a = s.iloc[0]; b = s.loc['b (M -> Y | X)']; tot = s.loc['Total']; dr = s.loc['Direct']; ind = s.loc['Indirect']
     boxes = {'X': (0.12, 0.25), 'M': (0.5, 0.78), 'Y': (0.88, 0.25)}
     for key, txt in zip(['X', 'M', 'Y'], [xl, ml, yl]):
         cx, cy = boxes[key]

@@ -68,7 +68,7 @@ d['ai_model'] = ai_model.map(aim)
 d['ai_model_inconsistent'] = ((d['ai_model'] != 'None reported') & (d.tool_ai == 0)).astype(int)
 # A respondent naming an AI model is counted as an AI user (decision reported in Methods)
 d['ai_user'] = ((d.tool_ai == 1) | (d['ai_model'] != 'None reported')).astype(int)
-d['n_tools'] = d[['tool_search', 'tool_ai', 'tool_medplat', 'tool_social']].sum(axis=1)
+d['n_tools'] = d[['tool_search', 'ai_user', 'tool_medplat', 'tool_social']].sum(axis=1)
 d['ai_only'] = ((d.ai_user == 1) & (d.tool_search == 0) & (d.tool_medplat == 0) & (d.tool_social == 0)).astype(int)
 def toolprofile(r):
     if r.ai_user and r.tool_search: return 'AI + search engine'

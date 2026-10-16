@@ -442,6 +442,10 @@ for lab, x, m_, y in [('A: HA → Excessive searching → Post-search distress',
     res = boot_mediation(x, m_, y, cov_med, zs)
     for _, r in res.iterrows():
         med_rows.append(dict(Model=lab, Path=r['path'], coef=r['coef'], CI_low=r['CI2.5'], CI_high=r['CI97.5'], p=r['pval']))
+    # pingouin's 'Y ~ M' row is not adjusted for X; report the b path adjusted for X (so that indirect = a x b)
+    fb = smf.ols(f'{y} ~ {x} + {m_} + ' + ' + '.join(cov_med), zs).fit(cov_type='HC3')
+    cib = fb.conf_int().loc[m_]
+    med_rows.append(dict(Model=lab, Path='b (M -> Y | X)', coef=fb.params[m_], CI_low=cib[0], CI_high=cib[1], p=fb.pvalues[m_]))
 MED = pd.DataFrame(med_rows); T['T21_mediation'] = MED.round(4)
 # proportion mediated
 pm = {}
@@ -536,7 +540,7 @@ sl = (d[CSS].nunique(axis=1) == 1) | (d[SHAI].nunique(axis=1) == 1)
 sens['straightliners'] = int(sl.sum())
 s2 = d[~sl]; sens['excluding_straightliners_r'] = stats.pearsonr(s2.SHAI, s2.CSS)[0]; sens['n_after'] = len(s2)
 # Spearman robust; alternative cut-off
-for cut in [15, 18, 22]:
+for cut in [15, 18, 22, 29]:
     sens[f'prev_SHAI_ge_{cut}'] = float((d.SHAI >= cut).mean()*100)
 # bootstrap OLS coefficient of SHAI on CSS
 bs = []

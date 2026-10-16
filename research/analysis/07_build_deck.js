@@ -156,10 +156,10 @@ hyp.forEach(([k, t], i) => {
 section("Methods");
 s = slide("SECTION", "Methods", null); s.addText("Design, sample, instruments and analysis", { placeholder: "body" });
 s = slide("CONTENT", "How we did it",
-  `Cross-sectional online survey in Baghdad, ${N.d0} to ${N.d1}. Convenience and snowball sampling, n = ${N.n}. Sample size: ${N.nreq} needed to detect r = 0.20 with 80% power; we had ${N.pw} power. Bilingual Google Form with SHAI-14 and CSS-12. Analysis: reliability and CFA, correlations, non-parametric tests with FDR correction, robust regression, logistic models, bootstrapped mediation and moderation, sensitivity analyses.`);
+  `Cross-sectional online survey in Baghdad, ${N.d0} to ${N.d1}. Convenience and snowball sampling, n = ${N.n}. Sample size: ${N.nreq} needed to detect r = 0.20 with 80% power; our sample of ${N.n} exceeds this. Bilingual Google Form with SHAI-14 and CSS-12. Analysis: reliability and CFA, correlations, non-parametric tests with FDR correction, robust regression, logistic models, bootstrapped mediation and moderation, sensitivity analyses.`);
 [["Design", "Analytical cross-sectional online survey (STROBE, CHERRIES)"],
  ["Setting & time", `Baghdad · ${N.d0} – ${N.d1}`],
- ["Sample", `n = ${N.n}, convenience + snowball; ${N.nreq} needed for r = 0.20 (power ${N.pw})`],
+ ["Sample", `n = ${N.n}, convenience + snowball; a priori ${N.nreq} needed to detect r = 0.20`],
  ["Instruments", "Bilingual Google Form · SHAI-14 (health anxiety) · CSS-12 (cyberchondria, 4 subscales)"],
  ["Analysis", "Reliability & CFA · correlations · FDR-corrected tests · robust and logistic regression · bootstrapped mediation"],
  ["Ethics", "Anonymous, voluntary, e-consent before any question · [approval no.]"]].forEach(([h, b], i) => {
@@ -191,10 +191,10 @@ s.addChart(pres.charts.BAR, [{ name: "Motives", labels: ["Convenience", "Is a do
 txt(s, `ChatGPT is the main chatbot for ${N.gpt} of all participants · ${N.ai_only} use AI without any search engine`, { x: M, y: 6.25, w: 12.1, h: 0.4, fontSize: 15, italic: true, color: "52514E" });
 
 // ---------------------------------------------------------------- 8 Levels
-s = slide("CONTENT", "One in five has clinically relevant health anxiety",
+s = slide("CONTENT", "One in five has elevated health anxiety",
   `SHAI mean ${N.shai_m}; ${N.hac} scored 18 or more (95% CI ${N.hac_ci}). CSS mean ${N.css_m}. People search a lot (excessiveness highest) but it rarely disrupts daily life (compulsion lowest). Both scales reliable.`);
 stat(s, M, 1.6, 2.85, N.shai_m, "mean SHAI-14 (0–42)");
-stat(s, M + 3.07, 1.6, 2.85, N.hac, "SHAI ≥ 18 (clinically relevant)", C.accent2);
+stat(s, M + 3.07, 1.6, 2.85, N.hac, "elevated (SHAI ≥ 18)", C.accent2);
 stat(s, M + 6.14, 1.6, 2.85, N.css_m, "mean CSS-12 (12–60)");
 stat(s, M + 9.21, 1.6, 2.85, `${N.aS} / ${N.aC}`, "reliability α (SHAI / CSS)", null, 30);
 fig(s, "fig5_subscales_by_HA.png", M, 3.6, 12.1, 3.2);
@@ -224,7 +224,7 @@ txt(s, `${N.ibF}/168 item pairs significant after FDR`, { x: 8.1, y: 6.5, w: 4.6
 
 // ---------------------------------------------------------------- 11 Predictors
 s = slide("CONTENT", "Who is most affected",
-  `Clinically relevant health anxiety is independently associated with higher cyberchondria (AOR ${N.orCSS} per SD), searching for instant reassurance (AOR ${N.orMot}) and younger age (AOR ${N.orAge} per age step). AUC ${N.auc}. Chronic illness predicts SHAI in linear models. Demographics explain almost none of cyberchondria (R-squared ${N.R2a}).`);
+  `Elevated health anxiety is independently associated with higher cyberchondria (AOR ${N.orCSS} per SD), searching for instant reassurance (AOR ${N.orMot}) and younger age (AOR ${N.orAge} per age step). AUC ${N.auc}. Chronic illness predicts SHAI in linear models. Demographics explain almost none of cyberchondria (R-squared ${N.R2a}).`);
 fig(s, "fig7_forest_HA.png", M, 1.4, 7.6, 4.9);
 [[N.orCSS + "×", "odds per SD of cyberchondria"], [N.orMot + "×", "odds if searching for instant reassurance"], [N.auc, "AUC: good discrimination"]].forEach(([v, l], i) => {
   stat(s, 8.6, 1.4 + i * 1.95, 4.1, v, l, i === 1 ? C.accent2 : C.accent1);
