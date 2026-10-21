@@ -182,6 +182,15 @@ textarea{min-height:76px;resize:vertical;line-height:1.4}
 @keyframes fupin{from{opacity:0;transform:translateY(-4px)}}
 .pk.flash{outline:3px solid var(--accent);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){.harr,.fup{animation:none}}
+.pdw{display:flex;flex-direction:column;gap:8px;margin-block:10px 4px}
+.pd{border:1px solid var(--line);border-inline-start:3px solid var(--accent);border-radius:12px;padding:9px 10px 10px;background:var(--surface2);display:flex;flex-direction:column;gap:6px}
+.pdh{font-size:.8rem;color:var(--muted)}.pdh b{color:var(--ink)}
+.pdr{display:flex;flex-direction:column;gap:4px}
+.pdl{font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.pdo{display:flex;flex-wrap:wrap;gap:5px;min-width:0}
+.pdc{min-height:30px;padding:3px 10px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:.78rem;cursor:pointer}
+.pdc.on{background:var(--accent);border-color:transparent;color:var(--accent-ink)}
+.pdin{min-height:34px;padding:4px 10px;font-size:.82rem;border-radius:10px}
 .hseg{position:absolute;inset-inline:0;bottom:0;display:flex;gap:2px;height:3px}.hseg i{flex:1;background:var(--surface2)}.hseg i.past,.hseg i.on{background:hsl(var(--sh) 62% 50%)}
 .stpw .stph{scroll-margin-top:var(--hereoff,110px)}
 .stpw .unit .cnt,.stpw .chz .cnt,.stpw .cz .cnt{display:none}
@@ -8946,6 +8955,60 @@ function bgsLine(e,k,short){
 }
 function bgUnit(P,u){return /^background/i.test(u.g||'')||(P.id==='genhx'&&/past|family|social|occupational|drug|allerg/i.test(u.secs[0].title))}
 
+/* ================= describe each positive finding ================= */
+/* When an associated symptom is a yes, ask the details a doctor expects next: when it started in relation to the
+   main complaint, how it is behaving, and the questions specific to that symptom. */
+var PD_GEN=[['when','Started',['Before the main complaint','With it','After it']],['course','Since then',['Getting worse','No change','Getting better']]];
+var PD_LIB=[
+ [/sputum|productive/i,[['col','Colour',['Clear or white','Yellow or green','Rusty','Blood-stained'],1],['amt','Amount a day',['A teaspoon','An egg-cup','A cupful or more']],['smell','Smell',['Not offensive','Foul-smelling']]]],
+ [/vomit/i,[['what','Brings up',['Food','Bile (green)','Fresh blood','Coffee-ground','Faeculent'],1],['freq','How often',['Once or twice','Several times a day','After every meal']],['rel','With the pain',['Comes before it','Comes after it','Relieves it']]]],
+ [/urine|urinat|dysuria|frequency|burning|stream|hesitan/i,[['freq','Frequency',['Daytime only','Day and night']],['look','Urine',['Cloudy','Smelly','Bloody'],1]]],
+ [/blood(?! pressure)|haemopt|hemopt|haemat|hemat|melaena|black stool|bleed|bruis/i,[['amt','Amount',['Streaks or spots','About a spoonful','A large amount']],['col','Colour',['Bright red','Dark red','Black or tarry','Coffee-ground'],1],['freq','How often',['Once','A few times','Every day']]]],
+ [/\bcough\b/i,[['typ','Type',['Dry','With sputum']],['tim','Worse',['At night','In the morning','Lying flat','After eating'],1]]],
+ [/diarrh/i,[['freq','How often',['Under 5 a day','5 to 10 a day','Over 10 a day']],['stool','Stool',['Watery','With blood','With mucus','Pale, greasy, floats'],1],['night','At night',['Wakes them at night','Daytime only']]]],
+ [/constipat|no stool/i,[['last','Bowels last opened',['Today','2 to 3 days ago','Over 3 days ago']],['wind','Wind',['Passing wind','No wind']]]],
+ [/fever|temperature|febrile|rigor/i,[['max','Highest reading',['Not measured','Under 38.5 °C','38.5 to 39.5 °C','Over 39.5 °C']],['pat','Pattern',['Continuous','Comes and goes','Evenings only']],['with','With',['Rigors','Night sweats'],1]]],
+ [/weight loss|losing weight|weight gain/i,[['how','How much',['Under 5 kg','5 to 10 kg','Over 10 kg']],['over','Over',['Weeks','Months']],['app','Appetite',['Normal','Reduced','Increased']]]],
+ [/breathless|breathing|short of breath|dyspn|wheez/i,[['when','Breathless',['At rest','On mild exertion','Only on heavy exertion']],['flat','Lying flat',['Worse lying flat','Wakes at night breathless'],1],['on','Onset',['Sudden','Over days','Over weeks to months']]]],
+ [/palpitat/i,[['rhy','Feels',['Fast and regular','Irregular','Missed or extra beats']],['ss','Starts and stops',['Suddenly','Gradually']],['last','Each lasts',['Seconds','Minutes','Hours']]]],
+ [/headache/i,[['site','Where',['Whole head','One side','Back of the head','Around one eye']],['worse','Worse',['In the morning','Coughing or straining','Lying down'],1]]],
+ [/rash|spots|itch|skin/i,[['where','Where',['Face','Trunk','Limbs','Everywhere'],1],['blanch','Fades when pressed',['Yes','No']],['itch','Itchy',['Itchy','Not itchy']]]],
+ [/jaundice|yellow/i,[['with','With',['Dark urine','Pale stool','Itch'],1],['pain','Pain',['Painless','With pain']]]],
+ [/swell|swollen|oedema|edema|lump|node|mass/i,[['side','Where',['One side','Both sides']],['pain','Painful',['Painful','Painless']],['size','Size since noticed',['Growing','Same','Smaller']]]],
+ [/confus|drows|collaps|faint|fit|seiz|unconscious/i,[['wit','Witnessed',['Yes','No']],['last','Lasted',['Seconds','Minutes','Hours']],['rec','Recovered',['Fully','Partly','Not yet']]]],
+ [/numb|tingl|weak|vision|speech|slurr|double/i,[['side','Side',['One side','Both sides']],['on','Onset',['Sudden','Over hours','Over days or longer']],['now','Now',['Still present','Gone']]]],
+ [/pain|ache|tender|colic|discomfort/i,[['char','Character',['Sharp','Dull or aching','Burning','Colicky','Tight']],['sev','How bad',['Mild','Moderate','Severe']],['rel','Related to',['Food','Movement','Breathing','Nothing'],1]]],
+ [/tired|fatigue|letharg/i,[['eff','Effect',['Still doing usual things','Limits daily life','Mostly in bed']]]]
+];
+function pdRows(it){for(var i=0;i<PD_LIB.length;i++)if(PD_LIB[i][0].test(it.c))return PD_LIB[i][1].concat(PD_GEN);return PD_GEN}
+/* sections where a yes deserves a description: the associated symptoms and cause screens (step 2) */
+function pdSecs(P){
+  if(P._pd)return P._pd;var set={},U=units(P,'H');
+  U.forEach(function(u,i){if(!i||bgUnit(P,u)||/^(during|after|the pain)/i.test(u.g||'')||(i===1&&/resuscitat/i.test(U[0].g||U[0].secs[0].title))||P.id==='genhx')return;u.secs.forEach(function(s){if(s.mode==='pick')set[s.ix]=1})});
+  return (P._pd=set);
+}
+function pdVal(e,P,it){return (e.pd||{})[fkey(P,it)]||{}}
+function pdHTML(e,P,s){
+  if(s.kind!=='H'||!pdSecs(P)[s.ix])return '';
+  var pos=s.items.filter(function(it){return e.f[fkey(P,it)]===1});if(!pos.length)return '';
+  return '<div class="pdw">'+pos.map(function(it){
+    var k=fkey(P,it),v=pdVal(e,P,it),tv=((e.pdt||{})[P.id]||{})[it.k]||'';
+    var h='<div class="pd" data-pk="'+esc(k)+'"><div class="pdh"><span aria-hidden="true">↳</span> Describe: <b>'+esc(it.c)+'</b></div>';
+    pdRows(it).forEach(function(r){var cur=v[r[0]];
+      h+='<div class="pdr"><span class="pdl">'+esc(r[1])+'</span><span class="pdo">'+r[2].map(function(o){var on=r[3]?(cur||[]).indexOf(o)>=0:cur===o;return '<button class="pdc'+(on?' on':'')+'" data-act="pdPick" data-r="'+r[0]+'" data-m="'+(r[3]?1:0)+'" data-o="'+esc(o)+'" aria-pressed="'+on+'">'+esc(o)+'</button>'}).join('')+'</span></div>'});
+    h+='<input type="text" class="pdin" data-b="pdt.'+P.id+'.'+it.k+'" value="'+esc(tv)+'" placeholder="Anything else about it (e.g. for 3 days)" autocomplete="off"></div>';
+    return h}).join('')+'</div>';
+}
+function pdText(e,P,it){
+  var v=pdVal(e,P,it),o=[];
+  pdRows(it).forEach(function(r){var x=v[r[0]];if(!x||(r[3]&&!x.length))return;var s=r[3]?x.join(', '):x;
+    if(r[0]==='when'&&r[1]==='Started')o.push(s==='With it'?'began with the main complaint':'began '+s.toLowerCase());
+    else if(r[0]==='course'&&r[1]==='Since then')o.push(s.toLowerCase());
+    else o.push(r[1].toLowerCase()+': '+s.toLowerCase())});
+  var tv=(((e.pdt||{})[P.id]||{})[it.k]||'').trim();if(tv)o.push(tv);
+  return o.length?' ('+o.join('; ')+')':'';
+}
+
 /* ================= completeness of the history ================= */
 function histGaps(e,P){
   var g=[],tx=bgTx(e);
@@ -9016,7 +9079,7 @@ function collect(e){
     var pos=[],neg=[],chip=sec.mode!=='yn';
     sec.items.forEach(function(it){
       var st=e.f[fkey(P,it)];if(!st)return;
-      if(st===1)pos.push(chip?lcFirst(it.c):it.t);else if(sec.mode!=='one')neg.push(chip?lcFirst(it.c):it.t)});
+      if(st===1)pos.push((chip?lcFirst(it.c):it.t)+(sec.kind==='H'?pdText(e,P,it):''));else if(sec.mode!=='one')neg.push(chip?lcFirst(it.c):it.t)});
     var oth=(ot[P.id+'_'+sec.kind+sec.ix]||'').trim();if(oth)pos.push(oth);
     var H=sec.kind==='H',lab=sec.pre?sec.pre.replace(/:$/,''):sec.title;
     if(chip){
@@ -9542,7 +9605,7 @@ function unitHTML(e,P,u,idx){
     if(u.g)h+='<div class="sst"><span>'+(s.mode==='one'&&s.items.some(function(it){return isHY(P,it)})?'<b class="hys" title="High-yield question">\u2605</b> ':'')+esc(covName(s.title,u.secs.indexOf(s),'Part'))+(s.mode==='one'?' <i>pick one</i>':'')+'</span></div>';
     if(s.note)h+='<p class="snote">'+esc(s.note)+'</p>';
     if(s.mn)h+=mnHTML(s.mn);
-    h+='<div class="sbody" id="sb-'+s.kind+s.ix+'">'+secBody(e,P,s)+'</div>';
+    h+='<div class="sbody" id="sb-'+s.kind+s.ix+'">'+secBody(e,P,s)+pdHTML(e,P,s)+'</div>';
   });
   return h+'</section>';
 }
@@ -9624,8 +9687,8 @@ function histSteps(e,P){
 }
 function stepHead(st,i){return '<div class="stph" id="stp-'+st.k+'"><span class="stn'+(st.ok?' ok':'')+'">'+(st.ok?'✓':i+1)+'</span><div class="grow"><b>'+esc(st.n)+'</b><span class="small muted">'+esc(st.sub)+'</span></div><span class="cnt">'+st.d+'/'+st.t+'</span></div>'}
 /* ---- Sample (chest pain and fever): one skeleton for every complaint, shared vs specific, "you are here" ---- */
-var SKEL={chest:1,fever:1},STEP_HUE={pc:212,cz:276,bg:168,ros:30,sum:140};
-function sklLab(code,name,own,P){return '<div class="skl"><span class="skn">'+code+'</span><b>'+esc(name)+'</b>'+(own?'<span class="tag own">Specific to '+esc(P.name.replace(/ \/.*$/,''))+'</span>':'<span class="tag same">Same in every history</span>')+'</div>'}
+var SKEL={};PRES.forEach(function(p){SKEL[p.id]=1});var STEP_HUE={pc:212,cz:276,bg:168,ros:30,sum:140};
+function sklLab(code,name,own,P){own=own&&P.id!=='genhx';return '<div class="skl"><span class="skn">'+code+'</span><b>'+esc(name)+'</b>'+(own?'<span class="tag own">Specific to '+esc(P.name.replace(/ \/.*$/,''))+'</span>':'<span class="tag same">Same in every history</span>')+'</div>'}
 var STEP_SHORT={pc:'Complaint',cz:'Causes',bg:'Background',ros:'Systems',sum:'Summary'};
 function hereHTML(){return '<div class="here off" id="hereBar"><div class="hin" aria-live="polite"></div></div>'}
 function hereUpd(){
@@ -9666,12 +9729,12 @@ function stageHistSkel(e,P){
     if(st.k==='pc'){
       h+=sklLab(n+'A','The story',true,P)+'<p class="lphint">Press and hold any question to see why it matters.</p>';st.L.forEach(function(o){h+=unitHTML(e,P,o.u,o.i)});
       var cz=chzCard(e,P);if(cz)h+=sklLab(n+'B','Characterise it',false,P)+cz;
-      if(!P.pain)h+=sklLab(n+'C','Pain, if there is any',false,P)+paHTML(e);
+      if(!P.pain&&P.id!=='genhx')h+=sklLab(n+'C','Pain, if there is any',false,P)+paHTML(e);
     }else if(st.k==='cz'){
-      h+=sklLab(n+'A','Red flags and causes',true,P)+'<p class="lphint">Press and hold a cause to see a typical patient.</p>'+czHTML(e,P);st.L.forEach(function(o){h+=unitHTML(e,P,o.u,o.i)});
+      h+=sklLab(n+'A',P.cz&&P.cz.length?'Red flags and causes':'Associated symptoms',true,P)+'<p class="lphint">'+(CZPIC[P.id]?'Press and hold a cause to see a typical patient. ':'')+'When a symptom is a yes, describe it in the box that opens under it.</p>'+czHTML(e,P);st.L.forEach(function(o){h+=unitHTML(e,P,o.u,o.i)});
     }else if(st.k==='bg'){
-      h+=sklLab(n+'A','Background for '+nm,true,P);st.L.forEach(function(o){h+=unitHTML(e,P,o.u,o.i)});
-      h+=sklLab(n+'B','Full background (college record)',false,P)+bgsCard(e)+pkCard();
+      h+=sklLab(n+'A',P.id==='genhx'?'Background (college record)':'Background for '+nm,true,P);st.L.forEach(function(o){h+=unitHTML(e,P,o.u,o.i)});
+      if(P.id!=='genhx')h+=sklLab(n+'B','Full background (college record)',false,P)+bgsCard(e);h+=pkCard();
     }else if(st.k==='ros'){
       h+=sklLab(n+'A','One or two questions per system',false,P)+rosCard(e);
     }else{
@@ -10909,6 +10972,13 @@ var ACT={
     rosPill(e,t.closest('details').dataset.sk);touch();
   },
   fupGo:function(t){fupGo(t)},
+  pdPick:function(t){
+    var e=curEnc();if(!e)return;var k=t.closest('[data-pk]').dataset.pk,r=t.dataset.r,o=t.dataset.o,m=t.dataset.m==='1';
+    e.pd=e.pd||{};var v=e.pd[k]||(e.pd[k]={});
+    if(m){var l=v[r]||(v[r]=[]),i=l.indexOf(o);if(i>=0)l.splice(i,1);else l.push(o);t.classList.toggle('on',i<0);t.setAttribute('aria-pressed',i<0)}
+    else{v[r]=v[r]===o?'':o;t.parentNode.querySelectorAll('.pdc').forEach(function(b){var on=b.dataset.o===v[r];b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)})}
+    touch();
+  },
   hereDdx:function(){if(DB.hideDdx){DB.hideDdx=false;UI.hddx=true;saveSoon();render(true);return}UI.hddx=(UI.hddx===false);hereUpd()},
   stpGo:function(t){var el=document.getElementById('stp-'+t.dataset.k);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})},
   chzPick:function(t){
