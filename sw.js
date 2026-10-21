@@ -1,7 +1,7 @@
 /* Bedside H&E service worker: caches the app so it opens offline.
    The page itself (index.html) is fetched network-first, so a new upload reaches students on their next open
    without bumping VERSION. Bump VERSION only when you change this file or the CORE list. */
-var VERSION = 'bhe-v73';
+var VERSION = 'bhe-v74';
 var CORE=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-maskable-192.png','./icon-maskable-512.png'];
 var NET_TIMEOUT=4000; /* on slow ward wifi, fall back to the cached copy after this many ms */
 self.addEventListener('install',function(e){e.waitUntil(caches.open(VERSION).then(function(c){return c.addAll(CORE)}).then(function(){return self.skipWaiting()}))});
