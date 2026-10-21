@@ -3367,38 +3367,38 @@ H Drugs|pick|Takes:
 - Inhaled steroids or recent antibiotics {can:2} @41
 G General examination
 E General|pick
-! Cachexic {ca:2}
-- Pallor {web:1,ca:1}
-- Dehydrated
-- Koilonychia {web:1,ca:1}
+! Cachexic {ca:2} @0
+- Pallor {web:1,ca:1} @1
+- Dehydrated @2
+- Koilonychia {web:1,ca:1} @3
 - Dry mouth, dehydrated @x101
 E Mouth and speech|pick
-- Oral thrush {can:5}
-- Slurred speech {neuro:2}
-- Tongue fasciculation {neuro:2}
-- Cranial nerve palsy {neuro:2}
+- Oral thrush {can:5} @4
+- Slurred speech {neuro:2} @5
+- Tongue fasciculation {neuro:2} @6
+- Cranial nerve palsy {neuro:2} @7
 - Poor dentition {web:1} @x102
 - Drooling {neuro:2,ca:1} @x103
 E Skin|pick
-- Tight skin and telangiectasia {sc:2}
-- Raynaud's {sc:2}
+- Tight skin and telangiectasia {sc:2} @8
+- Raynaud's {sc:2} @9
 G Neck examination
 E Neck|pick
 N Inspect, then palpate from behind; give the patient water and watch the swallow.
-! Supraclavicular node {ca:3}
-- Goitre {ext:3}
-- Other neck mass {ext:3}
-- Swelling in the neck on drinking {web:3}
-- Gurgling on palpation {web:3}
+! Supraclavicular node {ca:3} @10
+- Goitre {ext:3} @11
+- Other neck mass {ext:3} @12
+- Swelling in the neck on drinking {web:3} @13
+- Gurgling on palpation {web:3} @14
 - Hoarse voice {ca:2,ext:2} @x104
 G Chest and abdomen
 E Chest|pick
-- Signs of aspiration {ach:2,neuro:2,web:2,ca:1}
-- Lung mass or effusion {ext:5}
+- Signs of aspiration {ach:2,neuro:2,web:2,ca:1} @15
+- Lung mass or effusion {ext:5} @16
 E Abdomen|pick
-- Epigastric mass {ca:2}
-- Hepatomegaly {ca:3}
-- Ascites {ca:2}
+- Epigastric mass {ca:2} @17
+- Hepatomegaly {ca:3} @18
+- Ascites {ca:2} @19
 
 @neck|Neck lump|Head and Neck|Surgery
 SC
@@ -3485,41 +3485,41 @@ H Past history|pick|Past history:
 - Treated for TB before {tb:2} @x233
 G General examination
 E General|pick
-- Pulse fast, tremor, sweaty palms {thyroid:1}
-- Eye signs of thyroid disease {thyroid:1}
-- Fever {inf:2,lym:1,tb:1}
+- Pulse fast, tremor, sweaty palms {thyroid:1} @0
+- Eye signs of thyroid disease {thyroid:1} @1
+- Fever {inf:2,lym:1,tb:1} @2
 - Looks thin or wasted {met:1,lym:1,tb:1} @x101
 G The lump
 E Position|pick
 M Where in the neck?|Anterior or posterior triangle · midline or lateral · level
 N Examine from the front, then behind. Note side, level and triangle of the neck.
-* Midline, moves on swallowing {thyroid:5}
-* Midline, moves on tongue protrusion {tgc:5}
-* Anterior to upper sternomastoid, cystic {bcc:5}
-- Deep to sternomastoid (less obvious when the muscle is tensed) {bcc:1,cb:1,inf:1}
-- Parotid swelling {sal:2}
-- Submandibular swelling {sal:2}
+* Midline, moves on swallowing {thyroid:5} @3
+* Midline, moves on tongue protrusion {tgc:5} @4
+* Anterior to upper sternomastoid, cystic {bcc:5} @5
+- Deep to sternomastoid (less obvious when the muscle is tensed) {bcc:1,cb:1,inf:1} @6
+- Parotid swelling {sal:2} @7
+- Submandibular swelling {sal:2} @8
 E Character|pick
 M 5S, then the lump tests|Site · Size · Shape · Surface · Skin → consistency · tenderness · fluctuation · transillumination · pulsation · fixation
 N Size, shape, surface, edge, consistency, tenderness, temperature, fluctuation, transillumination, pulsation, fixation, overlying skin.
-* Soft, tender, mobile node {inf:5}
-! Hard, fixed, irregular node {met:5}
-* Multiple rubbery nodes {lym:5}
-* Matted nodes with sinus or cold abscess {tb:5}
-- Pulsatile with a bruit {cb:3}
-- Moves side to side but not up and down {cb:3}
-- Transilluminates {seb:3}
-- Gurgles on palpation {pouch:5}
+* Soft, tender, mobile node {inf:5} @9
+! Hard, fixed, irregular node {met:5} @10
+* Multiple rubbery nodes {lym:5} @11
+* Matted nodes with sinus or cold abscess {tb:5} @12
+- Pulsatile with a bruit {cb:3} @13
+- Moves side to side but not up and down {cb:3} @14
+- Transilluminates {seb:3} @15
+- Gurgles on palpation {pouch:5} @16
 - Soft, fluctuant, skin not red or warm (cold abscess) {tb:4} @x243
 - Stony hard, nodular surface {met:4} @x245
 - Skin ulceration or fungation {met:3} @x246
 - Left supraclavicular (Virchow) node {met:3} @x248
 E Thyroid lumps|pick
 M Swallow, then tongue|Moves on swallowing: thyroid · also moves on tongue protrusion: thyroglossal cyst · trachea · retrosternal extension · bruit
-* Trachea deviated {thyroid:3}
-* Cannot get below it (retrosternal) {thyroid:3}
-- Pemberton sign {thyroid:3}
-- Thyroid bruit {thyroid:1}
+* Trachea deviated {thyroid:3} @17
+* Cannot get below it (retrosternal) {thyroid:3} @18
+- Pemberton sign {thyroid:3} @19
+- Thyroid bruit {thyroid:1} @20
 - Lower border not seen or felt on swallowing {thyroid:3} @x210
 - Dull to percussion over the manubrium {thyroid:3} @x211
 - Dilated veins over the neck and upper chest {thyroid:2} @x212
@@ -3527,11 +3527,11 @@ G Complete the examination
 E Find the source|pick
 M Top to bottom (Browse)|Scalp, face, ears → nose → mouth (tongue, gums, tonsils) → parotid, submandibular, thyroid → arms and chest wall, breast → abdomen and genitalia
 N Scalp, ears, nose, mouth, pharynx; bimanual palpation of the floor of the mouth; facial and hypoglossal nerves; then axillae, groins, liver and spleen.
-* Lesion in the scalp, mouth or throat {met:1}
-- Stone in a salivary duct {sal:2}
-- Facial or hypoglossal nerve palsy {sal:2,met:1}
-- Nodes in the axilla or groin {lym:1}
-- Splenomegaly or hepatomegaly {lym:1}
+* Lesion in the scalp, mouth or throat {met:1} @21
+- Stone in a salivary duct {sal:2} @22
+- Facial or hypoglossal nerve palsy {sal:2,met:1} @23
+- Nodes in the axilla or groin {lym:1} @24
+- Splenomegaly or hepatomegaly {lym:1} @25
 - Breast lump {met:2} @x255
 - Chest signs or enlarged supraclavicular nodes {tb:1,met:1} @x256
 
@@ -3616,12 +3616,12 @@ G Inspection
 E Inspection|pick
 M Arms down, arms up, hands on hips|Size · symmetry · skin (dimpling, peau d'orange) · nipple
 N Chaperone. Sitting, hands on hips, then hands above the head, then leaning forward. Compare both sides.
-- Asymmetry or visible mass {ca:1}
-! Skin dimpling or tethering on raising the arms {ca:5}
-! Peau d'orange {ca:5}
-! Nipple inversion or eczema (Paget) {ca:5}
-- Red, warm skin {abs:2}
-- Large lump with dilated veins {phyll:5}
+- Asymmetry or visible mass {ca:1} @0
+! Skin dimpling or tethering on raising the arms {ca:5} @1
+! Peau d'orange {ca:5} @2
+! Nipple inversion or eczema (Paget) {ca:5} @3
+- Red, warm skin {abs:2} @4
+- Large lump with dilated veins {phyll:5} @5
 - Nipple retraction {ca:3} @x101
 - Redness and swelling over the lump {abs:2} @x102
 - Nipple pulled towards the lump {ca:3} @x208
@@ -3636,13 +3636,13 @@ G Palpation
 E The lump|pick
 M 5S, then consistency and fixation|Site (quadrant, clock face) · Size · Shape · Surface · Skin → consistency → fixation
 N Patient at 45 degrees, hand behind the head. Normal breast first, then all four quadrants, the axillary tail and behind the nipple.
-! Hard, irregular, fixed lump {ca:5}
-* Smooth, firm, very mobile lump {fib:5}
-* Smooth, tense lump {cyst:5}
-* Nodular, tender, ill-defined, both sides {fcc:5}
-- Tender, fluctuant {abs:2}
-- Firm irregular mass after injury {fn:5}
-- Lobulated large mobile mass {phyll:5}
+! Hard, irregular, fixed lump {ca:5} @6
+* Smooth, firm, very mobile lump {fib:5} @7
+* Smooth, tense lump {cyst:5} @8
+* Nodular, tender, ill-defined, both sides {fcc:5} @9
+- Tender, fluctuant {abs:2} @10
+- Firm irregular mass after injury {fn:5} @11
+- Lobulated large mobile mass {phyll:5} @12
 - Single lump {ca:1,fib:1,cyst:1} @x103
 - Multiple lumps {fcc:2,fib:1} @x104
 - Skin ulceration {ca:3} @x105
@@ -3655,29 +3655,29 @@ N Patient at 45 degrees, hand behind the head. Normal breast first, then all fou
 - Hot, tender breast {abs:4} @x220
 E Fixation|pick
 M Tethered or fixed? (Browse)|Tethered: the skin dimples when you move the lump · Fixed: the lump cannot move without the skin · then hands on hips to tense pectoralis
-* Fixed to the skin {ca:3}
-* Fixed to pectoralis (test with hands pressed on hips) {ca:4}
+* Fixed to the skin {ca:3} @13
+* Fixed to pectoralis (test with hands pressed on hips) {ca:4} @14
 - Fixed to the chest wall {ca:4} @x106
 - Skin tethers when pinching the skin and moving the lump {ca:3} @x221
 - Fixed to the serratus anterior (hands pressed on a wall) {ca:3} @x222
 E Nipple|pick
 M The 7 Ds|Destruction · Depression · Discolouration · Displacement · Deviation · Discharge · Duplication
-* Discharge from one duct {duct:1,ca:1}
-- Discharge from many ducts {duct:1}
+* Discharge from one duct {duct:1,ca:1} @15
+- Discharge from many ducts {duct:1} @16
 - Bloody discharge {ca:2,duct:2} @x107
 G Lymph nodes and spread
 E Nodes|pick
 M Axilla, then above the clavicle|Axillary groups: anterior · posterior · central · lateral · apical → supraclavicular
-! Axillary nodes {ca:5,abs:1}
-! Supraclavicular nodes {ca:4}
+! Axillary nodes {ca:5,abs:1} @17
+! Supraclavicular nodes {ca:4} @18
 - Axillary nodes mobile and tender {abs:2} @x108
 - Infraclavicular or apical nodes {ca:3} @x223
 - Nodes fixed to each other or the chest wall {ca:3} @x224
 E Spread|pick
 M Spine · chest · liver (Browse)|Spinal tenderness · pleural effusion · hepatomegaly · then supraclavicular fossae and a general examination
-- Hepatomegaly {ca:1}
-- Spinal tenderness {ca:1}
-- Chest signs {ca:1}
+- Hepatomegaly {ca:1} @19
+- Spinal tenderness {ca:1} @20
+- Chest signs {ca:1} @21
 - Swollen arm on that side {ca:2} @x225
 - Ascites {ca:1} @x326
 - Papilloedema or focal neurology {ca:1} @x328
@@ -3757,14 +3757,14 @@ G Inspection
 E Inspection|pick
 M Stand, both sides, cough|Standing first, compare both sides, ask to cough, then lie down. Look for scars.
 N Examine standing first, both sides, then lying. Ask the patient to cough. Note scars.
-* Cough impulse {ing:5,dir:5,sal:4}
-* Lump above and medial to the pubic tubercle {ing:4,dir:4}
-* Lump below and lateral to the pubic tubercle {fem:5}
-- Extends into the scrotum {ing:2}
-- Bulge comes straight forward {dir:3}
-- Scars of previous groin or appendix surgery {dir:1}
-- Blue swelling that empties lying down {sal:5}
-- Bag of worms above the testis {var:5}
+* Cough impulse {ing:5,dir:5,sal:4} @0
+* Lump above and medial to the pubic tubercle {ing:4,dir:4} @1
+* Lump below and lateral to the pubic tubercle {fem:5} @2
+- Extends into the scrotum {ing:2} @3
+- Bulge comes straight forward {dir:3} @4
+- Scars of previous groin or appendix surgery {dir:1} @5
+- Blue swelling that empties lying down {sal:5} @6
+- Bag of worms above the testis {var:5} @7
 - Visible lump only on standing or coughing {ing:2,dir:2,sal:2} @x101
 - Pear-shaped (pyriform) lump running obliquely {ing:3} @x211
 - Round (globular) lump {dir:3,fem:1} @x212
@@ -3773,17 +3773,17 @@ G Palpation
 E The lump|pick
 M Above or below? Cough? Reduces?|Above the inguinal ligament and medial to the pubic tubercle: inguinal · below and lateral: femoral · cough impulse · reducible
 N Size, shape, consistency, tenderness, reducibility, cough impulse; can you get above it?
-* Reducible {ing:4,dir:4}
-* Reduces up, laterally and back {ing:4}
-- Reduces straight back {dir:3}
-! Tender, red, tense and irreducible {fem:3,ing:2}
-- Tender lump without obstruction (Richter) {fem:3}
-* Cannot get above it {ing:2}
-* Fluctuant, transilluminates, testis felt separately {hyd:5}
-- Thrill on coughing {sal:3}
-! Pulsatile expansile mass with a bruit {fa:3}
-* Palpable inguinal nodes {node:3}
-- Soft, lobulated, irreducible {lip:4}
+* Reducible {ing:4,dir:4} @8
+* Reduces up, laterally and back {ing:4} @9
+- Reduces straight back {dir:3} @10
+! Tender, red, tense and irreducible {fem:3,ing:2} @11
+- Tender lump without obstruction (Richter) {fem:3} @12
+* Cannot get above it {ing:2} @13
+* Fluctuant, transilluminates, testis felt separately {hyd:5} @14
+- Thrill on coughing {sal:3} @15
+! Pulsatile expansile mass with a bruit {fa:3} @16
+* Palpable inguinal nodes {node:3} @17
+- Soft, lobulated, irreducible {lip:4} @18
 - Hard, fixed node {node:2} @x102
 - Can get above it {hyd:2,var:1,lip:1,und:1} @x216
 - Swelling in the canal with no cough impulse {lip:3} @x220
@@ -3791,15 +3791,15 @@ N Size, shape, consistency, tenderness, reducibility, cough impulse; can you get
 E Deep ring test|pick
 M Indirect or direct?|Indirect: reduces up, then laterally and back; controlled by pressure over the deep ring; can reach the scrotum · Direct: reduces straight back; not controlled; rarely in the scrotum
 N Reduce the hernia, press over the deep ring (midpoint of the inguinal ligament) and ask the patient to cough.
-* Controlled by pressure on the deep ring {ing:4}
-* Not controlled by deep ring pressure {dir:5}
+* Controlled by pressure on the deep ring {ing:4} @19
+* Not controlled by deep ring pressure {dir:5} @20
 E Scrotum|pick
-- Empty hemiscrotum {und:5}
+- Empty hemiscrotum {und:5} @21
 G Complete the examination
 E Abdomen and drainage area|pick
 N Other side; abdomen for distension, scars, ascites, bladder; the leg, perineum, anus and genitals if nodes; heart and lungs for fitness for surgery.
-- Abdominal distension or scars {ing:1}
-- Primary lesion in the leg, perineum or genitals {node:3}
+- Abdominal distension or scars {ing:1} @22
+- Primary lesion in the leg, perineum or genitals {node:3} @23
 - Signs of bowel obstruction {ing:1,fem:1} @x103
 E Causes of raised pressure|pick
 - Enlarged prostate on rectal examination {dir:2,ing:1} @x232
@@ -3825,93 +3825,93 @@ D ugib|Upper GI bleed (brisk)|!|0.3
 D fist|Fistula / radiation proctitis||0.2
 G The bleeding
 H Colour|one|Blood is:
-- Bright red {haem:2,fiss:1,div:1}
-- Dark red {ca:2,ibd:1,div:1}
-! Black, tarry (melaena) {ugib:3}
+- Bright red {haem:2,fiss:1,div:1} @0
+- Dark red {ca:2,ibd:1,div:1} @1
+! Black, tarry (melaena) {ugib:3} @2
 H Relation to stool|one|Blood:
-- On the paper or dripping into the pan after the stool {haem:3,fiss:1}
-- Streaks on the surface of the stool {fiss:2,haem:1}
-- Mixed in with the stool {ca:3,ibd:1}
-- With mucus and diarrhoea {ibd:4,inf:3}
+- On the paper or dripping into the pan after the stool {haem:3,fiss:1} @3
+- Streaks on the surface of the stool {fiss:2,haem:1} @4
+- Mixed in with the stool {ca:3,ibd:1} @5
+- With mucus and diarrhoea {ibd:4,inf:3} @6
 H Amount|one|Amount:
-- Streaks or spots {haem:1,fiss:1}
-! Large volume, clots {div:4,ang:3,ugib:2}
+- Streaks or spots {haem:1,fiss:1} @7
+! Large volume, clots {div:4,ang:3,ugib:2} @8
 H Pain|one|Pain:
-- Sharp pain on opening the bowels, lasting an hour {fiss:5}
-- Painless {haem:2,div:1,ca:1,ang:1}
-- Crampy abdominal pain {inf:1,ibd:1,isch:2}
-- Pain after meals in an older vascular patient {isch:5}
+- Sharp pain on opening the bowels, lasting an hour {fiss:5} @9
+- Painless {haem:2,div:1,ca:1,ang:1} @10
+- Crampy abdominal pain {inf:1,ibd:1,isch:2} @11
+- Pain after meals in an older vascular patient {isch:5} @12
 G Associated symptoms
 H Anal|pick
-- Something comes down (prolapse) {haem:3}
-- Itching {haem:3}
-- Straining and constipation {haem:3,fiss:3}
-- Discharge from beside the anus {fist:3}
+- Something comes down (prolapse) {haem:3} @13
+- Itching {haem:3} @14
+- Straining and constipation {haem:3,fiss:3} @15
+- Discharge from beside the anus {fist:3} @16
 H Bowel habit|pick
-! Change in bowel habit {ca:2}
-- Feels not fully emptied (tenesmus) {ca:2}
-- Diarrhoea {ibd:2,inf:2}
+! Change in bowel habit {ca:2} @17
+- Feels not fully emptied (tenesmus) {ca:2} @18
+- Diarrhoea {ibd:2,inf:2} @19
 H General|pick
-! Weight loss {ca:2}
-- Tiredness, breathless (anaemia) {ca:1}
-- Fever {inf:1,ibd:1}
-- Dizzy or fainted {div:1,ugib:1}
+! Weight loss {ca:2} @20
+- Tiredness, breathless (anaemia) {ca:1} @21
+- Fever {inf:1,ibd:1} @22
+- Dizzy or fainted {div:1,ugib:1} @23
 H Upper GI|pick
-- Vomiting blood {ugib:1}
-- Epigastric pain {ugib:1}
+- Vomiting blood {ugib:1} @24
+- Epigastric pain {ugib:1} @25
 G Background for this complaint
 H Past history|pick|Past history:
-! Over 50 {ca:2}
-- Known diverticular disease {div:2}
-- IBD {ibd:3}
-- AF or vascular disease {isch:2}
-- Aortic stenosis {ang:6}
-- Pelvic radiotherapy {fist:4}
+! Over 50 {ca:2} @26
+- Known diverticular disease {div:2} @27
+- IBD {ibd:3} @28
+- AF or vascular disease {isch:2} @29
+- Aortic stenosis {ang:6} @30
+- Pelvic radiotherapy {fist:4} @31
 - Hypertension or diabetes {isch:1} @x20
 - Kidney disease or dialysis {ang:2} @x21
 H Drugs|pick|Takes:
-- Anticoagulants {div:1,ang:1}
-- Antiplatelets {div:1,ang:1}
-- NSAIDs {ugib:1}
-- Alcohol {ugib:1}
+- Anticoagulants {div:1,ang:1} @32
+- Antiplatelets {div:1,ang:1} @33
+- NSAIDs {ugib:1} @34
+- Alcohol {ugib:1} @35
 H Family history|pick|Family history:
-- Bowel cancer or polyps {ca:2}
+- Bowel cancer or polyps {ca:2} @36
 H Contacts|pick
-- Others ill with the same food, or travel {inf:3}
+- Others ill with the same food, or travel {inf:3} @37
 G General examination
 E Vital signs|pick
-! Tachycardia {div:1,ugib:1,ang:1}
-! Hypotension {div:1,ugib:1,ang:1}
-- Fever {inf:1,ibd:1}
+! Tachycardia {div:1,ugib:1,ang:1} @0
+! Hypotension {div:1,ugib:1,ang:1} @1
+- Fever {inf:1,ibd:1} @2
 E General|pick
-- Pallor {ca:3,ibd:2}
-- Cachexic {ca:2}
+- Pallor {ca:3,ibd:2} @3
+- Cachexic {ca:2} @4
 - Stigmata of liver disease {ugib:2} @x101
 G Abdominal examination
 E Abdomen|pick
-- Abdominal mass {ca:4}
-- Left iliac fossa tenderness {div:3,isch:2}
-- Hepatomegaly {ca:3}
+- Abdominal mass {ca:4} @5
+- Left iliac fossa tenderness {div:3,isch:2} @6
+- Hepatomegaly {ca:3} @7
 - Right iliac fossa mass {ibd:3,ca:2} @x102
 - Generalised tenderness {ibd:2,isch:3,inf:2} @x103
 G Perianal and rectal
 E Inspection|pick
 N Left lateral position with knees drawn up; chaperone. Part the buttocks gently.
-- Skin tags {fiss:2,ibd:2}
-- Fissure, usually posterior midline {fiss:4}
-- Fistula opening {fist:3,ibd:2}
-- Prolapsed haemorrhoids {haem:4}
+- Skin tags {fiss:2,ibd:2} @8
+- Fissure, usually posterior midline {fiss:4} @9
+- Fistula opening {fist:3,ibd:2} @10
+- Prolapsed haemorrhoids {haem:4} @11
 E Rectal examination|pick
 N Do not force it if a fissure is visible and painful.
-- Too painful to examine (sphincter spasm) {fiss:5}
-! Palpable rectal mass {ca:5}
-- Blood on the glove {ca:1,haem:1}
-! Melaena on the glove {ugib:3}
+- Too painful to examine (sphincter spasm) {fiss:5} @12
+! Palpable rectal mass {ca:5} @13
+- Blood on the glove {ca:1,haem:1} @14
+! Melaena on the glove {ugib:3} @15
 - Fresh blood on the glove {haem:2,fiss:1,ang:1} @x104
 - Blood mixed with stool {ca:2,ibd:2} @x105
 E Proctoscopy|pick
-- Internal haemorrhoids at 3, 7 and 11 o'clock {haem:5}
-- Inflamed mucosa {ibd:2,fist:2}
+- Internal haemorrhoids at 3, 7 and 11 o'clock {haem:5} @16
+- Inflamed mucosa {ibd:2,fist:2} @17
 
 @acuteabd|Acute abdomen (surgical)|Emergency|Surgery
 SC alv,qsofa,news
@@ -4004,39 +4004,39 @@ H Drugs and habits|pick|Takes:
 - Time of last meal or drink noted (for theatre) @x600
 G General examination
 E Vital signs and perfusion|pick
-! Tachycardia {aaa:1,mes:1,pu:1,ect:1,vol:1}
-! Hypotension {aaa:1,mes:1,pu:1,ect:1,vol:1}
-! Mottled skin, cold peripheries {aaa:1,mes:1,pu:1,ect:1,vol:1}
-- Raised lactate {aaa:1,mes:1}
-- Fever {chol:2,div:2,app:1}
+! Tachycardia {aaa:1,mes:1,pu:1,ect:1,vol:1} @0
+! Hypotension {aaa:1,mes:1,pu:1,ect:1,vol:1} @1
+! Mottled skin, cold peripheries {aaa:1,mes:1,pu:1,ect:1,vol:1} @2
+- Raised lactate {aaa:1,mes:1} @3
+- Fever {chol:2,div:2,app:1} @4
 E Appearance|pick
-- Lies still, grey and sweaty {pu:2,app:1}
-- Restless, cannot get comfortable {ob:1,aaa:1,ect:1,chol:1}
-- Jaundice {chol:2}
+- Lies still, grey and sweaty {pu:2,app:1} @5
+- Restless, cannot get comfortable {ob:1,aaa:1,ect:1,chol:1} @6
+- Jaundice {chol:2} @7
 - Dehydrated @x101
 - Pale {aaa:1,ect:1} @x102
 G Abdominal examination
 E Inspection|pick
 M Look from the end of the bed, then at eye level|Distension · scars · visible peristalsis · pulsation · hernial orifices (ask to cough)
-- Distension with visible loops {ob:2,vol:2}
-- Scars {ob:2}
-- Flank or umbilical bruising {pan:3,aaa:2}
-- Does not move with breathing {pu:2}
+- Distension with visible loops {ob:2,vol:2} @8
+- Scars {ob:2} @9
+- Flank or umbilical bruising {pan:3,aaa:2} @10
+- Does not move with breathing {pu:2} @11
 - Visible hernia {ob:3} @x103
 - Distension: fat, fluid, flatus, faeces or fetus (the 5 Fs) {ob:1} @x304
 - Skin striae, caput medusae or dilated flank veins @x305
 E Palpation|pick
 M Light, then deep, starting away from the pain|All 9 regions · then liver · spleen · kidneys (ballot) · watch the face
-! Board-like rigidity {pu:5,div:2}
-- Guarding {app:1,pu:1,div:1}
-- Rebound or percussion tenderness {app:1,pu:1,div:1}
-- McBurney's tenderness {app:2}
-- Rovsing's sign {app:2}
-- Psoas sign {app:2}
-- Murphy's sign {chol:5}
-! Soft abdomen despite severe pain {mes:5,pan:2,aaa:1}
-! Pulsatile expansile mass {aaa:5}
-! Tender irreducible hernia {ob:5}
+! Board-like rigidity {pu:5,div:2} @12
+- Guarding {app:1,pu:1,div:1} @13
+- Rebound or percussion tenderness {app:1,pu:1,div:1} @14
+- McBurney's tenderness {app:2} @15
+- Rovsing's sign {app:2} @16
+- Psoas sign {app:2} @17
+- Murphy's sign {chol:5} @18
+! Soft abdomen despite severe pain {mes:5,pan:2,aaa:1} @19
+! Pulsatile expansile mass {aaa:5} @20
+! Tender irreducible hernia {ob:5} @21
 - Epigastric tenderness {pan:3,pu:2} @x104
 - Right upper quadrant tenderness {chol:3} @x105
 - Left iliac fossa tenderness {div:4} @x106
@@ -4047,21 +4047,21 @@ M Light, then deep, starting away from the pain|All 9 regions · then liver · s
 - Pain when the bed is shaken {app:1,pu:1,div:1} @x302
 E Percussion|pick
 M Dull or resonant? Then shifting dullness|Percuss from the midline out to the flank, roll the patient towards you, wait, percuss again
-- Loss of liver dullness (free gas) {pu:5}
-- Tympanic {ob:2,vol:2}
+- Loss of liver dullness (free gas) {pu:5} @22
+- Tympanic {ob:2,vol:2} @23
 E Auscultation|pick
 M Listen for a full minute|Bowel sounds · bruits · succussion splash
-- Hyperactive, tinkling {ob:2}
-- Absent bowel sounds {ob:1,pu:1}
+- Hyperactive, tinkling {ob:2} @24
+- Absent bowel sounds {ob:1,pu:1} @25
 - Aortic bruit {aaa:2} @x109
 - Silent abdomen after listening for two minutes {ob:2,pu:1,mes:1} @x206
 - Succussion splash {ob:1} @x307
 G Complete the examination
 E Rectal and pelvic|pick
 M Never forget (Browse)|Supraclavicular nodes · hernial orifices · femoral pulses · genitalia · anal canal and rectum
-- Ballooned or empty rectum {ob:2,vol:3}
-- Cervical excitation or adnexal tenderness {ect:3}
-- Rectal tenderness on the right {app:1}
+- Ballooned or empty rectum {ob:2,vol:3} @26
+- Cervical excitation or adnexal tenderness {ect:3} @27
+- Rectal tenderness on the right {app:1} @28
 - Blood on the glove {mes:2,div:1} @x110
 
 @limb|Leg ischaemia / claudication|Vascular|Surgery
@@ -4082,104 +4082,104 @@ D popl|Popliteal aneurysm||0.1
 D bu|Buerger's disease||0.1
 G Pain (SOCRATES)
 H Site|pick|Site:
-- Calf {claud:2,dvt:1}
-- Thigh or buttock {claud:2,neuro:1}
-- Foot or toes {clti:2,dpn:1}
-- Hip or knee joint {oa:3}
-- Whole leg {ali:2,dvt:1}
+- Calf {claud:2,dvt:1} @0
+- Thigh or buttock {claud:2,neuro:1} @1
+- Foot or toes {clti:2,dpn:1} @2
+- Hip or knee joint {oa:3} @3
+- Whole leg {ali:2,dvt:1} @4
 H Onset|one|Onset:
-! Sudden, within hours {ali:3}
-- Gradual over months {claud:2,clti:1,oa:1}
+! Sudden, within hours {ali:3} @5
+- Gradual over months {claud:2,clti:1,oa:1} @6
 H Character|pick|Character:
-- Cramping {claud:3}
-- Burning or numb, both feet {dpn:5}
-- Aching in the joint with stiffness {oa:3}
+- Cramping {claud:3} @7
+- Burning or numb, both feet {dpn:5} @8
+- Aching in the joint with stiffness {oa:3} @9
 H Timing|pick|Comes on:
-- At a fixed walking distance {claud:5}
-! At rest, at night {clti:3}
-- Walking downhill or standing {neuro:3}
+- At a fixed walking distance {claud:5} @10
+! At rest, at night {clti:3} @11
+- Walking downhill or standing {neuro:3} @12
 H Relieved by|pick|Relieved by:
-- Standing still for a few minutes {claud:3}
-- Sitting or bending forward {neuro:3}
-- Hanging the foot over the bed {clti:3}
+- Standing still for a few minutes {claud:3} @13
+- Sitting or bending forward {neuro:3} @14
+- Hanging the foot over the bed {clti:3} @15
 H Walking distance|one|Claudication distance:
 N Record it in metres and ask if it is getting shorter.
-- Over 200 metres {claud:1}
-- 50 to 200 metres {claud:1,clti:1}
-- Under 50 metres {clti:2}
+- Over 200 metres {claud:1} @16
+- 50 to 200 metres {claud:1,clti:1} @17
+- Under 50 metres {clti:2} @18
 G The 6 Ps (acute ischaemia)
 H Acute features|pick|Leg is:
-! Pale {ali:1}
-! Cold {ali:1}
-! Numb or tingling {ali:1}
-! Weak or paralysed {ali:1}
+! Pale {ali:1} @19
+! Cold {ali:1} @20
+! Numb or tingling {ali:1} @21
+! Weak or paralysed {ali:1} @22
 G Associated symptoms
 H Skin|pick
-! Toe ulcer that will not heal {clti:3}
-! Black toes (gangrene) {clti:3}
+! Toe ulcer that will not heal {clti:3} @23
+! Black toes (gangrene) {clti:3} @24
 H Other|pick
-- Back pain {neuro:3}
-- One leg swollen after immobility {dvt:5}
-- Pulsating lump behind the knee {popl:5}
-- Fingers turn white in the cold {bu:2}
+- Back pain {neuro:3} @25
+- One leg swollen after immobility {dvt:5} @26
+- Pulsating lump behind the knee {popl:5} @27
+- Fingers turn white in the cold {bu:2} @28
 G Background for this complaint
 H Risk factors|pick|Risk factor:
-- Smoker {claud:1,clti:1,ali:1,bu:1}
-- Diabetes {claud:1,clti:1,ali:1,dpn:1}
-- Hypertension {claud:1,clti:1,ali:1}
-- High cholesterol {claud:1,clti:1,ali:1}
-- Young heavy smoker {bu:2}
+- Smoker {claud:1,clti:1,ali:1,bu:1} @29
+- Diabetes {claud:1,clti:1,ali:1,dpn:1} @30
+- Hypertension {claud:1,clti:1,ali:1} @31
+- High cholesterol {claud:1,clti:1,ali:1} @32
+- Young heavy smoker {bu:2} @33
 H Embolic source|pick|Past history:
-- AF {ali:2}
-- Recent MI {ali:2}
-- Known aneurysm {ali:2,popl:1}
+- AF {ali:2} @34
+- Recent MI {ali:2} @35
+- Known aneurysm {ali:2,popl:1} @36
 H Vascular history|pick|Past history:
-- Previous MI or angina {claud:1,clti:1}
-- Stroke or TIA {claud:1,clti:1}
-- Previous leg bypass or stent {claud:1,clti:1}
+- Previous MI or angina {claud:1,clti:1} @37
+- Stroke or TIA {claud:1,clti:1} @38
+- Previous leg bypass or stent {claud:1,clti:1} @39
 G General examination
 E General and pulse|pick
-- Irregularly irregular pulse {ali:3}
-- Tar staining {claud:1,bu:1}
+- Irregularly irregular pulse {ali:3} @0
+- Tar staining {claud:1,bu:1} @1
 - Raised blood pressure {claud:1} @x101
 G Inspection of the legs
 E Inspection|pick
 N Compare both legs: colour, hair, nails, ulcers between the toes and on the heels.
-- Hair loss, shiny skin, thick nails {claud:1,clti:1}
-- Ulcers on toes or heel, punched out {clti:5}
-- Gangrene {clti:5,ali:2}
-! Pale, mottled leg {ali:1}
-- Swollen calf {dvt:2}
+- Hair loss, shiny skin, thick nails {claud:1,clti:1} @2
+- Ulcers on toes or heel, punched out {clti:5} @3
+- Gangrene {clti:5,ali:2} @4
+! Pale, mottled leg {ali:1} @5
+- Swollen calf {dvt:2} @6
 - Red foot on hanging down (dependent rubor) {clti:3} @x102
 - Muscle wasting {claud:1,neuro:1} @x103
 - Empty (guttered) veins {ali:2} @x104
 G Palpation
 E Temperature and capillary refill|pick
-- Cool leg {claud:1,clti:1,ali:1}
-- Capillary refill over 2 seconds {clti:3,ali:3}
-- Warm, tender calf {dvt:2}
+- Cool leg {claud:1,clti:1,ali:1} @7
+- Capillary refill over 2 seconds {clti:3,ali:3} @8
+- Warm, tender calf {dvt:2} @9
 E Pulses|pick
 N Femoral, popliteal, dorsalis pedis, posterior tibial on both sides. Then feel for an aneurysm.
-- Reduced femoral pulse {claud:3}
-- Absent popliteal pulse {claud:2,clti:2,ali:2}
-- Absent foot pulses {claud:2,clti:2,ali:2}
-- Pulsatile popliteal mass {popl:3}
-- Pulsatile abdominal mass {popl:1,claud:1}
+- Reduced femoral pulse {claud:3} @10
+- Absent popliteal pulse {claud:2,clti:2,ali:2} @11
+- Absent foot pulses {claud:2,clti:2,ali:2} @12
+- Pulsatile popliteal mass {popl:3} @13
+- Pulsatile abdominal mass {popl:1,claud:1} @14
 - Absent posterior tibial pulse {claud:2,clti:2} @x105
 - Absent dorsalis pedis pulse {claud:2,clti:2} @x106
 E Auscultation|pick
-- Femoral or abdominal bruit {claud:2}
+- Femoral or abdominal bruit {claud:2} @15
 G Special tests
 E Special tests|pick
 N Buerger's test, then sensation and power; ABPI with a hand-held Doppler.
-- Pale on elevation, red on hanging down (Buerger) {clti:2,claud:1}
-! Sensory loss {ali:1}
-! Weakness {ali:1}
-- ABPI under 0.9 {claud:4}
-! ABPI under 0.5 {clti:5}
-- Normal pulses, positive straight leg raise {neuro:4}
-- Reduced vibration and ankle reflexes {dpn:2}
-- Monofilament not felt {dpn:2}
+- Pale on elevation, red on hanging down (Buerger) {clti:2,claud:1} @16
+! Sensory loss {ali:1} @17
+! Weakness {ali:1} @18
+- ABPI under 0.9 {claud:4} @19
+! ABPI under 0.5 {clti:5} @20
+- Normal pulses, positive straight leg raise {neuro:4} @21
+- Reduced vibration and ankle reflexes {dpn:2} @22
+- Monofilament not felt {dpn:2} @23
 
 @ulcer|Leg ulcer|Vascular|Surgery
 Y Veins|ven,mix|Venous
@@ -4200,81 +4200,81 @@ D inf|Infective (TB, tropical)||0.3
 D prs|Pressure ulcer||0.5
 G The ulcer
 H Site|one|Site:
-- Gaiter area, above the medial ankle {ven:5}
-- Toes, heel, lateral ankle or shin {art:4}
-- Sole or under the metatarsal heads {neu:5}
-- Over the sacrum or heel in a bed-bound patient {prs:3}
+- Gaiter area, above the medial ankle {ven:5} @0
+- Toes, heel, lateral ankle or shin {art:4} @1
+- Sole or under the metatarsal heads {neu:5} @2
+- Over the sacrum or heel in a bed-bound patient {prs:3} @3
 H Duration and course|pick|Ulcer:
-- Weeks
-- Months to years {ven:1,scc:1}
-! Long-standing and now growing or bleeding {scc:3}
-- Grew fast, very painful, purple edge {pg:3}
-- Previous ulcers {neu:1,ven:1}
+- Weeks @4
+- Months to years {ven:1,scc:1} @5
+! Long-standing and now growing or bleeding {scc:3} @6
+- Grew fast, very painful, purple edge {pg:3} @7
+- Previous ulcers {neu:1,ven:1} @8
 H Pain|one|Pain:
-- Painless {neu:4}
-- Aching, better with the leg up {ven:2}
-- Very painful, worse at night or with the leg up {art:3}
+- Painless {neu:4} @9
+- Aching, better with the leg up {ven:2} @10
+- Very painful, worse at night or with the leg up {art:3} @11
 G Associated symptoms
 H Venous|pick
-- Varicose veins {ven:2}
-- Leg swelling by evening {ven:2}
+- Varicose veins {ven:2} @12
+- Leg swelling by evening {ven:2} @13
 H Arterial|pick
-- Claudication {art:1,mix:1}
-- Rest pain {art:1,mix:1}
+- Claudication {art:1,mix:1} @14
+- Rest pain {art:1,mix:1} @15
 H Nerves|pick
-- Numb feet {neu:2}
-- Foot deformity {neu:1}
+- Numb feet {neu:2} @16
+- Foot deformity {neu:1} @17
 H Systemic|pick
-- Fever {inf:1}
-- Joint pain, rash or vasculitis symptoms {vas:2}
+- Fever {inf:1} @18
+- Joint pain, rash or vasculitis symptoms {vas:2} @19
 G Background for this complaint
 H Past history|pick|Past history:
-- Previous DVT {ven:2}
-- Diabetes {neu:2}
-- MI or stroke {art:1,mix:1}
-- IBD or rheumatoid arthritis {pg:3}
-- Sickle cell or haemolytic anaemia {vas:2}
-- Immobile, bed-bound or spinal injury {prs:2}
-- Travel to the tropics {inf:3}
+- Previous DVT {ven:2} @20
+- Diabetes {neu:2} @21
+- MI or stroke {art:1,mix:1} @22
+- IBD or rheumatoid arthritis {pg:3} @23
+- Sickle cell or haemolytic anaemia {vas:2} @24
+- Immobile, bed-bound or spinal injury {prs:2} @25
+- Travel to the tropics {inf:3} @26
 - Hypertension or high cholesterol {art:1,mix:1} @x20
 H Habits|pick
-- Smoker {art:1,mix:1}
+- Smoker {art:1,mix:1} @27
 G The ulcer
 E Size and edge|pick
 M Base, Edge, Depth, Discharge|Then the surrounding skin, local arteries and nerves, and the draining nodes
 N Site, size, shape, edge, base, depth, discharge, surrounding skin; measure and photograph.
-- Sloping, shallow, irregular edge {ven:4}
-- Punched-out edge {art:5,neu:2}
-! Rolled pearly edge with telangiectasia {scc:5}
-! Raised everted edge {scc:5}
-- Undermined purple edge {pg:5}
+- Sloping, shallow, irregular edge {ven:4} @0
+- Punched-out edge {art:5,neu:2} @1
+! Rolled pearly edge with telangiectasia {scc:5} @2
+! Raised everted edge {scc:5} @3
+- Undermined purple edge {pg:5} @4
 E Base and depth|pick
-- Healthy granulation tissue
-- Slough or necrosis {art:1,neu:1}
-- Pale base {art:2}
-- Tendon or bone visible {art:1,neu:1}
-! Probes to bone {neu:3,art:1}
-- Purulent discharge or odour {inf:2,neu:1}
+- Healthy granulation tissue @5
+- Slough or necrosis {art:1,neu:1} @6
+- Pale base {art:2} @7
+- Tendon or bone visible {art:1,neu:1} @8
+! Probes to bone {neu:3,art:1} @9
+- Purulent discharge or odour {inf:2,neu:1} @10
 E Surrounding skin|pick
-- Venous eczema, brown staining {ven:2}
-- Hard, woody skin (lipodermatosclerosis) {ven:2}
-- Shiny, hairless, cool {art:2,mix:1}
-- Callus {neu:2}
-- Spreading redness {inf:1,neu:1}
-- Purpura or livedo {vas:1}
+- Venous eczema, brown staining {ven:2} @11
+- Hard, woody skin (lipodermatosclerosis) {ven:2} @12
+- Shiny, hairless, cool {art:2,mix:1} @13
+- Callus {neu:2} @14
+- Spreading redness {inf:1,neu:1} @15
+- Purpura or livedo {vas:1} @16
 G The rest of the leg
 E Veins|pick
-- Varicose veins {ven:3}
-- Ankle flare {ven:3}
+- Varicose veins {ven:3} @17
+- Ankle flare {ven:3} @18
 E Arteries|pick
-- Absent foot pulses {art:2,mix:1}
-- Capillary refill over 2 seconds {art:2,mix:1}
-- Warm foot with bounding pulses {neu:2}
-! ABPI under 0.8 (no compression) {art:5,mix:4}
+- Absent foot pulses {art:2,mix:1} @19
+- Capillary refill over 2 seconds {art:2,mix:1} @20
+- Warm foot with bounding pulses {neu:2} @21
+! ABPI under 0.8 (no compression) {art:5,mix:4} @22
 - Venous skin changes (eczema, pigment) with reduced foot pulses {mix:4,ven:1} @x1
 E Nerves and nodes|pick
-- Loss of sensation {neu:2}
-! Inguinal nodes {scc:3,inf:2}
+- Loss of sensation {neu:2} @23
+! Inguinal nodes {scc:3,inf:2} @24
 
 @trauma|Trauma (primary survey)|Emergency|Surgery
 Y A: Airway|ao|Airway
@@ -4295,80 +4295,80 @@ D sc|Spinal cord injury|!|0.5
 G Mechanism
 H Mechanism|pick|Mechanism:
 N Primary survey first. Take the history from the patient, paramedics or family while you treat.
-- High-speed road traffic collision {hem:1,sc:1}
-- Ejected from the vehicle {hem:1,sc:1,hi:1}
-- Fall over 3 metres {sc:1,hi:1}
-- Penetrating injury {hem:1,tp:1,tam:1}
-- Fire or smoke in an enclosed space {ao:2}
+- High-speed road traffic collision {hem:1,sc:1} @0
+- Ejected from the vehicle {hem:1,sc:1,hi:1} @1
+- Fall over 3 metres {sc:1,hi:1} @2
+- Penetrating injury {hem:1,tp:1,tam:1} @3
+- Fire or smoke in an enclosed space {ao:2} @4
 G AMPLE
 H Allergies, medicines, past history|pick
-- Allergies
-- Anticoagulants {hem:1,hi:1}
-- Beta-blockers (may hide tachycardia) {hem:1}
-- Significant past illness
-- Pregnant
-- Last meal over 6 hours ago
+- Allergies @5
+- Anticoagulants {hem:1,hi:1} @6
+- Beta-blockers (may hide tachycardia) {hem:1} @7
+- Significant past illness @8
+- Pregnant @9
+- Last meal over 6 hours ago @10
 H Events and symptoms|pick
-- Lost consciousness {hi:1}
-- Vomiting {hi:1}
-- Cannot remember the event {hi:1}
-- Fitted {hi:1}
-- Neck or back pain {sc:2}
-- Numb or weak limbs {sc:2}
-- Breathless {tp:1,ht:1,ff:1}
-- Chest pain {tp:1,ht:1,ff:1}
-- Hoarse voice {ao:2}
+- Lost consciousness {hi:1} @11
+- Vomiting {hi:1} @12
+- Cannot remember the event {hi:1} @13
+- Fitted {hi:1} @14
+- Neck or back pain {sc:2} @15
+- Numb or weak limbs {sc:2} @16
+- Breathless {tp:1,ht:1,ff:1} @17
+- Chest pain {tp:1,ht:1,ff:1} @18
+- Hoarse voice {ao:2} @19
 G A: Airway with C-spine protection
 E Airway|pick
 N Talk to the patient. Manual in-line stabilisation; collar and blocks.
-! Stridor {ao:2}
-! Gurgling {ao:2}
-! Hoarse voice {ao:2}
-! Facial burns or soot {ao:2}
+! Stridor {ao:2} @0
+! Gurgling {ao:2} @1
+! Hoarse voice {ao:2} @2
+! Facial burns or soot {ao:2} @3
 G B: Breathing
 E Look|pick
-- Sucking chest wound {ps:5}
-- Paradoxical chest movement {ff:2}
-- Distended neck veins {tp:2}
+- Sucking chest wound {ps:5} @4
+- Paradoxical chest movement {ff:2} @5
+- Distended neck veins {tp:2} @6
 E Feel|pick
-! Trachea deviated {tp:2}
-- Crepitus or multiple rib fractures {ff:2}
-- Surgical emphysema {tp:2,ps:2}
+! Trachea deviated {tp:2} @7
+- Crepitus or multiple rib fractures {ff:2} @8
+- Surgical emphysema {tp:2,ps:2} @9
 E Percuss and listen|pick
-! Hyper-resonant with absent breath sounds {tp:2}
-! Dull with absent breath sounds and flat neck veins {ht:5}
+! Hyper-resonant with absent breath sounds {tp:2} @10
+! Dull with absent breath sounds and flat neck veins {ht:5} @11
 G C: Circulation
 E Shock|pick
-! Heart rate over 100 {hem:1,ht:1,tam:1,tp:1}
-! Systolic BP under 90 {hem:1,ht:1,tam:1,tp:1}
-! Capillary refill over 2 seconds {hem:1,ht:1,tam:1,tp:1}
-! Cold clammy skin {hem:1,ht:1,tam:1,tp:1}
-- Hypotension, raised JVP, muffled heart sounds (Beck) {tam:5}
+! Heart rate over 100 {hem:1,ht:1,tam:1,tp:1} @12
+! Systolic BP under 90 {hem:1,ht:1,tam:1,tp:1} @13
+! Capillary refill over 2 seconds {hem:1,ht:1,tam:1,tp:1} @14
+! Cold clammy skin {hem:1,ht:1,tam:1,tp:1} @15
+- Hypotension, raised JVP, muffled heart sounds (Beck) {tam:5} @16
 E Where is the blood?|pick
 N On the floor and four more: chest, abdomen, pelvis, long bones. Control external bleeding.
-- External bleeding {hem:1}
-- Distended or tender abdomen {hem:2}
-- Seatbelt sign {hem:2}
-- Positive FAST {hem:2}
-! Unstable pelvis (spring once only) {hem:3}
-- Thigh swelling, leg shortened or rotated {hem:3}
+- External bleeding {hem:1} @17
+- Distended or tender abdomen {hem:2} @18
+- Seatbelt sign {hem:2} @19
+- Positive FAST {hem:2} @20
+! Unstable pelvis (spring once only) {hem:3} @21
+- Thigh swelling, leg shortened or rotated {hem:3} @22
 G D: Disability
 E Neurology|pick
 N GCS, pupils, glucose, limbs.
-! GCS under 13 or falling {hi:2}
-! Unequal or non-reactive pupils {hi:2}
-! Weakness on one side {hi:2}
-- Limb weakness on both sides {sc:2}
-- Sensory level {sc:2}
-- Priapism or loss of anal tone {sc:2}
-- Low glucose
+! GCS under 13 or falling {hi:2} @23
+! Unequal or non-reactive pupils {hi:2} @24
+! Weakness on one side {hi:2} @25
+- Limb weakness on both sides {sc:2} @26
+- Sensory level {sc:2} @27
+- Priapism or loss of anal tone {sc:2} @28
+- Low glucose @29
 G E: Exposure
 E Exposure|pick
 N Fully expose, log-roll, examine the back and perineum, then cover and keep warm.
-- Open fractures {hem:1}
-- Wounds on the back {hem:1}
-- Burns {hem:1}
-- Hypothermia {hem:1}
+- Open fractures {hem:1} @30
+- Wounds on the back {hem:1} @31
+- Burns {hem:1} @32
+- Hypothermia {hem:1} @33
 
 @headache|Headache|Neurology|Medicine
 Y Primary|mig,tth,clus,moh|Migraine,Painkillers
@@ -4391,107 +4391,107 @@ D moh|Medication-overuse headache||0.6
 D glau|Acute angle-closure glaucoma|!|0.1
 G Pain (SOCRATES)
 H Site|pick|Site:
-- One side {mig:2}
-- Both sides, band around the head {tth:2}
-- Around or behind one eye {clus:2,glau:2}
-- Temples {gca:2}
-- Face and forehead {sinus:2}
-- Back of the head and neck {sah:1,mening:1,tth:1}
+- One side {mig:2} @0
+- Both sides, band around the head {tth:2} @1
+- Around or behind one eye {clus:2,glau:2} @2
+- Temples {gca:2} @3
+- Face and forehead {sinus:2} @4
+- Back of the head and neck {sah:1,mening:1,tth:1} @5
 H Onset|one|Onset:
-! Sudden, worst ever, at maximum within a minute {sah:6}
-- Builds up over minutes to hours {mig:2}
-- Gradually worsening over weeks {mass:2}
+! Sudden, worst ever, at maximum within a minute {sah:6} @6
+- Builds up over minutes to hours {mig:2} @7
+- Gradually worsening over weeks {mass:2} @8
 H Character|pick|Character:
-- Throbbing {mig:2}
-- Pressing or tight {tth:2}
-- Boring, stabbing {clus:2}
+- Throbbing {mig:2} @9
+- Pressing or tight {tth:2} @10
+- Boring, stabbing {clus:2} @11
 H Timing|pick|Timing:
-- Attacks of 4 to 72 hours {mig:2}
-- Attacks of 15 to 180 minutes, in clusters {clus:2}
-- Most days {moh:2,tth:1}
-! Worse in the morning on waking {mass:1}
-! New headache after 50 {gca:3,mass:1}
+- Attacks of 4 to 72 hours {mig:2} @12
+- Attacks of 15 to 180 minutes, in clusters {clus:2} @13
+- Most days {moh:2,tth:1} @14
+! Worse in the morning on waking {mass:1} @15
+! New headache after 50 {gca:3,mass:1} @16
 ! Different from their usual headaches @x600
 H Exacerbating factors|pick|Worse with:
-! Coughing, straining or lying flat {mass:1}
-- Bending forward {sinus:2}
-- Light and noise {mig:2}
-- Stress, sleep loss, periods, food or alcohol {mig:1,tth:1}
+! Coughing, straining or lying flat {mass:1} @17
+- Bending forward {sinus:2} @18
+- Light and noise {mig:2} @19
+- Stress, sleep loss, periods, food or alcohol {mig:1,tth:1} @20
 H Relieving factors|pick|Relieved by:
-- Lying in a dark room {mig:2}
-- Simple painkillers {tth:1,mig:1}
-- Pacing about, cannot lie still {clus:2}
+- Lying in a dark room {mig:2} @21
+- Simple painkillers {tth:1,mig:1} @22
+- Pacing about, cannot lie still {clus:2} @23
 H Severity|one|Severity:
-- Mild to moderate {tth:2}
-- Severe {mig:1,clus:1,sah:1}
+- Mild to moderate {tth:2} @24
+- Severe {mig:1,clus:1,sah:1} @25
 G Associated symptoms
 H Migraine|pick
-- Visual aura before the headache (zigzags, blind spot) {mig:5}
-- Nausea {mig:2}
-- Light and noise sensitivity {mig:2}
+- Visual aura before the headache (zigzags, blind spot) {mig:5} @26
+- Nausea {mig:2} @27
+- Light and noise sensitivity {mig:2} @28
 H Meningism|pick
-! Fever {mening:2}
-! Neck stiffness {mening:2,sah:2}
-! Rash {mening:2}
-! Drowsy or confused {mening:2}
+! Fever {mening:2} @29
+! Neck stiffness {mening:2,sah:2} @30
+! Rash {mening:2} @31
+! Drowsy or confused {mening:2} @32
 H Raised pressure|pick
-! Vomiting {mass:1}
-! Weakness, numbness or speech change {mass:1}
-! Fit {mass:1}
-! Personality change {mass:1}
+! Vomiting {mass:1} @33
+! Weakness, numbness or speech change {mass:1} @34
+! Fit {mass:1} @35
+! Personality change {mass:1} @36
 H Temporal arteritis|pick
-! Scalp tender when combing {gca:2}
-! Jaw pain on chewing {gca:2}
-! Loss of vision {gca:2}
-- Aching shoulders and hips {gca:2}
+! Scalp tender when combing {gca:2} @37
+! Jaw pain on chewing {gca:2} @38
+! Loss of vision {gca:2} @39
+- Aching shoulders and hips {gca:2} @40
 H Eye|pick
-! Painful red eye with halos around lights {glau:3}
-- Watering eye and blocked nostril on one side {clus:2}
-- Drooping eyelid during attacks {clus:2}
+! Painful red eye with halos around lights {glau:3} @41
+- Watering eye and blocked nostril on one side {clus:2} @42
+- Drooping eyelid during attacks {clus:2} @43
 H Nose|pick
-- Nasal discharge or facial pressure {sinus:2}
+- Nasal discharge or facial pressure {sinus:2} @44
 G Background for this complaint
 H Painkillers|pick|Painkillers:
 N Count the days per month.
-- On more than 10 to 15 days a month {moh:7}
+- On more than 10 to 15 days a month {moh:7} @45
 H Past history|pick|Past history:
-- Head injury {sah:1}
-- Hypertension {sah:1}
-- Cancer {mass:2}
-- Immunosuppressed {mening:1,mass:1}
+- Head injury {sah:1} @46
+- Hypertension {sah:1} @47
+- Cancer {mass:2} @48
+- Immunosuppressed {mening:1,mass:1} @49
 - Diabetes {mening:1} @x20
 - Sinus or ear infection {sinus:2,mening:1} @x21
 - Previous stroke or TIA {sah:1,mass:1} @x22
 - Kidney disease @x23
 H Drugs|pick|Takes:
-- Anticoagulants {sah:1}
-- Contraceptive pill {mig:1}
+- Anticoagulants {sah:1} @50
+- Contraceptive pill {mig:1} @51
 H Family history|pick|Family history:
-- Migraine {mig:1}
-- Brain aneurysm or SAH {sah:3}
+- Migraine {mig:1} @52
+- Brain aneurysm or SAH {sah:3} @53
 G General examination
 E Vital signs and general|pick
-- Fever {mening:2}
-- Hypertension {sah:1,mass:1}
-! Non-blanching rash {mening:5}
-! Reduced GCS {mass:3,mening:1,sah:2}
+- Fever {mening:2} @0
+- Hypertension {sah:1,mass:1} @1
+! Non-blanching rash {mening:5} @2
+! Reduced GCS {mass:3,mening:1,sah:2} @3
 G Neurological examination
 E Meningism|pick
-! Neck stiffness {mening:3,sah:2}
-! Kernig's or Brudzinski's sign {mening:3,sah:1}
+! Neck stiffness {mening:3,sah:2} @4
+! Kernig's or Brudzinski's sign {mening:3,sah:1} @5
 E Eyes|pick
 N Pupils, visual acuity, fields, fundoscopy.
-! Papilloedema {mass:6}
-- Horner's syndrome on the painful side {clus:3}
-! Red eye, hazy cornea, fixed mid-dilated pupil {glau:6}
+! Papilloedema {mass:6} @6
+- Horner's syndrome on the painful side {clus:3} @7
+! Red eye, hazy cornea, fixed mid-dilated pupil {glau:6} @8
 E Cranial nerves and limbs|pick
-! Focal neurological deficit {mass:3,mening:1,sah:2}
-- Normal neurological examination {mig:2,tth:3,moh:2}
+! Focal neurological deficit {mass:3,mening:1,sah:2} @9
+- Normal neurological examination {mig:2,tth:3,moh:2} @10
 G Head and face
 E Head and face|pick
-! Tender, thickened, pulseless temporal artery {gca:6}
-- Tender over the sinuses {sinus:4}
-- Tender scalp and neck muscles {tth:1}
+! Tender, thickened, pulseless temporal artery {gca:6} @11
+- Tender over the sinuses {sinus:4} @12
+- Tender scalp and neck muscles {tth:1} @13
 
 @dizzy|Dizziness / vertigo|Neurology|Medicine
 Y Ear|bppv,vn,men,mass|Ear
@@ -4516,53 +4516,53 @@ D mass|Acoustic neuroma / cerebellar lesion||0.1
 G What do they mean by dizzy?
 H Type|one|Feels:
 N Ask them to describe it without using the word dizzy.
-- The room spins (vertigo) {bppv:1,vn:1,men:1,post:1}
-- Light-headed, about to faint {orth:2,arr:1,anaem:1,hypog:1}
-- Unsteady on the feet {post:1,mass:1,drug:1}
+- The room spins (vertigo) {bppv:1,vn:1,men:1,post:1} @0
+- Light-headed, about to faint {orth:2,arr:1,anaem:1,hypog:1} @1
+- Unsteady on the feet {post:1,mass:1,drug:1} @2
 H Onset|one|Onset:
-! Sudden {post:2}
-- Gradual {mass:1,anaem:1}
+! Sudden {post:2} @3
+- Gradual {mass:1,anaem:1} @4
 H Duration of episodes|one|Lasts:
-- Seconds, under a minute {bppv:3}
-- Minutes {arr:1,orth:1,anx:1}
-- Hours {men:2}
-- Continuous for days {vn:2,post:1}
+- Seconds, under a minute {bppv:3} @5
+- Minutes {arr:1,orth:1,anx:1} @6
+- Hours {men:2} @7
+- Continuous for days {vn:2,post:1} @8
 H Triggers|pick|Brought on by:
-- Turning in bed or looking up {bppv:3}
-- Standing up {orth:6}
-- Missing a meal {hypog:2}
-- Stress or crowds {anx:2}
-- Exertion {arr:1}
+- Turning in bed or looking up {bppv:3} @9
+- Standing up {orth:6} @10
+- Missing a meal {hypog:2} @11
+- Stress or crowds {anx:2} @12
+- Exertion {arr:1} @13
 G Associated symptoms
 H Ear|pick
-- Ringing in the ear {men:2}
-- Fullness in the ear {men:2}
-- Hearing loss {men:2}
-- Slowly worsening one-sided deafness {mass:5}
-- After a cold, hearing normal {vn:2}
+- Ringing in the ear {men:2} @14
+- Fullness in the ear {men:2} @15
+- Hearing loss {men:2} @16
+- Slowly worsening one-sided deafness {mass:5} @17
+- After a cold, hearing normal {vn:2} @18
 H Brainstem|pick
 N Any of these with vertigo means a central cause until proven otherwise.
-! Double vision {post:2}
-! Slurred speech {post:2}
-! Facial numbness {post:2}
-! Cannot walk straight {post:2}
+! Double vision {post:2} @19
+! Slurred speech {post:2} @20
+! Facial numbness {post:2} @21
+! Cannot walk straight {post:2} @22
 H Vomiting|pick
-- Vomiting {vn:2}
+- Vomiting {vn:2} @23
 H Heart|pick
-- Palpitations {arr:2}
-- Chest pain {arr:2}
-- Blackouts {arr:2}
+- Palpitations {arr:2} @24
+- Chest pain {arr:2} @25
+- Blackouts {arr:2} @26
 H Anaemia and sugar|pick
-- Tiredness, pallor, heavy periods or bleeding {anaem:1}
-- Sweating, hunger, tremor, better with sugar {hypog:2}
+- Tiredness, pallor, heavy periods or bleeding {anaem:1} @27
+- Sweating, hunger, tremor, better with sugar {hypog:2} @28
 H Anxiety|pick
-- Tingling around the mouth, panic, fast breathing {anx:2}
+- Tingling around the mouth, panic, fast breathing {anx:2} @29
 G Background for this complaint
 H Vascular risk|pick|Risk factor:
-- Older age {post:1,arr:1}
-- Hypertension {post:1,arr:1}
-- Diabetes {post:1,arr:1}
-- AF {post:1,arr:1}
+- Older age {post:1,arr:1} @30
+- Hypertension {post:1,arr:1} @31
+- Diabetes {post:1,arr:1} @32
+- AF {post:1,arr:1} @33
 H Past history|pick|Past history:
 - Head injury {bppv:2} @x20
 - Recent ear infection or cold {vn:2} @x21
@@ -4572,38 +4572,38 @@ H Past history|pick|Past history:
 - Kidney disease @x25
 - Falls in the last year @x600
 H Drugs|pick|Takes:
-- Blood pressure tablets or diuretics {drug:2,orth:1}
-- Sedatives {drug:2}
-- Anticonvulsants {drug:2}
-- Aminoglycosides {drug:3}
-- Insulin or sulfonylurea {hypog:2}
+- Blood pressure tablets or diuretics {drug:2,orth:1} @34
+- Sedatives {drug:2} @35
+- Anticonvulsants {drug:2} @36
+- Aminoglycosides {drug:3} @37
+- Insulin or sulfonylurea {hypog:2} @38
 G General examination
 E Vital signs|pick
 N Lying and standing BP after 3 minutes.
-- Postural drop of 20 systolic or 10 diastolic {orth:6}
-- Irregular pulse {arr:2}
-- Bradycardia {arr:2}
-- Low capillary glucose {hypog:6}
+- Postural drop of 20 systolic or 10 diastolic {orth:6} @0
+- Irregular pulse {arr:2} @1
+- Bradycardia {arr:2} @2
+- Low capillary glucose {hypog:6} @3
 E General|pick
-- Pallor {anaem:4}
+- Pallor {anaem:4} @4
 E Heart|pick
-- Murmur {arr:2}
+- Murmur {arr:2} @5
 G Neurological examination
 E Eye movements (HINTS)|pick
 N Head impulse, nystagmus, test of skew.
-- Horizontal nystagmus beating away from the bad ear {vn:3}
-- Abnormal head impulse test {vn:3}
-! Vertical or direction-changing nystagmus {post:4}
-! Normal head impulse in a patient with continuous vertigo {post:4}
-! Skew deviation {post:3}
+- Horizontal nystagmus beating away from the bad ear {vn:3} @6
+- Abnormal head impulse test {vn:3} @7
+! Vertical or direction-changing nystagmus {post:4} @8
+! Normal head impulse in a patient with continuous vertigo {post:4} @9
+! Skew deviation {post:3} @10
 E Cerebellar signs|pick
-! Truncal ataxia, cannot sit or stand unaided {post:2,mass:1}
-- Past-pointing or dysmetria {post:2,mass:1}
+! Truncal ataxia, cannot sit or stand unaided {post:2,mass:1} @11
+- Past-pointing or dysmetria {post:2,mass:1} @12
 E Ears and hearing|pick
-- One-sided sensorineural hearing loss (Rinne, Weber) {men:3,mass:4}
+- One-sided sensorineural hearing loss (Rinne, Weber) {men:3,mass:4} @13
 G Special tests
 E Positional test|pick
-- Dix-Hallpike positive: torsional nystagmus after a short delay {bppv:6}
+- Dix-Hallpike positive: torsional nystagmus after a short delay {bppv:6} @14
 
 @syncope|Syncope / collapse|Cardiovascular|Medicine
 Y Reflex faint|vv,sit,carot|Situation,Warning
@@ -4627,48 +4627,48 @@ D carot|Carotid sinus hypersensitivity||0.15
 G Before the event
 N Get an eyewitness account if you can. Go through before, during and after.
 H Situation|pick|Happened:
-- Standing for a long time {vv:1}
-- In a hot room {vv:1}
-- On standing up quickly {orth:6}
-! During exertion {as:5,arr:4}
-- Lying down {arr:2}
-- After passing urine, coughing or swallowing {sit:7}
-- Turning the head or tight collar {carot:4}
+- Standing for a long time {vv:1} @0
+- In a hot room {vv:1} @1
+- On standing up quickly {orth:6} @2
+! During exertion {as:5,arr:4} @3
+- Lying down {arr:2} @4
+- After passing urine, coughing or swallowing {sit:7} @5
+- Turning the head or tight collar {carot:4} @6
 H Trigger|pick|Triggered by:
-- Pain, fear, blood or needles {vv:2}
-- Missed meal on insulin or tablets {hypog:3}
+- Pain, fear, blood or needles {vv:2} @7
+- Missed meal on insulin or tablets {hypog:3} @8
 H Warning|pick|Warning:
-- Nausea, sweating, tunnel vision {vv:2}
-! No warning at all {arr:2}
-! Palpitations {arr:5}
-- Chest pain {pe:2,as:1,arr:1}
-- Breathlessness {pe:2}
-- Strange smell or feeling (aura) {sz:2}
+- Nausea, sweating, tunnel vision {vv:2} @9
+! No warning at all {arr:2} @10
+! Palpitations {arr:5} @11
+- Chest pain {pe:2,as:1,arr:1} @12
+- Breathlessness {pe:2} @13
+- Strange smell or feeling (aura) {sz:2} @14
 G During and after
 H During|pick|During:
-- Pale and clammy {vv:1,arr:1}
-- Jerking beyond a few seconds {sz:2}
-- Tongue biting (side of the tongue) {sz:2}
-- Incontinence {sz:1}
-- Out for under a minute {vv:1,arr:1}
+- Pale and clammy {vv:1,arr:1} @15
+- Jerking beyond a few seconds {sz:2} @16
+- Tongue biting (side of the tongue) {sz:2} @17
+- Incontinence {sz:1} @18
+- Out for under a minute {vv:1,arr:1} @19
 H After|pick|After:
-- Quick recovery, clear-headed {vv:1,arr:1}
-- Confused for minutes to hours {sz:3}
-! Injured {arr:2}
-- Flushed on recovery {arr:2}
+- Quick recovery, clear-headed {vv:1,arr:1} @20
+- Confused for minutes to hours {sz:3} @21
+! Injured {arr:2} @22
+- Flushed on recovery {arr:2} @23
 - Drives or works at heights (safety advice) @x600
 G Associated symptoms
 H Bleeding|pick
-! Black stool or vomiting blood {bleed:3}
-- Heavy vaginal bleeding {bleed:3}
+! Black stool or vomiting blood {bleed:3} @24
+- Heavy vaginal bleeding {bleed:3} @25
 H Clot|pick
-- One leg swollen or recent surgery {pe:2}
+- One leg swollen or recent surgery {pe:2} @26
 G Background for this complaint
 H Past medical history|pick|Past history:
-- Previous MI {arr:1,as:1}
-- Heart failure {arr:1,as:1}
-- Known valve disease {as:2}
-- Previous similar episodes {vv:1}
+- Previous MI {arr:1,as:1} @27
+- Heart failure {arr:1,as:1} @28
+- Known valve disease {as:2} @29
+- Previous similar episodes {vv:1} @30
 - Atrial fibrillation {arr:2} @x20
 - Diabetes {hypog:1} @x21
 - Diabetes with numb feet or bowel and bladder problems (autonomic neuropathy) {orth:3} @x22
@@ -4682,16 +4682,16 @@ H Past medical history|pick|Past history:
 - Previous DVT or PE {pe:2} @x30
 - Cancer {pe:1} @x31
 H Drugs|pick|Takes:
-- New blood pressure tablet {orth:1}
-- Diuretic {orth:1}
-- Nitrate {orth:1}
-- Insulin or sulfonylurea {hypog:2}
-- Drugs that prolong QT {arr:1}
+- New blood pressure tablet {orth:1} @31
+- Diuretic {orth:1} @32
+- Nitrate {orth:1} @33
+- Insulin or sulfonylurea {hypog:2} @34
+- Drugs that prolong QT {arr:1} @35
 - Alpha-blocker (tamsulosin, doxazosin) {orth:2} @x32
 - SGLT2 inhibitor (dehydration, ketoacidosis) {orth:1,dka:1} @x33
 - Anticoagulants or aspirin {bleed:1} @x34
 H Family history|pick|Family history:
-! Sudden death under 40 {arr:2}
+! Sudden death under 40 {arr:2} @36
 H Sugar and neurology|pick
 - Very thirsty and passing a lot of urine for days {dka:3,orth:1} @x35
 ! Vomiting, abdominal pain or deep fast breathing {dka:3} @x36
@@ -4701,24 +4701,24 @@ H Sugar and neurology|pick
 G General examination
 E Vital signs|pick
 N Lying and standing BP; capillary glucose.
-- Postural BP fall {orth:6}
-- Irregular, slow or very fast pulse {arr:5}
-- Tachycardia {bleed:2,pe:1}
-- Hypotension {bleed:2}
-- Tachypnoea or SpO2 under 94% {pe:1}
-- Low glucose {hypog:6}
+- Postural BP fall {orth:6} @0
+- Irregular, slow or very fast pulse {arr:5} @1
+- Tachycardia {bleed:2,pe:1} @2
+- Hypotension {bleed:2} @3
+- Tachypnoea or SpO2 under 94% {pe:1} @4
+- Low glucose {hypog:6} @5
 ! High glucose or ketones {dka:6} @x60
 E General|pick
-- Pallor {bleed:2}
-- Bruising or injury {sz:1,arr:1}
-- Bitten tongue {sz:3}
+- Pallor {bleed:2} @6
+- Bruising or injury {sz:1,arr:1} @7
+- Bitten tongue {sz:3} @8
 G Cardiovascular examination
 E Pulse and neck|pick
-- Slow-rising pulse {as:4}
-- Raised JVP {pe:1}
+- Slow-rising pulse {as:4} @9
+- Raised JVP {pe:1} @10
 E Auscultation|pick
-- Ejection systolic murmur to the carotids {as:4}
-- Normal heart sounds, no murmur {vv:3}
+- Ejection systolic murmur to the carotids {as:4} @11
+- Normal heart sounds, no murmur {vv:3} @12
 G Complete the examination
 E Neurology|pick
 ! Focal weakness, facial droop or speech problem {cns:4} @x40
@@ -4726,9 +4726,9 @@ E Neurology|pick
 ! Neck stiffness {cns:3} @x42
 - Drowsy or confused after the collapse {sz:2} @x43
 E Legs and rectal|pick
-- Calf swelling {pe:1}
-- Melaena on rectal exam {bleed:2}
-- Focal neurological signs
+- Calf swelling {pe:1} @13
+- Melaena on rectal exam {bleed:2} @14
+- Focal neurological signs @15
 
 @seizure|Seizure / fit|Neurology|Medicine
 Y Epilepsy|epi|Epilepsy,During
@@ -4751,50 +4751,50 @@ D eclamp|Eclampsia|!|0.1
 G Before
 N Get an eyewitness account. Go through before, during and after.
 H Before|pick|Before:
-- Strange smell, deja vu, rising feeling in the stomach {epi:4}
-- Jerking of one limb first (focal onset) {epi:3,strk:1}
-- Standing, hot, in pain, went pale {syn:3}
-- Upset or emotional trigger {pnes:2}
-- Missed a meal on insulin or tablets {hypog:4}
-- Sleep deprivation {epi:1}
+- Strange smell, deja vu, rising feeling in the stomach {epi:4} @0
+- Jerking of one limb first (focal onset) {epi:3,strk:1} @1
+- Standing, hot, in pain, went pale {syn:3} @2
+- Upset or emotional trigger {pnes:2} @3
+- Missed a meal on insulin or tablets {hypog:4} @4
+- Sleep deprivation {epi:1} @5
 G During
 H During|pick|During:
-- Stiffened then jerked rhythmically, both sides {epi:2}
-- A few brief jerks after falling {syn:2}
-- Eyes closed, side-to-side head movement {pnes:2}
-- Bit the side of the tongue {epi:2}
-- Incontinent {epi:2}
-- Lasted over 5 minutes {pnes:1,epi:1}
+- Stiffened then jerked rhythmically, both sides {epi:2} @6
+- A few brief jerks after falling {syn:2} @7
+- Eyes closed, side-to-side head movement {pnes:2} @8
+- Bit the side of the tongue {epi:2} @9
+- Incontinent {epi:2} @10
+- Lasted over 5 minutes {pnes:1,epi:1} @11
 G After
 H After|pick|After:
-- Confused or sleepy for minutes to hours {epi:2}
-- Quick recovery, clear-headed {syn:2}
-! Weakness of one side afterwards {strk:3,epi:1}
-- Aching muscles {epi:1}
+- Confused or sleepy for minutes to hours {epi:2} @12
+- Quick recovery, clear-headed {syn:2} @13
+! Weakness of one side afterwards {strk:3,epi:1} @14
+- Aching muscles {epi:1} @15
 G Associated symptoms
 H Infection|pick
-! Fever {inf:2}
-! Headache and neck stiffness {inf:2}
-- Recent illness {inf:1}
+! Fever {inf:2} @16
+! Headache and neck stiffness {inf:2} @17
+- Recent illness {inf:1} @18
 H Brain|pick
-! Headache getting worse {strk:1}
-! Weight loss or known cancer {strk:1}
-- Head injury {trauma:2}
+! Headache getting worse {strk:1} @19
+! Weight loss or known cancer {strk:1} @20
+- Head injury {trauma:2} @21
 H Pregnancy|pick
-! Pregnant or recently delivered, with headache or swelling {eclamp:3}
+! Pregnant or recently delivered, with headache or swelling {eclamp:3} @22
 G Background for this complaint
 H Epilepsy|pick|Epilepsy:
-- Known epilepsy {epi:2}
-- Missed antiepileptic doses {epi:1}
-- First ever seizure {epi:1}
+- Known epilepsy {epi:2} @23
+- Missed antiepileptic doses {epi:1} @24
+- First ever seizure {epi:1} @25
 H Substances|pick|Substance:
-- Heavy alcohol use {alc:3}
-- Recently stopped or binged {alc:3}
-- Recreational drug use or withdrawal {alc:3}
+- Heavy alcohol use {alc:3} @26
+- Recently stopped or binged {alc:3} @27
+- Recreational drug use or withdrawal {alc:3} @28
 H Past history|pick|Past history:
-- Diabetes on insulin or sulfonylurea {hypog:4}
-- Previous stroke {strk:1}
-- Brain tumour {strk:1}
+- Diabetes on insulin or sulfonylurea {hypog:4} @29
+- Previous stroke {strk:1} @30
+- Brain tumour {strk:1} @31
 - Diabetes with thirst, polyuria and high sugars {hypog:3} @x20
 - Hypertension {strk:1} @x21
 - Kidney failure or dialysis {hypog:2} @x22
@@ -4807,30 +4807,30 @@ H Past history|pick|Past history:
 - Pregnant or just delivered {eclamp:2} @x29
 - Atrial fibrillation or heart disease {strk:1,syn:1} @x30
 H Family history|pick|Family history:
-- Epilepsy {epi:2}
+- Epilepsy {epi:2} @32
 G General examination
 E Vital signs and glucose|pick
-! Still fitting or GCS not recovering (status epilepticus) {epi:2}
-! Low capillary glucose {hypog:6}
-- Fever {inf:3}
-! Hypertension in a pregnant woman {eclamp:4}
-- Tachycardia, sweating, tremor {alc:2}
+! Still fitting or GCS not recovering (status epilepticus) {epi:2} @0
+! Low capillary glucose {hypog:6} @1
+- Fever {inf:3} @2
+! Hypertension in a pregnant woman {eclamp:4} @3
+- Tachycardia, sweating, tremor {alc:2} @4
 - High capillary glucose with dehydration {hypog:3} @x31
 E Injuries|pick
-- Bitten side of the tongue {epi:2}
-- Bruising or other injuries {epi:1}
-! Scalp wound or signs of skull fracture {trauma:3}
+- Bitten side of the tongue {epi:2} @5
+- Bruising or other injuries {epi:1} @6
+! Scalp wound or signs of skull fracture {trauma:3} @7
 E Skin|pick
-! Non-blanching rash {inf:3}
+! Non-blanching rash {inf:3} @8
 G Neurological examination
 E Neurology|pick
-! Neck stiffness {inf:3}
-! Focal weakness {strk:3,epi:1}
-! Papilloedema {strk:3}
-- Hallucinations or agitation {alc:2}
+! Neck stiffness {inf:3} @9
+! Focal weakness {strk:3,epi:1} @10
+! Papilloedema {strk:3} @11
+- Hallucinations or agitation {alc:2} @12
 G Complete the examination
 E Urine|pick
-- Protein on urine dipstick in pregnancy {eclamp:2}
+- Protein on urine dipstick in pregnancy {eclamp:2} @13
 
 @weak|Limb weakness / stroke|Neurology|Medicine
 Y Brain|strk,tia,mass|Stroke symptoms
@@ -4856,98 +4856,98 @@ D hypog|Hypoglycaemia or hyperglycaemia (stroke mimic)|!|0.15
 G The weakness
 H Time of onset|one|Onset:
 N Ask exactly when they were last seen well; it decides thrombolysis.
-! Sudden, minutes {strk:2,tia:1}
-- Over days {gbs:2,cord:1,hypok:1}
-- Over weeks to months {mass:2,mnd:2,myop:1,pn:1}
-- Episodes that come and go {ms:2,mg:1}
+! Sudden, minutes {strk:2,tia:1} @0
+- Over days {gbs:2,cord:1,hypok:1} @1
+- Over weeks to months {mass:2,mnd:2,myop:1,pn:1} @2
+- Episodes that come and go {ms:2,mg:1} @3
 H Distribution|pick|Weak:
-! Face and arm on one side {strk:2,tia:1}
-- One side of the body {strk:2,mass:1}
-- Both legs {cord:2,gbs:1}
-- Shoulders and hips (stairs, combing hair) {myop:3}
-- Hands and feet {pn:2,gbs:1}
-- Starts in the feet and climbs {gbs:4}
+! Face and arm on one side {strk:2,tia:1} @4
+- One side of the body {strk:2,mass:1} @5
+- Both legs {cord:2,gbs:1} @6
+- Shoulders and hips (stairs, combing hair) {myop:3} @7
+- Hands and feet {pn:2,gbs:1} @8
+- Starts in the feet and climbs {gbs:4} @9
 H Course|pick|Course:
-- Fully resolved within 24 hours {tia:6,strk:-3}
-- Worse with use, by the evening {mg:3}
-- Relapses and remissions {ms:2}
+- Fully resolved within 24 hours {tia:6,strk:-3} @10
+- Worse with use, by the evening {mg:3} @11
+- Relapses and remissions {ms:2} @12
 G Associated symptoms
 H Stroke symptoms|pick
-! Speech difficulty {strk:2,tia:1}
-! Loss of vision or double vision {strk:1,ms:1}
-- Drooping eyelid {mg:3}
-- Difficulty swallowing {mnd:2,mg:1}
+! Speech difficulty {strk:2,tia:1} @13
+! Loss of vision or double vision {strk:1,ms:1} @14
+- Drooping eyelid {mg:3} @15
+- Difficulty swallowing {mnd:2,mg:1} @16
 H Sensation|pick
-- Numb or tingling feet and hands {pn:2,gbs:2}
-- Tingling that comes and goes, in a young adult {ms:2}
-- Numbness below a level on the trunk {cord:3}
+- Numb or tingling feet and hands {pn:2,gbs:2} @17
+- Tingling that comes and goes, in a young adult {ms:2} @18
+- Numbness below a level on the trunk {cord:3} @19
 H Spinal|pick
-! Back pain {cord:2}
-! Bladder or bowel problems {cord:2}
+! Back pain {cord:2} @20
+! Bladder or bowel problems {cord:2} @21
 H Muscle|pick
-- Muscle pain {myop:3}
-- Muscle wasting or twitching {mnd:2}
+- Muscle pain {myop:3} @22
+- Muscle wasting or twitching {mnd:2} @23
 H Other|pick
-- Recent diarrhoea or chest infection {gbs:2}
-- Vomiting, diarrhoea or diuretics {hypok:5}
-- Headaches getting worse, fits or personality change {mass:4}
+- Recent diarrhoea or chest infection {gbs:2} @24
+- Vomiting, diarrhoea or diuretics {hypok:5} @25
+- Headaches getting worse, fits or personality change {mass:4} @26
 G Background for this complaint
 H Vascular risk factors|pick|Risk factor:
-- Hypertension {strk:1,tia:1}
-- AF {strk:1,tia:1}
-- Diabetes {strk:1,tia:1,pn:1}
-- Smoker {strk:1,tia:1}
-- Previous stroke or TIA {strk:1,tia:1}
-- High cholesterol {strk:1,tia:1}
+- Hypertension {strk:1,tia:1} @27
+- AF {strk:1,tia:1} @28
+- Diabetes {strk:1,tia:1,pn:1} @29
+- Smoker {strk:1,tia:1} @30
+- Previous stroke or TIA {strk:1,tia:1} @31
+- High cholesterol {strk:1,tia:1} @32
 H Past history|pick|Past history:
-- Cancer {cord:2,mass:1}
-- Alcohol excess {pn:2}
-- Thyroid disease {myop:1}
+- Cancer {cord:2,mass:1} @33
+- Alcohol excess {pn:2} @34
+- Thyroid disease {myop:1} @35
 - Chronic kidney disease {hypok:1,pn:1} @x20
 - Diabetes on insulin or tablets, sweaty or shaky before the weakness {hypog:3} @x21
 - Epilepsy (weakness after a fit) {strk:0} @x22
 - Heart valve disease or endocarditis risk {strk:1} @x23
 H Drugs|pick|Takes:
-- Anticoagulants {strk:1}
-- Steroids {myop:1}
-- Statins {myop:1}
+- Anticoagulants {strk:1} @36
+- Steroids {myop:1} @37
+- Statins {myop:1} @38
 G General examination
 E General and vitals|pick
-! Low glucose {hypog:6}
+! Low glucose {hypog:6} @0
 - High glucose with dehydration {hypog:3} @x60
-- Irregularly irregular pulse {strk:2,tia:2}
-- Hypertension {strk:1}
-- Carotid bruit {strk:2,tia:2}
+- Irregularly irregular pulse {strk:2,tia:2} @1
+- Hypertension {strk:1} @2
+- Carotid bruit {strk:2,tia:2} @3
 G Neurological examination
 E FAST and higher function|pick
-! Facial droop {strk:3,tia:1}
-! Arm drift {strk:3,tia:1}
-! Speech abnormal {strk:3,tia:1}
+! Facial droop {strk:3,tia:1} @4
+! Arm drift {strk:3,tia:1} @5
+! Speech abnormal {strk:3,tia:1} @6
 - Neurological examination now normal {tia:4,strk:-3} @x1
-- Visual field loss {strk:2,mass:1}
-- Neglect of one side {strk:2,mass:1}
+- Visual field loss {strk:2,mass:1} @7
+- Neglect of one side {strk:2,mass:1} @8
 ! Papilloedema {mass:5} @x2
 E Cranial nerves|pick
-- Fatigable ptosis {mg:6}
-- Eye movement disorder (internuclear ophthalmoplegia) {ms:4}
-- Optic neuritis {ms:4}
-- Tongue fasciculations {mnd:3}
+- Fatigable ptosis {mg:6} @9
+- Eye movement disorder (internuclear ophthalmoplegia) {ms:4} @10
+- Optic neuritis {ms:4} @11
+- Tongue fasciculations {mnd:3} @12
 E Tone and power|pick
 N Tone, power (grade 0 to 5), reflexes, plantars, then sensation and coordination.
-- Increased tone {strk:2,cord:2,ms:1,mnd:1}
-- Flaccid {gbs:2,pn:1,mnd:1}
-- Proximal weakness {myop:3}
-- Weakness on repeated testing {mg:3}
-- Wasting and fasciculations {mnd:3,pn:1}
+- Increased tone {strk:2,cord:2,ms:1,mnd:1} @13
+- Flaccid {gbs:2,pn:1,mnd:1} @14
+- Proximal weakness {myop:3} @15
+- Weakness on repeated testing {mg:3} @16
+- Wasting and fasciculations {mnd:3,pn:1} @17
 E Reflexes|pick
-- Brisk reflexes, upgoing plantars {strk:2,cord:2,ms:1,mnd:1}
-- Absent reflexes {gbs:4,pn:2}
-- Absent ankle jerks only {pn:3}
-- Normal reflexes with proximal weakness {myop:3}
+- Brisk reflexes, upgoing plantars {strk:2,cord:2,ms:1,mnd:1} @18
+- Absent reflexes {gbs:4,pn:2} @19
+- Absent ankle jerks only {pn:3} @20
+- Normal reflexes with proximal weakness {myop:3} @21
 E Sensation|pick
-! Sensory level on the trunk {cord:6}
-- Glove and stocking loss {pn:4}
-- Normal sensation {mnd:2,myop:1,mg:1}
+! Sensory level on the trunk {cord:6} @22
+- Glove and stocking loss {pn:4} @23
+- Normal sensation {mnd:2,myop:1,mg:1} @24
 
 @haem|Haematemesis / melaena|Gastrointestinal|Medicine
 SC gbs
@@ -5014,30 +5014,30 @@ H Alcohol|pick
 * Heavy alcohol use {gast:3,var:3,mw:2} @27
 G General examination
 E Vital signs and perfusion|pick
-! Tachycardia {pu:1,var:1}
-! Hypotension or postural drop {pu:1,var:1}
-! Cold peripheries {pu:1,var:1}
-- Low urine output {pu:1,var:1}
+! Tachycardia {pu:1,var:1} @0
+! Hypotension or postural drop {pu:1,var:1} @1
+! Cold peripheries {pu:1,var:1} @2
+- Low urine output {pu:1,var:1} @3
 E General|pick
-- Pallor {pu:2,var:2}
-- Cachexic {ca:3}
-- Supraclavicular node {ca:3}
-- Jaundice {var:2}
-- Spider naevi or palmar erythema {var:2}
-- Telangiectasia on lips and mouth {ang:3}
-- Bruising or petechiae {coag:3}
+- Pallor {pu:2,var:2} @4
+- Cachexic {ca:3} @5
+- Supraclavicular node {ca:3} @6
+- Jaundice {var:2} @7
+- Spider naevi or palmar erythema {var:2} @8
+- Telangiectasia on lips and mouth {ang:3} @9
+- Bruising or petechiae {coag:3} @10
 G Abdominal examination
 E Inspection and palpation|pick
-- Epigastric tenderness {pu:3,gast:3}
-- Epigastric mass {ca:3}
-- Splenomegaly {var:4}
-- Caput medusae {var:2}
+- Epigastric tenderness {pu:3,gast:3} @11
+- Epigastric mass {ca:3} @12
+- Splenomegaly {var:4} @13
+- Caput medusae {var:2} @14
 E Percussion|pick
-- Shifting dullness {var:2}
+- Shifting dullness {var:2} @15
 G Complete the examination
 E Rectal examination|pick
-- Melaena on the glove {pu:2,var:1}
-- Fresh blood on the glove {var:1}
+- Melaena on the glove {pu:2,var:1} @16
+- Fresh blood on the glove {var:1} @17
 
 @ascites|Abdominal distension / ascites|Gastrointestinal|Medicine
 SC cp
@@ -5105,39 +5105,39 @@ H Drugs and habits|pick|Takes:
 - Contraceptive pill {budd:2} @26
 G General examination
 E Vital signs|pick
-- Fever {sbp:2,tb:1}
+- Fever {sbp:2,tb:1} @0
 E General|pick
-- Jaundice {cirr:3,mal:1}
-- Spider naevi, palmar erythema {cirr:6}
-- Supraclavicular node {mal:3}
-- Raised JVP {hf:3}
-- Periorbital and sacral oedema {nephr:6}
-- Ankle oedema {hf:3}
+- Jaundice {cirr:3,mal:1} @1
+- Spider naevi, palmar erythema {cirr:6} @2
+- Supraclavicular node {mal:3} @3
+- Raised JVP {hf:3} @4
+- Periorbital and sacral oedema {nephr:6} @5
+- Ankle oedema {hf:3} @6
 G Abdominal examination
 E Inspection|pick
 M Look from the end of the bed, then at eye level|Distension · scars · visible peristalsis · pulsation · hernial orifices (ask to cough)
-- Everted umbilicus, flanks full {cirr:1,mal:1}
-- Caput medusae {cirr:3}
-- Hard umbilical nodule {mal:3}
+- Everted umbilicus, flanks full {cirr:1,mal:1} @7
+- Caput medusae {cirr:3} @8
+- Hard umbilical nodule {mal:3} @9
 E Palpation|pick
 M Light, then deep, starting away from the pain|All 9 regions · then liver · spleen · kidneys (ballot) · watch the face
-- Tender abdomen with fever {sbp:6}
-- Hard nodular liver {mal:3}
-- Tender smooth liver {budd:5,hf:3}
-- Splenomegaly {cirr:4,budd:3}
-- Pelvic or abdominal mass {mal:2,ovar:4}
-- Fetal parts {obes:3}
+- Tender abdomen with fever {sbp:6} @10
+- Hard nodular liver {mal:3} @11
+- Tender smooth liver {budd:5,hf:3} @12
+- Splenomegaly {cirr:4,budd:3} @13
+- Pelvic or abdominal mass {mal:2,ovar:4} @14
+- Fetal parts {obes:3} @15
 E Percussion|pick
 M Dull or resonant? Then shifting dullness|Percuss from the midline out to the flank, roll the patient towards you, wait, percuss again
 N Percuss from the midline to the flanks; then roll the patient for shifting dullness; fluid thrill if tense.
-- Shifting dullness {cirr:2,mal:2,hf:2,nephr:2,tb:2,sbp:1}
-- Fluid thrill {cirr:2,mal:2,hf:2,nephr:2,tb:2,ovar:2}
+- Shifting dullness {cirr:2,mal:2,hf:2,nephr:2,tb:2,sbp:1} @16
+- Fluid thrill {cirr:2,mal:2,hf:2,nephr:2,tb:2,ovar:2} @17
 - Central dullness, resonant flanks, does not shift; cannot get below it {ovar:4} @x501
-- Resonant, no shifting dullness {obes:3}
+- Resonant, no shifting dullness {obes:3} @18
 G Chest
 E Chest|pick
-- Basal crackles {hf:3}
-- Pleural effusion {cirr:1,mal:1,hf:1}
+- Basal crackles {hf:3} @19
+- Pleural effusion {cirr:1,mal:1,hf:1} @20
 
 @fever|Fever / pyrexia|General|Medicine
 Y Head and neck|mening,vir|Head and neck
@@ -5163,56 +5163,56 @@ D mening|Meningitis|!|0.2
 D sep|Sepsis (any source)|!|0.5
 G The fever
 H Duration|one|Fever for:
-- Under 2 weeks {vir:2}
+- Under 2 weeks {vir:2} @0
 - 2 to 3 weeks @x604
-- Over 3 weeks without a clear source {tb:3,lym:3,ie:2,ctd:2,abs:2,ent:2}
+- Over 3 weeks without a clear source {tb:3,lym:3,ie:2,ctd:2,abs:2,ent:2} @1
 H Pattern|pick|Pattern:
-- Step-ladder, rising each day {ent:2}
-- Comes and goes in waves with sweats {ent:2}
-- Spikes every 2 to 3 days after travel to a malaria area {ent:5}
-- Evening fever with night sweats {tb:2,lym:1}
-- Shaking chills (rigors) {sep:2,uti:1,abs:1}
+- Step-ladder, rising each day {ent:2} @2
+- Comes and goes in waves with sweats {ent:2} @3
+- Spikes every 2 to 3 days after travel to a malaria area {ent:5} @4
+- Evening fever with night sweats {tb:2,lym:1} @5
+- Shaking chills (rigors) {sep:2,uti:1,abs:1} @6
 - Settles with paracetamol, then comes back @x600
 G Where is the source?
 N Go system by system: head, chest, abdomen, urine, skin, joints.
 H Head and neck|pick
-- Sore throat, runny nose {vir:2}
-- Aching muscles {vir:2}
-! Headache {mening:2,ent:1}
-! Neck stiffness or light sensitivity {mening:2}
+- Sore throat, runny nose {vir:2} @7
+- Aching muscles {vir:2} @8
+! Headache {mening:2,ent:1} @9
+! Neck stiffness or light sensitivity {mening:2} @10
 H Chest|pick
-- Cough with sputum {pneu:3}
-- Pleuritic pain {pneu:3}
-- Chronic cough {tb:2}
+- Cough with sputum {pneu:3} @11
+- Pleuritic pain {pneu:3} @12
+- Chronic cough {tb:2} @13
 H Abdomen|pick
-- Right upper quadrant pain {abs:3}
-- Diarrhoea or constipation {ent:2}
+- Right upper quadrant pain {abs:3} @14
+- Diarrhoea or constipation {ent:2} @15
 H Urine|pick
-- Burning or frequency {uti:3}
-- Loin pain {uti:3}
+- Burning or frequency {uti:3} @16
+- Loin pain {uti:3} @17
 H Skin and joints|pick
-! Rash {mening:2,ctd:1}
-- Joint pain {ctd:2,ent:1}
-- Mouth ulcers or sun-sensitive rash {ctd:2}
+! Rash {mening:2,ctd:1} @18
+- Joint pain {ctd:2,ent:1} @19
+- Mouth ulcers or sun-sensitive rash {ctd:2} @20
 H General|pick
-- Weight loss {tb:2,lym:1}
-- Itch {lym:2}
-- Lumps in the neck, armpit or groin {lym:2,tb:1}
-! Confused or collapsed {sep:2}
+- Weight loss {tb:2,lym:1} @21
+- Itch {lym:2} @22
+- Lumps in the neck, armpit or groin {lym:2,tb:1} @23
+! Confused or collapsed {sep:2} @24
 G Background for this complaint
 H Exposure|pick|Exposure:
-- Travel to a malaria area {ent:2}
-- Raw milk or farm animals {ent:2}
-- TB contact {tb:2}
-- Sick contacts {vir:1}
-- Injecting drugs {ie:3}
+- Travel to a malaria area {ent:2} @25
+- Raw milk or farm animals {ent:2} @26
+- TB contact {tb:2} @27
+- Sick contacts {vir:1} @28
+- Injecting drugs {ie:3} @29
 - Unsafe water or street food {ent:2} @x601
 - Similar illness in the family or neighbours {vir:1,ent:1} @x602
 H Past history|pick|Past history:
-- Valve disease or prosthetic valve {ie:3}
-- Recent dental work {ie:3}
-- Recent abdominal surgery or infection {abs:3}
-- Immunosuppressed {sep:1,tb:1}
+- Valve disease or prosthetic valve {ie:3} @30
+- Recent dental work {ie:3} @31
+- Recent abdominal surgery or infection {abs:3} @32
+- Immunosuppressed {sep:1,tb:1} @33
 - Diabetes {sep:1,uti:1,abs:1} @x20
 - Kidney disease or dialysis {uti:1,ie:1} @x21
 - Liver disease {sep:1,abs:1} @x22
@@ -5223,40 +5223,40 @@ H Past history|pick|Past history:
 - Hypertension @x27
 - Not fully vaccinated @x603
 H Drugs|pick|Takes:
-- New drug in the last 2 to 3 weeks {drug:6}
-- Recent antibiotics
+- New drug in the last 2 to 3 weeks {drug:6} @34
+- Recent antibiotics @35
 G General examination
 E Vital signs|pick
 N Record the temperature yourself; look for sepsis.
-! Hypotension {sep:2}
-! Tachycardia {sep:2}
-! Tachypnoea {sep:2}
-- Pulse slow for the fever {ent:3}
+! Hypotension {sep:2} @0
+! Tachycardia {sep:2} @1
+! Tachypnoea {sep:2} @2
+- Pulse slow for the fever {ent:3} @3
 E General|pick
-! Mottled skin {sep:2}
-! Drowsy or confused {sep:2}
-- Cachexic {tb:2,lym:2}
-- Clubbing {tb:1,ie:1}
-- Generalised lymphadenopathy {lym:5,tb:3,vir:2}
+! Mottled skin {sep:2} @4
+! Drowsy or confused {sep:2} @5
+- Cachexic {tb:2,lym:2} @6
+- Clubbing {tb:1,ie:1} @7
+- Generalised lymphadenopathy {lym:5,tb:3,vir:2} @8
 E Skin|pick
-! Non-blanching rash {mening:4}
-- Rose spots on the trunk {ent:3}
-- Malar rash or oral ulcers {ctd:3}
-- Splinter haemorrhages, Osler nodes, Janeway lesions {ie:3}
+! Non-blanching rash {mening:4} @9
+- Rose spots on the trunk {ent:3} @10
+- Malar rash or oral ulcers {ctd:3} @11
+- Splinter haemorrhages, Osler nodes, Janeway lesions {ie:3} @12
 G Look for the source
 E Head and neck|pick
-! Neck stiffness {mening:4}
-- Red throat or tonsillar exudate {vir:3}
+! Neck stiffness {mening:4} @13
+- Red throat or tonsillar exudate {vir:3} @14
 E Heart and chest|pick
-! New regurgitant murmur {ie:3}
-- Bronchial breathing or crackles {pneu:3}
-- Dull to percussion {pneu:3}
+! New regurgitant murmur {ie:3} @15
+- Bronchial breathing or crackles {pneu:3} @16
+- Dull to percussion {pneu:3} @17
 E Abdomen|pick
-- Tender liver {abs:3,ent:1}
-- Splenomegaly {ent:3,ie:3,lym:3}
-- Renal angle tenderness {uti:5}
+- Tender liver {abs:3,ent:1} @18
+- Splenomegaly {ent:3,ie:3,lym:3} @19
+- Renal angle tenderness {uti:5} @20
 E Joints|pick
-- Swollen joints {ctd:2}
+- Swollen joints {ctd:2} @21
 
 @polyuria|Polyuria / polydipsia|Endocrine|Medicine
 Y Sugar|dm,dka|Diabetes,DKA
@@ -5278,75 +5278,75 @@ D ups|Prostatism or UTI (frequency, not true polyuria)||0.6
 G The urine
 H Volume|one|Passes:
 N First, is it large volumes (true polyuria) or small frequent amounts (frequency)?
-- Large volumes {dm:1,di:2,ckd:1,psych:1}
-- Very large volumes of pale urine, day and night {di:3}
-- Small amounts often {ups:3}
+- Large volumes {dm:1,di:2,ckd:1,psych:1} @0
+- Very large volumes of pale urine, day and night {di:3} @1
+- Small amounts often {ups:3} @2
 H Timing|pick|Timing:
-- Getting up at night {di:2,ckd:2,dm:1}
-- Began suddenly {di:1,dka:1}
+- Getting up at night {di:2,ckd:2,dm:1} @3
+- Began suddenly {di:1,dka:1} @4
 H Thirst|pick|Thirst:
-- Very thirsty {dm:1,di:1}
-- Craves ice-cold water {di:3}
-- Drinks large amounts by habit {psych:4}
+- Very thirsty {dm:1,di:1} @5
+- Craves ice-cold water {di:3} @6
+- Drinks large amounts by habit {psych:4} @7
 G Associated symptoms
 H Diabetes|pick
-- Weight loss {dm:1}
-- Tiredness {dm:1}
-- Blurred vision {dm:1}
-- Recurrent infections or thrush {dm:1}
+- Weight loss {dm:1} @8
+- Tiredness {dm:1} @9
+- Blurred vision {dm:1} @10
+- Recurrent infections or thrush {dm:1} @11
 H DKA|pick
-! Vomiting {dka:2}
-! Abdominal pain {dka:2}
-! Deep, fast breathing {dka:2}
-! Drowsy {dka:2}
+! Vomiting {dka:2} @12
+! Abdominal pain {dka:2} @13
+! Deep, fast breathing {dka:2} @14
+! Drowsy {dka:2} @15
 H Calcium|pick
-- Bone pain {hyperca:2}
-- Constipation {hyperca:2}
-- Low mood {hyperca:2}
-- Kidney stones {hyperca:2}
+- Bone pain {hyperca:2} @16
+- Constipation {hyperca:2} @17
+- Low mood {hyperca:2} @18
+- Kidney stones {hyperca:2} @19
 H Bladder|pick
-- Hesitancy or poor stream {ups:3}
-- Burning on passing urine {ups:3}
+- Hesitancy or poor stream {ups:3} @20
+- Burning on passing urine {ups:3} @21
 G Background for this complaint
 H Past history|pick|Past history:
-- Obesity {dm:1}
-- PCOS or gestational diabetes {dm:1}
-- Kidney disease {ckd:2}
-- Hypertension {ckd:2}
-- Anxiety or psychiatric illness {psych:4}
-- Head injury or pituitary surgery {di:3}
+- Obesity {dm:1} @22
+- PCOS or gestational diabetes {dm:1} @23
+- Kidney disease {ckd:2} @24
+- Hypertension {ckd:2} @25
+- Anxiety or psychiatric illness {psych:4} @26
+- Head injury or pituitary surgery {di:3} @27
 - Known diabetes on insulin or tablets {dm:2,dka:1} @x20
 - Family history of diabetes {dm:1} @x21
 H Drugs|pick|Takes:
-- Diuretics {drug:2}
-- Lithium {drug:2}
-- Steroids {drug:2}
-- SGLT2 inhibitor {drug:2}
+- Diuretics {drug:2} @28
+- Lithium {drug:2} @29
+- Steroids {drug:2} @30
+- SGLT2 inhibitor {drug:2} @31
 H Family history|pick|Family history:
-- Diabetes {dm:1}
+- Diabetes {dm:1} @32
 G General examination
 E Hydration and vitals|pick
-- Dry mouth, poor skin turgor {dm:1,dka:2,di:1}
-- Postural hypotension {dm:1,dka:2,di:1}
-- Hypertension {ckd:2}
+- Dry mouth, poor skin turgor {dm:1,dka:2,di:1} @0
+- Postural hypotension {dm:1,dka:2,di:1} @1
+- Hypertension {ckd:2} @2
 E Breathing and conscious level|pick
-! Deep sighing breathing (Kussmaul) {dka:3}
-! Ketotic breath {dka:3}
-! Drowsy {dka:3}
+! Deep sighing breathing (Kussmaul) {dka:3} @3
+! Ketotic breath {dka:3} @4
+! Drowsy {dka:3} @5
 E Bedside tests|pick
-- High capillary glucose {dm:3,dka:1}
-- Glucose on urine dipstick {dm:3,dka:1}
-! Ketones on dipstick {dka:3}
+- High capillary glucose {dm:3,dka:1} @6
+- Glucose on urine dipstick {dm:3,dka:1} @7
+! Ketones on dipstick {dka:3} @8
 G Complications and other signs
 E Diabetes complications|pick
-- Diabetic retinopathy {dm:2}
-- Neuropathy {dm:2}
-- Foot ulcers {dm:2}
+- Diabetic retinopathy {dm:2} @9
+- Neuropathy {dm:2} @10
+- Foot ulcers {dm:2} @11
 E Other|pick
-- Pallor and oedema {ckd:2}
-- Palpable bladder {ups:3}
-- Enlarged prostate {ups:3}
-- Normal examination {di:2,psych:2}
+- Pallor and oedema {ckd:2} @12
+- Palpable bladder {ups:3} @13
+- Enlarged prostate {ups:3} @14
+- Normal examination {di:2,psych:2} @15
 
 @htn|Hypertension|Cardiovascular|Medicine
 Y Essential|ess|Risk factors
@@ -5370,85 +5370,85 @@ D osa|Obstructive sleep apnoea||0.4
 D preg|Pre-eclampsia|!|0.2
 G The blood pressure
 H How found|pick|Found:
-- On routine check
-- Diagnosed under 30 {coarct:3,ren:1,pa:1}
-- Came on quickly or suddenly worse {rav:3}
-- Hard to control on 3 drugs {pa:2,rav:1}
+- On routine check @0
+- Diagnosed under 30 {coarct:3,ren:1,pa:1} @1
+- Came on quickly or suddenly worse {rav:3} @2
+- Hard to control on 3 drugs {pa:2,rav:1} @3
 - Years ago, on treatment since @x600
 H Emergency symptoms|pick|Now:
 N Any of these with very high BP is a hypertensive emergency.
-! Severe headache {preg:1}
-! Chest pain {preg:1}
-! Breathless {preg:1}
-! Loss of vision {preg:1}
-! Confusion {preg:1}
+! Severe headache {preg:1} @4
+! Chest pain {preg:1} @5
+! Breathless {preg:1} @6
+! Loss of vision {preg:1} @7
+! Confusion {preg:1} @8
 G Look for a cause
 H Kidney|pick
-- Blood or froth in the urine {ren:2}
-- Loin pain {ren:2}
-- Sudden breathlessness at night (flash oedema) {rav:3}
+- Blood or froth in the urine {ren:2} @9
+- Loin pain {ren:2} @10
+- Sudden breathlessness at night (flash oedema) {rav:3} @11
 H Hormones|pick
-- Episodes of headache, sweating and palpitations {phaeo:5}
-- Muscle weakness and cramps {pa:3}
-- Weight gain, bruising, purple stretch marks {cush:4}
+- Episodes of headache, sweating and palpitations {phaeo:5} @12
+- Muscle weakness and cramps {pa:3} @13
+- Weight gain, bruising, purple stretch marks {cush:4} @14
 - Low potassium on previous bloods {pa:4} @x1
 - Family history of endocrine tumours or MEN {phaeo:3} @x2
 - Long-term steroid treatment {cush:3,drug:2} @x3
 H Sleep|pick
-- Loud snoring with pauses {osa:3}
-- Daytime sleepiness {osa:3}
+- Loud snoring with pauses {osa:3} @15
+- Daytime sleepiness {osa:3} @16
 H Legs|pick
-- Leg pain on walking in a young patient {coarct:3}
+- Leg pain on walking in a young patient {coarct:3} @17
 H Pregnancy|pick
-! Over 20 weeks pregnant {preg:5}
-! Swelling of face and hands {preg:3}
+! Over 20 weeks pregnant {preg:5} @18
+! Swelling of face and hands {preg:3} @19
 ! Flashing lights or pain under the right ribs {preg:3} @x4
 G Background for this complaint
 H Risk factors|pick|Risk factor:
-- Family history of hypertension {ess:2}
-- Overweight {ess:2,osa:1}
-- High salt intake {ess:2}
-- Alcohol {ess:2}
-- Smoker
-- Diabetes {ren:1}
-- Kidney disease {ren:2}
-- Widespread atherosclerosis {rav:3}
+- Family history of hypertension {ess:2} @20
+- Overweight {ess:2,osa:1} @21
+- High salt intake {ess:2} @22
+- Alcohol {ess:2} @23
+- Smoker @24
+- Diabetes {ren:1} @25
+- Kidney disease {ren:2} @26
+- Widespread atherosclerosis {rav:3} @27
 H Drugs|pick|Takes:
-- NSAIDs {drug:2}
-- Steroids {drug:2}
-- Contraceptive pill {drug:2}
-- Decongestants {drug:2}
-- Liquorice or cocaine {drug:2}
+- NSAIDs {drug:2} @28
+- Steroids {drug:2} @29
+- Contraceptive pill {drug:2} @30
+- Decongestants {drug:2} @31
+- Liquorice or cocaine {drug:2} @32
 - Misses doses or has stopped the tablets @x601
 H End-organ damage|pick|History of:
-- IHD or heart failure
-- Stroke or TIA
-- Leg claudication
+- IHD or heart failure @33
+- Stroke or TIA @34
+- Leg claudication @35
 G General examination
 E Vital signs|pick
 N BP in both arms, sitting and standing; correct cuff size.
-- Raised on repeated readings {ess:2}
-- Arm and leg BP differ {coarct:3}
+- Raised on repeated readings {ess:2} @0
+- Arm and leg BP differ {coarct:3} @1
 E General|pick
-- Central obesity, moon face, striae, buffalo hump {cush:4}
+- Central obesity, moon face, striae, buffalo hump {cush:4} @2
 - Pale, sweaty and tremulous during an attack {phaeo:3} @x1
 - Thin skin, easy bruising, proximal weakness {cush:3} @x2
-- Large neck {osa:3}
+- Large neck {osa:3} @3
 E Pulses|pick
-- Radio-femoral delay or weak femorals {coarct:3}
+- Radio-femoral delay or weak femorals {coarct:3} @4
 G End-organ damage
 E Heart|pick
-- Displaced heaving apex (LVH) {ess:2}
-- Fourth heart sound {ess:1}
+- Displaced heaving apex (LVH) {ess:2} @5
+- Fourth heart sound {ess:1} @6
 E Eyes|pick
-- Hypertensive retinopathy {ren:2,ess:2}
-! Papilloedema {ren:1,ess:1}
+- Hypertensive retinopathy {ren:2,ess:2} @7
+! Papilloedema {ren:1,ess:1} @8
 E Abdomen|pick
-- Renal bruit {rav:4}
-- Palpable kidneys {ren:5}
+- Renal bruit {rav:4} @9
+- Palpable kidneys {ren:5} @10
 E Urine and legs|pick
-- Protein on dipstick {preg:3,ren:3}
-- Oedema {preg:2,ren:1}
+- Protein on dipstick {preg:3,ren:3} @11
+- Oedema {preg:2,ren:1} @12
 
 @joint|Joint pain / swelling|Rheumatology|Medicine
 Y Wear and injury|oa,trauma|Timing
@@ -5468,98 +5468,98 @@ D viral|Viral arthritis||0.3
 D trauma|Trauma / mechanical||0.6
 G Pain (SOCRATES)
 H Site and number|pick|Joints:
-- One joint {sept:2,gout:2,trauma:1}
-- A few joints {ps:2,react:2}
-- Many joints {ra:2,sle:1,viral:1}
-- Small joints of hands and feet, both sides {ra:4}
-- Big toe {gout:3}
-- Knees or hips {oa:2}
-- Lower back {ps:2}
+- One joint {sept:2,gout:2,trauma:1} @0
+- A few joints {ps:2,react:2} @1
+- Many joints {ra:2,sle:1,viral:1} @2
+- Small joints of hands and feet, both sides {ra:4} @3
+- Big toe {gout:3} @4
+- Knees or hips {oa:2} @5
+- Lower back {ps:2} @6
 H Onset|one|Onset:
-- Sudden, over hours {gout:2,sept:2}
-- After an injury {trauma:4}
-- Gradual over months {oa:2,ra:1}
+- Sudden, over hours {gout:2,sept:2} @7
+- After an injury {trauma:4} @8
+- Gradual over months {oa:2,ra:1} @9
 H Character|pick|Joint is:
-- Red and hot {gout:2,sept:2}
-- Swollen {ra:1,gout:1,sept:1}
-- Locks or gives way {trauma:3}
+- Red and hot {gout:2,sept:2} @10
+- Swollen {ra:1,gout:1,sept:1} @11
+- Locks or gives way {trauma:3} @12
 H Timing|pick|Timing:
-- Worse with use, better with rest {oa:3}
-- Stiff in the morning for over an hour {ra:4}
-- Stiff in the morning for under 30 minutes {oa:2}
-- Back stiffness that improves with exercise {ps:3}
-- Started at night {gout:2}
+- Worse with use, better with rest {oa:3} @13
+- Stiff in the morning for over an hour {ra:4} @14
+- Stiff in the morning for under 30 minutes {oa:2} @15
+- Back stiffness that improves with exercise {ps:3} @16
+- Started at night {gout:2} @17
 H Exacerbating factors|pick|Brought on by:
-- Alcohol or diuretics {gout:2}
-- Repetitive use {trauma:2,oa:1}
+- Alcohol or diuretics {gout:2} @18
+- Repetitive use {trauma:2,oa:1} @19
 H Severity|pick|Severity:
-! Cannot move or bear weight on the joint {sept:2,gout:1}
+! Cannot move or bear weight on the joint {sept:2,gout:1} @20
 G Associated symptoms
 H Infection|pick
-! Fever {sept:2}
-! Recent joint injection or surgery {sept:2}
+! Fever {sept:2} @21
+! Recent joint injection or surgery {sept:2} @22
 H Preceding illness|pick
-- Diarrhoea, urethritis or red eye in the last weeks {react:3}
-- Recent viral illness, settling in weeks {viral:6}
+- Diarrhoea, urethritis or red eye in the last weeks {react:3} @23
+- Recent viral illness, settling in weeks {viral:6} @24
 H Skin and nails|pick
-- Psoriasis {ps:3}
-- Pitted nails {ps:3}
-- Sausage-shaped finger or toe {ps:3}
-- Rash on the face or with sun {sle:2}
-- Mouth ulcers or hair loss {sle:2}
+- Psoriasis {ps:3} @25
+- Pitted nails {ps:3} @26
+- Sausage-shaped finger or toe {ps:3} @27
+- Rash on the face or with sun {sle:2} @28
+- Mouth ulcers or hair loss {sle:2} @29
 H General|pick
-- Tiredness {sle:1,ra:1}
-- Weight loss {ra:1}
+- Tiredness {sle:1,ra:1} @30
+- Weight loss {ra:1} @31
 G Background for this complaint
 H Past history|pick|Past history:
-- Previous joint injury {oa:1}
-- Kidney disease {gout:1}
-- Obesity {oa:1}
+- Previous joint injury {oa:1} @32
+- Kidney disease {gout:1} @33
+- Obesity {oa:1} @34
 - Diabetes {sept:1} @x20
 - Hypertension, on diuretics {gout:2} @x21
 - Psoriasis {ps:2} @x22
 - Prosthetic joint {sept:3} @x23
 - Recent diarrhoea or urethritis {react:2} @x24
 H Drugs|pick|Takes:
-- Thiazide diuretic {gout:1}
-- Steroids or immunosuppressants {sept:1}
+- Thiazide diuretic {gout:1} @35
+- Steroids or immunosuppressants {sept:1} @36
 H Family history|pick|Family history:
-- Hand osteoarthritis {oa:1}
-- Gout {gout:1}
-- Psoriasis or ankylosing spondylitis {ps:1}
+- Hand osteoarthritis {oa:1} @37
+- Gout {gout:1} @38
+- Psoriasis or ankylosing spondylitis {ps:1} @39
 H Diet|pick
-- Lots of red meat or seafood {gout:1}
+- Lots of red meat or seafood {gout:1} @40
 G General examination
 E General|pick
-! Fever, unwell {sept:5}
-- Tophi on the ear or elbow {gout:4}
-- Rheumatoid nodules at the elbow {ra:6}
-- Psoriatic plaques {ps:3}
-- Malar rash, oral ulcers, hair loss {sle:3}
-- Red eyes {react:3}
+! Fever, unwell {sept:5} @0
+- Tophi on the ear or elbow {gout:4} @1
+- Rheumatoid nodules at the elbow {ra:6} @2
+- Psoriatic plaques {ps:3} @3
+- Malar rash, oral ulcers, hair loss {sle:3} @4
+- Red eyes {react:3} @5
 G The joint (look, feel, move)
 E Look|pick
 N Compare with the other side. Expose fully.
-- Swelling {ra:1,gout:1,sept:1}
-- Redness {gout:2,sept:2}
-- Bony swellings at DIPs and PIPs (Heberden, Bouchard) {oa:2}
-- Ulnar deviation, swan-neck deformity {ra:3}
-- Nail pitting with DIP disease {ps:3}
+- Swelling {ra:1,gout:1,sept:1} @6
+- Redness {gout:2,sept:2} @7
+- Bony swellings at DIPs and PIPs (Heberden, Bouchard) {oa:2} @8
+- Ulnar deviation, swan-neck deformity {ra:3} @9
+- Nail pitting with DIP disease {ps:3} @10
 E Feel|pick
-- Warm {gout:2,sept:2,ra:1}
-- Tender {gout:2,sept:2,ra:1}
-- Effusion {trauma:2,sept:1,ra:1}
-- Soft, boggy swelling of MCPs and PIPs {ra:3}
-- Hard bony swelling, no warmth {oa:2}
+- Warm {gout:2,sept:2,ra:1} @11
+- Tender {gout:2,sept:2,ra:1} @12
+- Effusion {trauma:2,sept:1,ra:1} @13
+- Soft, boggy swelling of MCPs and PIPs {ra:3} @14
+- Hard bony swelling, no warmth {oa:2} @15
 E Move|pick
-- Severe pain on any movement {gout:4,sept:5}
-- Crepitus {oa:2}
-- Reduced range {oa:2}
-- Ligament laxity or locking {trauma:3}
+- Severe pain on any movement {gout:4,sept:5} @16
+- Crepitus {oa:2} @17
+- Reduced range {oa:2} @18
+- Ligament laxity or locking {trauma:3} @19
 G Special tests
 E Special tests|pick
-- Weak grip or abnormal gait
-- Reduced lumbar flexion (Schober) {ps:3}
+- Weak grip or abnormal gait @20
+- Reduced lumbar flexion (Schober) {ps:3} @21
 
 @backpain|Back pain|Musculoskeletal|Medicine
 Y Mechanical|mech,disc,stenosis|Exacerbating and relieving,Radiation
@@ -5582,95 +5582,95 @@ D renal|Renal or pancreatic referred pain||0.2
 D stenosis|Spinal stenosis||0.4
 G Pain (SOCRATES)
 H Site|pick|Site:
-- Lower back {mech:1,disc:1}
-- Upper or mid back {mets:1,osteop:1,aaa:1}
-- One loin {renal:3}
-- Buttocks, alternating sides {ank:2}
+- Lower back {mech:1,disc:1} @0
+- Upper or mid back {mets:1,osteop:1,aaa:1} @1
+- One loin {renal:3} @2
+- Buttocks, alternating sides {ank:2} @3
 H Onset|one|Onset:
-- After lifting or an awkward movement {mech:3,disc:1}
-- After a minor fall {osteop:2}
-- Gradual, no trigger {ank:2,mets:1,inf:1}
-! Sudden, severe, with collapse {aaa:3}
+- After lifting or an awkward movement {mech:3,disc:1} @4
+- After a minor fall {osteop:2} @5
+- Gradual, no trigger {ank:2,mets:1,inf:1} @6
+! Sudden, severe, with collapse {aaa:3} @7
 H Character|pick|Character:
-- Aching {mech:1}
-- Shooting down the leg {disc:3}
-- Colicky {renal:3}
+- Aching {mech:1} @8
+- Shooting down the leg {disc:3} @9
+- Colicky {renal:3} @10
 H Radiation|pick|Radiates to:
-- Below the knee, in a nerve root pattern {disc:4}
-- Both legs {cord:1,stenosis:2}
-- Around to the abdomen {aaa:1,renal:1}
+- Below the knee, in a nerve root pattern {disc:4} @11
+- Both legs {cord:1,stenosis:2} @12
+- Around to the abdomen {aaa:1,renal:1} @13
 H Timing|pick|Timing:
-! Night pain, not eased by rest {mets:2,inf:1}
-- Morning stiffness over 30 minutes {ank:3}
-- Leg pain on walking, eased by sitting or bending forward {stenosis:6}
+! Night pain, not eased by rest {mets:2,inf:1} @14
+- Morning stiffness over 30 minutes {ank:3} @15
+- Leg pain on walking, eased by sitting or bending forward {stenosis:6} @16
 H Exacerbating and relieving|pick|Pain:
-- Worse with movement, better with rest {mech:3}
-- Worse sitting, coughing or sneezing {disc:4}
-- Better with exercise {ank:3}
+- Worse with movement, better with rest {mech:3} @17
+- Worse sitting, coughing or sneezing {disc:4} @18
+- Better with exercise {ank:3} @19
 H Severity|one|Severity:
-- Mild to moderate {mech:1}
-- Severe {disc:1,osteop:1,aaa:1}
+- Mild to moderate {mech:1} @20
+- Severe {disc:1,osteop:1,aaa:1} @21
 G Red flags for the spine
 H Cauda equina and cord|pick
 N Ask every patient with back pain.
-! Numb around the anus or genitals (saddle) {cord:2}
-! Difficulty passing urine or incontinence {cord:2}
-! Bowel incontinence {cord:2}
-! Weakness of both legs {cord:2}
+! Numb around the anus or genitals (saddle) {cord:2} @22
+! Difficulty passing urine or incontinence {cord:2} @23
+! Bowel incontinence {cord:2} @24
+! Weakness of both legs {cord:2} @25
 H Cancer and infection|pick
-! Age over 50 with new pain {mets:2}
-! Previous cancer {mets:2}
-! Weight loss {mets:2}
-! Fever {inf:2}
-! Injecting drugs or immunosuppressed {inf:2}
-! TB {inf:2}
+! Age over 50 with new pain {mets:2} @26
+! Previous cancer {mets:2} @27
+! Weight loss {mets:2} @28
+! Fever {inf:2} @29
+! Injecting drugs or immunosuppressed {inf:2} @30
+! TB {inf:2} @31
 G Associated symptoms
 H Other causes|pick
-- Blood in urine {renal:3}
-- Epigastric pain with vomiting {renal:3}
-- Pulsating feeling in the abdomen {aaa:2}
-- Red eye, heel pain or psoriasis {ank:2}
+- Blood in urine {renal:3} @32
+- Epigastric pain with vomiting {renal:3} @33
+- Pulsating feeling in the abdomen {aaa:2} @34
+- Red eye, heel pain or psoriasis {ank:2} @35
 G Background for this complaint
 H Past history|pick|Past history:
-- Osteoporosis or height loss {osteop:2}
-- Steroid use {osteop:2}
-- Hypertension, smoker, over 65 {aaa:2}
-- Kidney stones {renal:2}
+- Osteoporosis or height loss {osteop:2} @36
+- Steroid use {osteop:2} @37
+- Hypertension, smoker, over 65 {aaa:2} @38
+- Kidney stones {renal:2} @39
 - Diabetes {inf:2} @x20
 - Hypertension @x21
 H Work|pick
-- Heavy lifting at work {mech:1}
+- Heavy lifting at work {mech:1} @40
 G General examination
 E General and vitals|pick
-- Fever {inf:4}
-- Cachexic {mets:1}
-- Lymph nodes, thyroid or breast mass {mets:1}
+- Fever {inf:4} @0
+- Cachexic {mets:1} @1
+- Lymph nodes, thyroid or breast mass {mets:1} @2
 G The spine (look, feel, move)
 E Look|pick
-- Loss of lumbar lordosis or scoliosis {mech:1,disc:1}
-- Kyphosis {osteop:2,ank:2}
+- Loss of lumbar lordosis or scoliosis {mech:1,disc:1} @3
+- Kyphosis {osteop:2,ank:2} @4
 E Feel|pick
-- Paraspinal muscle spasm {mech:3}
-! Focal bony tenderness {mets:2,inf:2,osteop:2}
+- Paraspinal muscle spasm {mech:3} @5
+! Focal bony tenderness {mets:2,inf:2,osteop:2} @6
 E Move|pick
-- Restricted flexion {mech:3}
-- Reduced Schober and chest expansion {ank:6}
+- Restricted flexion {mech:3} @7
+- Reduced Schober and chest expansion {ank:6} @8
 G Neurological examination of the legs
 E Special tests|pick
 N Straight leg raise; then tone, power, reflexes, sensation, plantars.
-- Positive straight leg raise {disc:3}
-- Reduced reflex in one leg {disc:3}
-- Sensory loss in one dermatome {disc:3}
-! Weakness of both legs {cord:2}
-- Normal neurology {mech:3,stenosis:1}
+- Positive straight leg raise {disc:3} @9
+- Reduced reflex in one leg {disc:3} @10
+- Sensory loss in one dermatome {disc:3} @11
+! Weakness of both legs {cord:2} @12
+- Normal neurology {mech:3,stenosis:1} @13
 G Complete the examination
 E Abdomen and rectal|pick
-! Saddle anaesthesia {cord:2}
-! Reduced anal tone {cord:2}
-! Palpable bladder {cord:2}
-! Pulsatile expansile abdominal mass {aaa:6}
-- Renal angle tenderness {renal:5}
-- Hard irregular prostate {mets:1}
+! Saddle anaesthesia {cord:2} @14
+! Reduced anal tone {cord:2} @15
+! Palpable bladder {cord:2} @16
+! Pulsatile expansile abdominal mass {aaa:6} @17
+- Renal angle tenderness {renal:5} @18
+- Hard irregular prostate {mets:1} @19
 
 @rash|Skin rash|Dermatology|Medicine
 Y Skin itself|ecz,pso|Character
@@ -5691,77 +5691,77 @@ D sle|Lupus / connective tissue disease||0.15
 D mening|Meningococcal septicaemia|!|0.05
 G The rash
 H Where it started|pick|Site:
-- Skin creases (elbows, knees) {ecz:3}
-- Outer elbows, knees and scalp {pso:2}
-- Between the fingers, wrists {inf:2}
-- Face, sun-exposed areas {sle:2}
-- Legs and buttocks {vas:2}
-- Trunk first, then spread {viral:3}
+- Skin creases (elbows, knees) {ecz:3} @0
+- Outer elbows, knees and scalp {pso:2} @1
+- Between the fingers, wrists {inf:2} @2
+- Face, sun-exposed areas {sle:2} @3
+- Legs and buttocks {vas:2} @4
+- Trunk first, then spread {viral:3} @5
 H Onset|one|Onset:
-! Over hours, spreading fast {mening:2,sjs:1}
-- Over days {viral:1,inf:1}
-- Months, coming and going {ecz:1,pso:1}
+! Over hours, spreading fast {mening:2,sjs:1} @6
+- Over days {viral:1,inf:1} @7
+- Months, coming and going {ecz:1,pso:1} @8
 H Character|pick|Rash:
-- Itchy {ecz:3,urt:2}
-- Itch worse at night {inf:2}
-- Painful {inf:2,sjs:2}
-- Wheals that come and go within 24 hours {urt:4}
-- Blisters {sjs:2,viral:1}
-- Red, hot, spreading area {inf:5}
+- Itchy {ecz:3,urt:2} @9
+- Itch worse at night {inf:2} @10
+- Painful {inf:2,sjs:2} @11
+- Wheals that come and go within 24 hours {urt:4} @12
+- Blisters {sjs:2,viral:1} @13
+- Red, hot, spreading area {inf:5} @14
 H Course|pick|Course:
-- Spots appear in crops {viral:3}
-- Preceded by fever and malaise {viral:3}
-- Started after a new drug (1 to 3 weeks) {urt:4,sjs:5}
-- Triggered by food {urt:2}
+- Spots appear in crops {viral:3} @15
+- Preceded by fever and malaise {viral:3} @16
+- Started after a new drug (1 to 3 weeks) {urt:4,sjs:5} @17
+- Triggered by food {urt:2} @18
 G Associated symptoms
 H Danger|pick
-! Fever with headache, vomiting or drowsiness {mening:2}
-! Mouth or eye sores {sjs:2}
-! Skin peeling or painful {sjs:2}
+! Fever with headache, vomiting or drowsiness {mening:2} @19
+! Mouth or eye sores {sjs:2} @20
+! Skin peeling or painful {sjs:2} @21
 H Systemic|pick
-- Joint pain {sle:2,vas:2}
-- Tiredness {sle:2}
-- Mouth ulcers {sle:2}
-- Abdominal pain {vas:2}
-- Blood in urine {vas:2}
+- Joint pain {sle:2,vas:2} @22
+- Tiredness {sle:2} @23
+- Mouth ulcers {sle:2} @24
+- Abdominal pain {vas:2} @25
+- Blood in urine {vas:2} @26
 H Contacts|pick
-- Family members itchy too {inf:2}
-- Contact with chickenpox or measles {viral:2}
+- Family members itchy too {inf:2} @27
+- Contact with chickenpox or measles {viral:2} @28
 G Background for this complaint
 H Past history|pick|Past history:
-- Eczema, asthma or hay fever {ecz:3}
-- Psoriasis in the family {pso:2}
-- Nail changes {pso:2}
+- Eczema, asthma or hay fever {ecz:3} @29
+- Psoriasis in the family {pso:2} @30
+- Nail changes {pso:2} @31
 - Diabetes {inf:2} @x20
 - Immunosuppressed or HIV {viral:1,inf:1} @x21
 H Drugs|pick|Takes:
-- New drug in the last 3 weeks {sjs:2,urt:1}
-- Antibiotics, anticonvulsants or allopurinol {sjs:1}
+- New drug in the last 3 weeks {sjs:2,urt:1} @32
+- Antibiotics, anticonvulsants or allopurinol {sjs:1} @33
 H Exposure|pick
-- New soap, cream or contact at work {ecz:2}
+- New soap, cream or contact at work {ecz:2} @34
 G General examination
 E Vital signs|pick
-! Fever {mening:2,inf:1}
-! Tachycardia or hypotension {mening:2}
+! Fever {mening:2,inf:1} @0
+! Tachycardia or hypotension {mening:2} @1
 G Describe the rash
 E Distribution and type|pick
 N Distribution, shape, colour, surface; press with a glass: does it blanch? Check mouth, eyes, genitals, nails, scalp.
-- Red, scaly, scratched patches in the creases {ecz:6}
-- Well-demarcated silvery plaques {pso:6}
-- Wheals that blanch and move {urt:6}
-- Burrows and papules in web spaces {inf:4}
-- Spreading redness, warm, swollen, with red streaks {inf:2}
-- Vesicles at different stages {viral:4}
-- Target lesions {sjs:3}
-- Butterfly rash on the face {sle:3}
+- Red, scaly, scratched patches in the creases {ecz:6} @2
+- Well-demarcated silvery plaques {pso:6} @3
+- Wheals that blanch and move {urt:6} @4
+- Burrows and papules in web spaces {inf:4} @5
+- Spreading redness, warm, swollen, with red streaks {inf:2} @6
+- Vesicles at different stages {viral:4} @7
+- Target lesions {sjs:3} @8
+- Butterfly rash on the face {sle:3} @9
 E Blanching|pick
-! Palpable purpura on the legs {vas:6}
-! Non-blanching rash with fever {mening:4,vas:1}
+! Palpable purpura on the legs {vas:6} @10
+! Non-blanching rash with fever {mening:4,vas:1} @11
 E Mucosa and nails|pick
-! Mouth or eye erosions {sjs:3}
-! Skin peeling off {sjs:3}
-- Oral ulcers {sle:3}
-- Nail pitting {pso:3}
+! Mouth or eye erosions {sjs:3} @12
+! Skin peeling off {sjs:3} @13
+- Oral ulcers {sle:3} @14
+- Nail pitting {pso:3} @15
 
 @aki|Oliguria / acute kidney injury|Renal|Medicine
 Y Pre-renal|pre,hrs|Fluid loss,Shock
@@ -5779,72 +5779,72 @@ D hrs|Hepatorenal syndrome||0.1
 D rhab|Rhabdomyolysis||0.1
 G The urine output
 H Output|one|Urine:
-- Reduced (under 0.5 mL/kg/h) {pre:1,atn:1}
-! None at all (anuria) {post:3}
-- Normal volume
+- Reduced (under 0.5 mL/kg/h) {pre:1,atn:1} @0
+! None at all (anuria) {post:3} @1
+- Normal volume @2
 H Appearance|pick|Urine:
-- Dark tea-coloured {rhab:2}
-- Blood {gn:2,post:1}
-- Frothy {gn:2}
+- Dark tea-coloured {rhab:2} @3
+- Blood {gn:2,post:1} @4
+- Frothy {gn:2} @5
 G Pre-renal: fluid loss
 H Fluid loss|pick
-- Vomiting or diarrhoea {pre:2}
-- Poor intake {pre:2}
-- Bleeding {pre:2}
-- Burns {pre:2}
+- Vomiting or diarrhoea {pre:2} @6
+- Poor intake {pre:2} @7
+- Bleeding {pre:2} @8
+- Burns {pre:2} @9
 H Shock|pick
-! Sepsis, fever or rigors {atn:2,pre:1}
-! Low blood pressure for hours {atn:2,pre:1}
+! Sepsis, fever or rigors {atn:2,pre:1} @10
+! Low blood pressure for hours {atn:2,pre:1} @11
 G Renal
 H Kidney itself|pick
-- Recent sore throat or skin infection {gn:2}
-- Swelling of face or legs {gn:2}
-- Rash, fever after a new drug {ain:2}
-- Muscle pain after a fall, long lie or crush {rhab:2}
+- Recent sore throat or skin infection {gn:2} @12
+- Swelling of face or legs {gn:2} @13
+- Rash, fever after a new drug {ain:2} @14
+- Muscle pain after a fall, long lie or crush {rhab:2} @15
 G Post-renal: obstruction
 H Obstruction|pick
-- Hesitancy or poor stream {post:2}
-- Loin-to-groin colic {post:2}
-- Pelvic or prostate cancer {post:2}
+- Hesitancy or poor stream {post:2} @16
+- Loin-to-groin colic {post:2} @17
+- Pelvic or prostate cancer {post:2} @18
 G Background for this complaint
 H Drugs|pick|Takes:
 N Stop or hold nephrotoxins.
-- NSAIDs {pre:1,atn:1,ain:1}
-- ACE inhibitor or ARB {pre:1,atn:1}
-- Diuretics {pre:1}
-- Aminoglycosides {atn:1}
-- Recent contrast {atn:1}
-- New antibiotic or PPI {ain:2}
+- NSAIDs {pre:1,atn:1,ain:1} @19
+- ACE inhibitor or ARB {pre:1,atn:1} @20
+- Diuretics {pre:1} @21
+- Aminoglycosides {atn:1} @22
+- Recent contrast {atn:1} @23
+- New antibiotic or PPI {ain:2} @24
 H Past history|pick|Past history:
-- Known CKD {ckd:3}
-- Diabetes {ckd:3}
-- Hypertension {ckd:3}
-- Heart failure {pre:2}
-- Cirrhosis {pre:1,hrs:3}
-- Alcohol excess {hrs:2}
+- Known CKD {ckd:3} @25
+- Diabetes {ckd:3} @26
+- Hypertension {ckd:3} @27
+- Heart failure {pre:2} @28
+- Cirrhosis {pre:1,hrs:3} @29
+- Alcohol excess {hrs:2} @30
 - Baseline creatinine known from before @x600
 G General examination
 E Fluid status|pick
 N Pulse, BP lying and standing, capillary refill, mucosa, JVP, oedema, lung bases; weigh the patient.
-- Dry mouth, poor skin turgor {pre:3}
-- Postural hypotension {pre:3}
-! Shocked, mottled, slow capillary refill {atn:2}
-- Raised JVP, oedema, crackles (overloaded) {pre:1,ckd:1}
+- Dry mouth, poor skin turgor {pre:3} @0
+- Postural hypotension {pre:3} @1
+! Shocked, mottled, slow capillary refill {atn:2} @2
+- Raised JVP, oedema, crackles (overloaded) {pre:1,ckd:1} @3
 E Complications|pick
-! Breathless with crackles (pulmonary oedema) {atn:1,post:1}
-! Pericardial rub {atn:1,post:1}
-! Confused or flapping tremor {atn:1,post:1}
+! Breathless with crackles (pulmonary oedema) {atn:1,post:1} @4
+! Pericardial rub {atn:1,post:1} @5
+! Confused or flapping tremor {atn:1,post:1} @6
 E Skin|pick
-- Rash or purpura {gn:2,ain:1}
-- Jaundice {hrs:4}
+- Rash or purpura {gn:2,ain:1} @7
+- Jaundice {hrs:4} @8
 G Abdominal examination
 E Abdomen|pick
-! Palpable bladder {post:3}
-- Ballotable kidneys {post:3}
-- Ascites {hrs:4}
-- Swollen tender muscles {rhab:6}
+! Palpable bladder {post:3} @9
+- Ballotable kidneys {post:3} @10
+- Ascites {hrs:4} @11
+- Swollen tender muscles {rhab:6} @12
 E Rectal|pick
-- Enlarged prostate {post:3}
+- Enlarged prostate {post:3} @13
 
 @uti|Dysuria / urinary tract infection|Renal|Medicine
 Y Bladder|cys,ca|Urinary symptoms
@@ -5864,44 +5864,44 @@ D ca|Bladder cancer|!|0.1
 D urosep|Urosepsis|!|0.2
 G The burning
 H Where|one|Burning felt:
-- Inside, along the urethra {cys:1,urethr:1}
-- On the outside skin {vag:4}
+- Inside, along the urethra {cys:1,urethr:1} @0
+- On the outside skin {vag:4} @1
 H Urinary symptoms|pick|With:
-- Frequency {cys:2}
-- Urgency {cys:2}
-- Suprapubic pain {cys:2}
-- No frequency {urethr:2,vag:1}
-- Blood in urine {cys:1,stone:2}
-- Painless blood in urine {ca:2}
+- Frequency {cys:2} @2
+- Urgency {cys:2} @3
+- Suprapubic pain {cys:2} @4
+- No frequency {urethr:2,vag:1} @5
+- Blood in urine {cys:1,stone:2} @6
+- Painless blood in urine {ca:2} @7
 - Burning at the start of the stream {urethr:1} @x600
 - Burning at the end of the stream {cys:1} @x601
 - Getting up at night to pass urine {cys:1} @x602
 - Cloudy or smelly urine {cys:2} @x603
 H Discharge|pick|Discharge:
-- From the urethra {urethr:2}
-- Vaginal, itchy {vag:4}
+- From the urethra {urethr:2} @8
+- Vaginal, itchy {vag:4} @9
 G Associated symptoms
 H Kidney infection|pick
-- Fever and rigors {pyelo:2}
-- Loin pain {pyelo:2}
-- Vomiting {pyelo:2}
+- Fever and rigors {pyelo:2} @10
+- Loin pain {pyelo:2} @11
+- Vomiting {pyelo:2} @12
 H Sepsis|pick
-! Confused {urosep:3}
-! Dizzy or collapsed {urosep:3}
+! Confused {urosep:3} @13
+! Dizzy or collapsed {urosep:3} @14
 H Men|pick
-- Pain in the perineum {pros:3}
-- Poor stream {pros:3}
+- Pain in the perineum {pros:3} @15
+- Poor stream {pros:3} @16
 H Stone|pick
-- Colicky loin-to-groin pain {stone:4}
+- Colicky loin-to-groin pain {stone:4} @17
 G Background for this complaint
 H Risk factors|pick|Risk factor:
-- Pregnant {cys:1,pyelo:1}
-- Diabetes {cys:1,pyelo:1}
-- Catheter {cys:1,pyelo:1}
-- Known urinary tract abnormality {cys:1,pyelo:1}
-- Recurrent infections {cys:1,pyelo:1}
-- New sexual partner {urethr:2,vag:1}
-- Smoker over 50 {ca:2}
+- Pregnant {cys:1,pyelo:1} @18
+- Diabetes {cys:1,pyelo:1} @19
+- Catheter {cys:1,pyelo:1} @20
+- Known urinary tract abnormality {cys:1,pyelo:1} @21
+- Recurrent infections {cys:1,pyelo:1} @22
+- New sexual partner {urethr:2,vag:1} @23
+- Smoker over 50 {ca:2} @24
 - Kidney stones {stone:2} @x20
 - Prostate problems {pros:2} @x21
 - Immunosuppressed {urosep:1} @x22
@@ -5910,22 +5910,22 @@ H Risk factors|pick|Risk factor:
 - Recent catheter change or cystoscopy {cys:1,pyelo:1} @x605
 G General examination
 E Vital signs|pick
-- Fever {pyelo:4}
-! Hypotension {urosep:3}
-! Tachycardia {urosep:3}
-! Confused {urosep:3}
+- Fever {pyelo:4} @0
+! Hypotension {urosep:3} @1
+! Tachycardia {urosep:3} @2
+! Confused {urosep:3} @3
 G Abdominal examination
 E Abdomen|pick
-- Suprapubic tenderness {cys:5}
-- Renal angle tenderness {pyelo:4}
-- Palpable bladder or kidney {ca:1,stone:1}
+- Suprapubic tenderness {cys:5} @4
+- Renal angle tenderness {pyelo:4} @5
+- Palpable bladder or kidney {ca:1,stone:1} @6
 G Complete the examination
 E Genital and rectal|pick
-- Urethral discharge or genital lesions {urethr:3}
-- Cervicitis {urethr:3}
-- Tender boggy prostate {pros:6}
+- Urethral discharge or genital lesions {urethr:3} @7
+- Cervicitis {urethr:3} @8
+- Tender boggy prostate {pros:6} @9
 E Bedside tests|pick
-- Nitrites and leucocytes on dipstick {cys:5,pyelo:4}
+- Nitrites and leucocytes on dipstick {cys:5,pyelo:4} @10
 
 @legswell|Unilateral leg swelling|Vascular|Medicine
 Y Clot|dvt|Clot risk,PE
@@ -5945,72 +5945,72 @@ D ca|Pelvic mass or malignant compression|!|0.1
 D trauma|Trauma / haematoma||0.4
 G The swelling
 H Onset|one|Onset:
-- Over hours to days {dvt:3,bak:2,cell:1}
-- After an injury {trauma:6}
-- Months or years {ven:2,lymph:2}
+- Over hours to days {dvt:3,bak:2,cell:1} @0
+- After an injury {trauma:6} @1
+- Months or years {ven:2,lymph:2} @2
 H Extent|pick|Swelling:
-- Calf {dvt:1,bak:1}
-- Whole leg up to the thigh {dvt:2,ca:1}
-- Starts at the foot and goes up {lymph:2}
-- Worse by the end of the day {ven:2}
+- Calf {dvt:1,bak:1} @3
+- Whole leg up to the thigh {dvt:2,ca:1} @4
+- Starts at the foot and goes up {lymph:2} @5
+- Worse by the end of the day {ven:2} @6
 H Pain|pick|Pain:
-- Calf pain {dvt:3,bak:2}
-- Sudden calf pain during exercise {bak:4}
-- Hot, red and painful {cell:3}
-- Painless {lymph:1,ven:1}
+- Calf pain {dvt:3,bak:2} @7
+- Sudden calf pain during exercise {bak:4} @8
+- Hot, red and painful {cell:3} @9
+- Painless {lymph:1,ven:1} @10
 G Associated symptoms
 H Infection|pick
-- Fever {cell:3}
-- Spreading redness {cell:3}
-- Break in the skin or ulcer {cell:3}
+- Fever {cell:3} @11
+- Spreading redness {cell:3} @12
+- Break in the skin or ulcer {cell:3} @13
 H PE|pick
-! Breathless or chest pain {dvt:2}
-! Coughing blood {dvt:2}
+! Breathless or chest pain {dvt:2} @14
+! Coughing blood {dvt:2} @15
 H Cancer|pick
-! Weight loss {ca:3}
-- Pelvic or bowel symptoms {ca:3}
+! Weight loss {ca:3} @16
+- Pelvic or bowel symptoms {ca:3} @17
 G Background for this complaint
 H Clot risk|pick|Risk factor:
-- Surgery in the last 12 weeks {dvt:1}
-- Bed-bound or plaster cast {dvt:1}
-- Long journey {dvt:1}
-- Pregnant or postpartum {dvt:1}
-- Pill or HRT {dvt:1}
-- Active cancer {dvt:1,ca:1}
-- Previous DVT {dvt:1,ven:1}
+- Surgery in the last 12 weeks {dvt:1} @18
+- Bed-bound or plaster cast {dvt:1} @19
+- Long journey {dvt:1} @20
+- Pregnant or postpartum {dvt:1} @21
+- Pill or HRT {dvt:1} @22
+- Active cancer {dvt:1,ca:1} @23
+- Previous DVT {dvt:1,ven:1} @24
 H Past history|pick|Past history:
-- Knee arthritis {bak:4}
-- Varicose veins or leg ulcers {ven:2}
-- Lymph node surgery or radiotherapy {lymph:2}
-- Previous cellulitis {lymph:2,cell:1}
+- Knee arthritis {bak:4} @25
+- Varicose veins or leg ulcers {ven:2} @26
+- Lymph node surgery or radiotherapy {lymph:2} @27
+- Previous cellulitis {lymph:2,cell:1} @28
 - Diabetes {cell:1} @x20
 - Obesity {ven:1,lymph:1} @x21
 - Heart, kidney or liver disease @x22
 - Hypertension (on amlodipine?) @x23
 G General examination
 E Vital signs|pick
-- Fever {cell:4}
-- Tachycardia or low SpO2 {dvt:1}
+- Fever {cell:4} @0
+- Tachycardia or low SpO2 {dvt:1} @1
 G The leg (look, feel, measure)
 E Look|pick
-- Red, shiny skin {cell:2}
-- Red streaks up the leg (lymphangitis) {cell:2}
-- Dilated superficial veins (collaterals) {dvt:3}
-- Varicose veins, brown staining, ulcer {ven:2}
-- Bruising {trauma:4}
+- Red, shiny skin {cell:2} @2
+- Red streaks up the leg (lymphangitis) {cell:2} @3
+- Dilated superficial veins (collaterals) {dvt:3} @4
+- Varicose veins, brown staining, ulcer {ven:2} @5
+- Bruising {trauma:4} @6
 E Feel|pick
 N Measure both calves 10 cm below the tibial tuberosity.
-- Calf over 3 cm bigger than the other {dvt:3}
-- Pitting oedema {dvt:3}
-- Tender along the deep veins {dvt:3}
-- Warm and tender skin {cell:2}
-- Swelling behind the knee {bak:6}
-- Non-pitting, thick skin, cannot pinch the second toe skin (Stemmer) {lymph:6}
-- Hard woody skin above the ankle {ven:2}
+- Calf over 3 cm bigger than the other {dvt:3} @7
+- Pitting oedema {dvt:3} @8
+- Tender along the deep veins {dvt:3} @9
+- Warm and tender skin {cell:2} @10
+- Swelling behind the knee {bak:6} @11
+- Non-pitting, thick skin, cannot pinch the second toe skin (Stemmer) {lymph:6} @12
+- Hard woody skin above the ankle {ven:2} @13
 G Complete the examination
 E Abdomen and groin|pick
-! Abdominal or pelvic mass {ca:4}
-- Inguinal nodes {ca:4}
+! Abdominal or pelvic mass {ca:4} @14
+- Inguinal nodes {ca:4} @15
 
 @confusion|Confusion / altered consciousness|Neurology|Medicine
 Y Infection|del,mening|Infection
@@ -6039,50 +6039,50 @@ D ict|Post-ictal state or non-convulsive status|!|0.25
 G The confusion
 N Take the history from a relative or carer as well as the patient.
 H Onset|one|Onset:
-- Over hours to days {del:4,strk:1,hypog:1}
-- Gradual, over months to years {dem:4}
+- Over hours to days {del:4,strk:1,hypog:1} @0
+- Gradual, over months to years {dem:4} @1
 H Pattern|pick|Pattern:
-- Fluctuates, worse at night {del:3}
-- Drowsy or poor attention {del:2}
-- Alert, but memory poor {dem:3}
-- Alert and attentive, mood or beliefs changed {dep:3}
+- Fluctuates, worse at night {del:3} @2
+- Drowsy or poor attention {del:2} @3
+- Alert, but memory poor {dem:3} @4
+- Alert and attentive, mood or beliefs changed {dep:3} @5
 H Baseline|one|Before this:
-- Fully independent and sharp {del:1}
-- Already forgetful {dem:2}
+- Fully independent and sharp {del:1} @6
+- Already forgetful {dem:2} @7
 G Look for a cause
 H Infection|pick
-- Burning urine or cough {del:1}
-! Fever with headache or stiff neck {mening:3}
+- Burning urine or cough {del:1} @8
+! Fever with headache or stiff neck {mening:3} @9
 H Drugs and bowels|pick
-- New drug or dose change {del:1}
-- Constipation or urinary retention {del:1}
-- Recent operation {del:1}
+- New drug or dose change {del:1} @10
+- Constipation or urinary retention {del:1} @11
+- Recent operation {del:1} @12
 H Brain|pick
-! Sudden weakness, speech or face change {strk:3}
-! Headache or fit {strk:2}
+! Sudden weakness, speech or face change {strk:3} @13
+! Headache or fit {strk:2} @14
 - Witnessed fit, tongue bite or incontinence before the confusion {ict:4,strk:1} @x24
 - Recent head injury or fall {strk:3} @x25
 H Sugar|pick
-- Sweating, missed meal, on insulin or sulfonylurea {hypog:3}
+- Sweating, missed meal, on insulin or sulfonylurea {hypog:3} @15
 - Known diabetes, very thirsty and passing a lot of urine for days {dka:4,del:1} @x20
 - Missed insulin, or a recent infection in a diabetic {dka:3} @x21
 - Type 2 diabetes, drinking little, drowsy over days {dka:3} @x22
 ! Vomiting, abdominal pain and deep fast breathing {dka:4} @x23
 H Breathing|pick
-- COPD, breathless, on oxygen {hyp:4}
+- COPD, breathless, on oxygen {hyp:4} @16
 H Liver and kidney|pick
-- Known liver disease, bleeding or constipation {hepat:4}
-- Known kidney disease, vomiting, itch {ur:4}
+- Known liver disease, bleeding or constipation {hepat:4} @17
+- Known kidney disease, vomiting, itch {ur:4} @18
 H Mood|pick
-- Low mood {dep:2}
-- Hearing voices or false beliefs {dep:2}
+- Low mood {dep:2} @19
+- Hearing voices or false beliefs {dep:2} @20
 H Alcohol|pick
-- Heavy drinking, poor diet {alc:2}
-- Unsteady walking, double vision {alc:2}
+- Heavy drinking, poor diet {alc:2} @21
+- Unsteady walking, double vision {alc:2} @22
 - Stopped or cut down drinking in the last few days {alc:4} @x1
 ! Shaking, sweating, seeing things or very agitated {alc:3,del:1} @x2
 H Electrolytes|pick
-- Thirst, bone pain or diuretics {elec:3}
+- Thirst, bone pain or diuretics {elec:3} @23
 G Background for this complaint
 H Past medical history|pick|Past history:
 - Diabetes {hypog:1,dka:1} @x26
@@ -6095,46 +6095,46 @@ H Past medical history|pick|Past history:
 - Previous psychiatric illness {dep:1} @x33
 - Previous episodes of confusion with infections {del:1,dem:1} @x34
 H Drugs|pick|Takes:
-- Sedatives or opioids {del:1,hepat:1}
-- Anticholinergics {del:1}
-- Steroids {del:1,dka:1}
-- Diuretics {elec:1}
+- Sedatives or opioids {del:1,hepat:1} @24
+- Anticholinergics {del:1} @25
+- Steroids {del:1,dka:1} @26
+- Diuretics {elec:1} @27
 - Anticoagulants {strk:2} @x35
 - Insulin or sulfonylurea {hypog:2} @x36
 - SGLT2 inhibitor (dapagliflozin, empagliflozin) {dka:2} @x37
 G General examination
 E Vital signs and glucose|pick
-! Low capillary glucose {hypog:6}
-- Fever {del:2,mening:1}
-- Tachycardia {del:2,dka:1}
-! Low SpO2 {hyp:4}
+! Low capillary glucose {hypog:6} @0
+- Fever {del:2,mening:1} @1
+- Tachycardia {del:2,dka:1} @2
+! Low SpO2 {hyp:4} @3
 ! High capillary glucose or ketones {dka:6} @x38
 E Conscious level and cognition|pick
 N GCS, then 4AT (alertness, AMT4, months backwards, acute change).
-! GCS reduced {strk:2,mening:1}
-- 4AT positive: inattention, fluctuating {del:3}
-- Alert, poor memory, no focal signs {dem:3}
+! GCS reduced {strk:2,mening:1} @4
+- 4AT positive: inattention, fluctuating {del:3} @5
+- Alert, poor memory, no focal signs {dem:3} @6
 E General|pick
-- Flapping tremor {hyp:2,hepat:2,ur:1}
-- Stigmata of chronic liver disease {hepat:4}
-- Dehydrated {ur:2,elec:1,dka:2}
-- Cyanosed {hyp:2}
-- Smells of alcohol {alc:2}
+- Flapping tremor {hyp:2,hepat:2,ur:1} @7
+- Stigmata of chronic liver disease {hepat:4} @8
+- Dehydrated {ur:2,elec:1,dka:2} @9
+- Cyanosed {hyp:2} @10
+- Smells of alcohol {alc:2} @11
 - Tremor, sweating and agitation {alc:3,hypog:1} @x1
 ! Deep, fast (Kussmaul) breathing or fruity breath {dka:5} @x39
 G Neurological examination
 E Neurology|pick
-! Unequal or fixed pupils {strk:2,mening:1}
-! Neck stiffness {mening:4}
-! Non-blanching rash {mening:4}
-! Focal weakness, facial droop, speech problem {strk:3}
-- Nystagmus, ataxia, eye movement palsy {alc:3}
+! Unequal or fixed pupils {strk:2,mening:1} @12
+! Neck stiffness {mening:4} @13
+! Non-blanching rash {mening:4} @14
+! Focal weakness, facial droop, speech problem {strk:3} @15
+- Nystagmus, ataxia, eye movement palsy {alc:3} @16
 G Look for the source
 E Chest, abdomen, bladder|pick
-- New chest signs {del:2}
-- Palpable bladder {del:2}
-- Faecal loading on rectal exam {del:1}
-- Pericardial rub {ur:4}
+- New chest signs {del:2} @17
+- Palpable bladder {del:2} @18
+- Faecal loading on rectal exam {del:1} @19
+- Pericardial rub {ur:4} @20
 
 @vomit|Vomiting / nausea|Gastrointestinal|Medicine
 SC
@@ -6213,30 +6213,30 @@ H Drugs and habits|pick|Takes:
 * Alcohol {pu:1,panc:2} @32
 G General examination
 E Hydration and vitals|pick
-- Dry mouth, poor turgor, postural drop {gast:1,ob:1,dka:1}
-! Hypotension or bradycardia {mi:2}
-! Deep sighing breathing, ketotic breath {dka:4}
-- Jaundice {panc:2}
+- Dry mouth, poor turgor, postural drop {gast:1,ob:1,dka:1} @0
+! Hypotension or bradycardia {mi:2} @1
+! Deep sighing breathing, ketotic breath {dka:4} @2
+- Jaundice {panc:2} @3
 G Abdominal examination
 E Inspection|pick
 M Look from the end of the bed, then at eye level|Distension · scars · visible peristalsis · pulsation · hernial orifices (ask to cough)
-- Distension {ob:2}
-- Hernia {ob:3}
-- Flank or umbilical bruising {panc:2}
+- Distension {ob:2} @4
+- Hernia {ob:3} @5
+- Flank or umbilical bruising {panc:2} @6
 E Palpation|pick
 M Light, then deep, starting away from the pain|All 9 regions · then liver · spleen · kidneys (ballot) · watch the face
-- Epigastric tenderness {pu:4,panc:4}
-- Diffuse mild tenderness {gast:3}
-- Guarding {panc:2}
+- Epigastric tenderness {pu:4,panc:4} @7
+- Diffuse mild tenderness {gast:3} @8
+- Guarding {panc:2} @9
 E Auscultation|pick
 M Listen for a full minute|Bowel sounds · bruits · succussion splash
-- Tinkling bowel sounds {ob:3}
-- Hyperactive bowel sounds {gast:3}
+- Tinkling bowel sounds {ob:3} @10
+- Hyperactive bowel sounds {gast:3} @11
 G Complete the examination
 E Neuro and rectal|pick
-! Papilloedema or focal signs {cns:3}
-- Empty rectum {ob:3}
-- Signs of heart failure {mi:2}
+! Papilloedema or focal signs {cns:3} @12
+- Empty rectum {ob:3} @13
+- Signs of heart failure {mi:2} @14
 
 @scrotum|Scrotal swelling / testicular pain|Urology|Surgery
 Y Twist|tors,tort|Onset
@@ -6259,73 +6259,73 @@ D trauma|Trauma / haematocele||0.3
 D tort|Torsion of the appendix testis||0.3
 G Pain or swelling
 H Onset|one|Onset:
-! Sudden severe pain {tors:3}
-- Over a day or two {epid:2}
-- Gradual painless swelling {hyd:3,ca:1,spc:1}
-- After an injury {trauma:6}
+! Sudden severe pain {tors:3} @0
+- Over a day or two {epid:2} @1
+- Gradual painless swelling {hyd:3,ca:1,spc:1} @2
+- After an injury {trauma:6} @3
 H Character|pick|It is:
-- Severe pain {tors:2,epid:1}
-- Dragging ache, worse standing {var:3}
-- Painless lump in the testis {ca:3}
-- Smooth lump above the testis {spc:6}
-- Comes down from the groin, goes back {hern:3}
+- Severe pain {tors:2,epid:1} @4
+- Dragging ache, worse standing {var:3} @5
+- Painless lump in the testis {ca:3} @6
+- Smooth lump above the testis {spc:6} @7
+- Comes down from the groin, goes back {hern:3} @8
 H Side|pick|Side:
-- Left {var:3}
+- Left {var:3} @9
 H Timing|pick|Timing:
-! Woke from sleep or after exercise {tors:2}
-- Previous episodes that settled {tors:3}
+! Woke from sleep or after exercise {tors:2} @10
+- Previous episodes that settled {tors:3} @11
 G Associated symptoms
 H With pain|pick
-! Nausea or vomiting {tors:2}
-- Burning urine or discharge {epid:2}
-- Fever {epid:2}
+! Nausea or vomiting {tors:2} @12
+- Burning urine or discharge {epid:2} @13
+- Fever {epid:2} @14
 H Tumour|pick
-- Back pain {ca:1}
-- Breast swelling {ca:1}
-- Cough or weight loss {ca:1}
+- Back pain {ca:1} @15
+- Breast swelling {ca:1} @16
+- Cough or weight loss {ca:1} @17
 G Background for this complaint
 H Patient|pick
-! Age 12 to 25 {tors:2}
-- Young adult, 20 to 40 {ca:2}
+! Age 12 to 25 {tors:2} @18
+- Young adult, 20 to 40 {ca:2} @19
 H Past history|pick|Past history:
-- Undescended testis {ca:3}
-- Recent sexual contact {epid:3}
-- Recent catheter or instrumentation {epid:3}
+- Undescended testis {ca:3} @20
+- Recent sexual contact {epid:3} @21
+- Recent catheter or instrumentation {epid:3} @22
 G Inspection
 E Inspection|pick
 N Standing and lying; both sides.
-! High-riding testis with horizontal lie {tors:3}
-- Red, swollen scrotum {epid:2}
-- Bag of worms that empties lying down {var:4}
-- Bruising {trauma:4}
-- Blue dot at the upper pole {tort:6}
+! High-riding testis with horizontal lie {tors:3} @0
+- Red, swollen scrotum {epid:2} @1
+- Bag of worms that empties lying down {var:4} @2
+- Bruising {trauma:4} @3
+- Blue dot at the upper pole {tort:6} @4
 - Scrotal skin red and oedematous {epid:2} @x101
 G Palpation
 E Can you get above it?|pick
 M Three questions|Can you get above it? · Is it separate from the testis? · Does it transilluminate?
 N Start with the normal side. Can you get above the swelling? Is the testis felt separately?
-- Cannot get above it {hern:1}
-- Can get above it {hyd:1,ca:1,spc:1}
+- Cannot get above it {hern:1} @5
+- Can get above it {hyd:1,ca:1,spc:1} @6
 E The swelling|pick
-! Exquisitely tender {tors:3}
-- Tender swollen epididymis and testis {epid:2}
-! Hard, irregular testicular mass {ca:3}
-- Testis not felt separately, fluctuant {hyd:3}
-- Separate smooth cyst above and behind the testis {spc:6}
-- Cough impulse, bowel sounds {hern:3}
-- Tense swelling after injury {trauma:4}
+! Exquisitely tender {tors:3} @7
+- Tender swollen epididymis and testis {epid:2} @8
+! Hard, irregular testicular mass {ca:3} @9
+- Testis not felt separately, fluctuant {hyd:3} @10
+- Separate smooth cyst above and behind the testis {spc:6} @11
+- Cough impulse, bowel sounds {hern:3} @12
+- Tense swelling after injury {trauma:4} @13
 G Special tests
 E Special tests|pick
-! Absent cremasteric reflex {tors:3}
-- Pain eased on lifting the testis (Prehn) {epid:4}
-- Transilluminates {hyd:3,spc:1}
-- Does not transilluminate {ca:2}
+! Absent cremasteric reflex {tors:3} @14
+- Pain eased on lifting the testis (Prehn) {epid:4} @15
+- Transilluminates {hyd:3,spc:1} @16
+- Does not transilluminate {ca:2} @17
 - Epididymis felt separate from the testis {epid:1,spc:2} @x102
 G Complete the examination
 E Spread|pick
-- Abdominal mass {ca:1}
-- Supraclavicular node {ca:1}
-- Gynaecomastia {ca:1}
+- Abdominal mass {ca:1} @18
+- Supraclavicular node {ca:1} @19
+- Gynaecomastia {ca:1} @20
 
 @luts|Lower urinary tract symptoms / retention|Urology|Surgery
 Y Prostate|bph,pca|Voiding,Cancer
@@ -6347,79 +6347,79 @@ D constip|Constipation / faecal loading||0.5
 D oab|Overactive bladder||0.8
 G Voiding symptoms
 H Voiding|pick|Voiding:
-- Hesitancy {bph:2,str:1}
-- Weak or thin stream {bph:2,str:2}
-- Stopping and starting {bph:1}
-- Straining {bph:1,str:1}
-- Dribbling at the end {bph:2}
-- Feels not fully emptied {bph:2,str:1}
+- Hesitancy {bph:2,str:1} @0
+- Weak or thin stream {bph:2,str:2} @1
+- Stopping and starting {bph:1} @2
+- Straining {bph:1,str:1} @3
+- Dribbling at the end {bph:2} @4
+- Feels not fully emptied {bph:2,str:1} @5
 G Storage symptoms
 H Storage|pick|Storage:
-- Frequency {oab:2,bph:1}
-- Urgency {oab:2,bph:1}
-- Getting up at night (count the times) {oab:2,bph:1}
-- Leaks before reaching the toilet {oab:2,bph:1}
+- Frequency {oab:2,bph:1} @6
+- Urgency {oab:2,bph:1} @7
+- Getting up at night (count the times) {oab:2,bph:1} @8
+- Leaks before reaching the toilet {oab:2,bph:1} @9
 G Retention
 H Retention|pick|Retention:
-! Sudden, painful, cannot pass urine {bph:3,drug:2,constip:2}
-- Painless, overflow dribbling {bph:1,neuro:1}
+! Sudden, painful, cannot pass urine {bph:3,drug:2,constip:2} @10
+- Painless, overflow dribbling {bph:1,neuro:1} @11
 G Associated symptoms
 H Infection|pick
-- Burning on passing urine {uti:4}
-- Fever {uti:4}
+- Burning on passing urine {uti:4} @12
+- Fever {uti:4} @13
 H Cancer|pick
-! Blood in urine {pca:1,bca:4}
-! Weight loss {pca:2,bca:2}
-! Bone pain {pca:2,bca:2}
+! Blood in urine {pca:1,bca:4} @14
+! Weight loss {pca:2,bca:2} @15
+! Bone pain {pca:2,bca:2} @16
 - Smoker, or worked with dyes or rubber {bca:3} @x1
 H Spine|pick
-! Back pain with leg weakness {neuro:2}
-! Numbness around the anus {neuro:2}
-- Bowel problems {neuro:2}
+! Back pain with leg weakness {neuro:2} @17
+! Numbness around the anus {neuro:2} @18
+- Bowel problems {neuro:2} @19
 H Bowel|pick
-- Constipation {constip:4}
+- Constipation {constip:4} @20
 G Background for this complaint
 H Past history|pick|Past history:
-- Previous catheter, STI, injury or instrumentation {str:4}
-- Diabetes {neuro:2}
-- Neurological disease or spinal injury {neuro:2}
+- Previous catheter, STI, injury or instrumentation {str:4} @21
+- Diabetes {neuro:2} @22
+- Neurological disease or spinal injury {neuro:2} @23
 - Heart failure or ankle swelling (nocturia) {oab:1} @x20
 - Hypertension @x21
 - Previous prostate surgery or radiotherapy {str:2} @x22
 H Drugs|pick|Takes:
-- Anticholinergics or antihistamines {drug:5}
-- Antidepressants {drug:2}
-- Opioids {drug:2}
-- Decongestants {drug:2}
-- Diuretics {oab:1}
+- Anticholinergics or antihistamines {drug:5} @24
+- Antidepressants {drug:2} @25
+- Opioids {drug:2} @26
+- Decongestants {drug:2} @27
+- Diuretics {oab:1} @28
 H Family history|pick|Family history:
-- Prostate cancer {pca:1}
+- Prostate cancer {pca:1} @29
 G General examination
 E General|pick
-- Cachexic {pca:3}
-- Bone tenderness {pca:3}
+- Cachexic {pca:3} @0
+- Bone tenderness {pca:3} @1
 - Pallor, hypertension or drowsiness (uraemia) {bph:1} @x101
 G Abdominal examination
 E Abdomen|pick
-! Tender dull suprapubic mass (retention) {bph:3,drug:2,constip:2,str:2}
-- Palpable kidneys {bph:2,bca:2}
+! Tender dull suprapubic mass (retention) {bph:3,drug:2,constip:2,str:2} @2
+- Palpable kidneys {bph:2,bca:2} @3
 - Suprapubic tenderness {uti:2} @x102
 - Distended bladder reaching the umbilicus {bph:2,drug:1} @x103
 - Loin tenderness {uti:1} @x104
 E Genitals|pick
-- Narrow meatus or penile abnormality {str:3}
+- Narrow meatus or penile abnormality {str:3} @4
 - Phimosis or balanitis {str:2,uti:1} @x105
 G Rectal examination
 E Prostate|pick
 N Size, consistency, surface, median sulcus, tenderness; anal tone.
-- Smooth, symmetrical, enlarged {bph:6}
-! Hard, irregular, nodular {pca:6}
-- Tender and boggy {uti:5}
-- Loaded rectum {constip:3}
-! Reduced anal tone {neuro:3}
+- Smooth, symmetrical, enlarged {bph:6} @5
+! Hard, irregular, nodular {pca:6} @6
+- Tender and boggy {uti:5} @7
+- Loaded rectum {constip:3} @8
+! Reduced anal tone {neuro:3} @9
 G Complete the examination
 E Neurology|pick
-! Leg weakness or perineal sensory loss {neuro:4}
+! Leg weakness or perineal sensory loss {neuro:4} @10
 - Reduced perineal sensation {neuro:4} @x106
 - Absent bulbocavernosus reflex {neuro:3} @x107
 - Reduced ankle reflexes {neuro:2} @x108
@@ -6442,80 +6442,80 @@ D gall|Biliary or pancreatic pain||0.3
 D hz|Herpes zoster pre-eruption||0.2
 G Pain (SOCRATES)
 H Site|pick|Site:
-- Loin {stone:1,pyelo:1,msk:1}
-- Right upper quadrant {gall:3}
-- Band around one side of the trunk {hz:3}
+- Loin {stone:1,pyelo:1,msk:1} @0
+- Right upper quadrant {gall:3} @1
+- Band around one side of the trunk {hz:3} @2
 H Onset|one|Onset:
-- Sudden {stone:2,aaa:2}
-- After lifting or twisting {msk:3}
-- Over a day or two {pyelo:1}
+- Sudden {stone:2,aaa:2} @3
+- After lifting or twisting {msk:3} @4
+- Over a day or two {pyelo:1} @5
 H Character|pick|Character:
-- Colicky, comes in waves {stone:3}
-- Constant ache {pyelo:1,msk:1}
-- Burning {hz:3}
+- Colicky, comes in waves {stone:3} @6
+- Constant ache {pyelo:1,msk:1} @7
+- Burning {hz:3} @8
 H Radiation|pick|Radiates to:
-- Groin or testis {stone:3}
-- Back {aaa:2}
+- Groin or testis {stone:3} @9
+- Back {aaa:2} @10
 H Exacerbating and relieving|pick|Pain:
-- Cannot lie still, writhing {stone:3}
-- Worse with movement {msk:3}
-- After fatty meals {gall:5}
+- Cannot lie still, writhing {stone:3} @11
+- Worse with movement {msk:3} @12
+- After fatty meals {gall:5} @13
 H Severity|one|Severity:
-- Severe {stone:1,aaa:1}
-- Moderate {pyelo:1,msk:1}
+- Severe {stone:1,aaa:1} @14
+- Moderate {pyelo:1,msk:1} @15
 G Associated symptoms
 H Urine|pick
-- Blood in urine {stone:4}
-- Burning or frequency {pyelo:3}
-- No urinary symptoms {msk:3}
+- Blood in urine {stone:4} @16
+- Burning or frequency {pyelo:3} @17
+- No urinary symptoms {msk:3} @18
 H Infection|pick
-- Fever and rigors {pyelo:3}
-! Fever with colic {pyon:6,stone:-3}
+- Fever and rigors {pyelo:3} @19
+! Fever with colic {pyon:6,stone:-3} @20
 H Gut|pick
-- Nausea and vomiting {stone:3,pyelo:2}
+- Nausea and vomiting {stone:3,pyelo:2} @21
 H Other causes|pick
-! Collapse {aaa:6}
-- Testicular pain {tors:2}
-! Missed period or pelvic pain {tors:2}
-- Tingling skin, then blisters {hz:3}
+! Collapse {aaa:6} @22
+- Testicular pain {tors:2} @23
+! Missed period or pelvic pain {tors:2} @24
+- Tingling skin, then blisters {hz:3} @25
 G Background for this complaint
 H Past history|pick|Past history:
-- Previous stones {stone:1}
-- Gout {stone:1}
-! Only one kidney {pyon:4}
-- Older hypertensive smoker {aaa:2}
+- Previous stones {stone:1} @26
+- Gout {stone:1} @27
+! Only one kidney {pyon:4} @28
+- Older hypertensive smoker {aaa:2} @29
 - Diabetes {pyelo:2} @x20
 - Hypertension @x21
 H Habits|pick
-- Low fluid intake or hot climate {stone:1}
+- Low fluid intake or hot climate {stone:1} @30
 H Family history|pick|Family history:
-- Kidney stones {stone:1}
+- Kidney stones {stone:1} @31
 G General examination
 E Vital signs and general|pick
-- Restless, pacing {stone:2}
-- Fever {pyelo:2,pyon:3}
-! Tachycardia {pyelo:1,pyon:2,aaa:1}
-! Hypotension {pyon:3,aaa:4}
+- Restless, pacing {stone:2} @0
+- Fever {pyelo:2,pyon:3} @1
+! Tachycardia {pyelo:1,pyon:2,aaa:1} @2
+! Hypotension {pyon:3,aaa:4} @3
 - Rigors {pyelo:2,pyon:3} @x101
 E Skin|pick
-- Vesicles in a dermatome {hz:6}
+- Vesicles in a dermatome {hz:6} @4
 G Abdominal examination
 E Abdomen|pick
-- Renal angle tenderness {stone:4,pyelo:5}
-! Pulsatile expansile mass {aaa:4}
-- Spinal or muscle tenderness {msk:4}
-- Murphy's sign {gall:3}
+- Renal angle tenderness {stone:4,pyelo:5} @5
+! Pulsatile expansile mass {aaa:4} @6
+- Spinal or muscle tenderness {msk:4} @7
+- Murphy's sign {gall:3} @8
 - Loin tenderness on fist percussion {stone:2,pyelo:4} @x102
 - Palpable kidney {pyon:2} @x103
 - Suprapubic tenderness {pyelo:1} @x104
 - Right upper quadrant tenderness {gall:2} @x105
 E Genitals|pick
-! Tender, high-riding testis {tors:3}
+! Tender, high-riding testis {tors:3} @9
 - Scrotal swelling or tenderness {tors:3} @x106
 G Bedside tests
 E Urine|pick
-- Blood on dipstick {stone:2}
-- Normal dipstick {msk:2,aaa:1,gall:2}
+- Blood on dipstick {stone:2} @10
+- Normal dipstick {msk:2,aaa:1,gall:2} @11
 - Nitrites or leucocytes {pyelo:3,pyon:2} @x107
 
 @anal|Anal pain / lump|Colorectal|Surgery
@@ -6539,49 +6539,49 @@ D pruritus|Pruritus ani / warts / skin tags||0.5
 D crohn|Perianal Crohn's disease||0.15
 G Pain (SOCRATES)
 H Onset|one|Onset:
-- Sudden painful lump {thromb:6}
-- Over a few days, getting worse {abs:3}
-- Painless {haem:2,ca:1,prolaps:1}
+- Sudden painful lump {thromb:6} @0
+- Over a few days, getting worse {abs:3} @1
+- Painless {haem:2,ca:1,prolaps:1} @2
 H Character|pick|Pain:
-- Tearing on opening the bowels {fiss:4}
-- Throbbing, constant {abs:4}
+- Tearing on opening the bowels {fiss:4} @3
+- Throbbing, constant {abs:4} @4
 H Timing|pick|Timing:
-- Lasts minutes to hours after the stool {fiss:4}
-- Constant, worse sitting {abs:3}
+- Lasts minutes to hours after the stool {fiss:4} @5
+- Constant, worse sitting {abs:3} @6
 H Lump|pick|Lump:
-- Comes down with straining, goes back {haem:3}
-- Whole rectum comes out {prolaps:3}
-- Hard lump that does not go back {ca:1,thromb:1}
-- Warty growths {pruritus:3}
+- Comes down with straining, goes back {haem:3} @7
+- Whole rectum comes out {prolaps:3} @8
+- Hard lump that does not go back {ca:1,thromb:1} @9
+- Warty growths {pruritus:3} @10
 G Associated symptoms
 H Bleeding and discharge|pick
-- Bright blood on the paper {fiss:2,haem:3}
-- Persistent discharge beside the anus {fist:3}
-- Mucus or soiling {prolaps:2,pruritus:2}
-- Itch {pruritus:3}
+- Bright blood on the paper {fiss:2,haem:3} @11
+- Persistent discharge beside the anus {fist:3} @12
+- Mucus or soiling {prolaps:2,pruritus:2} @13
+- Itch {pruritus:3} @14
 H General|pick
-- Fever {abs:4}
-! Weight loss {ca:2,crohn:1}
-! Change in bowel habit {ca:2}
-- Diarrhoea and abdominal pain {crohn:2}
+- Fever {abs:4} @15
+! Weight loss {ca:2,crohn:1} @16
+! Change in bowel habit {ca:2} @17
+- Diarrhoea and abdominal pain {crohn:2} @18
 G Background for this complaint
 H Past history|pick|Past history:
-- Previous abscess or drainage {fist:3}
-- Crohn's disease {crohn:2}
-- Constipation and straining {haem:1,fiss:1,thromb:1}
-- Pregnancy {haem:1}
-- Low fibre diet {haem:1,fiss:1}
+- Previous abscess or drainage {fist:3} @19
+- Crohn's disease {crohn:2} @20
+- Constipation and straining {haem:1,fiss:1,thromb:1} @21
+- Pregnancy {haem:1} @22
+- Low fibre diet {haem:1,fiss:1} @23
 - Diabetes {abs:2,fist:1} @x20
 G Inspection
 E Inspection|pick
 N Left lateral, knees up, chaperone; part the buttocks gently; ask the patient to strain.
-- Posterior midline fissure with sentinel tag {fiss:4}
-- Tense blue tender lump at the verge {thromb:6}
-- Red, hot, fluctuant swelling {abs:6}
-- External opening with hard track {fist:6}
-- Rectum protrudes with concentric folds {prolaps:6}
-- Multiple tags, fissures and fistulae {crohn:3}
-- Warts {pruritus:3}
+- Posterior midline fissure with sentinel tag {fiss:4} @0
+- Tense blue tender lump at the verge {thromb:6} @1
+- Red, hot, fluctuant swelling {abs:6} @2
+- External opening with hard track {fist:6} @3
+- Rectum protrudes with concentric folds {prolaps:6} @4
+- Multiple tags, fissures and fistulae {crohn:3} @5
+- Warts {pruritus:3} @6
 - Skin excoriation and erythema {pruritus:4} @x101
 - Prolapsed haemorrhoids {haem:4} @x102
 - Blood on the toilet paper or perianal skin {fiss:1,haem:1} @x103
@@ -6589,21 +6589,21 @@ N Left lateral, knees up, chaperone; part the buttocks gently; ask the patient t
 G Palpation
 E Rectal examination|pick
 N Skip if a fissure is obvious and too painful.
-- Spasm prevents examination {fiss:5,abs:3}
-! Hard irregular mass or ulcer {ca:6}
+- Spasm prevents examination {fiss:5,abs:3} @7
+! Hard irregular mass or ulcer {ca:6} @8
 - Tender induration or fluctuance {abs:4} @x105
 - Palpable track to the opening {fist:4} @x106
 - Reduced anal tone {prolaps:2} @x107
 - Blood on the glove {haem:1,ca:2,fiss:1} @x108
 E Proctoscopy|pick
-- Internal haemorrhoids at 3, 7 and 11 o'clock {haem:6}
+- Internal haemorrhoids at 3, 7 and 11 o'clock {haem:6} @9
 - Fissure seen at the posterior midline {fiss:2} @x109
 - Internal opening of a fistula {fist:3} @x110
 - Friable mass or ulcer {ca:4} @x111
 - Inflamed mucosa {crohn:2} @x112
 G Complete the examination
 E Nodes|pick
-! Inguinal lymph nodes {ca:3}
+! Inguinal lymph nodes {ca:3} @10
 
 @obstr|Vomiting and distension (bowel obstruction)|Emergency|Surgery
 SC news
@@ -6668,37 +6668,37 @@ H Ileus causes|pick
 - Sepsis {ileus:2} @24
 G General examination
 E Vital signs and hydration|pick
-! Tachycardia {herni:1,vol:1,ca:1}
-! Hypotension {herni:1,vol:1,ca:1}
-! Dehydrated {herni:1,vol:1,ca:1}
-- Fever {herni:1,vol:1}
+! Tachycardia {herni:1,vol:1,ca:1} @0
+! Hypotension {herni:1,vol:1,ca:1} @1
+! Dehydrated {herni:1,vol:1,ca:1} @2
+- Fever {herni:1,vol:1} @3
 G Abdominal examination
 E Inspection|pick
 M Look from the end of the bed, then at eye level|Distension · scars · visible peristalsis · pulsation · hernial orifices (ask to cough)
-- Distension {adh:2,ca:2,vol:3}
-- Visible peristalsis {adh:2,ca:2}
-- Surgical scars {adh:6}
-- Asymmetrical distension {vol:3}
+- Distension {adh:2,ca:2,vol:3} @4
+- Visible peristalsis {adh:2,ca:2} @5
+- Surgical scars {adh:6} @6
+- Asymmetrical distension {vol:3} @7
 - Visible hernia {herni:3} @x101
 E Palpation|pick
 M Light, then deep, starting away from the pain|All 9 regions · then liver · spleen · kidneys (ballot) · watch the face
-! Peritonism or localised tenderness {herni:2,vol:1,ca:1}
-! Tender, red, irreducible hernia {herni:3}
-- Abdominal mass {ca:4}
-- Right iliac fossa mass {crohn:3,intus:3}
+! Peritonism or localised tenderness {herni:2,vol:1,ca:1} @8
+! Tender, red, irreducible hernia {herni:3} @9
+- Abdominal mass {ca:4} @10
+- Right iliac fossa mass {crohn:3,intus:3} @11
 - Mass at a hernial orifice {herni:3} @x102
 E Percussion|pick
 M Dull or resonant? Then shifting dullness|Percuss from the midline out to the flank, roll the patient towards you, wait, percuss again
-- Tympanic {adh:2,ca:2,vol:3}
+- Tympanic {adh:2,ca:2,vol:3} @12
 E Auscultation|pick
 M Listen for a full minute|Bowel sounds · bruits · succussion splash
-- Tinkling, high-pitched bowel sounds {adh:5,ca:4,vol:4,herni:4}
-- Absent bowel sounds {ileus:6}
+- Tinkling, high-pitched bowel sounds {adh:5,ca:4,vol:4,herni:4} @13
+- Absent bowel sounds {ileus:6} @14
 G Complete the examination
 E Hernial orifices and rectal|pick
 N Always check the hernial orifices.
-- Empty or ballooned rectum {vol:4,ca:3}
-- Rectal mass {ca:4}
+- Empty or ballooned rectum {vol:4,ca:3} @15
+- Rectal mass {ca:4} @16
 - Blood on the glove {intus:3,ca:2} @x103
 
 @mass|Abdominal mass|Gastrointestinal|Surgery
@@ -6778,18 +6778,18 @@ H Family history|pick|Family history:
 - Polycystic kidneys {kid:2} @35
 G General examination
 E General|pick
-- Cachexic {ca:2}
-- Pallor {ca:1,lym:1}
-- Jaundice {hep:2,panc:1}
-- Lymph nodes {lym:3,ca:1}
-- Supraclavicular node {ca:2}
+- Cachexic {ca:2} @0
+- Pallor {ca:1,lym:1} @1
+- Jaundice {hep:2,panc:1} @2
+- Lymph nodes {lym:3,ca:1} @3
+- Supraclavicular node {ca:2} @4
 G Abdominal examination
 E Inspection|pick
 M Look from the end of the bed, then at eye level|Distension · scars · visible peristalsis · pulsation · hernial orifices (ask to cough)
 N Note the region, and whether it moves with breathing.
-- Visible mass {ca:1,ovar:1}
-- Visible pulsation {aaa:2}
-- Distension {ovar:1,hep:1}
+- Visible mass {ca:1,ovar:1} @5
+- Visible pulsation {aaa:2} @6
+- Distension {ovar:1,hep:1} @7
 - Scars or skin changes over the mass @x101
 - Distension that is rounded and suprapubic {ovar:2} @x301
 - Pulsation in the epigastrium that stays in every position {aaa:3} @x302
@@ -6797,17 +6797,17 @@ N Note the region, and whether it moves with breathing.
 E Palpation|pick
 M Describe any mass (Browse)|Position · shape · size · surface · edge · consistency · fluid thrill · resonance · pulsatility
 N Site, size, shape, surface, edge, consistency, tenderness, pulsatility, mobility; can you get above or below it?
-- Hard, irregular, fixed {ca:5,ovar:2}
-- Liver edge hard and craggy {hep:5}
-- Has a notch, grows towards the umbilicus, cannot get above it, not ballotable {spl:3}
-- Ballotable on bimanual palpation {kid:3}
-! Expansile pulsation {aaa:6}
-- Rises from the pelvis, cannot get below it {ovar:3}
-- Indentable, left side {fecal:6}
-- Tender with fever, left iliac fossa {divm:6}
-- Tender right iliac fossa mass {crohn:5}
-- Fixed epigastric mass {panc:5,ca:3}
-- Iliac fossa mass with pain on hip flexion {psoas:4}
+- Hard, irregular, fixed {ca:5,ovar:2} @8
+- Liver edge hard and craggy {hep:5} @9
+- Has a notch, grows towards the umbilicus, cannot get above it, not ballotable {spl:3} @10
+- Ballotable on bimanual palpation {kid:3} @11
+! Expansile pulsation {aaa:6} @12
+- Rises from the pelvis, cannot get below it {ovar:3} @13
+- Indentable, left side {fecal:6} @14
+- Tender with fever, left iliac fossa {divm:6} @15
+- Tender right iliac fossa mass {crohn:5} @16
+- Fixed epigastric mass {panc:5,ca:3} @17
+- Iliac fossa mass with pain on hip flexion {psoas:4} @18
 - Still felt when the head is raised (abdominal wall mass) @x204
 - Smooth soft tender liver {hep:2} @x206
 - Hard nodular painless liver {hep:4} @x207
@@ -6820,16 +6820,16 @@ N Site, size, shape, surface, edge, consistency, tenderness, pulsatility, mobili
 - Pulsation disappears on knee-elbow position (transmitted) {ca:2,panc:2} @x312
 E Percussion|pick
 M Dull or resonant? Then shifting dullness|Percuss from the midline out to the flank, roll the patient towards you, wait, percuss again
-- Dull over the mass {ovar:2,hep:1,spl:1}
-- Resonant in front (kidney) {kid:3}
-- Shifting dullness {lym:1,ca:1,hep:1}
+- Dull over the mass {ovar:2,hep:1,spl:1} @19
+- Resonant in front (kidney) {kid:3} @20
+- Shifting dullness {lym:1,ca:1,hep:1} @21
 - Liver span over 14 cm {hep:3} @x214
 - Flanks dull and shifting {lym:1,ca:1,hep:1} @x215
 - Succussion splash more than four hours after eating {ca:2} @x316
 G Complete the examination
 E Rectal and nodes|pick
-- Hard stool on rectal exam {fecal:2}
-- Rectal mass {ca:2}
+- Hard stool on rectal exam {fecal:2} @22
+- Rectal mass {ca:2} @23
 - Blood on the glove {ca:3} @x102
 - Pelvic mass felt on rectal examination {ovar:3} @x103
 - Scrotum: testis missing or a testicular mass {lym:2} @x502
@@ -6850,58 +6850,58 @@ D art|Arterial disease (ulcer, claudication)||0.2
 D av|Arteriovenous malformation / pelvic cause||0.05
 G The veins
 H Where|pick|Veins on:
-- Inner thigh and calf {scj:2}
-- Back of the calf {spj:4}
-- Whole leg, after a DVT {dvt:2}
+- Inner thigh and calf {scj:2} @0
+- Back of the calf {spj:4} @1
+- Whole leg, after a DVT {dvt:2} @2
 H Symptoms|pick|Symptoms:
-- Heaviness or aching {prim:2}
-- Itching {prim:2}
-- Worse at the end of the day and in heat {prim:2}
-- Cosmetic concern only {prim:1}
-- Bled from a vein {prim:3}
+- Heaviness or aching {prim:2} @3
+- Itching {prim:2} @4
+- Worse at the end of the day and in heat {prim:2} @5
+- Cosmetic concern only {prim:1} @6
+- Bled from a vein {prim:3} @7
 H Acute|pick|Now:
-! Sudden painful hard red cord along a vein {acute:6}
+! Sudden painful hard red cord along a vein {acute:6} @8
 G Complications
 H Skin|pick
-- Brown skin at the ankle {scj:1,dvt:1}
-- Eczema {scj:1,dvt:1}
-- Ulcer {scj:1,dvt:1}
-- Swollen leg {dvt:3}
+- Brown skin at the ankle {scj:1,dvt:1} @9
+- Eczema {scj:1,dvt:1} @10
+- Ulcer {scj:1,dvt:1} @11
+- Swollen leg {dvt:3} @12
 H Arterial|pick
-- Claudication or rest pain {art:4}
+- Claudication or rest pain {art:4} @13
 G Background for this complaint
 H Risk factors|pick|Risk factor:
-- Family history {prim:2}
-- Standing job {prim:2}
-- Several pregnancies {prim:2}
-- Previous DVT {dvt:3}
-- Leg trauma or surgery {dvt:3}
+- Family history {prim:2} @14
+- Standing job {prim:2} @15
+- Several pregnancies {prim:2} @16
+- Previous DVT {dvt:3} @17
+- Leg trauma or surgery {dvt:3} @18
 G Inspection
 E Inspection|pick
 N Patient standing, front and back of both legs.
-- Veins along the long saphenous vein {prim:6,scj:5}
-- Popliteal fossa varicosities {spj:6}
-- Brown staining, eczema, white scars, ankle flare {scj:1,dvt:1}
-- Hard woody skin above the ankle {scj:1,dvt:1}
-- Ulcer in the gaiter area {scj:3,dvt:3}
-- Swollen leg with collateral veins {dvt:5}
+- Veins along the long saphenous vein {prim:6,scj:5} @0
+- Popliteal fossa varicosities {spj:6} @1
+- Brown staining, eczema, white scars, ankle flare {scj:1,dvt:1} @2
+- Hard woody skin above the ankle {scj:1,dvt:1} @3
+- Ulcer in the gaiter area {scj:3,dvt:3} @4
+- Swollen leg with collateral veins {dvt:5} @5
 - Venous flare at the ankle {prim:1} @x101
 - Haemosiderin staining {scj:1} @x102
 G Palpation
 E Palpation|pick
-- Cough impulse at the saphenofemoral junction {scj:4}
-- Saphena varix {scj:4}
-! Tender, red, hard cord {acute:6}
-- Thrill {av:4}
+- Cough impulse at the saphenofemoral junction {scj:4} @6
+- Saphena varix {scj:4} @7
+! Tender, red, hard cord {acute:6} @8
+- Thrill {av:4} @9
 - Tenderness along the vein {acute:3} @x103
 E Pulses|pick
-- Absent foot pulses or low ABPI {art:4}
+- Absent foot pulses or low ABPI {art:4} @10
 G Special tests
 E Special tests|pick
 N Tourniquet (Trendelenburg) test; then hand-held Doppler at the junctions; listen for a bruit.
-- Controlled by tourniquet at the saphenofemoral junction {scj:6}
-- Not controlled, fills from below the knee {spj:2}
-- Bruit over the veins {av:4}
+- Controlled by tourniquet at the saphenofemoral junction {scj:6} @11
+- Not controlled, fills from below the knee {spj:2} @12
+- Bruit over the veins {av:4} @13
 
 @skinlump|Skin or soft tissue lump|Surgery|Surgery
 SC
@@ -7108,11 +7108,11 @@ H Social|pick
 - Poor sanitation or crowded housing {hpylori:2} @45
 G General examination
 E General|pick
-! Pallor {ca:2}
-! Looks thin or wasted {ca:2}
-! Supraclavicular node {ca:2}
-- Jaundice {gall:3,ca:2,panc:2}
-- Hypotension or sweating {mi:2}
+! Pallor {ca:2} @0
+! Looks thin or wasted {ca:2} @1
+! Supraclavicular node {ca:2} @2
+- Jaundice {gall:3,ca:2,panc:2} @3
+- Hypotension or sweating {mi:2} @4
 E Inspection|pick
 M Look from the end of the bed, then at eye level|Distension · scars · visible peristalsis · pulsation · hernial orifices (ask to cough)
 - Distension {gastropar:1} @x101
@@ -7121,16 +7121,16 @@ M Look from the end of the bed, then at eye level|Distension · scars · visible
 G Abdominal examination
 E Palpation|pick
 M Light, then deep, starting away from the pain|All 9 regions · then liver · spleen · kidneys (ballot) · watch the face
-- Epigastric tenderness {pu:4,gast:3,panc:3}
-- Tender with guarding {panc:4,pu:3}
-- Murphy's sign {gall:6}
-! Epigastric mass {ca:2}
-! Hepatomegaly {ca:2}
-- Normal examination {gerd:4,gast:4}
+- Epigastric tenderness {pu:4,gast:3,panc:3} @5
+- Tender with guarding {panc:4,pu:3} @6
+- Murphy's sign {gall:6} @7
+! Epigastric mass {ca:2} @8
+! Hepatomegaly {ca:2} @9
+- Normal examination {gerd:4,gast:4} @10
 - Right upper quadrant tenderness {gall:3} @x104
 E Auscultation|pick
 M Listen for a full minute|Bowel sounds · bruits · succussion splash
-- Succussion splash {pu:2,ca:3,gastropar:3}
+- Succussion splash {pu:2,ca:3,gastropar:3} @11
 E Rectal examination|pick
 - Melaena on the glove {pu:3,ca:2} @x105
 
@@ -7212,48 +7212,48 @@ G General examination
 E Vital signs and charts|pick
 M Chart first (source list)|Pulse · RR · BP · temperature · SpO2 · urine output · bowel sounds
 N Observation chart, NEWS2, fluid balance, urine output.
-! Hypotension {leak:1,bleed:1,vte:1}
-! Tachycardia {leak:1,bleed:1,vte:1}
-! Low urine output {leak:1,bleed:1}
-! Mottled skin {leak:1,bleed:1}
-* Temperature over 38 C {wi:2,atel:2,uti:2,vte:1,abs:2,drug:2}
-- Swinging fever {abs:4}
-- SpO2 low, tachypnoea {atel:2,vte:1}
+! Hypotension {leak:1,bleed:1,vte:1} @0
+! Tachycardia {leak:1,bleed:1,vte:1} @1
+! Low urine output {leak:1,bleed:1} @2
+! Mottled skin {leak:1,bleed:1} @3
+* Temperature over 38 C {wi:2,atel:2,uti:2,vte:1,abs:2,drug:2} @4
+- Swinging fever {abs:4} @5
+- SpO2 low, tachypnoea {atel:2,vte:1} @6
 E General|pick
-- Pale, cold peripheries {bleed:2}
-- Falling haemoglobin {bleed:2}
-- Rash or wheeze {drug:3}
-- Perioral numbness, Chvostek or Trousseau sign {hypoca:4}
+- Pale, cold peripheries {bleed:2} @7
+- Falling haemoglobin {bleed:2} @8
+- Rash or wheeze {drug:3} @9
+- Perioral numbness, Chvostek or Trousseau sign {hypoca:4} @10
 - Confusion or drowsiness {leak:1,atel:1} @x101
 G Systems
 E Chest|pick
-* Basal crackles or reduced breath sounds {atel:2}
-- Raised JVP {vte:2}
+* Basal crackles or reduced breath sounds {atel:2} @11
+- Raised JVP {vte:2} @12
 - Wheeze {drug:2} @x102
 E Abdomen|pick
-* Distension with absent bowel sounds {ileus:4,leak:1}
-! Peritonism or generalised tenderness {leak:3}
-- Localised tender mass {abs:4}
-* Palpable bladder {ret:4}
-- Suprapubic or renal angle tenderness {uti:2}
+* Distension with absent bowel sounds {ileus:4,leak:1} @13
+! Peritonism or generalised tenderness {leak:3} @14
+- Localised tender mass {abs:4} @15
+* Palpable bladder {ret:4} @16
+- Suprapubic or renal angle tenderness {uti:2} @17
 E Legs|pick
-* Swollen tender calf {vte:4}
+* Swollen tender calf {vte:4} @18
 G Wound, drains and lines
 E Wound|pick
 M Signs of infection|Calor (heat) · Rubor (redness) · Dolor (pain) · Tumour (swelling) · loss of function
 N Ask to take down the dressing. Length, edges, discharge, surrounding skin.
-- Dressing soaked {bleed:1,wi:1}
-* Red, warm, hard, tender skin around it {wi:6}
-* Edges gaping {dehis:3}
-- Haematoma or seroma {bleed:2,wi:1}
+- Dressing soaked {bleed:1,wi:1} @19
+* Red, warm, hard, tender skin around it {wi:6} @20
+* Edges gaping {dehis:3} @21
+- Haematoma or seroma {bleed:2,wi:1} @22
 - Wound clean, dry and intact @x103
 E Drains|pick
-- Bloody drain fluid {bleed:2}
-- Bilious, faecal or turbid fluid {leak:3}
-- Exit site red or discharging {wi:1}
+- Bloody drain fluid {bleed:2} @23
+- Bilious, faecal or turbid fluid {leak:3} @24
+- Exit site red or discharging {wi:1} @25
 E Catheter and cannula|pick
-- Cloudy urine in the bag {uti:2}
-- Phlebitis or pus at the cannula {line:3}
+- Cloudy urine in the bag {uti:2} @26
+- Phlebitis or pus at the cannula {line:3} @27
 
 @drain|Surgical drain review|Post-operative|Surgery
 SC
@@ -7261,56 +7261,56 @@ I Match the drain to the operation and the post-operative day; record output vol
 G About the drain
 H Background|yn
 N Ask: what operation, which day, and why the drain was put in.
-* Operation and date known
-* Purpose known (therapeutic, prophylactic, monitoring)
-- Checked for more than one drain
+* Operation and date known @0
+* Purpose known (therapeutic, prophylactic, monitoring) @1
+- Checked for more than one drain @2
 H Symptoms|pick
-- Pain at the drain site
-* Fluid leaking around the drain
-* Fever or rigors
-* New abdominal pain
+- Pain at the drain site @3
+* Fluid leaking around the drain @4
+* Fever or rigors @5
+* New abdominal pain @6
 G Identify the drain
 E Identify|yn
 M Number · Site · Type · Name|Open or closed, active or passive: Penrose, corrugated, Robinson, Redivac, Jackson-Pratt, T-tube, chest tube
 N Number, site, type (open or closed, active or passive) and name (Penrose, corrugated, Robinson, Redivac, Jackson-Pratt, T-tube, chest tube).
-- Number and site recorded
-- Type and name recorded
+- Number and site recorded @0
+- Type and name recorded @1
 - Purpose of the drain known @x101
 - Date inserted recorded @x102
 G Check the drain
 E Tube and bag|pick
 M Secure · Patent · Below the wound|No kinks or clots, well fixed, reservoir below the incision, active drains charged
 N Tap a problem if you find one; "Rest normal" when all is well.
-* Kinked or blocked by clots
-* Not secured
-* Bag above the wound level
-- Active reservoir not charged
+* Kinked or blocked by clots @2
+* Not secured @3
+* Bag above the wound level @4
+- Active reservoir not charged @5
 E Output|pick
 M Volume · Trend · Colour|Serous or serosanguinous is fine · purulent, bilious, faecal, chylous or bloody: keep it and find the source · a sudden change suggests a complication
 N Volume over 24 hours and its trend; colour.
-- Bloody
-* Purulent
-* Bilious
-* Faecal
-- Chylous (milky)
-- Stopped suddenly
+- Bloody @6
+* Purulent @7
+* Bilious @8
+* Faecal @9
+- Chylous (milky) @10
+- Stopped suddenly @11
 * Sudden increase in volume or change in colour @x501
 - Serous or serosanguinous @x103
 - Amount since the last check charted @x104
 E Exit site and wound|pick
-* Exit site red or discharging
-- Leak around the tube
-- Herniation at the exit site
-- Main wound discharging or collection
+* Exit site red or discharging @12
+- Leak around the tube @13
+- Herniation at the exit site @14
+- Main wound discharging or collection @15
 G Ready to come out?
 E Removal criteria|yn
 M Low · Serous · Well · Early|About 30 to 50 mL in 24 h and falling · serous · no fever or collection · remove early: over 7 to 10 days risks infection
 N Usually when output is low (about 30 to 50 mL in 24 hours, depends on the operation) and serous, and the patient is well.
-- Output low and falling
-- Fluid serous or serosanguinous
-- No fever or sepsis
-- No collection on imaging
-- Procedure-specific timing respected
+- Output low and falling @16
+- Fluid serous or serosanguinous @17
+- No fever or sepsis @18
+- No collection on imaging @19
+- Procedure-specific timing respected @20
 
 @other|Other / general approach|General|General
 SC news
@@ -7318,157 +7318,157 @@ I Guided by the findings: bedside observations, glucose, urine dip; FBC, U&E, LF
 G The complaint
 N Write the complaint in the patient's words above. Use "+ Pain as well" if it hurts.
 H Onset|one|Onset:
-- Sudden
-- Over hours to days
-- Gradual over weeks or longer
+- Sudden @0
+- Over hours to days @1
+- Gradual over weeks or longer @2
 H Course|pick|Course:
-- First episode
-- Recurrent
-- Getting worse
-- Constant
-- Comes and goes
-- Worse at a time of day
+- First episode @3
+- Recurrent @4
+- Getting worse @5
+- Constant @6
+- Comes and goes @7
+- Worse at a time of day @8
 H Impact|pick|Impact:
-- Affects daily activities
-- Previous similar episodes
-- Previous treatment helped
+- Affects daily activities @9
+- Previous similar episodes @10
+- Previous treatment helped @11
 H Ideas, concerns, expectations|pick|Patient:
-- Has an idea what it is
-- Is worried about something specific
-- Expects a particular test or treatment
+- Has an idea what it is @12
+- Is worried about something specific @13
+- Expects a particular test or treatment @14
 G Red flags (ask every time)
 H Red flags|pick
-! Weight loss
-! Fever or night sweats
-! Bleeding or bruising
-! Chest pain or breathlessness
-! Collapse
-! Confusion
-! New weakness or numbness
-! Loss of vision
+! Weight loss @15
+! Fever or night sweats @16
+! Bleeding or bruising @17
+! Chest pain or breathlessness @18
+! Collapse @19
+! Confusion @20
+! New weakness or numbness @21
+! Loss of vision @22
 G General examination
 E General|pick
-- Unwell or in pain
-- Pallor
-- Jaundice
-- Cyanosis
-- Clubbing
-- Lymph nodes
-- Oedema
-- Dehydrated
-- Thin or cachexic
+- Unwell or in pain @0
+- Pallor @1
+- Jaundice @2
+- Cyanosis @3
+- Clubbing @4
+- Lymph nodes @5
+- Oedema @6
+- Dehydrated @7
+- Thin or cachexic @8
 E Vital signs|pick
-- Tachycardia
-- Hypotension
-- Tachypnoea
-- Fever
-- Low SpO2
+- Tachycardia @9
+- Hypotension @10
+- Tachypnoea @11
+- Fever @12
+- Low SpO2 @13
 G Systems
 E Heart and chest|pick
-- Raised JVP
-- Displaced apex
-- Murmur
-- Reduced expansion
-- Dull percussion
-- Added breath sounds
+- Raised JVP @14
+- Displaced apex @15
+- Murmur @16
+- Reduced expansion @17
+- Dull percussion @18
+- Added breath sounds @19
 E Abdomen|pick
-- Tenderness
-- Mass
-- Hepatomegaly
-- Splenomegaly
-- Abnormal bowel sounds
-- Hernia
+- Tenderness @20
+- Mass @21
+- Hepatomegaly @22
+- Splenomegaly @23
+- Abnormal bowel sounds @24
+- Hernia @25
 E Neurology|pick
-- Reduced GCS
-- Cranial nerve deficit
-- Abnormal tone
-- Weakness
-- Abnormal reflexes
-- Sensory loss
+- Reduced GCS @26
+- Cranial nerve deficit @27
+- Abnormal tone @28
+- Weakness @29
+- Abnormal reflexes @30
+- Sensory loss @31
 E Affected area|pick
 N Look, feel, move, special tests.
-- Abnormal on inspection
-- Tender or abnormal on palpation
-- Movement limited
-- Special test positive
+- Abnormal on inspection @32
+- Tender or abnormal on palpation @33
+- Movement limited @34
+- Special test positive @35
 
 @genhx|General history (full record)|General|General
 SC news
 I Guided by the working diagnosis once the history is complete.
 H Patient data
-- Name, age and gender
-- Occupation
-- Marital status
-- Residency
+- Name, age and gender @0
+- Occupation @1
+- Marital status @2
+- Residency @3
 - Religion @x300
-- Date of admission
-- Date of taking the history
-- Mode of referral
-- Mode of arrival
+- Date of admission @4
+- Date of taking the history @5
+- Mode of referral @6
+- Mode of arrival @7
 H Chief complaint and duration
-- Why the patient came to hospital, in the patient's own words
-- Duration of each complaint
+- Why the patient came to hospital, in the patient's own words @8
+- Duration of each complaint @9
 H History of present illness
-- When the patient was last well
-- First thing the patient noticed when they became ill
-- Full description of every other symptom
-- Pain: site
-- Pain: onset
-- Pain: character
-- Pain: radiation
-- Pain: duration
-- Pain: periodicity
-- Pain: severity
-- Pain: aggravating factors
-- Pain: relieving factors
-- Pain: associated symptoms
+- When the patient was last well @10
+- First thing the patient noticed when they became ill @11
+- Full description of every other symptom @12
+- Pain: site @13
+- Pain: onset @14
+- Pain: character @15
+- Pain: radiation @16
+- Pain: duration @17
+- Pain: periodicity @18
+- Pain: severity @19
+- Pain: aggravating factors @20
+- Pain: relieving factors @21
+- Pain: associated symptoms @22
 H Past medical history
-- Past history of a similar condition
-- Diabetes
-- Hypertension
-- Angina or myocardial infarction
-- Jaundice
-- Tuberculosis
-- Rheumatic fever
-- Epilepsy
-- Asthma
-- Stroke
-- Previous hospitalisation
+- Past history of a similar condition @23
+- Diabetes @24
+- Hypertension @25
+- Angina or myocardial infarction @26
+- Jaundice @27
+- Tuberculosis @28
+- Rheumatic fever @29
+- Epilepsy @30
+- Asthma @31
+- Stroke @32
+- Previous hospitalisation @33
 H Past surgical history
-- Previous operations (general or local anaesthesia)
-- Other procedures (angioplasty, endoscopy)
-- Post-operative complications
-- Blood transfusion
+- Previous operations (general or local anaesthesia) @34
+- Other procedures (angioplasty, endoscopy) @35
+- Post-operative complications @36
+- Blood transfusion @37
 H Family history
-- Similar illness in the family
-- Hypertension in the family
-- Diabetes in the family
-- Ischaemic heart disease in the family
-- Tuberculosis in the family
-- First-degree relatives: age, health or cause of death
+- Similar illness in the family @38
+- Hypertension in the family @39
+- Diabetes in the family @40
+- Ischaemic heart disease in the family @41
+- Tuberculosis in the family @42
+- First-degree relatives: age, health or cause of death @43
 H Personal and social history
-- Smoking (pack-years)
-- Alcohol (amount and type)
-- Home situation
-- Mobility and help at home
-- Diet
-- Water supply
-- Recent overseas travel
-- Hobbies
-- Animals in the house
-- Sexual history
+- Smoking (pack-years) @44
+- Alcohol (amount and type) @45
+- Home situation @46
+- Mobility and help at home @47
+- Diet @48
+- Water supply @49
+- Recent overseas travel @50
+- Hobbies @51
+- Animals in the house @52
+- Sexual history @53
 H Occupational history
-- What the patient did for work
-- How long they did it
-- Anything medically relevant in the work (mining, painting, farming, cheese work, pigeon keeping)
+- What the patient did for work @54
+- How long they did it @55
+- Anything medically relevant in the work (mining, painting, farming, cheese work, pigeon keeping) @56
 H Drug history
-- Prescribed medications
-- Over-the-counter medications
-- Alternative therapies (herbs)
+- Prescribed medications @57
+- Over-the-counter medications @58
+- Alternative therapies (herbs) @59
 H Allergies
-- Drug allergies and the type of reaction
-- Other relevant allergies (latex, food)
-- Problems with anaesthetics
+- Drug allergies and the type of reaction @60
+- Other relevant allergies (latex, food) @61
+- Problems with anaesthetics @62
 
 </script>
 <script>/* ---------- Clinical scores ---------- */
