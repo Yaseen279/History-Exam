@@ -789,72 +789,96 @@ Y Clot|pe|Clot (PE)
 Y Gut|gerd|Gut
 Y Chest wall|msk|Chest wall
 Y Mind|anx|Mind
-R Hands and pulses -> Face -> Neck (JVP, carotids) -> Precordium (look, feel, listen) -> Back (lung bases, sacrum) -> Abdomen (liver) -> Legs -> Fundi
+R Hands -> Pulses -> Blood pressure (both arms) -> Face and eyes -> Neck (JVP, carotids) -> Precordium (look, feel, listen from the apex) -> Back (lung bases, sacrum) -> Abdomen (liver) -> Legs -> Finish (fundi, temperature, urine dip)
 G Pain story (SOCRATES)
-M SOCRATES|Site · Onset · Character · Radiation · Associated (screened by cause below) · Timing · Exacerbating and relieving · Severity
+M SOCRATES|Site · Onset · Character · Radiation · Associated (screened by cause below) · Timing and pattern · Exacerbating and relieving · Severity and limitation
 H Site|pick|Site:
 N Ask the patient to point with one finger.
 * Central or retrosternal {acs:2,ang:2,gerd:1,dis:1,peri:1} @0
 - Left or right side of chest {msk:1,pneu:1,ptx:1,pe:1} @1
 - One spot, points with a finger {msk:2} @3
 - Epigastric {gerd:2} @4
-- Between the shoulder blades {dis:3,acs:1,ang:1} @5
+! Between the shoulder blades (interscapular) {dis:3} @5
 H Onset|one|Onset:
 * Sudden, worst at the start {dis:3,ptx:2,pe:2} @6
 - Built up over minutes {acs:2,ang:1} @7
 - Gradual over hours or days {pneu:1,peri:1,msk:1} @8
 H Character|pick|Character:
 * Heavy, tight, crushing or squeezing {acs:3,ang:3} @9
-- Sharp or stabbing {peri:1,pe:1,pneu:1,ptx:1,msk:1} @10
+- Sharp or stabbing {peri:2,pe:1,pneu:1,ptx:1,msk:1} @10
 ! Tearing or ripping {dis:4} @11
 - Burning {gerd:2} @12
 H Radiation|pick|Radiates to:
-* Left arm {acs:1,ang:1} @13
-- Both arms {acs:2,ang:1} @14
-* Neck or jaw {acs:1,ang:1} @15
-! Through to the back {dis:3} @16
+N Spread to one or both arms or shoulders makes a heart attack more likely (Macleod p45).
+- Left arm {acs:1,ang:1} @13
+* Both arms or shoulders {acs:3,ang:1} @14
+- Neck, jaw, throat or teeth {acs:1,ang:1} @15
+- Epigastrium {acs:1,ang:1,gerd:1} @x800
+! Through to the back {dis:3,peri:1,gerd:1} @16
 - Shoulder tip {peri:1} @17
 H Timing|pick|Timing:
 - Episodes under 10 minutes {ang:3} @19
 ! Continuous for over 20 minutes {acs:3} @20
 - Comes on at rest {acs:2} @21
 * Only on exertion {ang:3} @22
+H Pattern|pick|Pattern:
+N How often do the episodes come, how long do they last, and has this changed recently? Unstable angina is new pain, or pain that is worse or comes on with less effort or at rest (Macleod p45).
+! Episodes more often, longer, or on less effort than before {acs:3} @x801
+- New pain that started in the last few weeks {acs:1,ang:1} @x802
+- Same pattern for months {ang:2} @x803
 H Exacerbating factors|pick|Worse with:
 * Exertion, emotion or cold weather {ang:3,acs:1} @24
 * Breathing in or coughing (pleuritic) {pe:2,pneu:2,peri:2,ptx:2} @25
-- Lying flat {peri:3} @26
+- Lying flat {peri:3,gerd:1} @26
 - Moving or pressing on the chest {msk:4} @27
 - Meals, bending or lying after food {gerd:3,ang:1} @28
 H Relieving factors|pick|Better with:
+N Typical angina (Macleod Box 4.3) has all 3: retrosternal discomfort of typical quality and duration; brought on by exertion or emotion; relieved by rest or GTN within minutes. 2 of 3 = atypical angina; 0 or 1 = non-anginal pain.
 * Rest within minutes {ang:3} @30
-* GTN spray {ang:2,acs:1} @31
+* GTN spray {ang:2,gerd:1} @31
 - Sitting forward {peri:4} @32
+- Anti-inflammatory tablets (NSAIDs) {peri:2} @x804
 - Antacids {gerd:3} @33
+- Nothing relieves it, not even rest or GTN {acs:2,dis:1} @x805
 H Severity|one|Severity:
-* Mild (1 to 3 of 10) {msk:1,gerd:1} @36
+N Judge angina by how much effort brings it on, not by how strong the pain is (Macleod p45).
+- Mild (1 to 3 of 10) {msk:1,gerd:1} @36
 - Moderate (4 to 6 of 10) @37
 - Severe (7 to 10 of 10) {acs:1,dis:1} @38
+! The worst pain ever {dis:3,acs:1} @x806
 H Exercise tolerance|one|Exercise tolerance:
-N How far can you walk on the flat before you stop? What stops you? How far could you walk a year ago?
-* Not limited @39
+M CCS angina grade (Macleod Box 4.2)|I: only strenuous, fast or long effort · II: slight limit (hurrying, hills, stairs, after meals, cold, stress) · III: marked limit (1 to 2 blocks on the flat, under 1 flight of stairs) · IV: any activity, or at rest
+N How far can you walk on the flat before you stop? What stops you? What can you no longer do because of the pain? How far could you walk a year ago?
+- Not limited @39
 - Over 200 metres @40
 - Under 200 metres {ang:1} @41
 - Symptoms at rest {acs:1} @42
 G Screen the causes, one at a time
 M Heart and aorta · Lungs · Clot · Gut · Wall · Mind|Two or three questions each, then move on. The pain story above already did most of the work.
 H Heart|pick
-N Ischaemia (ACS, angina) and pericarditis.
-* Sweating {acs:1} @43
-- Nausea or vomiting {acs:1} @44
+N Ischaemia (ACS, angina) and pericarditis. Sweating, nausea or vomiting, spread to the arms and pain like a previous heart attack all make MI more likely; pleuritic, positional, sharp or tender pain makes it unlikely (Macleod p45).
+* Sweating {acs:2,dis:1} @43
+- Nausea or vomiting {acs:2} @44
+* Pain like a previous heart attack {acs:3} @x807
+- Feeling of impending death, or restless {acs:2} @x808
 * Breathlessness {acs:1,pe:2,ptx:2,pneu:1} @45
 - Palpitations {acs:1,pe:1,dis:1} @46
-! Fainting or near-fainting {acs:1,pe:1,dis:1} @47
+! Fainting or near-fainting {acs:1,pe:1,dis:2} @47
+- Breathless lying flat, or ankle swelling {acs:1,ang:1} @x816
 - Recent flu-like illness (pericarditis) {peri:2} @52
+- Recent heart attack, heart surgery, ablation or chest radiotherapy {peri:2} @x809
+- Lupus, rheumatoid arthritis or other connective tissue disease {peri:1} @x810
+- Known aortic stenosis or hypertrophic cardiomyopathy {ang:2} @x811
+- Any bleeding, e.g. black stools (anaemia worsens angina) {ang:1} @x817
 H Aorta|pick
-N Dissection: sudden tearing pain through to the back. Ask about stroke-like symptoms and known aortic risk.
+N Dissection: very sudden, very severe tearing pain to the back, between the shoulder blades. Over 90% call it the worst ever and 85% have a sudden onset; pain that builds up slowly makes it less likely. Ask about stroke-like symptoms, limb or gut ischaemia and known aortic risk (Macleod p45).
 ! Weakness, numbness or loss of vision with the pain {dis:3} @x300
-- Marfan syndrome {dis:1} @81
-- Known bicuspid aortic valve {dis:1} @82
+! Cold, painful arm or leg, or severe abdominal pain with the chest pain {dis:3} @x812
+- Marfan syndrome {dis:2} @81
+- Known aortic valve disease (e.g. bicuspid aortic valve) {dis:1} @82
+- Known thoracic aortic aneurysm {dis:2} @x813
+- Family history of aortic aneurysm or dissection {dis:2} @x814
+- Previous aortic surgery or catheter procedure {dis:1} @x815
 H Lungs|pick
 N Pneumonia, pleurisy, pneumothorax. Pleuritic pain is asked above.
 * Fever {pneu:1,peri:1} @48
@@ -877,38 +901,43 @@ N Musculoskeletal pain: tender spot, worse on moving or pressing (asked above).
 * Recent injury, strain or heavy lifting {msk:3} @x301
 H Mind|pick
 N Anxiety or panic: a diagnosis only after the dangerous causes are excluded.
-* Panic attacks or fear of dying {anx:1} @62
+- Panic attacks or fear of dying {anx:1} @62
 - Breathing fast with tingling around the mouth or fingers {anx:1} @64
 - Recent stress {anx:1} @x302
 G Background for this complaint
 M Risks · Past · Drugs|Then family and social history in the background card below.
 H Cardiovascular risk factors|pick|Risk factor:
-* Hypertension {acs:1,ang:1,dis:1} @66
-* Diabetes {acs:1,ang:1,dis:1} @67
-* High cholesterol {acs:1,ang:1,dis:1} @68
+N Smoking is the strongest risk factor for coronary and peripheral arterial disease (Macleod p50).
 * Smoking {acs:1,ang:1,dis:1} @69
-* Family history of early IHD (men under 55, women under 65) {acs:1,ang:1,dis:1} @70
+- Hypertension {acs:1,ang:1,dis:1} @66
+- Diabetes {acs:1,ang:1,dis:1} @67
+- High cholesterol {acs:1,ang:1,dis:1} @68
+- Family history of early heart disease (first-degree relative: man under 55, woman under 60) {acs:1,ang:1,dis:1} @70
 - Obesity {acs:1,ang:1} @71
 - Cocaine or amphetamine use {acs:1,dis:1} @72
 - Chronic kidney disease {acs:1,ang:1} @x20
 H Past cardiac history|pick|Past history:
-* Angina {acs:1,ang:1} @73
+- Angina {acs:1,ang:1} @73
 * Previous MI {acs:1,ang:1} @74
 - Previous stent or bypass (CABG) {acs:1,ang:1} @75
+- Previous echo, angiogram or exercise test (note the result) @x818
+- Pacemaker, ICD, or valve replacement (mechanical or tissue) @x819
 - Stroke or TIA {acs:1,ang:1} @77
 - Leg claudication {acs:1,ang:1} @78
 - Heart failure @79
 - Rheumatic fever @80
 - Anaemia {ang:1} @x303
 H Drugs|pick|Takes:
-* Aspirin or other antiplatelet @83
+- Aspirin or other antiplatelet @83
 - GTN @84
-* Blood pressure tablets @85
+- Blood pressure tablets @85
 - Statin @86
 - NSAIDs {gerd:1} @87
-- Steroids, salbutamol, theophylline or thyroxine @x304
+- Steroids, salbutamol, theophylline or thyroxine {ang:1} @x304
+- Over-the-counter, herbal or alternative remedies @x820
 G Examination
 E Bed space and appearance|pick
+M If unstable: ABCDE first|Breathless, distressed, cyanosed or drowsy: assess and treat with ABCDE and leave the detailed exam for later (Macleod p50).
 ! Pale and sweaty {acs:1,dis:1,pe:1,ptx:1} @0
 - In obvious pain {acs:1,dis:1} @1
 - Breathless at rest {pe:1,ptx:1,pneu:1} @2
@@ -916,34 +945,43 @@ E Bed space and appearance|pick
 - Sitting forward {peri:1} @4
 - Tall with long limbs (Marfanoid) {dis:2} @5
 - Oxygen, GTN spray or cardiac drugs at the bedside {ang:1,acs:1} @x101
-- Looks unwell or sweaty {acs:1,dis:1,pe:1} @x102
+- Looks unwell or distressed {acs:1,dis:1,pe:1} @x102
 - Obese or cachexic @x103
+E Hands|pick
+M Temperature and refill · Stains and colour · Nails · Tendons · Palms|Cool hands and capillary refill over 2 s = poor perfusion · tar stains · clubbing, splinters · tendon xanthomata · Janeway lesions, Osler's nodes (Macleod p51)
+- Cold peripheries or peripheral cyanosis {acs:1} @16
+- Capillary refill over 2 seconds {acs:1,pe:1} @x821
+- Tar staining {acs:1,ang:1} @17
+- Skin crease pallor (anaemia) {ang:1} @x826
+- Clubbing @x822
+- Splinter haemorrhages @x823
+- Janeway lesions or Osler's nodes (endocarditis) @x824
+- Tendon xanthomata (familial hypercholesterolaemia) {acs:1,ang:1} @x825
 E Pulses|pick
-M Radial -> Brachial -> Carotid -> Femoral|Rate and rhythm (radial) · Character and volume (brachial, carotid) · Both radials together · Radio-femoral delay
+M Radial -> Brachial -> Carotid -> Femoral|Rate and rhythm (radial, count 15 s x 4) · Both radials together · Character and volume (brachial, carotid; one carotid at a time) · Radio-femoral delay
 - Irregular pulse {acs:1} @12
-! Radial pulses unequal {dis:3} @13
+! Radial pulses unequal or delayed {dis:3} @13
 ! Absent peripheral pulse {dis:3} @14
 - Pulsus paradoxus {peri:2} @15
-- Cold peripheries or peripheral cyanosis {acs:1} @16
-- Tar staining {acs:1,ang:1} @17
 - Collapsing pulse {dis:2} @x104
 - Slow-rising, low-volume pulse {ang:2} @x105
 - Radio-femoral delay (coarctation) {dis:1} @x106
 E Blood pressure|pick
-M Both arms, then lying and standing|A difference over 20 mmHg between arms suggests dissection
+M Both arms, then lying and standing|A difference over 10 mmHg between the arms on repeated readings suggests aortic or subclavian disease (dissection if there is acute pain). Postural drop = systolic fall over 20 mmHg after 2 minutes standing (Macleod p57).
 ! Hypotension {acs:1,dis:1,pe:1,ptx:1} @6
 ! Tachycardia {acs:1,dis:1,pe:1,ptx:1} @7
 - SpO2 under 94% {pe:1,ptx:1,pneu:1} @8
 - Tachypnoea {pe:1,ptx:1,pneu:1} @9
 - Fever {pneu:2,peri:1} @10
-! BP difference between arms over 20 mmHg {dis:4} @11
+! BP differs between the arms by more than 10 mmHg {dis:3} @x827
 - Hypertension {dis:2,acs:1,ang:1} @x107
 - Postural drop in blood pressure @x108
 E Eyes|pick
-M Eyes, then face, then mouth|Pallor · Arcus · Xanthelasma → Malar flush → Cyanosis · Palate · Teeth
+M Eyes, then face, then mouth|Pallor · Arcus · Xanthelasma · Petechiae → Malar flush → Cyanosis · Palate · Teeth
 - Conjunctival pallor {ang:1} @18
 - Corneal arcus {acs:1,ang:1} @19
 - Xanthelasma {acs:1,ang:1} @20
+- Conjunctival petechiae (endocarditis) @x828
 - Jaundiced sclerae @x109
 E Face and mouth|pick
 - Central cyanosis {pe:1,ptx:1} @21
@@ -951,38 +989,39 @@ E Face and mouth|pick
 - High-arched palate (Marfan syndrome) {dis:2} @x111
 - Dental caries @x112
 E JVP|pick
-M 45 degrees, head turned slightly left|Height above the sternal angle · Waveform (feel the carotid) · Hepatojugular reflux
-- Raised JVP {pe:2,peri:1,ptx:1} @22
-! Trachea deviated {ptx:3} @23
+M 45 degrees, head turned slightly left|Height above the sternal angle (over 3 cm = raised) · Waveform (feel the carotid) · Abdominojugular test to confirm it is the JVP · Lie flatter if not seen (low)
+- Raised JVP (over 3 cm above the sternal angle) {pe:2,peri:1,ptx:1} @22
+- JVP rises on inspiration (Kussmaul's sign) {peri:1} @x829
 - Cannon a waves @x113
 - Prominent v waves (tricuspid regurgitation) @x114
-- Low JVP on hepatojugular reflux @x115
+- JVP seen only with the patient lying flat (low) @x115
 E Precordium: inspection|pick
 M Look, feel, listen|Look: scars · pulsations · deformity · pacemaker box
 - Sternotomy scar {acs:1,ang:1} @24
 - Visible pulsation @25
 - Chest wall deformity @26
-- Visible cardiac pulsation @x116
 - Pacemaker or defibrillator box @x117
 E Precordium: palpation|pick
-M Feel: Apex, Heave, Thrill|Apex site and character → parasternal heave → thrills in each area
+M Feel: Apex, Heave, Thrill|Apex site and character (roll to the left if not felt) → heel of the hand at the left sternal edge in held expiration for a heave → thrills at the apex and both sternal edges
 - Displaced apex beat {acs:1} @27
 - Parasternal heave {pe:1} @28
 - Thrill @29
 - Pressing on the chest wall reproduces the pain {msk:4} @30
-- Heaving apex beat {ang:1} @x118
+- Sustained, heaving apex that is not displaced (LVH) {ang:1} @x118
 - Tapping apex beat @x119
 E Auscultation|pick
-M All Physicians Take Money|Aortic (2nd right space) · Pulmonary (2nd left) · Tricuspid (left lower sternal edge) · Mitral (apex). Then: axilla · left side with bell (MS) · sitting forward in expiration (AR)
+M Start at the apex (Macleod p61)|Diaphragm: apex → lower left sternal edge → upper right and upper left sternal edges. Bell: apex → lower left sternal edge. Then carotids and left axilla · left side, bell lightly at the apex (MS) · sit forward, breath out and hold, diaphragm at the right 2nd space and left sternal edge (AR)
 - Muffled heart sounds {peri:2} @31
 - Pericardial friction rub {peri:4} @32
 - Third heart sound or gallop {acs:1} @33
+- Fourth heart sound {ang:1} @x830
 ! New early diastolic murmur (aortic regurgitation) {dis:3} @34
 - New pansystolic murmur at the apex {acs:1} @35
 - Loud P2 {pe:1} @36
 - Prosthetic valve click @x120
 E Lungs, back and carotids|pick
-M Sit forward: back, then sit back: neck|Lung bases · sacral oedema → carotid bruits
+M Sit forward: back, then sit back: neck|Trachea · lung bases · sacral oedema → carotid bruits
+! Trachea deviated {ptx:3} @23
 - Basal crackles (heart failure) {acs:1} @37
 ! Hyper-resonant with absent breath sounds {ptx:4} @38
 - Dull to percussion {pneu:2} @39
@@ -1003,10 +1042,12 @@ M Lie flat: liver, then legs|Liver (pulsatile in TR) → pitting ankle oedema �
 - Hepatomegaly @x125
 - Pulsatile liver @x126
 - Ascites @x127
-- Pitting ankle oedema @x128
 E Finish|pick
+M Fundi, temperature, urine|Fundi (hypertension, diabetes, Roth's spots) · temperature (endocarditis, pericarditis, after MI) · urine dip (blood, glucose, protein) (Macleod p51)
 - Hypertensive retinopathy {dis:1,acs:1} @x129
 - Diabetic retinopathy {acs:1,ang:1} @x130
+- Roth's spots (endocarditis) @x833
+- Urine dip: glucose (diabetes) {acs:1,ang:1} @x832
 @palp|Palpitations|Cardiovascular|Medicine
 SC chads
 I 12-lead ECG (during an episode if possible); Holter or event recorder; TFT; FBC; U&E, Mg, Ca; echo; troponin if chest pain
@@ -1032,26 +1073,32 @@ N "Can you tap the rhythm?" Regular, irregular or regularly irregular? Fast or s
 - Irregular and chaotic {af:4} @1
 - Missed beat, thump or pause {ect:4} @2
 - Slow and pounding {brady:2} @3
+- Fast and forceful but regular (pounding) {anx:1,thy:1,drug:1} @x800
 H Starts and stops|one|Starts and stops:
-* Suddenly, like a switch {svt:3,vt:1} @4
+* Suddenly, like a switch {svt:3,vt:1,af:1} @4
 - Gradually builds up and settles {anx:2,thy:1} @5
 H How long|one|Episodes last:
+N Also ask how often the episodes come (Macleod p47).
 * Seconds {ect:2} @6
 - Minutes {svt:1,anx:1} @7
 - Hours or continuous {af:2,thy:1} @8
 H Brought on by|pick|Brought on by:
-* Exercise {vt:1,svt:1} @9
+* Exercise {vt:1,af:1} @9
 - Stress or anxiety {anx:2} @10
-* Caffeine or alcohol {drug:1,ect:1} @11
-- At rest or lying in bed {ect:2} @12
+- Caffeine or alcohol {drug:1,ect:1,af:1} @11
+- At rest or lying in bed {ect:2,svt:1} @12
+- Bending over or a small movement {svt:2} @x801
+- Being tired or run down {ect:1} @x802
 H Stopped by|pick|Stopped by:
 - Breath holding or straining (vagal manoeuvres) {svt:3} @13
+* Goes away when walking or exercising {ect:3} @x803
 - Nothing, it settles by itself {af:1,ect:1} @14
 H During the episodes|pick|During episodes:
+N High-risk features for a dangerous arrhythmia: previous MI or heart surgery, fainting or severe chest pain with the palpitation, sudden death in the family, WPW, and structural heart disease such as HCM or aortic stenosis (Macleod p48).
 ! Fainting or near-fainting {vt:3,brady:3,svt:1,af:1} @15
 ! Chest pain {vt:1,af:1,svt:1} @16
 ! Breathlessness {vt:1,af:1,svt:1} @17
-- Passes a lot of urine afterwards {svt:2} @18
+- Passes a lot of urine afterwards {svt:2,af:1} @18
 G Screen the other causes
 M Rhythm · Thyroid · Blood · Drugs · Mind|The story above covers the rhythm. Two questions each for the rest; drugs are in the background below.
 H Thyroid|pick
@@ -1060,37 +1107,43 @@ H Thyroid|pick
 - Tremor {thy:1} @21
 - Sweating {thy:1} @22
 H Anaemia|pick
-* Tiredness {anaem:1} @23
+- Tiredness {anaem:1} @23
 - Looks pale {anaem:1} @24
-* Heavy periods {anaem:1} @25
+- Heavy periods {anaem:1} @25
 H Mind|pick
-* Panic {anx:1} @26
+- Panic {anx:1} @26
 - Tingling around the mouth {anx:1} @27
 G Background for this complaint
 M Past · Drugs · Family|Previous episodes and treatment · heart disease and risks · drugs that speed the heart · sudden death in the family
 H Past history|pick|Past history:
 * Similar episodes before (diagnosis, treatment, response) @x300
 * Previous MI {vt:3,af:1} @34
-- Cardiomyopathy {vt:1,af:1} @35
+- Cardiomyopathy {vt:2,af:1} @35
 - Heart failure {vt:1,af:1} @36
-* Hypertension {af:1} @37
+- Hypertension {af:1} @37
 - Valve disease or rheumatic fever {af:1} @38
-- Previous cardiac surgery {af:1} @x301
+- Previous cardiac surgery {af:1,vt:1} @x301
+! Wolff-Parkinson-White (pre-excitation) {svt:2,vt:2,af:1} @x804
+! Hypertrophic cardiomyopathy or aortic stenosis {vt:2} @x805
 - Diabetes @x20
 - Thyroid disease {thy:2} @x21
 - Anaemia or heavy periods {anaem:2} @x22
 - Previous stroke {af:1} @x23
 H Drugs and stimulants|pick|Takes:
 * Excess caffeine {drug:2,ect:1} @28
-- Alcohol {drug:1,ect:1} @29
-- Stimulants or amphetamines {drug:3,svt:1,ect:1} @30
+- Alcohol {drug:1,ect:1,af:1} @29
+- Cocaine, amphetamines or other stimulants {drug:3,svt:1,ect:1} @30
 - Decongestants {drug:1,ect:1} @31
 * Salbutamol or theophylline {drug:2,ect:1} @32
 * Thyroxine {drug:2,thy:1} @33
 - Heart or blood pressure drugs (e.g. nifedipine) {drug:1} @x302
+- Digoxin {drug:2,brady:1} @x806
+- Diuretics (low potassium) {drug:2,ect:1} @x807
+- Tricyclic antidepressants {drug:2} @x808
+- Beta-blocker, verapamil, diltiazem or amiodarone (slow the heart) {brady:2} @x809
 - Smoker (pack-years) {drug:1,ect:1} @x24
 H Family history|pick|Family history:
-! Sudden death under 40 {vt:1} @39
+! Sudden unexplained death at a young age {vt:2} @39
 - Known arrhythmia {vt:1} @40
 - Cardiomyopathy {vt:1} @x303
 G Examination
@@ -1101,17 +1154,21 @@ E Bed space and appearance|pick
 - Oxygen, GTN spray or cardiac drugs at the bedside {vt:1} @x101
 - Looks unwell or sweaty {vt:1,af:1,svt:1} @x102
 - Obese or cachexic @x103
+E Hands|pick
+- Fine tremor {thy:2} @8
+- Warm sweaty palms {thy:1} @9
+- Cold peripheries @x107
+- Skin crease pallor {anaem:2} @x818
 E Pulses|pick
 - Irregularly irregular {af:5} @4
 - Regular, over 150 {svt:3,vt:2} @5
 - Bradycardia under 50 {brady:4} @6
 - Occasional dropped beats {ect:2} @7
-- Fine tremor {thy:2} @8
-- Warm sweaty palms {thy:1} @9
 - Collapsing pulse @x104
 - Slow-rising, low-volume pulse @x105
 - Radio-femoral delay @x106
-- Cold peripheries @x107
+- Pulse deficit: apex rate faster than radial rate {af:2} @x815
+- Pulse volume varies from beat to beat {af:1} @x816
 E Blood pressure|pick
 - Hypotension {vt:1,af:1,svt:1} @2
 - Hypertension {af:1,anx:1,thy:1,drug:1} @x108
@@ -1120,7 +1177,7 @@ E Blood pressure|pick
 - Tachypnoea {anx:1,anaem:1} @x111
 - SpO2 under 94% {af:1,vt:1} @x112
 - Fever {thy:1} @x113
-- BP difference between arms over 20 mmHg @x114
+- BP differs between the arms by more than 10 mmHg @x817
 E Eyes|pick
 - Lid lag or exophthalmos {thy:4} @10
 - Conjunctival pallor {anaem:4} @x115
@@ -1137,7 +1194,7 @@ E JVP|pick
 - Goitre {thy:3} @11
 - Raised JVP {af:1,vt:1} @x123
 - Prominent v waves (tricuspid regurgitation) {af:1} @x124
-- Low JVP on hepatojugular reflux @x125
+- JVP seen only with the patient lying flat (low) @x125
 E Precordium: inspection|pick
 - Sternotomy scar {vt:2,af:1,brady:1} @x126
 - Visible cardiac pulsation @x127
@@ -1146,7 +1203,7 @@ E Precordium: inspection|pick
 E Precordium: palpation|pick
 - Displaced apex beat {af:1,vt:1} @13
 - Tapping apex beat (mitral stenosis) {af:1} @14
-- Heaving apex beat {vt:1} @x130
+- Sustained, heaving apex that is not displaced (LVH) {vt:1} @x130
 - Parasternal heave {af:1} @x131
 - Thrill {af:1} @x132
 E Auscultation|pick
@@ -1170,7 +1227,6 @@ E Abdomen and legs|pick
 - Hepatomegaly @x144
 - Pulsatile liver {af:1} @x145
 - Ascites @x146
-- Pitting ankle oedema {af:1} @x147
 - One calf swollen @x148
 E Finish|pick
 - Hypertensive retinopathy @x149
@@ -2858,6 +2914,7 @@ D preg|Pregnancy / premenstrual / cyclical||0.4
 D osa|Sleep apnoea / cor pulmonale||0.3
 D cp|Constrictive pericarditis||0.1
 D allerg|Allergic reaction / angioedema||0.15
+D immob|Dependent oedema from immobility||0.5
 Y Heart|hf,cp|Heart and lungs
 Y Liver|cld|Gut and liver
 Y Kidney|nephr,nephritic|Kidney
@@ -2865,11 +2922,12 @@ Y Gut (malnutrition)|malnut|Gut and liver,Other causes
 Y Thyroid|hypo|Endocrine
 Y Sleep apnoea|osa|Sleep
 Y Drugs|drug|Drugs
-Y Veins, cycle and allergy|vi,preg,allerg|Where,Timing,Other causes
+Y Veins, cycle and allergy|vi,preg,allerg,immob|Where,Timing,Other causes
 G The swelling (handbook)
 M Where · How fast · When worse|Extent and site (ankles, face, sacrum, abdomen) · onset · morning eyes or evening ankles
 H Where|pick|Swelling of:
-* Both ankles and legs {hf:1,cld:1,nephr:1,drug:1} @0
+N Oedema is usually gravity-dependent: ankles when up and about, sacrum when in bed. Common bilateral causes are heart failure, venous disease, calcium channel blockers and low albumin. One leg only: think of DVT (Macleod p49).
+- Both ankles and legs {hf:1,cld:1,nephr:1,drug:1,immob:1} @0
 * Face and around the eyes {nephr:4,nephritic:2,hypo:1} @1
 - Abdomen {cld:3,nephr:1,cp:1} @2
 - Back and sacrum {hf:1,nephr:1} @3
@@ -2880,7 +2938,7 @@ H Onset|one|Onset:
 - Over weeks to months {hf:1,cld:1,nephr:1,hypo:1} @7
 H Timing|pick|Timing:
 * Eyes puffy in the morning {nephr:4,nephritic:2} @8
-- Ankles worse in the evening, better overnight {hf:1,vi:2} @9
+- Ankles worse in the evening, better overnight {hf:1,vi:2,immob:1} @9
 - Comes and goes with periods {preg:3} @10
 G Screen the causes, one system at a time (handbook)
 M Heart · Liver and gut · Kidney · Endocrine · Sleep|Cardiac, hepatic, renal, gut, thyroid, sleep apnoea, then drugs, veins, pregnancy and allergy
@@ -2889,6 +2947,7 @@ H Heart and lungs|pick
 * Breathless lying flat {hf:2} @12
 - Waking at night breathless {hf:2} @13
 - Palpitations or fainting {hf:1} @14
+- Swollen abdomen, or weight and muscle loss (advanced heart failure) {hf:1,cld:1} @x800
 H Gut and liver|pick
 * Yellow eyes {cld:2} @18
 ! Vomiting blood or black stool {cld:2} @19
@@ -2896,7 +2955,7 @@ H Gut and liver|pick
 - Poor diet or starvation {malnut:2} @21
 H Kidney|pick
 * Frothy urine {nephr:5} @15
-* Passing less urine {nephritic:2,nephr:1} @16
+- Passing less urine {nephritic:2,nephr:1} @16
 - Blood in urine {nephritic:2} @17
 H Endocrine|pick
 * Cold intolerance {hypo:2} @22
@@ -2912,9 +2971,10 @@ M Past · Drugs · Social · Family|Diabetes, hypertension, IHD, dialysis, trans
 H Other causes|pick
 - Itch, rash or hives with swelling of lips or face after a food or drug {allerg:5} @x20
 - Poor diet, alcohol, coeliac disease or pancreatitis (maldigestion, malabsorption) {malnut:3} @x21
+- Sits in a chair all day or is bed-bound {immob:3} @x801
 H Past history|pick|Past history:
-* Previous MI or IHD {hf:1} @28
-* Hypertension {hf:1,nephritic:1} @29
+- Previous MI or IHD {hf:1} @28
+- Hypertension {hf:1,nephritic:1} @29
 - Valve disease {hf:1} @30
 * Long-standing diabetes {nephr:2,nephritic:2,hf:1} @31
 * Kidney disease, dialysis or transplant {nephritic:2} @32
@@ -2924,7 +2984,7 @@ H Past history|pick|Past history:
 - Pregnant now {preg:3} @35
 H Drugs|pick|Takes:
 * Amlodipine or nifedipine {drug:5} @36
-* NSAIDs {drug:2} @37
+- NSAIDs {drug:2} @37
 - Steroids {drug:2} @38
 - Hydralazine {drug:1} @39
 - Oestrogen or progesterone {drug:1} @40
@@ -2943,6 +3003,7 @@ E Vital signs|pick
 - Fever @x101
 - Postural drop in blood pressure {cld:1,malnut:1} @x102
 E The oedema|pick
+N Press firmly over the tibia above the ankle for a few seconds. If the leg is very swollen, press higher up to find the upper level. In patients in bed, check the sacrum (Macleod p49, p80).
 - Pitting {hf:1,cld:1,nephr:1,vi:1} @4
 - Non-pitting {hypo:4,vi:3} @5
 - Sacral oedema {hf:2,cld:2,nephr:2} @6
@@ -2963,7 +3024,7 @@ E Fundi|pick
 - Diabetic retinopathy {nephr:2} @x112
 - New murmur (endocarditis) {nephritic:2,hf:1} @x113
 E JVP|pick
-- Raised JVP {hf:5,cp:5,nephritic:2} @8
+- Raised JVP {hf:5,cp:5,nephritic:2,osa:2} @8
 - JVP rises on inspiration (Kussmaul) {cp:3} @9
 - Normal or low JVP {nephr:3,cld:3,malnut:3} @10
 E General signs|pick
@@ -4663,14 +4724,14 @@ E Positional test|pick
 @syncope|Syncope / collapse|Cardiovascular|Medicine
 Y Reflex faint|vv,sit,carot|Situation,Warning
 Y Standing BP and bleeding|orth,bleed|Bleeding,Trigger
-Y Heart|arr,as,pe|Past medical history,Clot,Family history
+Y Heart|arr,as,pe,dis|Past medical history,Clot,Family history,Warning
 Y Mimics (fit, sugar, stroke)|sz,hypog,dka,cns|During,After,Sugar and neurology
 SC
 I ECG in all; lying and standing BP; glucose; FBC; troponin if chest pain; echo; 24 h Holter or event recorder; tilt-table test if vasovagal unclear; CTPA if PE suspected; EEG/CT head only if seizure or injury suspected
 D vv|Vasovagal||2
 D orth|Orthostatic hypotension||1.2
 D arr|Arrhythmia (VT, heart block)|!|0.6
-D as|Aortic stenosis / structural heart disease|!|0.3
+D as|Aortic stenosis / HCM / structural heart disease|!|0.3
 D pe|Pulmonary embolism|!|0.2
 D sz|Seizure||0.5
 D hypog|Hypoglycaemia||0.3
@@ -4679,39 +4740,47 @@ D dka|Hyperglycaemic crisis (DKA / HHS)|!|0.15
 D cns|Posterior circulation TIA / subarachnoid haemorrhage|!|0.15
 D sit|Situational (micturition, cough, swallow)||0.5
 D carot|Carotid sinus hypersensitivity||0.15
+D dis|Aortic dissection|!|0.05
 G Before the event
 N Get an eyewitness account if you can. Go through before, during and after.
 H Situation|pick|Happened:
+N Near-faints too: ask what brings them on (standing up, standing for long, strong emotion, exertion), how often, and the effect on daily life (Macleod p48).
 - Standing for a long time {vv:1} @0
 - In a hot room {vv:1} @1
-- On standing up quickly {orth:6} @2
+* On standing up quickly {orth:6} @2
 ! During exertion {as:5,arr:4} @3
 - Lying down {arr:2} @4
 - After passing urine, coughing or swallowing {sit:7} @5
 - Turning the head or tight collar {carot:4} @6
 H Trigger|pick|Triggered by:
-- Pain, fear, blood or needles {vv:2} @7
+- Pain, fear, blood, needles or a medical procedure {vv:2} @7
+- Strong emotion {vv:1} @x803
 - Missed meal on insulin or tablets {hypog:3} @8
 H Warning|pick|Warning:
-- Nausea, sweating, tunnel vision {vv:2} @9
+* Nausea, sweating, darkening or tunnel vision {vv:2} @9
+- Ringing in the ears, feeling warm, or tummy discomfort {vv:2} @x800
+- Lightheaded beforehand {vv:1,orth:1} @x801
 ! No warning at all {arr:2} @10
 ! Palpitations {arr:5} @11
 - Chest pain {pe:2,as:1,arr:1} @12
 - Breathlessness {pe:2} @13
+! Sudden tearing chest or back pain {dis:4} @x814
 - Strange smell or feeling (aura) {sz:2} @14
 G During and after
 H During|pick|During:
+N Ask the witness how long they were out, their colour, any movements and any injury. A faint kept upright can cause brief jerking and be mistaken for a fit (Macleod p48 to 49).
 - Pale and clammy {vv:1,arr:1} @15
 - Jerking beyond a few seconds {sz:2} @16
-- Tongue biting (side of the tongue) {sz:2} @17
+* Tongue biting (side of the tongue) {sz:2} @17
 - Incontinence {sz:1} @18
 - Out for under a minute {vv:1,arr:1} @19
 H After|pick|After:
 - Quick recovery, clear-headed {vv:1,arr:1} @20
-- Confused for minutes to hours {sz:3} @21
+* Confused for minutes to hours {sz:3} @21
 ! Injured {arr:2} @22
-- Flushed on recovery {arr:2} @23
-- Drives or works at heights (safety advice) @x600
+- Flushed on recovery {vv:2,arr:1} @23
+- Nausea or vomiting on waking {vv:2} @x805
+- Drives (including for work) or works at heights (safety advice) @x600
 G Associated symptoms
 H Bleeding|pick
 ! Black stool or vomiting blood {bleed:3} @24
@@ -4720,10 +4789,15 @@ H Clot|pick
 - One leg swollen or recent surgery {pe:2} @26
 G Background for this complaint
 H Past medical history|pick|Past history:
-- Previous MI {arr:1,as:1} @27
-- Heart failure {arr:1,as:1} @28
+- Previous MI {arr:2,as:1} @27
+- Heart failure {arr:2,as:1} @28
 - Known valve disease {as:2} @29
 - Previous similar episodes {vv:1} @30
+- First ever faint was before age 35 {vv:2} @x802
+! Hypertrophic cardiomyopathy {as:3,arr:1} @x808
+- Prosthetic heart valve {as:1} @x809
+- Wolff-Parkinson-White syndrome {arr:2} @x810
+- Marfan syndrome or known aortic aneurysm {dis:2} @x815
 - Atrial fibrillation {arr:2} @x20
 - Diabetes {hypog:1} @x21
 - Diabetes with numb feet or bowel and bladder problems (autonomic neuropathy) {orth:3} @x22
@@ -4742,11 +4816,13 @@ H Drugs|pick|Takes:
 - Nitrate {orth:1} @33
 - Insulin or sulfonylurea {hypog:2} @34
 - Drugs that prolong QT {arr:1} @35
+- Beta-blocker, verapamil, diltiazem, digoxin or amiodarone (slow the heart) {arr:2} @x806
+- ACE inhibitor or ARB {orth:1} @x807
 - Alpha-blocker (tamsulosin, doxazosin) {orth:2} @x32
 - SGLT2 inhibitor (dehydration, ketoacidosis) {orth:1,dka:1} @x33
 - Anticoagulants or aspirin {bleed:1} @x34
 H Family history|pick|Family history:
-! Sudden death under 40 {arr:2} @36
+! Sudden unexplained death at a young age {arr:2} @36
 H Sugar and neurology|pick
 - Very thirsty and passing a lot of urine for days {dka:3,orth:1} @x35
 ! Vomiting, abdominal pain or deep fast breathing {dka:3} @x36
@@ -4755,7 +4831,7 @@ H Sugar and neurology|pick
 - Neck pain, or recent neck injury or manipulation {cns:2} @x39
 G General examination
 E Vital signs|pick
-N Lying and standing BP; capillary glucose.
+N Lying and standing BP: lying, then after 2 minutes standing; a systolic fall over 20 mmHg is postural hypotension (Macleod p48, p57). Capillary glucose.
 - Postural BP fall {orth:6} @0
 - Irregular, slow or very fast pulse {arr:5} @1
 - Tachycardia {bleed:2,pe:1} @2
@@ -4771,9 +4847,12 @@ G Cardiovascular examination
 E Pulse and neck|pick
 - Slow-rising pulse {as:4} @9
 - Raised JVP {pe:1} @10
+! Pulses or BP differ between the arms {dis:3} @x811
+- Carotid bruit {cns:1} @x812
 E Auscultation|pick
 - Ejection systolic murmur to the carotids {as:4} @11
 - Normal heart sounds, no murmur {vv:3} @12
+- Quiet or absent second heart sound, or sustained undisplaced apex (aortic stenosis) {as:3} @x813
 G Complete the examination
 E Neurology|pick
 ! Focal weakness, facial droop or speech problem {cns:4} @x40
@@ -5425,9 +5504,10 @@ D osa|Obstructive sleep apnoea||0.4
 D preg|Pre-eclampsia|!|0.2
 G The blood pressure
 H How found|pick|Found:
+N Hypertension is almost always symptomless; only severe hypertension rarely causes headache or visual upset. Most is essential; look for a secondary cause in the young, the sudden or the resistant (Macleod p55 to 56, Box 4.13).
 - On routine check @0
 - Diagnosed under 30 {coarct:3,ren:1,pa:1} @1
-- Came on quickly or suddenly worse {rav:3} @2
+* Came on quickly or suddenly worse {rav:3} @2
 - Hard to control on 3 drugs {pa:2,rav:1} @3
 - Years ago, on treatment since @x600
 H Emergency symptoms|pick|Now:
@@ -5443,10 +5523,10 @@ H Kidney|pick
 - Loin pain {ren:2} @10
 - Sudden breathlessness at night (flash oedema) {rav:3} @11
 H Hormones|pick
-- Episodes of headache, sweating and palpitations {phaeo:5} @12
+* Episodes of headache, sweating and palpitations {phaeo:5} @12
 - Muscle weakness and cramps {pa:3} @13
-- Weight gain, bruising, purple stretch marks {cush:4} @14
-- Low potassium on previous bloods {pa:4} @x1
+* Weight gain, bruising, purple stretch marks {cush:4} @14
+* Low potassium on previous bloods {pa:4} @x1
 - Family history of endocrine tumours or MEN {phaeo:3} @x2
 - Long-term steroid treatment {cush:3,drug:2} @x3
 H Sleep|pick
@@ -5476,14 +5556,17 @@ H Drugs|pick|Takes:
 - Liquorice or cocaine {drug:2} @32
 - Misses doses or has stopped the tablets @x601
 H End-organ damage|pick|History of:
+N Ask about damage to the heart (heart failure), kidney (CKD, protein in the urine) and eyes (retinopathy) (Macleod p56).
 - IHD or heart failure @33
 - Stroke or TIA @34
 - Leg claudication @35
 G General examination
 E Vital signs|pick
-N BP in both arms, sitting and standing; correct cuff size.
+N Rest 5 minutes, arm supported at heart level, cuff bladder about 80% of the arm's length and 40% of its width. Palpate the systolic first (auscultatory gap), then listen; diastolic = disappearance of the sounds (phase 5). Both arms (use the higher); standing BP after 2 minutes. In AF, repeat and average. Ambulatory BP judges risk better and finds white-coat hypertension (Macleod p55, p57).
+M ESC/ESH grades (Macleod Box 4.12)|Optimal under 120/80 · Normal under 130/85 · High normal 130-139/85-89 · Grade 1: 140-159/90-99 · Grade 2: 160-179/100-109 · Grade 3: 180/110 or more · Isolated systolic: 140 or more / under 90
 - Raised on repeated readings {ess:2} @0
 - Arm and leg BP differ {coarct:3} @1
+- BP differs between the arms by more than 10 mmHg (aortic or subclavian disease) {coarct:1} @x800
 E General|pick
 - Central obesity, moon face, striae, buffalo hump {cush:4} @2
 - Pale, sweaty and tremulous during an attack {phaeo:3} @x1
@@ -5493,14 +5576,15 @@ E Pulses|pick
 - Radio-femoral delay or weak femorals {coarct:3} @4
 G End-organ damage
 E Heart|pick
-- Displaced heaving apex (LVH) {ess:2} @5
+- Sustained, forceful apex that is not displaced (LVH) {ess:2} @5
+- Displaced apex (dilated left ventricle, heart failure) {ess:1} @x801
 - Fourth heart sound {ess:1} @6
 E Eyes|pick
 - Hypertensive retinopathy {ren:2,ess:2} @7
 ! Papilloedema {ren:1,ess:1} @8
 E Abdomen|pick
 - Renal bruit {rav:4} @9
-- Palpable kidneys {ren:5} @10
+- Both kidneys palpable (adult polycystic kidney disease) {ren:5} @10
 E Urine and legs|pick
 - Protein on dipstick {preg:3,ren:3} @11
 - Oedema {preg:2,ren:1} @12
@@ -5986,7 +6070,7 @@ E Bedside tests|pick
 Y Clot|dvt|Clot risk,PE
 Y Infection|cell|Infection
 Y Joint|bak|Pain
-Y Veins and lymph|ven,lymph|Extent
+Y Veins and lymph|ven,lymph,stp|Extent,Pain
 Y Pelvic mass|ca|Cancer
 Y Injury|trauma|Onset
 SC
@@ -5998,9 +6082,11 @@ D ven|Chronic venous insufficiency||1
 D lymph|Lymphoedema||0.3
 D ca|Pelvic mass or malignant compression|!|0.1
 D trauma|Trauma / haematoma||0.4
+D stp|Superficial thrombophlebitis||0.4
 G The swelling
 H Onset|one|Onset:
-- Over hours to days {dvt:3,bak:2,cell:1} @0
+N How bad the symptoms are says little about how bad the disease is: a life-threatening DVT can be silent (Macleod p78).
+* Over hours to days {dvt:3,bak:2,cell:1} @0
 - After an injury {trauma:6} @1
 - Months or years {ven:2,lymph:2} @2
 H Extent|pick|Swelling:
@@ -6011,7 +6097,9 @@ H Extent|pick|Swelling:
 H Pain|pick|Pain:
 - Calf pain {dvt:3,bak:2} @7
 - Sudden calf pain during exercise {bak:4} @8
-- Hot, red and painful {cell:3} @9
+* Hot, red and painful {cell:3} @9
+- Red, tender cord along a vein {stp:4} @x804
+- Bursting pain in the whole leg on walking, eased by raising the leg {ven:2,dvt:1} @x803
 - Painless {lymph:1,ven:1} @10
 G Associated symptoms
 H Infection|pick
@@ -6026,26 +6114,30 @@ H Cancer|pick
 - Pelvic or bowel symptoms {ca:3} @17
 G Background for this complaint
 H Clot risk|pick|Risk factor:
-- Surgery in the last 12 weeks {dvt:1} @18
-- Bed-bound or plaster cast {dvt:1} @19
+- Surgery in the last 12 weeks (especially leg, pelvis or abdomen) {dvt:1} @18
+* Bed-bound or plaster cast {dvt:1} @19
 - Long journey {dvt:1} @20
 - Pregnant or postpartum {dvt:1} @21
 - Pill or HRT {dvt:1} @22
-- Active cancer {dvt:1,ca:1} @23
+* Active cancer {dvt:1,ca:1} @23
 - Previous DVT {dvt:1,ven:1} @24
+- Family history of clots or known thrombophilia (e.g. factor V Leiden) {dvt:2} @x801
+- Recent central line, or injecting drugs into the groin {dvt:2} @x802
+- Smoker {dvt:1} @x800
 H Past history|pick|Past history:
 - Knee arthritis {bak:4} @25
-- Varicose veins or leg ulcers {ven:2} @26
+- Varicose veins or leg ulcers {ven:2,stp:1} @26
 - Lymph node surgery or radiotherapy {lymph:2} @27
 - Previous cellulitis {lymph:2,cell:1} @28
 - Diabetes {cell:1} @x20
-- Obesity {ven:1,lymph:1} @x21
+- Obesity {ven:1,lymph:1,dvt:1} @x21
 - Heart, kidney or liver disease @x22
 - Hypertension (on amlodipine?) @x23
 G General examination
 E Vital signs|pick
 - Fever {cell:4} @0
 - Tachycardia or low SpO2 {dvt:1} @1
+- Raised JVP (heart failure or pulmonary hypertension, especially if both legs swollen) @x806
 G The leg (look, feel, measure)
 E Look|pick
 - Red, shiny skin {cell:2} @2
@@ -6054,7 +6146,7 @@ E Look|pick
 - Varicose veins, brown staining, ulcer {ven:2} @5
 - Bruising {trauma:4} @6
 E Feel|pick
-N Measure both calves 10 cm below the tibial tuberosity.
+N Measure both calves 10 cm below the tibial tuberosity. Press over the tibia above the ankle for pitting, higher up to find the upper level. If there is oedema, check the JVP. Homans' sign is neither sensitive nor specific: do not rely on it (Macleod p80).
 - Calf over 3 cm bigger than the other {dvt:3} @7
 - Pitting oedema {dvt:3} @8
 - Tender along the deep veins {dvt:3} @9
@@ -6062,6 +6154,7 @@ N Measure both calves 10 cm below the tibial tuberosity.
 - Swelling behind the knee {bak:6} @11
 - Non-pitting, thick skin, cannot pinch the second toe skin (Stemmer) {lymph:6} @12
 - Hard woody skin above the ankle {ven:2} @13
+- Red, tender, hard cord along a superficial vein {stp:4} @x805
 G Complete the examination
 E Abdomen and groin|pick
 ! Abdominal or pelvic mass {ca:4} @14
@@ -8128,31 +8221,34 @@ var RESP_PAST=['Previous respiratory problems','Pneumonia, tuberculosis, severe 
 var RESP_SURG=['Recent surgery','Dental surgery can lead to aspiration of purulent material or fragments of tooth. Abdominal, pelvic or orthopaedic surgery is a risk factor for DVT and possible pulmonary embolus.'];
 var RESP_CARD=['Cardiac disease','Ischaemic heart disease, hypertension, diabetes.'];
 var RESP_IMM=['Immunocompromised','Immunosuppression or post-transplant surgery may predispose to atypical infections.'];
-var HISTORY_PMH=['Past medical history','Similar episodes, previous diagnoses, treatments and response. Previous cardiac surgery. Hypertension, hypercholesterolaemia, anaemia, diabetes, angina, myocardial infarction, CVA or TIA, peripheral vascular disease (intermittent claudication), cardiac failure, rheumatic fever.'];
-var CVS_SOC=['Social history','Occupation, smoking (number of pack-years), alcohol (cardiomyopathy, hypertension and tachycardia), diet, stress.'];
-var CVS_FAM=['Family history','IHD or CVA before 65 in females or before 55 in males. Cardiomyopathy. Congenital or rheumatic heart disease.'];
-var CVS_DRUG=['Drugs and allergies','Antihypertensives, all cardiac drugs, other drugs with cardiac side effects such as corticosteroids, and drugs that can cause sinus tachycardia (salbutamol, theophylline, nifedipine, thyroxine). Over-the-counter drugs such as aspirin and NSAIDs.'];
+var HISTORY_PMH=['Past medical history','Similar episodes, previous diagnoses, treatments and response. Hypertension, hypercholesterolaemia, diabetes, anaemia. Angina, myocardial infarction, CVA or TIA, peripheral vascular disease (intermittent claudication), cardiac failure. Rheumatic fever or a heart murmur in childhood. Previous cardiac tests (echo, exercise test, coronary angiogram) and procedures (PCI, CABG, pacemaker, ICD or CRT, valve repair or replacement: mechanical or tissue). Connective tissue disease (pericarditis, Raynaud’s), Marfan’s (dissection), myotonic dystrophy (heart block). If endocarditis is possible: skin infection, recent dental work, intravenous drug use (Macleod p49, Box 4.9).'];
+var CVS_SOC=['Social history','Occupation: can they do a physical job, and do they drive for work or hold a safety-critical job (commercial driver, pilot)? Smoking (number of pack-years; the strongest risk factor for coronary and peripheral arterial disease). Alcohol (atrial fibrillation; in excess, hypertension, obesity and cardiomyopathy). Recreational drugs (cocaine and amphetamines: arrhythmia, chest pain, MI). Diet, stress or anxiety (Macleod p50).'];
+var CVS_FAM=['Family history','Premature coronary heart disease or stroke in a first-degree relative (under 60 in a female or under 55 in a male). Sudden unexplained death at a young age (cardiomyopathy, inherited arrhythmia). Cardiomyopathy. Familial hypercholesterolaemia. Aortic aneurysm or dissection. Venous thrombosis or thrombophilia. Congenital or rheumatic heart disease (Macleod p49 to 50).'];
+var CVS_DRUG=['Drugs and allergies','Antihypertensives, all cardiac drugs, and other drugs with cardiac side effects: angina worsened by thyroxine; heart failure worsened by beta-blockers, verapamil, diltiazem and NSAIDs; palpitation from thyroxine, salbutamol, theophylline, digoxin toxicity, low potassium from diuretics, tricyclics; fainting from vasodilators (nitrates, alpha-blockers, ACE inhibitors, ARBs) and rate-limiting drugs (beta-blockers, verapamil, diltiazem, digoxin, amiodarone); oedema from steroids, NSAIDs, nifedipine and amlodipine. Over-the-counter drugs such as aspirin and NSAIDs, and herbal or alternative remedies (Macleod p49, Box 4.8).'];
 
 /* ================= CARDIOVASCULAR ================= */
 H('chest','Chest pain',[
- ['Think of the causes','Myocardial ischaemia, pericarditis and pleurisy, musculoskeletal pain.'],
- ['Site','Central substernal, across the mid-thorax anteriorly, in both arms or shoulders, in the neck, cheeks or teeth, in the forearms or fingers, in the interscapular region (mostly ischaemia).'],
- ['Radiation','Neck, jaw, left arm.'],
- ['Onset','Acute or chronic, and the duration.'],
- ['Character','Crushing, tight, constricting, squeezing, burning, heaviness.'],
- ['Severity','Pain scale 1 to 10, or the limitation of daily activity.'],
- ['Associated symptoms','Sweating, nausea, shortness of breath, palpitations.'],
- ['Timing','On exertion? At rest? Any special time of occurrence?'],
- ['Precipitating and exacerbating factors','Exercise, excitement, stress, cold weather, after meals, smoking, lying flat.'],
- ['Alleviating factors','Rest, medication, oxygen.'],
- ['Exercise tolerance','How far can you walk on the flat before you need to stop and rest? What limits how far you can walk? Do you feel short of breath on hills or stairs? Do you have any discomfort or tightness in your chest when you walk? How long ago did you notice a problem, did it get worse suddenly or gradually, and how far could you walk a year or a month ago?'],
+ ['Think of the causes','Heart: myocardial ischaemia (angina, ACS), pericarditis. Aorta: aortic dissection. Lungs: pleurisy, pneumonia, pneumothorax, pulmonary embolism. Gut: oesophageal spasm and reflux. Chest wall: musculoskeletal pain. Anxiety (Macleod Box 4.1, 4.4).'],
+ ['Site','Central substernal, across the mid-thorax anteriorly, in both arms or shoulders, in the neck, jaw, throat or teeth, in the forearms or fingers (ischaemia). Interscapular, between the shoulder blades: think of aortic dissection (Macleod Box 4.4, p46).'],
+ ['Radiation','Ischaemia: arm(s), neck, jaw, sometimes the epigastrium; spread to one or both arms or shoulders makes MI more likely. Dissection: back, between the shoulders. Pericardial: shoulders or back. Oesophageal: often the back (Macleod p45, Box 4.4).'],
+ ['Onset','Acute or chronic, and the duration. Very sudden and worst at the start: dissection. Over a few minutes: MI. Builds over 1 to 2 minutes on effort: angina.'],
+ ['Character','Ischaemia: crushing, tight, constricting, squeezing, heaviness. Tearing or ripping: dissection. Sharp, stabbing, pleuritic: pericardial or pleural. Burning or gripping: oesophageal (Macleod Box 4.4).'],
+ ['Severity','Pain scale 1 to 10, or the limitation of daily activity. In angina, the effort needed to bring it on is a better guide to severity than how strong the pain is: grade it with the CCS class (I strenuous effort only; II slight limitation; III marked limitation, 1 to 2 blocks on the flat; IV any activity or at rest). Over 90% of dissections are severe or the worst ever (Macleod p45, Box 4.2).'],
+ ['Associated symptoms','Sweating, nausea or vomiting, shortness of breath, palpitations, restlessness, a feeling of impending death (MI). Fainting or neurological symptoms (dissection). Flu-like illness or fever (pericarditis). Heartburn or acid reflux (oesophageal). Pain like a previous heart attack makes MI more likely (Macleod p45 to 46).'],
+ ['Timing','On exertion? At rest? Any special time of occurrence? How often, how long (angina usually under 10 minutes; MI prolonged), and any recent change in the pattern: new, more frequent, longer, or on less effort suggests unstable angina (Macleod p45).'],
+ ['Precipitating and exacerbating factors','Exercise, excitement, stress, cold or windy weather, after meals, carrying a load (angina). Breathing in or lying down (pericardial). Lying flat or some foods (oesophageal). Twisting, turning or pressing (musculoskeletal).'],
+ ['Alleviating factors','Rest or GTN within minutes (angina; MI is not relieved by rest or nitrates). Sitting forward and NSAIDs (pericardial). Antacids; nitrates sometimes (oesophageal) (Macleod Box 4.4). Typical angina has all 3 of: typical retrosternal discomfort, brought on by exertion or emotion, relieved by rest or GTN within minutes (Box 4.3).'],
+ ['Exercise tolerance','How far can you walk on the flat before you need to stop and rest? What limits how far you can walk? Do you feel short of breath on hills or stairs? Do you have any discomfort or tightness in your chest when you walk? How long ago did you notice a problem, did it get worse suddenly or gradually, and how far could you walk a year or a month ago? What can you no longer do because of it?'],
+ ['Systematic enquiry','Palpitation, breathlessness, orthopnoea, ankle swelling, and any bleeding (anaemia can bring out angina) (Macleod OSCE example p81).'],
  HISTORY_PMH,CVS_SOC,CVS_FAM,CVS_DRUG]);
 H('palp','Palpitations',[
  ['Awareness','Have you had any palpitations, or awareness of your heart beating rapidly or abnormally strongly?'],
- ['Triggers','Does anything seem to provoke it?'],
- ['Onset and offset','Does it start suddenly or build up gradually? Does it stop suddenly or gradually? How long does it last?'],
- ['Other symptoms','Chest pain, fainting, dyspnoea.'],
- ['Rhythm','Can you tap the rhythm? Is it regular, irregular or regularly irregular? Fast or slow?'],
+ ['Rhythm','Can you tap the rhythm? Is it rapid, forceful or irregular? Regular, irregular or regularly irregular? Fast or slow? Missed beats followed by a thump suggest ectopics; fast and regular suggests SVT or VT; irregular suggests AF (Macleod p47 to 48, Box 4.7).'],
+ ['Onset and offset','Does it start suddenly or build up gradually? Does it stop suddenly or gradually? How long does it last, and how often does it happen?'],
+ ['Triggers','Does anything seem to provoke it? Exercise (sinus tachycardia, AF, VT), caffeine or alcohol (ectopics, AF), bending or small movements at rest (SVT), anxiety.'],
+ ['Relieving factors','Breath holding, straining or other vagal manoeuvres (SVT). Ectopic beats go away with exercise or walking (Macleod p47 to 48).'],
+ ['Other symptoms','Chest pain, fainting or near-fainting, dyspnoea, passing a lot of urine afterwards (SVT, AF).'],
+ ['High-risk features','Previous MI or cardiac surgery, fainting or severe chest pain with the palpitation, a family history of sudden death, Wolff–Parkinson–White syndrome, and structural heart disease such as HCM or aortic stenosis raise the chance of a life-threatening arrhythmia (Macleod p48).'],
  HISTORY_PMH,CVS_SOC,CVS_FAM,CVS_DRUG]);
 /* ================= RESPIRATORY ================= */
 H('breath','Breathlessness',[
@@ -8267,9 +8363,9 @@ H('hematuria','Haematuria',[
  ['Infection and tumour','Fever and rigor, weight loss, anorexia, night sweats.'],
  ['Other problems','Diabetes, hypertension, use of NSAIDs and antibiotics.']]);
 H('edema','Generalised oedema',[
- ['Think of the causes','Cardiac (congestive heart failure, constrictive pericarditis). Hepatic (cirrhosis). Renal (renal failure, nephrotic syndrome, mixed nephritic-nephrotic GN). GI (maldigestion, malabsorption, starvation, protein-losing enteropathy). Wet beriberi, cyclical oedema, allergic reaction, drugs, hypothyroidism, lymphoedema, chronic venous insufficiency, pregnancy and premenstrual oedema, obstructive sleep apnoea.'],
+ ['Think of the causes','Cardiac (congestive heart failure, the commonest bilateral cause; constrictive pericarditis). Immobility (dependent oedema in a patient who sits or lies all day). One leg only: think of DVT (Macleod p49, Box 4.1). Hepatic (cirrhosis). Renal (renal failure, nephrotic syndrome, mixed nephritic-nephrotic GN). GI (maldigestion, malabsorption, starvation, protein-losing enteropathy). Wet beriberi, cyclical oedema, allergic reaction, drugs, hypothyroidism, lymphoedema, chronic venous insufficiency, pregnancy and premenstrual oedema, obstructive sleep apnoea.'],
  ['General','Sleep problems, snoring, fatigue, weight change, mood disturbance, fever, excessive sweating, anorexia.'],
- ['Cardiopulmonary','Palpitations, SOB on exertion, orthopnoea, syncope.'],
+ ['Cardiopulmonary','Palpitations, SOB on exertion, orthopnoea, PND, syncope. Abdominal swelling or weight and muscle loss in advanced heart failure (Macleod p47, p49).'],
  ['GIT and liver','Chronic diarrhoea, chronic abdominal pain, repeated vomiting, jaundice, haematemesis, melaena.'],
  ['Renal','Oliguria or anuria, haematuria.'],
  ['Endocrine','Neck swelling, heat or cold intolerance, polyuria, polydipsia, fertility.'],
@@ -8316,18 +8412,19 @@ var PREP=['Prepare','Wash your hands, introduce yourself and take consent.'];
 /* ---------- Cardiovascular ---------- */
 C('cvs','Cardiovascular',['Chest pain','Palpitations'],{'Palpitations':'Nothing extra. Use the core exam as it is.'},[
  PREP,
- ['Bed space and appearance','Inspect the bed space for clues, for example a GTN spray. Inspect the general appearance: colour, breathing, position, build.'],
- ['Pulses','Check both radial pulses at the same time. Assess rate and rhythm in one radial pulse (usually the right). Assess the character and volume of the brachial pulse (normal, slow rising, collapsing); ask about arm pain before checking for a collapsing (water-hammer) pulse of aortic regurgitation. Assess the carotid pulse, one side at a time. Check the femoral pulses and their synchrony with the radial (radiofemoral delay in coarctation).'],
- ['Blood pressure','In both arms, and lying and standing in one arm.'],
- ['Eyes','Subconjunctival pallor, corneal arcus, xanthelasmata.'],
- ['Face and mouth','Malar flush (mitral stenosis). Central cyanosis. High-arched palate (Marfan’s). Dental caries (may predispose to infective endocarditis).'],
- ['JVP','Position the patient at 45 degrees and check for a raised JVP. Check for a low JVP using the hepatojugular reflux. Sit the patient upright and look near the ear lobes for venous pulsation; identify the two main waves by palpating the carotid.'],
- ['Precordium: inspection','Sternotomy scar, visible cardiac pulsations, severe pectus excavatum, severe kyphoscoliosis.'],
- ['Precordium: palpation','Palpate the apex beat for site and character. Palpate for parasternal heaves and other pulsations and thrills (palpable murmurs).'],
- ['Auscultation','Main areas of cardiac auscultation. Left axilla for mitral incompetence. Switch to the bell and auscultate the apex with the patient rolled 45 degrees to the left (mitral stenosis). Switch back to the diaphragm, sit the patient forward and auscultate at the 4th or 5th intercostal space left of the sternum in held expiration (aortic regurgitation).'],
- ['Lungs, back and carotids','Auscultate the lung bases and assess for sacral oedema. If coarctation is suspected, auscultate left of the spine in the 3rd or 4th intercostal space. Sit the patient back and auscultate the carotids for bruits or a transmitted aortic systolic murmur.'],
- ['Abdomen and legs','Lay the patient flat if they can tolerate it and palpate for hepatomegaly. If the liver is enlarged, feel for liver pulsation (tricuspid regurgitation). Check for pitting oedema at the ankles.'],
- ['Finish','Ophthalmoscopy for hypertensive retinopathy.']]);
+ ['Bed space and appearance','Position the patient reclined at 45 degrees with the head on a pillow. Inspect the bed space for clues, for example a GTN spray. Is the patient unwell, frightened or distressed? Breathless or cyanosed? Overweight or cachectic? Marfanoid features, or radial or saphenous vein harvest scars? If the patient is unstable (breathless, distressed, cyanosed or drowsy), use ABCDE first and leave the detailed examination for later (Macleod p50 to 51, 82).'],
+ ['Hands','Feel the temperature and measure the capillary refill time (normal 2 seconds or less; cool hands and slow refill mean poor perfusion). Look for tobacco staining, skin crease pallor and peripheral cyanosis. Nails: clubbing, splinter haemorrhages. Tendon xanthomata on the extensor tendons (familial hypercholesterolaemia). Palms: Janeway lesions and Osler’s nodes (endocarditis, rare now) (Macleod p51).'],
+ ['Pulses','Assess rate, rhythm, volume and character. Count the right radial pulse over 15 seconds and multiply by 4, and note the rhythm. Feel both radial pulses at the same time for asymmetry or delay. Ask about shoulder or arm pain before checking for a collapsing (water-hammer) pulse: feel with the base of your fingers and raise the arm vertically (aortic regurgitation). Assess the character and volume of the brachial pulse with your thumb (normal, slow rising, collapsing). Feel the carotid gently, one side at a time, never both together. Check the femoral pulses with the radial for radiofemoral delay (coarctation). In AF, count the apex rate too: apex minus radial rate is the pulse deficit (Macleod p52 to 54).'],
+ ['Blood pressure','Measure straight after the pulse. Rest the patient for 5 minutes, arm supported at heart level, correct cuff size; palpate the systolic first, then auscultate and deflate at 2 to 3 mmHg per second. Measure both arms: a difference over 10 mmHg on repeated readings suggests aortic or subclavian disease. Check lying and then after 2 minutes standing: a systolic fall over 20 mmHg is postural hypotension (Macleod p57).'],
+ ['Eyes','Subconjunctival pallor, corneal arcus, xanthelasmata, conjunctival petechiae (endocarditis).'],
+ ['Face and mouth','Central cyanosis (lips and underside of the tongue). Malar flush (mitral stenosis). High-arched palate (Marfan’s). Dental caries (may predispose to infective endocarditis).'],
+ ['JVP','Patient reclined at 45 degrees, head on a pillow turned slightly to the left. Look across the neck from the right side for a pulsation between the heads of sternocleidomastoid, above the clavicle. Confirm it is venous: it has two peaks, is impalpable, falls with pressure at the root of the neck, varies with breathing and position, and rises with the abdominojugular test (firm pressure on the abdomen). Measure the vertical height of the top of the pulsation above the sternal angle: over 3 cm strongly suggests a raised venous pressure. If no pulsation is seen and the venous pressure may be low, lie the patient flatter; if it may be very high, sit them upright and look near the ear lobes. Identify the waves by palpating the carotid. Note a rise on inspiration (Kussmaul’s sign) or a very high, non-pulsatile JVP (SVC obstruction) (Macleod p57 to 59).'],
+ ['Precordium: inspection','Sternotomy scar (valve surgery or CABG), left submammary scar (mitral valvotomy), infraclavicular scar or device bulge (pacemaker or ICD), visible cardiac pulsations, severe pectus excavatum, severe kyphoscoliosis.'],
+ ['Precordium: palpation','Place your right hand flat on the chest for a general impression. Find the apex beat with your fingers parallel to the ribs (the lowest and most lateral point); if you cannot feel it, roll the patient onto the left side. Count its position down from the 2nd space (just below the sternal angle) and assess the character: displaced = dilated left ventricle; sustained and forceful but not displaced = left ventricular hypertrophy; tapping = mitral stenosis. Place the heel of your hand at the left sternal edge with the breath held in expiration to feel for a right ventricular heave. Feel for thrills (palpable murmurs) at the apex and both sternal edges (Macleod p60).'],
+ ['Auscultation','Time S1 and S2 by feeling the carotid. Start at the apex: diaphragm at the apex, lower left sternal edge, then upper right and upper left sternal edges; then the bell at the apex and lower left sternal edge. Listen over the carotids and in the left axilla (mitral regurgitation). Roll the patient onto the left side and listen at the apex with the bell lightly applied (mitral stenosis). Sit the patient forward, breath out and held, and listen with the diaphragm at the right 2nd intercostal space and the left sternal edge (aortic regurgitation). Describe any murmur by timing, character and pitch, intensity (grade 1 to 6), site and radiation (Macleod p61 to 62).'],
+ ['Lungs, back and carotids','Auscultate the lung bases and assess for sacral oedema. If coarctation is suspected, auscultate left of the spine in the 3rd or 4th intercostal space. Sit the patient back and auscultate the carotids for bruits or a transmitted aortic systolic murmur with the diaphragm, breath held.'],
+ ['Abdomen and legs','Lay the patient flat if they can tolerate it and palpate for hepatomegaly. If the liver is enlarged, feel for liver pulsation (tricuspid regurgitation). Check for pitting oedema: press over the tibia above the ankle for a few seconds.'],
+ ['Finish','Ophthalmoscopy for hypertensive and diabetic retinopathy and Roth’s spots. Check the temperature (endocarditis, pericarditis, after MI), look over the skin for petechiae and dip the urine (blood, glucose, protein) (Macleod p51).']]);
 
 /* ---------- Respiratory ---------- */
 C('resp','Respiratory',['Cough and sputum','Breathlessness','Haemoptysis'],{'Haemoptysis':'Nothing extra. Use the core exam as it is.'},[
