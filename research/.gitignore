@@ -2,3 +2,6 @@
 output/analysed.pkl
 *.xlsx.raw
 __pycache__/
+
+# participant-level SPSS data stays out of the repository
+output/spss/*.sav
