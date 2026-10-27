@@ -11854,17 +11854,33 @@ function studyLinks(e){
 /* Visitor count with GoatCounter: no cookies and nothing personal (no names, no patient data).
    It stays off until GC_CODE is set to the dashboard code (https://<code>.goatcounter.com). */
 var GC_CODE='yaseen279';
-var GC={on:false,last:''};
-function gcInit(){
-  if(!GC_CODE||location.protocol!=='https:')return;
+var GC={on:false,loading:false,last:'',KQ:'bhe.gcq'};
+/* Every hit goes into a small queue on the phone first, so visits made offline are sent once there is internet again. */
+function gcQ(){try{return JSON.parse(localStorage.getItem(GC.KQ)||'[]')}catch(x){return []}}
+function gcSaveQ(q){try{localStorage.setItem(GC.KQ,JSON.stringify(q.slice(-200)))}catch(x){}}
+function gcLoad(){
+  if(GC.on||GC.loading||navigator.onLine===false)return;GC.loading=true;
   window.goatcounter={no_onload:true};
   var s=document.createElement('script');s.async=true;s.src='https://gc.zgo.at/count.js';s.dataset.goatcounter='https://'+GC_CODE+'.goatcounter.com/count';
-  s.onload=function(){GC.on=true;var app=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone;gcHit('/'+(app?'app':'web'),app?'Opened the installed app':'Opened the website',false);gcScreen()};
+  s.onload=function(){GC.loading=false;GC.on=!!(window.goatcounter&&goatcounter.count);gcFlush()};
+  s.onerror=function(){GC.loading=false;s.remove()};
   document.head.appendChild(s);
 }
-function gcHit(path,title,ev){try{if(GC.on&&window.goatcounter&&goatcounter.count)goatcounter.count({path:path,title:title,event:!!ev})}catch(x){}}
+function gcFlush(){
+  if(!GC.on){gcLoad();return}
+  var q=gcQ();if(!q.length)return;gcSaveQ([]);
+  q.forEach(function(h){try{goatcounter.count({path:h.p,title:h.t,event:!!h.e})}catch(x){}});
+}
+function gcInit(){
+  if(!GC_CODE||location.protocol!=='https:')return;
+  var app=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone;
+  gcHit('/'+(app?'app':'web'),app?'Opened the installed app':'Opened the website',false);
+  window.addEventListener('online',gcFlush);
+  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')gcFlush()});
+}
+function gcHit(path,title,ev){if(!GC_CODE||location.protocol!=='https:')return;var q=gcQ();q.push({p:path,t:title,e:!!ev});gcSaveQ(q);gcFlush()}
 function gcScreen(){
-  if(!GC.on)return;
+  if(!GC_CODE)return;
   var e=curEnc(),k=UI.tab==='enc'?(!e||UI.pick?'home':'case-'+UI.stage):UI.tab==='prac'?'practice'+(UI.pr?'-'+UI.pr:''):UI.tab;
   if(k===GC.last)return;GC.last=k;gcHit('screen-'+k,'Screen: '+k,true);
 }
