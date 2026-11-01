@@ -11,6 +11,7 @@ OUT = sys.argv[1]; ST = f'{OUT}/study'; os.makedirs(ST, exist_ok=True)
 d = pd.read_pickle(f'{OUT}/analysed.pkl')
 X = pd.read_excel(f'{OUT}/tables/all_results.xlsx', sheet_name=None, index_col=0)
 R = json.load(open(f'{OUT}/summary.json'))
+E = json.load(open(f'{OUT}/extra.json'))
 FIG = os.path.abspath(f'{OUT}/figures')
 n = len(d)
 
@@ -56,6 +57,9 @@ N = dict(
  nreq=ss['n_needed_r_0_20'], pw=f'{ss["power_r_0_20"]*100:.0f}%', mdr=f'{ss["min_detectable_r"]:.2f}', moe=f'{ss["moe_at_n"]:.1f}',
  inc=R['ai_inconsistent'], inc_css=f'{d.loc[d.ai_model_inconsistent==1,"CSS"].mean():.1f}', non_css=f'{d.loc[d.ai_user==0,"CSS"].mean():.1f}',
  ms_r=f'{R["medstud_corr"]["r_med"]:.2f}', ot_r=f'{R["medstud_corr"]["r_other"]:.2f}',
+ ai_tick=f'{E["ai_profile"]["ticked_ai_pct"]:.1f}%', aucc=f'{E["auc"]["corrected"]:.2f}', disr=f'{E["disattenuated_r"]:.2f}',
+ r13=f'{E["item2"]["r_13item_raw"]:.2f}', nsSq=f'{bh("Never disclose to physician","zSHAI").q_FDR:.3f}', nsCq=f'{bh("Never disclose to physician","zCSS").q_FDR:.3f}',
+ srmr=f'{E["srmr"]["css4"]:.3f}', ge29=f'{R["sensitivity"]["prev_SHAI_ge_29"]:.1f}%',
 )
 
 # numbers + figure aspect ratios for the slide deck
@@ -113,16 +117,16 @@ def img(name, cap, w='100%'):
 # ============================================================ ONE-PAGE SUMMARY
 summary = f"""<!doctype html><html><head><meta charset="utf-8"><title>Summary of Findings</title><style>{CSS_BASE}
 @page {{ margin: 11mm 13mm; }}
-body {{ font-size: 9.7pt; line-height: 1.42; }}
+body {{ font-size: 9.2pt; line-height: 1.36; }}
 h2 {{ font-size: 10.5pt; margin: 9px 0 4px; }}
 .find li {{ margin: 3px 0; }}
 .two {{ display: grid; grid-template-columns: 1.15fr 1fr; gap: 12px; }}
 </style></head><body>
 <div class="muted small">Graduation research · One-page summary of findings</div>
-<h1>Artificial Intelligence, Search Engines, and Cyberchondria: A Study of Patient Pre-Consultation Behavior in Baghdad</h1>
+<h1>Health Anxiety, AI Chatbot Use and Cyberchondria Among Adults in Baghdad: An Online Cross-Sectional Survey</h1>
 <p class="small muted"><b>Design:</b> analytical cross-sectional online survey (Google Forms), Baghdad, {N['d0']} – {N['d1']} · <b>n = {n}</b> adults · <b>Tools:</b> Short Health Anxiety Inventory (SHAI-14, 0–42) and Cyberchondria Severity Scale short form (CSS-12, 12–60; four subscales) · <b>Analysis:</b> Spearman/Pearson and partial correlation, non-parametric tests with FDR correction, robust hierarchical and logistic regression, bootstrapped mediation and moderation.</p>
 <div class="tiles">
- <div class="tile"><div class="v">{N['ai']}</div><div class="l">use AI chatbots for symptoms (search engines {N['se']})</div></div>
+ <div class="tile"><div class="v">{N['ai']}</div><div class="l">use AI chatbots for symptoms ({N['ai_tick']} ticked; search engines {N['se']})</div></div>
  <div class="tile"><div class="v">{N['hac']}</div><div class="l">elevated health anxiety (SHAI ≥ 18; 95% CI {N['hac_ci']})</div></div>
  <div class="tile"><div class="v">r = {N['r']}</div><div class="l">health anxiety ↔ cyberchondria (95% CI {N['rci']}), p &lt; 0.001</div></div>
  <div class="tile"><div class="v">{N['never']}</div><div class="l">never tell their doctor about online/AI searches</div></div>
@@ -130,11 +134,11 @@ h2 {{ font-size: 10.5pt; margin: 9px 0 4px; }}
 <div class="two"><div>
 <h2>Key findings</h2>
 <ol class="find">
- <li><b>AI is now the main gateway.</b> {N['ai']} use AI chatbots (ChatGPT {N['gpt']} of all), ahead of search engines ({N['se']}); {N['ai_only']} use AI without any search engine. Convenience ({N['conv']}), "do I need a doctor?" ({N['tri']}) and instant reassurance ({N['reas']}) are the main motives.</li>
+ <li><b>AI is now a main gateway.</b> {N['ai_tick']} ticked AI chatbots ({N['ai']} including those who named one; ChatGPT {N['gpt']} of all), ahead of search engines ({N['se']}); {N['ai_only']} use AI without any search engine. Main motives: convenience, "do I need a doctor?" and instant reassurance.</li>
  <li><b>Health anxiety and cyberchondria travel together.</b> r = {N['r']}; unchanged after adjusting for all covariates (partial r = {N['pr']}). Strongest for <i>excessive searching</i> (r = {N['rE']}) and <i>post-search distress</i> (r = {N['rD']}); weaker for compulsion ({N['rC']}) and reassurance seeking ({N['rR']}).</li>
  <li><b>Health anxiety is the dominant predictor of cyberchondria</b> (β = {N['beta']}); demographics explain almost nothing (R² = {N['R2a']}); adding health anxiety raises R² from {N['R2b']} to {N['R2c']}.</li>
  <li><b>What drives searching is fear, not noticing.</b> Fear of serious illness and interpreting sensations track cyberchondria; mere awareness of aches and sensations does not ({N['ibF']}/168 item pairs significant after FDR).</li>
- <li><b>Pattern consistent with a cycle:</b> health anxiety → excessive searching → post-search distress (indirect effect {N['mA']}) → reassurance-seeking visits (statistically, distress almost fully mediates; direct effect {N['mCd']}). The reverse path is also significant: compatible with mutual reinforcement, not proof of it.</li>
+ <li><b>Compatible with a cycle (exploratory):</b> most of the association runs statistically through excessive searching (indirect {N['mA']}) and post-search distress, but the reverse ordering fits equally well and the facets come from one questionnaire, so direction cannot be shown.</li>
  <li><b>Who is most anxious:</b> younger people, those with a chronic condition, social-media searchers, and those searching for instant reassurance (AOR {N['orMot']}).</li>
 </ol>
 </div><div>
@@ -142,18 +146,18 @@ h2 {{ font-size: 10.5pt; margin: 9px 0 4px; }}
 <ul>
  <li>{N['dr']} delay or skip care because the search reassured them; {N['ign']} ignore the symptom.</li>
  <li>{N['mdoc']} visit several doctors; {N['urg']} seek urgent care/ER; {N['smed']} self-medicate.</li>
- <li>Higher cyberchondria → more urgent visits (AOR {N['urC']}/SD), less ignoring (AOR {N['igC']}/SD), exploratory after FDR correction.</li>
- <li><b>Concealment paradox:</b> higher health anxiety → <i>more</i> hiding of searches from the doctor (AOR {N['nsS']}); higher cyberchondria → <i>less</i> (AOR {N['nsC']}).</li>
+ <li>Higher cyberchondria → more urgent visits (AOR {N['urC']}/SD), less ignoring (AOR {N['igC']}/SD): exploratory after FDR correction.</li>
+ <li><b>Disclosure:</b> higher cyberchondria → <i>more</i> disclosure of searches to the doctor (AOR {N['nsC']} for never disclosing; q = {N['nsCq']}, the only behaviour result surviving FDR). Health anxiety → more hiding was nominal only (AOR {N['nsS']}, q = {N['nsSq']}).</li>
  <li>{N['relneg']} say searching has complicated or reduced their trust in physicians.</li>
 </ul>
 <h2>AI chatbots</h2>
-<p>AI users had higher cyberchondria (B = +{N['Bai']} points, adjusted), mainly excessiveness and reassurance seeking, <b>but</b> this depends on classifying {N['inc']} inconsistent answers and on only 34 non-users. AI use did not change the strength of the anxiety–cyberchondria link.</p>
+<p><b>No reliable evidence</b> that AI use is linked to cyberchondria beyond health anxiety: the +{N['Bai']}-point difference disappeared under the strict definition (B = {N['Balt']}, p = {N['palt']}), rested on 34 older non-users, and AI use did not change the anxiety–cyberchondria link.</p>
 <h2>Quality of evidence</h2>
-<p>Reliable scales (α {N['aS']} and {N['aC']}); CSS-12 four-factor structure confirmed; Arabic and English responders equivalent; results robust to sensitivity analyses and replicated by an independent analysis (except the AI effect).</p>
+<p>Reliable scales (α {N['aS']} and {N['aC']}); CSS-12 four-factor structure acceptable (ML SRMR {N['srmr']}); Arabic and English responders structurally similar; results robust to sensitivity analyses (including dropping the one reordered SHAI item, r = {N['r13']}) and replicated by an independent analysis (except the AI effect).</p>
 </div></div>
 <h2>Implications</h2>
 <p><b>Clinicians:</b> ask every patient, without judgement, what they searched or asked an AI; treat repeated searching plus distress as a marker of health anxiety. <b>Public health:</b> digital and AI health-literacy campaigns in Arabic; warn about false reassurance. <b>AI developers:</b> anxiety-aware answers that avoid escalating rare diagnoses. <b>Research:</b> longitudinal studies to test the direction of the cycle.</p>
-<p class="small muted"><b>Limitations:</b> cross-sectional (no causality); online convenience sample, young and 44% medical students; Arabic wording not formally back-translated; single-item behaviour measures; self-report.</p>
+<p class="small muted"><b>Limitations:</b> cross-sectional (no causality); online convenience sample, young and 44% medical students; Arabic wording not formally adapted (published Arabic versions not used); SHAI ≥ 18 is not a diagnosis (only {N['ge29']} at the stricter cut-off of 29); single-item behaviour measures; self-report.</p>
 </body></html>"""
 open(f'{ST}/summary.html', 'w').write(summary)
 
@@ -199,7 +203,7 @@ guide = f"""<!doctype html><html><head><meta charset="utf-8"><title>Study and De
 
 <div class="cover">
  <div class="muted">Study &amp; Defence Guide</div>
- <h1>Artificial Intelligence, Search Engines, and Cyberchondria: A Study of Patient Pre-Consultation Behavior in Baghdad</h1>
+ <h1>Health Anxiety, AI Chatbot Use and Cyberchondria Among Adults in Baghdad: An Online Cross-Sectional Survey</h1>
  <p class="muted" style="font-size:11pt">Everything you need to understand your research, explain every number, present it in 12–15 minutes, and answer the committee's questions.</p>
  <div class="tiles" style="margin-top:20px">
   <div class="tile"><div class="v">{n}</div><div class="l">participants, Baghdad</div></div>
@@ -217,16 +221,16 @@ guide = f"""<!doctype html><html><head><meta charset="utf-8"><title>Study and De
 
 <h2 class="page-break">1. The study in 60 seconds</h2>
 <div class="box say"><b>Say this if asked "summarise your research":</b><br>
-"Many people now look up their symptoms online, and increasingly they ask AI chatbots like ChatGPT before they see a doctor. We wanted to know how this relates to health anxiety and to cyberchondria, which is online searching that makes worry worse instead of better. We surveyed {n} adults in Baghdad using two validated scales, the SHAI-14 and the CSS-12. We found that AI chatbots are now the main source, used by {N['ai']}. About {N['hac']} had elevated health anxiety. Health anxiety and cyberchondria were moderately correlated, r = {N['r']}, and health anxiety was the strongest predictor of cyberchondria, especially of excessive searching and distress after searching. The pattern is consistent with a cycle in which anxiety drives searching, searching drives distress, and distress drives extra doctor visits. Searching also shapes the consultation: about a third delay care because they feel reassured, and a third never tell their doctor about their searches. Because the study is cross-sectional, we cannot prove the direction of the cycle."</div>
+"Many people now look up their symptoms online, and increasingly they ask AI chatbots like ChatGPT before they see a doctor. We wanted to know how this relates to health anxiety and to cyberchondria, which is online searching that makes worry worse instead of better. We surveyed {n} adults in Baghdad using two validated scales, the SHAI-14 and the CSS-12. We found that AI chatbots are now a main source: {N['ai_tick']} ticked them, {N['ai']} if we include those who named a chatbot. About {N['hac']} had elevated health anxiety. Health anxiety and cyberchondria were moderately correlated, r = {N['r']}, and health anxiety was the strongest predictor of cyberchondria, especially of excessive searching and distress after searching. The pattern is consistent with a cycle in which anxiety drives searching, searching drives distress, and distress drives extra doctor visits. Searching also shapes the consultation: about a third delay care because they feel reassured, and a third never tell their doctor about their searches. Because the study is cross-sectional, we cannot prove the direction of the cycle."</div>
 <h3>Aim</h3><p>To study the relationship between health anxiety and cyberchondria and their correlates among adults in Baghdad who search for health information online, with attention to AI chatbots and pre-consultation behaviour.</p>
 <h3>Objectives (memorise the gist)</h3>
-<ol><li>Describe tools, motives and behaviours of online health searching (including AI).</li><li>Measure levels of health anxiety and cyberchondria.</li><li>Measure the strength of their association, overall and by dimension.</li><li>Test every variable's association with both.</li><li>Find independent predictors (multivariable models).</li><li>Test pathways (mediation) and modifiers (moderation).</li><li>Link both to pre-consultation behaviour, disclosure and trust in doctors.</li></ol>
+<ol><li>Describe online and AI health-information seeking and behaviour before consulting a doctor.</li><li>Estimate levels of health anxiety and cyberchondria and their association, independent of other factors (H1, H2).</li><li>Explore statistical pathways and modifiers (H3).</li><li>Link both to behaviour, disclosure and trust in doctors (H4).</li></ol><p><b>H1–H2 are primary (confirmatory), H3–H4 secondary; everything else is exploratory.</b></p>
 <h3>Hypotheses and verdicts</h3>
 <table><tr><th>Hypothesis</th><th>Verdict</th></tr>
 <tr><td>H1: Health anxiety is positively associated with cyberchondria, most strongly with distress and excessiveness.</td><td><b>Supported</b> (r = {N['r']}; excessiveness {N['rE']}, distress {N['rD']})</td></tr>
 <tr><td>H2: The association is independent of socio-demographic and digital factors.</td><td><b>Supported</b> (partial r = {N['pr']}; β = {N['beta']})</td></tr>
-<tr><td>H3: Excessive searching mediates the link between health anxiety and post-search distress.</td><td><b>Supported</b>, partial mediation (indirect {N['mA']}, 95% CI {N['mAci']}). Cross-sectional caveat.</td></tr>
-<tr><td>H4: Higher cyberchondria goes with care-seeking and a strained doctor relationship.</td><td><b>Partly supported</b>: urgent visits and strained relationship yes; multiple doctors not independently; most behaviour results exploratory after FDR.</td></tr></table>
+<tr><td>H3: Excessive searching mediates the link between health anxiety and post-search distress.</td><td><b>Supported statistically, not causally</b> (indirect {N['mA']}, 95% CI {N['mAci']}); reverse ordering fits equally well.</td></tr>
+<tr><td>H4: Higher cyberchondria goes with care-seeking and a strained doctor relationship.</td><td><b>Partly supported</b>: only higher cyberchondria → more disclosure survives FDR; urgent visits and strained relationship are exploratory.</td></tr></table>
 
 <h2 class="page-break">2. Background concepts</h2>
 <h3>Health anxiety</h3>
@@ -284,10 +288,10 @@ guide = f"""<!doctype html><html><head><meta charset="utf-8"><title>Study and De
 <div class="box warn">The sample is young and dominated by medical students: say so before the committee does.</div>
 <h3>5.2 How people search</h3>
 {img('fig2_tools_motives.png', 'Figure 1 of the thesis: tools and motivations.')}
-<div class="box say"><b>What to say:</b> "AI chatbots have overtaken search engines: {N['ai']} use them versus {N['se']} for search engines, and {N['ai_only']} use AI without any search engine. ChatGPT dominates. People search mainly for convenience, to decide whether they need a doctor, and for instant reassurance."</div>
+<div class="box say"><b>What to say:</b> "AI chatbots have overtaken search engines: {N['ai_tick']} ticked them ({N['ai']} including those who named one) versus {N['se']} for search engines, and {N['ai_only']} use AI without any search engine. ChatGPT dominates. People search mainly for convenience, to decide whether they need a doctor, and for instant reassurance."</div>
 <h3>5.3 What they do after searching</h3>
 {img('fig3_behaviours.png', 'Figure 2 of the thesis: behaviour, disclosure and relationship.')}
-<div class="box say"><b>What to say:</b> "The most common response is to delay or skip care because the search reassured them ({N['dr']}). Others go the opposite way: {N['urg']} seek urgent care and {N['mdoc']} see several doctors. Only {N['always']} always tell their doctor what they found; {N['never']} never do, for fear of being judged. And {N['relneg']} feel searching has complicated their relationship with doctors."</div>
+<div class="box say"><b>What to say:</b> "The most common response is to delay or skip care because the search reassured them ({N['dr']}). Others go the opposite way: {N['urg']} seek urgent care and {N['mdoc']} see several doctors. Only {N['always']} always tell their doctor what they found; {N['never']} never do, citing fear of being judged. And {N['relneg']} feel searching has complicated their relationship with doctors."</div>
 <h3>5.4 Levels of health anxiety and cyberchondria</h3>
 <p>SHAI mean {N['shai_m']} ± {N['shai_sd']}; {N['hac']} ≥ 18 (95% CI {N['hac_ci']}). CSS mean {N['css_m']} ± {N['css_sd']}. Excessiveness highest, compulsion lowest: people search a lot, but it rarely disrupts their lives.</p>
 <h3>5.5 The main result: health anxiety and cyberchondria</h3>
@@ -306,19 +310,19 @@ guide = f"""<!doctype html><html><head><meta charset="utf-8"><title>Study and De
 {img('fig7_forest_HA.png', 'Figure 6 of the thesis: adjusted odds ratios for SHAI ≥ 18.', '75%')}
 <h3>5.9 Pathways (mediation)</h3>
 {img('fig8_mediation.png', 'Figure 7 of the thesis: mediation models.')}
-<div class="box say"><b>What to say:</b> "We tested your question of whether anxiety and searching feed each other. Excessive searching carries part of the link between health anxiety and distress (indirect effect {N['mA']}). Distress after searching carries almost all of the link between health anxiety and reassurance-seeking visits; the direct effect drops to {N['mCd']}. The reverse ordering is also significant ({N['mD']}). This is what a two-way cycle would look like, but with one-time data we cannot prove which comes first."</div>
+<div class="box say"><b>What to say:</b> "As an exploratory decomposition, most of the link between health anxiety and distress runs statistically through excessive searching (indirect {N['mA']}), and distress statistically accounts for almost all of the link with reassurance-seeking visits (direct effect {N['mCd']}). But the reverse ordering fits just as well ({N['mD']}), and all the facets come from one questionnaire, so this is compatible with a cycle; it does not show one."</div>
 <h3>5.10 Behaviour models</h3>
-<p>Higher cyberchondria: more urgent visits (AOR {N['urC']}), less ignoring (AOR {N['igC']}). Disclosure paradox: SHAI AOR {N['nsS']} for never disclosing, CSS AOR {N['nsC']}. Higher trust: fewer multiple-doctor visits (AOR {N['mdT']}). Neither score predicts self-medication or reassured delay. Only the disclosure finding survives FDR; the rest are exploratory.</p>
+<p>Higher cyberchondria: more urgent visits (AOR {N['urC']}), less ignoring (AOR {N['igC']}). Disclosure: CSS AOR {N['nsC']} for never disclosing (q = {N['nsCq']}, survives FDR); SHAI AOR {N['nsS']} (q = {N['nsSq']}, exploratory). Higher trust: fewer multiple-doctor visits (AOR {N['mdT']}). Neither score predicts self-medication or reassured delay. Only the cyberchondria–disclosure result survives FDR; the rest are exploratory. Apparent AUC {N['auc']}, optimism-corrected {N['aucc']}.</p>
 <h3>5.11 Moderation and robustness</h3>
-<p>No moderator changed the HA–CSS link (trust, AI use, background, gender, chronic disease, language, age). Medical students r = {N['ms_r']} vs others {N['ot_r']} (not significantly different). Excluding flagged or straight-line responders: r unchanged ({sens['excluding_flagged_r']:.2f} / {sens['excluding_straightliners_r']:.2f}).</p>
+<p>No moderator changed the HA–CSS link (trust, AI use, background, gender, chronic disease, language, age). Medical students r = {N['ms_r']} vs others {N['ot_r']} (not significantly different). Excluding flagged or straight-line responders: r unchanged ({sens['excluding_flagged_r']:.2f} / {sens['excluding_straightliners_r']:.2f}); dropping the reordered SHAI item 2 (13-item total, 0–39): r = {N['r13']}.</p>
 
 <h2 class="page-break">6. Interpreting the findings</h2>
 <ul>
-<li><b>Why is our r ({N['r']}) lower than meta-analyses (~0.62)?</b> Low-anxiety sample with a narrow range; young, digitally habitual users for whom searching is routine; most earlier studies used the 33-item CSS, which overlaps more with health anxiety.</li>
+<li><b>Why is our r ({N['r']}) lower than meta-analyses (~0.62)?</b> Partly measurement error: corrected for reliability, r ≈ {N['disr']}, close to the meta-analyses (but our result is still {N['r']}). Also a low-anxiety sample with a narrow range; young, digitally habitual users for whom searching is routine; most earlier studies used the 33-item CSS, which overlaps more with health anxiety.</li>
 <li><b>Fear, not vigilance:</b> interpretation and fear items drive cyberchondria, which fits the cognitive model of health anxiety.</li>
-<li><b>AI chatbots:</b> a new channel rather than a proven new cause. Conversational, empathetic answers may invite "one more question". The effect is sensitive to classification ({N['inc']} inconsistent answers; only 34 non-users).</li>
+<li><b>AI chatbots:</b> no reliable evidence of an association beyond health anxiety (the effect vanishes under the strict definition; {N['inc']} inconsistent answers; only 34 non-users). Say "absence of evidence", not "evidence of absence".</li>
 <li><b>Two opposite behaviours:</b> searching pushes some people to complacency (delay, ignore) and others to over-use (urgent visits, multiple doctors). The reassured delay happens regardless of anxiety level, which is a safety concern.</li>
-<li><b>Concealment paradox:</b> health-anxious people hide searching (fear of being labelled "worried well"), while heavy searchers bring findings to the doctor as reassurance seeking. Clinicians must ask.</li>
+<li><b>Disclosure:</b> heavy searchers bring findings to the doctor (robust). Health-anxious people may hide searching for fear of being labelled "worried well", but that result is nominal only. The option itself mixed "never" with "fear of judgement". Clinicians should ask.</li>
 <li><b>Medical students:</b> higher health anxiety only before adjustment (an age effect); identical cyberchondria to others, so medical knowledge does not protect.</li>
 </ul>
 
@@ -326,8 +330,8 @@ guide = f"""<!doctype html><html><head><meta charset="utf-8"><title>Study and De
 <table><tr><th style="width:26%">Limitation</th><th>How to answer</th></tr>
 <tr><td>Cross-sectional: no causality</td><td>"Correct. We use the word association throughout, and we present mediation as consistent with, not proof of, a cycle. We tested the reverse direction too and recommend longitudinal work."</td></tr>
 <tr><td>Convenience sample, 44% medical students, young</td><td>"Prevalence and AI-use figures cannot be generalised to all of Baghdad. But associations are less sensitive to sampling than prevalences, the HA–CSS link was the same in every subgroup, and medical students did not differ in cyberchondria."</td></tr>
-<tr><td>Arabic not back-translated</td><td>"We tested equivalence empirically: identical reliability, highly congruent factor loadings (≈ 0.99), and no score difference between Arabic and English responders after adjustment. Formal validation is a recommendation."</td></tr>
-<tr><td>SHAI cut-off from a Swedish study</td><td>"It is used as an indicator, not a diagnosis; we reported prevalence at 15, 18 and 22, and analysed SHAI as a continuous score."</td></tr>
+<tr><td>Arabic not back-translated</td><td>"That was a limitation of our planning; validated Arabic versions exist and we recommend them. Internally, reliability was identical across languages, factor loadings were very similar (≈ 0.99, approximate structural similarity, not formal invariance) and scores did not differ, so we present results as conditional on equivalence."</td></tr>
+<tr><td>SHAI cut-off from a Swedish study</td><td>"It is used as an indicator, not a diagnosis; it is a Swedish threshold separating patients from healthy controls. At the low-prevalence cut-off of 29 only {N['ge29']} qualify, so clinically significant health anxiety is uncommon. We analysed SHAI as a continuous score."</td></tr>
 <tr><td>Behaviour items not validated / multi-select</td><td>"They are descriptive, single items. We treat their associations as exploratory and say so."</td></tr>
 <tr><td>Many tests</td><td>"We applied FDR correction and distinguished robust from exploratory findings."</td></tr>
 <tr><td>AI effect depends on coding</td><td>"We report it transparently: with the strict definition the effect disappears, so it is a tentative finding."</td></tr>
@@ -366,9 +370,9 @@ guide = f"""<!doctype html><html><head><meta charset="utf-8"><title>Study and De
  ('Levels', '45 s', f'SHAI mean {N["shai_m"]}; {N["hac"]} ≥ 18; CSS mean {N["css_m"]}; reliability α {N["aS"]} / {N["aC"]}.'),
  ('Main result', '1.5 min', f'Scatter plot: r = {N["r"]}, partial r = {N["pr"]}; subscale correlations; regression β = {N["beta"]}.'),
  ('What drives it', '1 min', 'Item-by-item heatmap: fear and interpretation, not awareness.'),
- ('Pathways', '1.5 min', 'Mediation figure; say clearly "consistent with a cycle, not proof".'),
- ('Behaviour and the doctor', '1.5 min', f'Delay {N["dr"]}, never disclose {N["never"]}, urgent care; disclosure paradox.'),
- ('AI chatbots', '45 s', 'Higher cyberchondria in AI users, but sensitive to classification; a new channel, not a proven cause.'),
+ ('Pathways', '1.5 min', 'Mediation figure; say "exploratory decomposition, compatible with a cycle, not proof".'),
+ ('Behaviour and the doctor', '1.5 min', f'Delay {N["dr"]}, never disclose {N["never"]}, urgent care; disclosure (cyberchondria → more disclosure is the robust result).'),
+ ('AI chatbots', '45 s', 'Both prevalences (78% ticked, 89% incl. named); association not robust to classification; no reliable evidence beyond health anxiety.'),
  ('Limitations', '1 min', 'Cross-sectional, sample, translation, single items; how each was mitigated.'),
  ('Conclusions and recommendations', '1 min', 'Three conclusions + recommendations for clinicians, public health, AI developers, research.'),
  ('Thank you / questions', '-', 'Keep the main figure on screen while taking questions.'),
@@ -377,32 +381,38 @@ guide = f"""<!doctype html><html><head><meta charset="utf-8"><title>Study and De
 <h2 class="page-break">10. Anticipated committee questions with model answers</h2>
 <h3>About the design and sample</h3>
 {qa('Why a cross-sectional design?', 'It is the most feasible design for a graduation project and suitable for measuring associations. We are clear that it cannot establish causality; a longitudinal design is recommended.')}
-{qa('How do you know participants were from Baghdad?', 'The link was distributed only through Baghdad-based online groups. We did not include a residence question, which we acknowledge as a limitation.')}
+{qa('How do you know participants were from Baghdad?', 'We do not; residence was not verified. Recruitment channels were Baghdad-based, which we state as a limitation.')}
+{qa('Is your sample really patients?', 'No. It is a convenience sample of mostly young adults with a health background, which is why we revised the title.')}
 {qa('Your sample is mostly medical students. Is that a problem?', f'It limits generalisability of percentages such as AI use and prevalence. But the main association was the same across all occupational groups, medical students did not differ in cyberchondria, and we adjusted for occupation in all models.')}
 {qa('How did you calculate the sample size?', f'For the primary objective, a correlation: detecting r = 0.20 with 80% power and α = 0.05 requires {N["nreq"]}. We exceeded that with {n}. We did not report post-hoc power, which reviewers discourage. For proportions, the margin of error is ±{N["moe"]}%.')}
 {qa('Why did you include participants who answered in English?', 'Many students in Baghdad study in English. Offering both languages improved accessibility. We checked that both language groups responded equivalently.')}
 <h3>About the instruments</h3>
 {qa('Why the SHAI-14 and the CSS-12?', 'They are the most widely used validated measures of each construct, they are short (good for online surveys), the CSS-12 was validated against the SHAI, and both have Arabic versions in the literature.')}
-{qa('Were the scales validated in Arabic?', 'Arabic versions exist (Alshayea 2020 for the SHAI; Hallit 2023 for the CSS-12). We used our own wording, so we tested reliability and structure in our data: α 0.81 and 0.86, four-factor CSS structure confirmed, and equivalent results for Arabic and English responders.')}
+{qa('Why did you not use the validated Arabic CSS-12 and SHAI?', 'That was a limitation of our planning. We produced our own wording and tested it internally: α 0.81 and 0.86, equal reliability across languages and very similar factor loadings (Tucker φ ≈ 0.99). That is not formal invariance, so we present the results as conditional, and we recommend the Hallit 2023, Alshaibani 2023 and Alshayea 2020 versions for future work.')}
 {qa('Why a cut-off of 18?', 'It was the optimal SHAI-14 cut-off for distinguishing health anxiety from healthy controls in a 2022 diagnostic-accuracy study. It is an indicator, not a diagnosis, so we also report 15 and 22 and use the continuous score.')}
-{qa('What about the answer-order differences on the form?', 'Items were scored by the meaning of the statement chosen, following the original scoring key, so the order did not affect scores.')}
+{qa('What about the answer-order difference on the form?', f'Only one SHAI item (item 2, noticing aches and pains) was shown out of order. We scored it by meaning, and dropping it entirely left the result unchanged (r = {N["r13"]} with the 13-item total).')}
+{qa('Why does CSS item 3 mention only search engines?', 'It is the original wording. We acknowledge it may under-capture repeated chatbot querying and recommend adapting it to "search engine or AI chatbot".')}
 <h3>About the analysis</h3>
 {qa('Why both Pearson and Spearman?', 'Pearson is standard and comparable with meta-analyses; Spearman is robust to the mild non-normality. Both gave 0.47.')}
 {qa('What does r = 0.47 mean in practice?', f'A moderate positive association: people with more health anxiety tend to have more cyberchondria. Health anxiety accounts for about {N["r2"]} of the differences in cyberchondria.')}
 {qa('What is FDR and why use it?', 'False discovery rate correction controls the proportion of false positives when running many tests. We tested every variable, so without it some significant results would be chance findings.')}
-{qa('What is mediation and what did you find?', f'It tests whether X is linked to Y through M. Excessive searching partly carries the link from health anxiety to distress (indirect {N["mA"]}). Distress almost fully carries the link from health anxiety to reassurance-seeking visits.')}
+{qa('Does your mediation show a mechanism?', f'No. It is an exploratory decomposition using subscales of one questionnaire at one time point. Excessive searching statistically accounts for part of the link with distress (indirect {N["mA"]}), but the reverse model fitted similarly, so following Maxwell & Cole and Fiedler et al. we treat it as exploratory.')}
 {qa('Can mediation in cross-sectional data prove a cycle?', 'No. It tests whether the data are consistent with a proposed ordering. We also tested the reverse ordering, which was also significant, which is consistent with a two-way relationship but cannot prove direction.')}
 {qa('Why robust (HC3) standard errors?', 'The residuals showed some heteroskedasticity, and robust standard errors remain valid in that situation.')}
 {qa('Did you check multicollinearity?', 'Yes: the highest VIF was 3.9, below the usual threshold of 5–10.')}
 {qa('How robust are the results?', 'Excluding the three annotated responses, excluding nine straight-line responders, bootstrapping, and changing the cut-off did not change the main results. An independent analysis of the same data reached the same conclusions.')}
 <h3>About the findings</h3>
-{qa('Is AI making people more anxious?', f'We cannot say that. AI users scored higher on cyberchondria (+{N["Bai"]} points), but with a strict definition of AI use the effect disappears (B = {N["Balt"]}, p = {N["palt"]}), and the non-user group was small (34). AI is best described as a new channel for the same behaviour.')}
-{qa('Why is your correlation lower than in previous studies?', 'Our sample had relatively low health anxiety (narrow range), was young and digitally habitual, and we used the short CSS-12 rather than the 33-item version.')}
-{qa('What is the most clinically important finding?', f'That a third of people delay care because they feel reassured, and a third never tell their doctor about their searches; the more health-anxious hide it more. Doctors should ask about online and AI searches routinely.')}
-{qa('Why do health-anxious people hide their searches?', 'Probably fear of being labelled as anxious or "worried well", which the answer option itself reflects. Patients with high cyberchondria, in contrast, bring their findings as part of reassurance seeking.')}
+{qa('Does AI use cause cyberchondria?', f'Our data cannot show causation, and the association was not robust: it disappeared (B = {N["Balt"]}, p = {N["palt"]}) when only respondents who ticked AI were counted. We conclude there is no reliable independent association beyond health anxiety.')}
+{qa('Why reclassify the 32?', 'They named a specific chatbot, which is direct evidence of use. Because the decision changes the result, we report both definitions.')}
+{qa('Why is your correlation lower than in previous studies?', f'Ours is uncorrected and from a non-clinical, range-restricted sample, and we used the CSS-12 rather than the 33-item CSS. Corrected for the reliability of both scales it would be about {N["disr"]}, close to the meta-analytic 0.62–0.63; our actual result remains {N["r"]}.')}
+{qa('CFI = 1.000: is that not too good?', 'That was the DWLS estimate, whose indices are inflated relative to ML cut-offs. We base our conclusions on ML (CFI 0.954, RMSEA 0.070, SRMR 0.053).')}
+{qa('Is the logistic model overfitted?', f'With about five events per predictor the estimates are optimistic. The apparent AUC was {N["auc"]}; corrected for optimism by bootstrap it was {N["aucc"]}, and we treat the model as exploratory.')}
+{qa('Why tertiles for "high cyberchondria"?', 'No validated CSS-12 cut-off exists. The tertile is a relative category; our primary analyses use the continuous score.')}
+{qa('What is the most clinically important finding?', f'That a third of people delay care because they feel reassured, and a third say they never tell their doctor about their searches for fear of judgement. Doctors should ask about online and AI searches openly and without judgement.')}
+{qa('What does "never disclose" mean if the option includes fear of judgement?', f'It captures non-disclosure attributed to fear of judgement, so we interpret it that way. Higher cyberchondria robustly predicted more disclosure (q = {N["nsCq"]}); the link between health anxiety and hiding was nominal only (q = {N["nsSq"]}).')}
 {qa('Do medical students have more health anxiety?', 'Only before adjustment; the difference disappeared after accounting for age. Their cyberchondria was identical to others, so medical knowledge did not protect against it.')}
 {qa('What would you do differently?', 'Use random sampling, add a residence question, formally back-translate and pilot the Arabic version, measure behaviour frequency rather than tick boxes, and follow participants over time.')}
-{qa('What is new in your study?', 'First Iraqi data on health anxiety and cyberchondria; one of the first studies to place AI chatbots alongside search engines; linking both to concrete pre-consultation behaviours and disclosure to doctors.')}
+{qa('What is new in your study?', 'To our knowledge, the first study to apply the CSS-12 in a Baghdad-based sample; one of the first studies to place AI chatbots alongside search engines; linking both to concrete pre-consultation behaviours and disclosure to doctors.')}
 {qa('What are your recommendations?', 'Clinicians: ask about searches non-judgementally and recognise repeated searching with distress as a sign of health anxiety. Public health: Arabic digital/AI health-literacy campaigns. AI developers: anxiety-aware responses. Researchers: longitudinal studies and formal Arabic validation.')}
 
 <h2 class="page-break">11. Glossary</h2>

@@ -1,7 +1,7 @@
 """Reference list (Vancouver). Each entry was checked against an indexed record
 (journal site, PubMed/PMC, publisher or repository) before inclusion."""
 REFS = {
- 'apa2013': 'American Psychiatric Association. Diagnostic and statistical manual of mental disorders. 5th ed. Arlington (VA): American Psychiatric Publishing; 2013.',
+ 'apa2013': 'American Psychiatric Association. Diagnostic and statistical manual of mental disorders. 5th ed., text revision (DSM-5-TR). Washington (DC): American Psychiatric Association Publishing; 2022.',
  'salk1986': 'Salkovskis PM, Warwick HMC. Morbid preoccupations, health anxiety and reassurance: a cognitive-behavioural approach to hypochondriasis. Behav Res Ther. 1986;24(5):597-602. doi:10.1016/0005-7967(86)90041-0',
  'sunderland2013': 'Sunderland M, Newby JM, Andrews G. Health anxiety in Australia: prevalence, comorbidity, disability and service use. Br J Psychiatry. 2013;202(1):56-61. doi:10.1192/bjp.bp.111.103960',
  'barsky2001': 'Barsky AJ, Ettner SL, Horsky J, Bates DW. Resource utilization of patients with hypochondriacal health anxiety and somatization. Med Care. 2001;39(7):705-15. doi:10.1097/00005650-200107000-00007',
@@ -53,4 +53,11 @@ REFS = {
  'digis2026': 'Dığış M, Kaya K, Demir B, Çiçek İN, Akdağ D, Akdağ Ş. Frequency of use and attitudes toward AI-based health counseling among patients attending the dermatology outpatient clinic: a cross-sectional study. Cutan Ocul Toxicol. 2026 Aug 6:1-11. Epub ahead of print. doi:10.1080/15569527.2026.2711643',
  'dahshan2026': 'Dahshan A, Mahfouz Khalil MI, Abdelfatah D, Abu Ejheisheh M, Alshammari MSH, Mekdad AK, et al. Influence of online health information and artificial intelligence on decision-making among migraine patients: a multinational cross-sectional study from the MENA region. Cephalalgia. 2026;46(4):3331024261435594. doi:10.1177/03331024261435594',
  'ctgov2026': 'ClinicalTrials.gov [Internet]. Bethesda (MD): National Library of Medicine (US). Search results for "cyberchondria"; [cited 2026 Oct 16]. Available from: https://clinicaltrials.gov/search?cond=cyberchondria',
+ 'elzoghby2024': 'El-Zoghby SM, Zaghloul NM, Tawfik AM, Elsherbiny NM, Shehata SA, Soltan EM. Cyberchondria and smartphone addiction: a correlation survey among undergraduate medical students in Egypt. J Egypt Public Health Assoc. 2024;99(1):7. doi:10.1186/s42506-024-00154-y',
+ 'alshaibani2023': 'Alshaibani M. Validity and reliability of the short form of Cyberchondria Severity Scale (CSS-12) in Saudi Arabia. J Consum Health Internet. 2023;27(3):282-93. doi:10.1080/15398285.2023.2237347',
+ 'yun2025': 'Yun HS, Bickmore T. Online health information-seeking in the era of large language models: cross-sectional web-based survey study. J Med Internet Res. 2025;27:e68560. doi:10.2196/68560',
+ 'fiedler2011': 'Fiedler K, Schott M, Meiser T. What mediation analysis can (not) do. J Exp Soc Psychol. 2011;47(6):1231-6. doi:10.1016/j.jesp.2011.05.007',
+ 'podsakoff2003': 'Podsakoff PM, MacKenzie SB, Lee JY, Podsakoff NP. Common method biases in behavioral research: a critical review of the literature and recommended remedies. J Appl Psychol. 2003;88(5):879-903. doi:10.1037/0021-9010.88.5.879',
+ 'beaton2000': 'Beaton DE, Bombardier C, Guillemin F, Ferraz MB. Guidelines for the process of cross-cultural adaptation of self-report measures. Spine (Phila Pa 1976). 2000;25(24):3186-91. doi:10.1097/00007632-200012150-00014',
+ 'williams1959': 'Williams EJ. The comparison of regression variables. J R Stat Soc Series B Methodol. 1959;21(2):396-9. doi:10.1111/j.2517-6161.1959.tb00346.x',
 }

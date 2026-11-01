@@ -1,4 +1,4 @@
-# Artificial Intelligence, Search Engines, and Cyberchondria — Baghdad
+# Health Anxiety, AI Chatbot Use and Cyberchondria Among Adults in Baghdad
 
 Graduation research project: full analysis pipeline and manuscript.
 
@@ -19,6 +19,7 @@ Graduation research project: full analysis pipeline and manuscript.
 ```
 python3 analysis/01_clean_score.py <raw responses.xlsx> clean.pkl
 python3 analysis/02_analysis.py clean.pkl output
+python3 analysis/02b_extra.py output                 # optimism-corrected AUC, SRMR, f2, item-2 sensitivity
 python3 analysis/03_figures.py output
 python3 analysis/04_build_docx.py output output/Cyberchondria_Research_Baghdad.docx [pages.json]
 python3 analysis/05_page_map.py <rendered.pdf> pages.json output/toc_entries.json   # page numbers for TOC and lists

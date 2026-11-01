@@ -21,7 +21,7 @@ const HEX = THEME.colors;
 
 const pres = new pptxgen();
 pres.layout = "LAYOUT_WIDE"; // 13.333 x 7.5 in
-pres.title = "Artificial Intelligence, Search Engines, and Cyberchondria";
+pres.title = "Health Anxiety, AI Chatbot Use and Cyberchondria Among Adults in Baghdad";
 pres.subject = "Graduation research defence";
 pres.theme = { headFontFace: THEME.headFontFace, bodyFontFace: THEME.bodyFontFace };
 const C = pres.SchemeColor;
@@ -99,8 +99,8 @@ const pct = (v) => Math.round(v * 10) / 10;
 
 // ---------------------------------------------------------------- 1 Title
 section("Introduction");
-let s = slide("TITLE_DARK", "Artificial Intelligence, Search Engines, and Cyberchondria", null);
-s.addText("A Study of Patient Pre-Consultation Behavior in Baghdad\n[Student names]  ·  Supervisor: [name]  ·  [College], [Year]", { placeholder: "body" });
+let s = slide("TITLE_DARK", "Health Anxiety, AI Chatbot Use and Cyberchondria", null);
+s.addText("Among Adults in Baghdad: An Online Cross-Sectional Survey\n[Student names]  ·  Supervisor: [name]  ·  [College], [Year]", { placeholder: "body" });
 s.addNotes("Introduce the title and the team. 'Today we present our study on how people in Baghdad use search engines and AI chatbots before seeing a doctor, and how this relates to health anxiety and cyberchondria.'");
 
 // ---------------------------------------------------------------- 2 Why this matters
@@ -183,12 +183,12 @@ txt(s, "Interpret percentages with care: the sample over-represents young people
 
 // ---------------------------------------------------------------- 7 How people search
 s = slide("CONTENT", "AI chatbots are now the main gateway",
-  `${N.ai} use AI chatbots versus ${N.se} search engines; ${N.ai_only} use AI without any search engine. ChatGPT dominates. Main motives: convenience, deciding whether a doctor is needed, and instant reassurance.`);
+  `${N.ai_tick} ticked AI chatbots (${N.ai} including those who named one) versus ${N.se} search engines; ${N.ai_only} use AI without any search engine. ChatGPT dominates. Main motives: convenience, deciding whether a doctor is needed, and instant reassurance.`);
 s.addChart(pres.charts.BAR, [{ name: "Tools", labels: ["AI chatbots", "Search engines", "Medical platforms", "Social media"], values: N.tools.map(pct) }],
   { x: M, y: 1.4, w: 5.9, h: 4.6, ...chartBase("Tools used to look up symptoms (%)"), chartColors: [HEX.accent1] });
 s.addChart(pres.charts.BAR, [{ name: "Motives", labels: ["Convenience", "Is a doctor needed?", "Instant reassurance", "Self-diagnosis", "Cost / logistics"], values: N.motives.map(pct) }],
   { x: 6.8, y: 1.4, w: 5.9, h: 4.6, ...chartBase("Motivations for searching (%)"), chartColors: [HEX.accent1] });
-txt(s, `ChatGPT is the main chatbot for ${N.gpt} of all participants · ${N.ai_only} use AI without any search engine`, { x: M, y: 6.25, w: 12.1, h: 0.4, fontSize: 15, italic: true, color: "52514E" });
+txt(s, `AI: ${N.ai_tick} ticked, ${N.ai} including those who named a chatbot · ChatGPT ${N.gpt} of all · ${N.ai_only} use AI without any search engine`, { x: M, y: 6.25, w: 12.1, h: 0.4, fontSize: 15, italic: true, color: "52514E" });
 
 // ---------------------------------------------------------------- 8 Levels
 s = slide("CONTENT", "One in five has elevated health anxiety",
@@ -226,16 +226,16 @@ txt(s, `${N.ibF}/168 item pairs significant after FDR`, { x: 8.1, y: 6.5, w: 4.6
 s = slide("CONTENT", "Who is most affected",
   `Elevated health anxiety is independently associated with higher cyberchondria (AOR ${N.orCSS} per SD), searching for instant reassurance (AOR ${N.orMot}) and younger age (AOR ${N.orAge} per age step). AUC ${N.auc}. Chronic illness predicts SHAI in linear models. Demographics explain almost none of cyberchondria (R-squared ${N.R2a}).`);
 fig(s, "fig7_forest_HA.png", M, 1.4, 7.6, 4.9);
-[[N.orCSS + "×", "odds per SD of cyberchondria"], [N.orMot + "×", "odds if searching for instant reassurance"], [N.auc, "AUC: good discrimination"]].forEach(([v, l], i) => {
+[[N.orCSS + "×", "odds per SD of cyberchondria"], [N.orMot + "×", "odds if searching for instant reassurance"], [`${N.auc} → ${N.aucc}`, "AUC apparent → optimism-corrected"]].forEach(([v, l], i) => {
   stat(s, 8.6, 1.4 + i * 1.95, 4.1, v, l, i === 1 ? C.accent2 : C.accent1);
 });
 
 // ---------------------------------------------------------------- 12 Pathways
-s = slide("CONTENT", "A pattern consistent with a cycle",
+s = slide("CONTENT", "Compatible with a cycle, but not proof",
   `Excessive searching carries part of the link from health anxiety to distress (indirect ${N.mA}, CI ${N.mAci}). Post-search distress carries almost all of the link from health anxiety to reassurance-seeking visits (direct effect drops to ${N.mCd}). The reverse path is also significant (${N.mD}). Say clearly: consistent with a two-way cycle, but one-time data cannot prove direction.`);
 fig(s, "fig8_mediation.png", M, 1.45, 12.1, 4.3);
 card(s, M, 5.85, 12.1, 0.95, "caveat causality", "FDEEE7");
-txt(s, `Reverse path also significant (indirect ${N.mD}): compatible with mutual reinforcement, but cross-sectional data cannot prove direction.`, { x: M + 0.3, y: 5.95, w: 11.5, h: 0.75, fontSize: 16, valign: "middle" });
+txt(s, `Exploratory decomposition: the reverse ordering fits equally well (indirect ${N.mD}) and all facets come from one questionnaire, so direction cannot be shown.`, { x: M + 0.3, y: 5.95, w: 11.5, h: 0.75, fontSize: 16, valign: "middle" });
 
 // ---------------------------------------------------------------- 13 Behaviour
 s = slide("CONTENT", "Searching shapes the consultation",
@@ -244,22 +244,22 @@ s.addChart(pres.charts.BAR, [{ name: "Behaviour", labels: ["Delay/skip care (rea
   { x: M, y: 1.4, w: 6.6, h: 4.9, ...chartBase("After searching, people… (%)"), chartColors: [HEX.accent1] });
 stat(s, 7.5, 1.4, 5.2, N.never, "never tell their doctor about searches (fear of being judged)", C.accent2);
 card(s, 7.5, 3.35, 5.2, 2.95, "paradox");
-txt(s, "The concealment paradox", { x: 7.8, y: 3.55, w: 4.6, h: 0.45, fontSize: 18, bold: true, color: C.text2 });
-txt(s, [{ text: `Higher health anxiety → more hiding (AOR ${N.nsS})`, options: { bullet: true, breakLine: true } },
-  { text: `Higher cyberchondria → more sharing (AOR ${N.nsC})`, options: { bullet: true, breakLine: true } },
+txt(s, "Disclosure to the doctor", { x: 7.8, y: 3.55, w: 4.6, h: 0.45, fontSize: 18, bold: true, color: C.text2 });
+txt(s, [{ text: `Higher cyberchondria → more disclosure (AOR ${N.nsC}; survives FDR)`, options: { bullet: true, breakLine: true } },
+  { text: `Higher health anxiety → more hiding (AOR ${N.nsS}; exploratory)`, options: { bullet: true, breakLine: true } },
   { text: `${N.relneg} say searching strained their trust in doctors`, options: { bullet: true } }],
   { x: 7.8, y: 4.1, w: 4.7, h: 2.1, fontSize: 15, paraSpaceAfter: 6 });
 
 // ---------------------------------------------------------------- 14 AI chatbots
-s = slide("CONTENT", "AI chatbots: a new channel, not a proven cause",
+s = slide("CONTENT", "AI chatbots: no reliable independent effect",
   `AI users had higher cyberchondria (+${N.Bai} points, adjusted), mainly excessiveness and reassurance seeking. But with the strict definition (only those who ticked AI), the effect disappears (B = ${N.Balt}, p = ${N.palt}). ${N.inc} people named a chatbot without ticking it, and they had the highest scores; only 34 were non-users. AI did not change the strength of the anxiety-cyberchondria link.`);
-stat(s, M, 1.6, 3.8, `+${N.Bai}`, "CSS points in AI users (adjusted)");
+stat(s, M, 1.6, 3.8, `+${N.Bai}`, "CSS points in AI users (inclusive definition)");
 stat(s, M + 4.15, 1.6, 3.8, N.Balt, `with strict definition (p = ${N.palt})`, C.accent2);
 stat(s, M + 8.3, 1.6, 3.8, "34", "true non-users: a small comparison group", "52514E");
 bullets(s, [
   `${N.inc} respondents named a chatbot without ticking "AI chatbots"; how they are classified decides the result`,
   "Effect concentrated in excessiveness and reassurance seeking: conversational AI may invite \"one more question\"",
-  "AI use did not change the strength of the health anxiety–cyberchondria link",
+  "Conclusion: no reliable evidence of an association beyond health anxiety (absence of evidence, not evidence of absence)",
 ], { x: M, y: 3.75, w: 12.1, h: 2.6, fontSize: 17 });
 
 // ---------------------------------------------------------------- 15 Limitations
@@ -268,7 +268,7 @@ s = slide("CONTENT", "Limitations and how we addressed them",
   "Go through each briefly; emphasise what was done to mitigate it.");
 [["Cross-sectional", "No causal claims; reverse paths tested; longitudinal work recommended"],
  ["Convenience sample", "Young, 44% medical students; associations consistent across all subgroups"],
- ["Arabic wording", "Not back-translated; equal reliability and loadings across Arabic and English responders"],
+ ["Arabic wording", "Own wording, validated versions not used; similar reliability and loadings across languages (not formal invariance)"],
  ["Single-item measures", "Behaviour and trust items are descriptive; their associations labelled exploratory"],
  ["Many tests", "FDR correction applied; robust vs exploratory findings separated"],
  ["Self-report online", "Anonymous; careless responders checked; excluding them changed nothing"]].forEach(([h, b], i) => {
@@ -284,7 +284,7 @@ s = slide("CONTENT", "Conclusions and recommendations",
 card(s, M, 1.5, 5.9, 4.85, "conclusions", C.text2);
 txt(s, "Conclusions", { x: M + 0.3, y: 1.7, w: 5.3, h: 0.5, fontSize: 20, bold: true, color: C.background1 });
 s.addText([
-  { text: `AI chatbots are now the main source of pre-consultation health information (${N.ai})`, options: { bullet: true, breakLine: true } },
+  { text: `AI chatbots are a main source of health information (${N.ai_tick} ticked; ${N.ai} incl. named)`, options: { bullet: true, breakLine: true } },
   { text: `Health anxiety and cyberchondria are linked (r = ${N.r}), via excessive searching and distress`, options: { bullet: true, breakLine: true } },
   { text: "Searching shapes the consultation: false reassurance, over-use, and hidden searches", options: { bullet: true } },
 ], { isTextBox: true, x: M + 0.3, y: 2.3, w: 5.3, h: 3.9, fontSize: 16, color: C.background1, paraSpaceAfter: 10, valign: "top" });
