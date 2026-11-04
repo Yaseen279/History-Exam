@@ -1,0 +1,7 @@
+Scale,Model,chi2,df,CFI,TLI,RMSEA,converged,d_chi2,d_df,p_diff,d_CFI,d_RMSEA
+SHAI-14 (one factor),configural,322.58,154,0.808,0.773,0.086,True,,,,,
+SHAI-14 (one factor),metric,332.19,167,0.812,0.795,0.081,True,9.61,13.0,0.725,0.004,-0.004
+SHAI-14 (one factor),scalar,361.19,180,0.794,0.791,0.082,True,29.0,13.0,0.007,-0.018,0.001
+CSS-12 (four factors),configural,195.14,96,0.937,0.914,0.083,True,,,,,
+CSS-12 (four factors),metric,200.66,104,0.939,0.922,0.079,True,5.52,8.0,0.701,0.002,-0.004
+CSS-12 (four factors),scalar,209.07,112,0.938,0.928,0.076,True,8.41,8.0,0.395,-0.0,-0.003

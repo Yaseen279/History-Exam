@@ -343,7 +343,7 @@ figure(s, "fig2_tools_motives.png", "Figure 1: Tools used and motivations for se
 });
 
 // ================================================================ 16 Table 3 levels & reliability
-s = newSlide(3, S2 + `Opening: Table 3 shows the scores and reliability. Main finding: mean SHAI was ${N.shai_m} out of 42 and ${N.hac} scored 18 or more, our threshold for elevated health anxiety, with a 95% confidence interval of ${N.hac_ci}. Mean CSS was ${N.css_m} out of 60. Excessiveness was the highest facet and compulsion the lowest: people search a lot, but it rarely disrupts their lives. Both scales were reliable, alpha ${N.aS} and ${N.aC}, and reliability was the same in Arabic and English responders. Closing: our tools measured well in this population.`);
+s = newSlide(3, S2 + `Opening: Table 3 shows the scores and reliability. Main finding: mean SHAI was ${N.shai_m} out of 42 and ${N.hac} scored 18 or more, our threshold for elevated health anxiety, with a 95% confidence interval of ${N.hac_ci}. Mean CSS was ${N.css_m} out of 60. Excessiveness was the highest facet and compulsion the lowest: people search a lot, but it rarely disrupts their lives. Both scales were reliable, alpha ${N.aS} and ${N.aC}, and reliability was the same in Arabic and English responders. Formal invariance testing showed the CSS-12 works the same way in both languages, and no single item behaved differently. Closing: our tools measured well in this population.`);
 tag(s, "Levels & Reliability", "orange");
 table(s, "Table 3: Descriptive statistics, reliability and language equivalence of the SHAI-14 and CSS-12 (n = 300)", ["Scale (range)", "Mean ± SD", "Median (IQR)", "α (95% CI)", "ω", "α Arabic / English"], [
   ["SHAI-14 (0–42)", "12.35 ± 5.83", "12 (8–16)", "0.81 (0.78–0.84)", "0.82", "0.81 / 0.81"],
@@ -352,7 +352,7 @@ table(s, "Table 3: Descriptive statistics, reliability and language equivalence 
   ["  Compulsion (3–15)", "5.00 ± 2.58", "4 (3–6)", "0.88 (0.86–0.90)", "0.89", ""],
   ["  Distress (3–15)", "7.24 ± 2.74", "7 (5–9)", "0.76 (0.71–0.81)", "0.77", ""],
   ["  Reassurance (3–15)", "6.96 ± 2.81", "7 (5–9)", "0.76 (0.71–0.81)", "0.77", ""],
-], { x: 0.55, y: 1.25, w: 8.9, colW: [2.1, 1.3, 1.25, 1.65, 0.7, 1.9], hi: [0, 1], note: `CSS-12 four-factor CFA (ML): CFI ${N.cfaC}, RMSEA ${N.cfaR}, SRMR ${N.srmr}. Arabic vs English means did not differ (SHAI p = 0.86; CSS p = 0.65).` });
+], { x: 0.55, y: 1.25, w: 8.9, colW: [2.1, 1.3, 1.25, 1.65, 0.7, 1.9], hi: [0, 1], note: `CSS-12 four-factor CFA (ML): CFI ${N.cfaC}, RMSEA ${N.cfaR}, SRMR ${N.srmr}. Arabic vs English: means equal; CSS-12 scalar-invariant, SHAI-14 metric-invariant (multi-group CFA); no item DIF after FDR.` });
 [[N.hac, "elevated health anxiety (SHAI ≥ 18)"], [N.hac_ci, "95% CI"]].forEach(([v, l], i) => {
   const x = 0.6 + i * 4.5;
   box(s, x, 4.15, 4.3, 0.75, { fill: PALE, line: "E8C9A6", noShadow: true });
@@ -530,7 +530,7 @@ s = newSlide(3, S3 + "We have several limitations. First, the design is cross-se
 tag(s, "Limitations");
 [["Cross-sectional design", "Cannot establish direction; mediation is **statistical, not causal**"],
  ["Online convenience sample", `Young, **${N.med}** medical students; percentages **not generalisable**, associations consistent across subgroups`],
- ["Arabic wording", "Team translation without formal back-translation; similar reliability and means in both languages (not formal invariance)"],
+ ["Arabic wording", "Team translation without formal back-translation; but CSS-12 **fully invariant** and SHAI-14 metric invariant across languages, no item DIF"],
  ["Single-item measures", "Behaviour, disclosure and trust items **not validated**; labelled exploratory"],
  ["Multiple testing & self-report", "FDR correction applied; recall and social-desirability bias possible"]].forEach(([h, b], i) => {
   const y = 0.85 + i * 0.84;

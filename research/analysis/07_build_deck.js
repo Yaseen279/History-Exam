@@ -268,7 +268,7 @@ s = slide("CONTENT", "Limitations and how we addressed them",
   "Go through each briefly; emphasise what was done to mitigate it.");
 [["Cross-sectional", "No causal claims; reverse paths tested; longitudinal work recommended"],
  ["Convenience sample", "Young, 44% medical students; associations consistent across all subgroups"],
- ["Arabic wording", "Own wording, validated versions not used; similar reliability and loadings across languages (not formal invariance)"],
+ ["Arabic wording", "Own wording, validated versions not used; CSS-12 fully invariant and SHAI-14 metric invariant across languages"],
  ["Single-item measures", "Behaviour and trust items are descriptive; their associations labelled exploratory"],
  ["Many tests", "FDR correction applied; robust vs exploratory findings separated"],
  ["Self-report online", "Anonymous; careless responders checked; excluding them changed nothing"]].forEach(([h, b], i) => {

@@ -1,6 +1,9 @@
 """Reference list (Vancouver). Each entry was checked against an indexed record
 (journal site, PubMed/PMC, publisher or repository) before inclusion."""
 REFS = {
+ 'chen2007': 'Chen FF. Sensitivity of goodness of fit indexes to lack of measurement invariance. Struct Equ Modeling. 2007;14(3):464-504. doi:10.1080/10705510701301834',
+ 'putnick2016': 'Putnick DL, Bornstein MH. Measurement invariance conventions and reporting: the state of the art and future directions for psychological research. Dev Rev. 2016;41:71-90. doi:10.1016/j.dr.2016.06.004',
+ 'zumbo1999': 'Zumbo BD. A handbook on the theory and methods of differential item functioning (DIF): logistic regression modeling as a unitary framework for binary and Likert-type (ordinal) item scores. Ottawa (ON): Directorate of Human Resources Research and Evaluation, Department of National Defense; 1999.',
  'apa2013': 'American Psychiatric Association. Diagnostic and statistical manual of mental disorders. 5th ed., text revision (DSM-5-TR). Washington (DC): American Psychiatric Association Publishing; 2022.',
  'salk1986': 'Salkovskis PM, Warwick HMC. Morbid preoccupations, health anxiety and reassurance: a cognitive-behavioural approach to hypochondriasis. Behav Res Ther. 1986;24(5):597-602. doi:10.1016/0005-7967(86)90041-0',
  'sunderland2013': 'Sunderland M, Newby JM, Andrews G. Health anxiety in Australia: prevalence, comorbidity, disability and service use. Br J Psychiatry. 2013;202(1):56-61. doi:10.1192/bjp.bp.111.103960',
