@@ -8,6 +8,7 @@ const [, , NUMS, ASSETS, QDIR, OUTFILE] = process.argv;
 const N = JSON.parse(fs.readFileSync(NUMS, "utf8"));
 const FIG = N.figdir;
 const A = (f) => path.join(ASSETS, f);
+const PH = (f) => path.join(ASSETS, "..", "photos", f); // CC0 photos (StockSnap) and Natural Earth maps; see photos/CREDITS.csv
 
 // ---------------------------------------------------------------- style
 const GREEN = "1E5B4F", ORANGE = "B45F06", INK = "222222", GREY = "666666", LINE = "BFBFBF", DECO = "8FA39F";
@@ -112,7 +113,7 @@ function searchBar(s, x, y, w, query, sugg) {
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h: 0.46, rectRadius: 0.23, fill: { color: "FFFFFF" }, line: { color: "A6A6A6", width: 1 }, shadow: SHADOW });
   s.addShape(pres.shapes.OVAL, { x: x + 0.17, y: y + 0.11, w: 0.19, h: 0.19, fill: { type: "none" }, line: { color: GREY, width: 1.75 } });
   s.addShape(pres.shapes.LINE, { x: x + 0.33, y: y + 0.27, w: 0.08, h: 0.08, line: { color: GREY, width: 2 } });
-  s.addText(query, { x: x + 0.5, y, w: w - 0.6, h: 0.46, fontSize: 12, color: "404040", valign: "middle", margin: 0, fontFace: BODY });
+  s.addText(md(query), { x: x + 0.5, y, w: w - 0.6, h: 0.46, fontSize: 12, color: "404040", valign: "middle", margin: 0, fontFace: BODY });
   if (sugg) {
     const hh = 0.3 * sugg.length + 0.1;
     s.addShape(pres.shapes.RECTANGLE, { x: x + 0.2, y: y + 0.5, w: w - 0.4, h: hh, fill: { color: "FFFFFF" }, line: { color: "D9D9D9", width: 0.75 }, shadow: SHADOW });
@@ -122,6 +123,10 @@ function searchBar(s, x, y, w, query, sugg) {
 function bubble(s, x, y, w, h, text, mine) {
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h, rectRadius: 0.12, fill: { color: mine ? GREEN : "FFFFFF" }, line: { color: mine ? GREEN : "BFBFBF", width: 0.75 }, shadow: SHADOW });
   s.addText(md(text), { x: x + 0.1, y, w: w - 0.2, h, fontSize: 11, color: mine ? "FFFFFF" : INK, valign: "middle", margin: 0, fontFace: BODY });
+}
+function photo(s, file, x, y, w, h) {
+  s.addShape(pres.shapes.RECTANGLE, { x: x - 0.06, y: y - 0.06, w: w + 0.12, h: h + 0.12, fill: { color: "FFFFFF" }, line: { color: "FFFFFF" }, shadow: SHADOW });
+  s.addImage({ path: PH(file), x, y, w, h, altText: file });
 }
 function divider(title, items, motif, notes) {
   const s = newSlide(1, notes);
@@ -152,8 +157,9 @@ s.addText([
   { text: "Supervisor:", options: { bold: true, color: GREEN, breakLine: true } },
   { text: "[Title and full name]", options: { italic: true } },
 ], { x: 0.6, y: 2.85, w: 4.2, h: 2.2, fontFace: BODY, fontSize: 14, color: INK, margin: 0, valign: "top" });
-searchBar(s, 5.0, 3.0, 4.3, "headache for 3 days causes", ["headache for 3 days causes **brain tumour**", "headache for 3 days causes stress", "headache for 3 days causes **meningitis**"]);
-bubble(s, 6.1, 4.7, 3.2, 0.5, "Could my headache be serious?", true);
+photo(s, "title_phone.jpg", 5.05, 2.75, 4.4, 2.45);
+searchBar(s, 5.35, 2.95, 3.8, "headache for 3 days causes **brain tumour**");
+bubble(s, 6.45, 4.45, 2.85, 0.5, "Could my headache be serious?", true);
 
 // ================================================================ 2 Quote
 s = newSlide(2, S1 + "We open with two lines. The hadith reminds us that every illness has a cure, so seeking knowledge about health is good. The second line, from Montaigne, describes health anxiety exactly: the fear of illness is itself a kind of suffering. Our study sits between these two ideas: looking for information can help, or it can feed fear.");
@@ -165,10 +171,9 @@ box(s, 0.7, 2.75, 4.3, 1.3);
 s.addText([{ text: "“He who fears he shall suffer, already suffers what he fears.”", options: { bold: true, breakLine: true } },
   { text: "Michel de Montaigne", options: { fontSize: 12, color: ORANGE, italic: true } }],
   { x: 0.85, y: 2.8, w: 4.0, h: 1.2, fontFace: BODY, fontSize: 16, color: INK, margin: 0.05, valign: "middle" });
-searchBar(s, 5.5, 1.3, 3.9, "is my chest pain a heart attack?");
-bubble(s, 6.6, 2.15, 2.8, 0.55, "I've had chest pain since last night. Is it a heart attack?", true);
-bubble(s, 5.5, 2.9, 3.4, 0.95, "Chest pain has many causes, most of them not serious. However, **seek urgent care if** it spreads to the arm, or comes with sweating or breathlessness…", false);
-bubble(s, 7.2, 4.05, 2.2, 0.45, "…but what if it is?", true);
+photo(s, "quote_worried_laptop.jpg", 5.5, 1.25, 3.9, 3.3);
+searchBar(s, 5.3, 1.0, 3.6, "is my chest pain a heart attack?");
+bubble(s, 7.0, 4.2, 2.3, 0.45, "…but what if it is?", true);
 
 // ================================================================ 3 Objectives
 s = newSlide(3, S1 + "Our aim was to study the relationship between health anxiety and cyberchondria among adults in Baghdad who search for health information online. We had four objectives. First, describe how people search, including AI chatbots. Second, measure health anxiety and cyberchondria and how strongly they are linked. Third, look for pathways that fit a vicious cycle. Fourth, see how all this affects what people do before and during the consultation.");
@@ -184,8 +189,8 @@ txt(s, "**Primary hypothesis (H1–H2):** health anxiety is positively associate
 
 // ================================================================ 4 Divider: Introduction
 divider("Introduction", ["Health anxiety", "Cyberchondria", "The vicious cycle", "From search engines to AI chatbots", "Rationale"], (s) => {
-  searchBar(s, 5.6, 2.5, 3.9, "rash on arm meaning", ["rash on arm meaning **skin cancer**", "rash on arm meaning allergy"]);
-  bubble(s, 6.4, 4.0, 3.1, 0.55, "Ask anything about your symptoms…", false);
+  photo(s, "intro_phone.jpg", 5.7, 0.95, 3.8, 3.6);
+  searchBar(s, 5.4, 4.25, 3.7, "rash on arm meaning **skin cancer**");
 }, S1 + "We will start with the background: what health anxiety is, what cyberchondria is, how they may feed each other, and why AI chatbots change the picture.");
 
 // ================================================================ 5 Health anxiety
@@ -238,10 +243,8 @@ tag(s, "From “Dr Google” to “Dr ChatGPT”");
 bar(s, 0.5, 0.85, 4.6, "What changes with AI chatbots?", BLUE);
 box(s, 0.5, 1.19, 4.6, 2.55);
 txt(s, "• **Fluent, personalised, conversational** answers.\n• Can be questioned **again and again**: “one more question”.\n• Answers may seem **more empathetic** than physicians’.\n• US survey: ~**1 in 5** used ChatGPT for health; ~**1/3** of them changed medication or asked for referrals.", { x: 0.6, y: 1.25, w: 4.4, h: 2.45, fontSize: 13.5, paraSpaceAfter: 6 });
-bubble(s, 6.6, 0.95, 2.9, 0.5, "I feel tired all the time and my hands shake", true);
-bubble(s, 5.4, 1.6, 3.6, 0.85, "Fatigue with shaking hands can be caused by **low blood sugar, thyroid problems, anxiety**…", false);
-bubble(s, 7.0, 2.6, 2.5, 0.45, "Is it thyroid cancer?", true);
-bubble(s, 5.4, 3.2, 3.6, 0.55, "Thyroid cancer is uncommon, but…", false);
+photo(s, "ai_robot.jpg", 5.45, 0.9, 4.0, 3.0);
+bubble(s, 5.25, 3.2, 2.7, 0.5, "I feel tired and my hands shake. Is it serious?", true);
 box(s, 0.5, 4.1, 9.0, 0.85, { fill: PALE, line: "E8C9A6", noShadow: true });
 txt(s, "**Rationale:** first CSS-12 data from Baghdad · AI chatbots studied **separately** from search engines · psychology linked to **real behaviour before the consultation**. More than **80%** of Iraqis are online.", { x: 0.65, y: 4.15, w: 8.7, h: 0.75, fontSize: 12.5, valign: "middle" });
 
@@ -311,9 +314,7 @@ txt(s, "Software: **Python 3** (pandas, SciPy, statsmodels, pingouin, semopy), f
 
 // ================================================================ 13 Divider: Results
 divider("Results", ["Participants", "How people search", "Levels & reliability", "Health anxiety ↔ cyberchondria", "Predictors & pathways", "Behaviour & AI chatbots"], (s) => {
-  const vals = [0.35, 0.55, 0.8, 1.0], cols = [BLUE, GREEN, ORANGE, MAROON];
-  vals.forEach((v, i) => s.addShape(pres.shapes.RECTANGLE, { x: 6.4 + i * 0.75, y: 4.4 - v * 2.6, w: 0.55, h: v * 2.6, fill: { color: cols[i] }, line: { color: "FFFFFF" }, shadow: SHADOW }));
-  s.addShape(pres.shapes.LINE, { x: 6.2, y: 4.4, w: 3.2, h: 0, line: { color: "404040", width: 1.25 } });
+  photo(s, "results_laptop.jpg", 5.7, 0.95, 3.8, 3.6);
 }, S2 + "Thank you. I will present the results in six steps: who took part, how they search, the levels of health anxiety and cyberchondria, the main association, the predictors and pathways, and finally behaviour and AI chatbots.");
 
 // ================================================================ 14 Table 1 participants
@@ -447,16 +448,21 @@ txt(s, "**Conclusion:** no reliable evidence that AI use is linked to cyberchond
 
 // ================================================================ 24 Divider: Discussion
 divider("Discussion", ["Our main finding vs the world", "Why weaker than meta-analyses?", "AI chatbots", "The consultation", "Medical students", "Limitations & future directions"], (s) => {
-  bubble(s, 5.9, 1.4, 3.4, 0.6, "So, is searching the problem, or the anxiety?", true);
-  bubble(s, 5.4, 2.25, 3.6, 0.8, "Our data point to **the anxiety**, with searching keeping it going.", false);
+  photo(s, "discussion_doctor.jpg", 5.7, 0.95, 3.8, 3.6);
+  bubble(s, 5.4, 4.15, 3.4, 0.55, "So, is searching the problem, or the anxiety?", true);
 }, S3 + "Thank you. I will discuss what these results mean, how they compare with other studies, our limitations, and our conclusions.");
 
 // ================================================================ 25 First in Baghdad
 s = newSlide(3, S3 + `To our knowledge, this is the first study to use the CSS-12 in Baghdad, and among the first anywhere to look at AI chatbots next to search engines before seeing a doctor. Our main finding, r = ${N.r}, supports our first two hypotheses: health anxiety and cyberchondria go together, independently of everything else we measured.`);
 box(s, 0.6, 1.3, 5.2, 2.6);
 txt(s, `To our knowledge, this is the **first** study to apply the CSS-12 in a **Baghdad**-based sample, and among the first to place **AI chatbots** alongside search engines as a source of health information before consulting a doctor.\n\nHealth anxiety and cyberchondria were **moderately and robustly associated (r = ${N.r})**, independent of all other measured factors.`, { x: 0.75, y: 1.4, w: 4.9, h: 2.4, fontSize: 14, paraSpaceAfter: 6 });
-box(s, 6.3, 1.1, 3.1, 3.1);
-s.addText([{ text: "Baghdad", options: { bold: true, color: GREEN, fontSize: 24, breakLine: true } }, { text: `n = ${N.n}`, options: { fontSize: 18, breakLine: true } }, { text: " ", options: { fontSize: 8, breakLine: true } }, { text: `r = ${N.r}`, options: { bold: true, color: ORANGE, fontSize: 32 } }], { x: 6.3, y: 1.1, w: 3.1, h: 3.1, align: "center", valign: "middle", margin: 0, fontFace: HEAD, color: INK });
+s.addImage({ path: PH("map_iraq.png"), x: 6.05, y: 0.75, w: 3.5, h: 3.5, altText: "Map of Iraq with Baghdad marked" });
+s.addText([{ text: `n = ${N.n}  ·  `, options: { fontSize: 16 } }, { text: `r = ${N.r}`, options: { bold: true, color: ORANGE, fontSize: 22 } }], { x: 6.05, y: 4.35, w: 3.5, h: 0.5, align: "center", valign: "middle", margin: 0, fontFace: HEAD, color: INK });
+
+// ================================================================ 25b World map header (as in the reference deck)
+s = newSlide(3, S3 + "Now, how do our results compare with studies from around the world?");
+tag(s, "Comparison with Worldwide Results", "orange");
+s.addImage({ path: PH("map_world.png"), x: 0.9, y: 1.0, w: 8.2, h: 4.1, altText: "World map, Baghdad marked" });
 
 // ================================================================ 26 Compared with world
 s = newSlide(3, S3 + `Our correlation of ${N.r} is weaker than the pooled estimates of about 0.62 from meta-analyses. Several reasons: first, measurement error; corrected for reliability it would be about ${N.disr}, close to the meta-analytic range. Second, our sample had low health anxiety, and a narrow range weakens correlations. Third, online recruitment may favour confident, habitual internet users. Fourth, most earlier studies used the full 33-item scale.`);
@@ -485,14 +491,15 @@ studies.forEach(([l, v], i) => {
 // ================================================================ 27 Regional
 s = newSlide(3, S3 + "Our findings agree with the Arab region. In Jeddah, cyberchondria was common and linked with smartphone addiction. In Saudi primary care, cyberchondria was linked with health anxiety. In Lebanon, the Arabic CSS-12 had the same structure as ours. And among 1435 Egyptian medical students, the group closest to ours, most had moderate cyberchondria.");
 tag(s, "Comparison with Regional Studies", "orange");
-[["Saudi Arabia – Jeddah", "Cyberchondria **common** and linked with **smartphone addiction**", GREEN],
- ["Saudi Arabia – primary care", "Cyberchondria linked with **health anxiety** in structural models", BLUE],
- ["Lebanon", "Arabic CSS-12 showed the **same four-factor structure** as ours", MAROON],
- ["Egypt – 1435 medical students", "**85.8%** moderate cyberchondria; health worry predicted it", ORANGE]].forEach(([h, b, c], i) => {
-  const x = 0.5 + (i % 2) * 4.6, y = 0.95 + Math.floor(i / 2) * 1.75;
-  bar(s, x, y, 4.4, h, c);
-  box(s, x, y + 0.34, 4.4, 1.1);
-  txt(s, b, { x: x + 0.1, y: y + 0.4, w: 4.2, h: 1.0, fontSize: 13, valign: "middle" });
+photo(s, "map_region.png", 0.55, 0.95, 4.4, 3.3);
+[["Saudi Arabia – Jeddah", "Cyberchondria **common**, linked with **smartphone addiction**", GREEN],
+ ["Saudi Arabia – primary care", "Cyberchondria linked with **health anxiety**", GREEN],
+ ["Lebanon", "Arabic CSS-12: **same four-factor structure** as ours", MAROON],
+ ["Egypt – 1435 medical students", "**85.8%** moderate cyberchondria; health worry predicted it", BLUE]].forEach(([h, b, c], i) => {
+  const y = 0.9 + i * 0.88;
+  bar(s, 5.3, y, 4.2, h, c, 0.3);
+  box(s, 5.3, y + 0.3, 4.2, 0.48);
+  txt(s, b, { x: 5.38, y: y + 0.3, w: 4.05, h: 0.48, fontSize: 11.5, valign: "middle" });
 });
 txt(s, "Our results are **in line** with emerging Arab-region data.", { x: 0.5, y: 4.6, w: 9, h: 0.4, fontSize: 13, align: "center" });
 
@@ -510,12 +517,13 @@ txt(s, "**Clinical message:** ask every patient, without judgement, what they se
 
 // ================================================================ 29 Medical students
 s = newSlide(3, S3 + `${N.med} of our sample were medical students, a distinct group: high medical awareness, academic stress, and exposure to descriptions of serious disease. They had higher unadjusted health anxiety, but this disappeared after adjustment, because they are younger, and age was the independent factor. Their cyberchondria scores were identical to everyone else's. So medical knowledge did not protect against cyberchondria.`);
-box(s, 0.6, 0.8, 8.8, 0.95);
-txt(s, `**${N.med}** of our sample were **medical students**, a distinct group:`, { x: 0.75, y: 0.85, w: 8.5, h: 0.85, fontSize: 15, valign: "middle" });
-box(s, 0.6, 1.95, 8.8, 1.2, { fill: PALE, line: "E8C9A6" });
-txt(s, "• **Heightened medical awareness** of rare and serious diseases.\n• **High academic stress.**\n• The popular idea of “medical student syndrome” (weak evidence).", { x: 0.75, y: 2.0, w: 8.5, h: 1.1, fontSize: 14, paraSpaceAfter: 2 });
-box(s, 0.6, 3.35, 8.8, 1.6);
-txt(s, "Higher unadjusted health anxiety, but this **disappeared after adjustment**: it reflected their **younger age** (age was the independent predictor).\nTheir cyberchondria scores were **identical** to other participants’: **medical knowledge did not protect** against cyberchondria.", { x: 0.75, y: 3.4, w: 8.5, h: 1.5, fontSize: 14.5, paraSpaceAfter: 8 });
+box(s, 0.6, 0.8, 5.5, 0.8);
+txt(s, `**${N.med}** of our sample were **medical students**, a distinct group:`, { x: 0.75, y: 0.85, w: 5.2, h: 0.7, fontSize: 14, valign: "middle" });
+box(s, 0.6, 1.8, 5.5, 1.3, { fill: PALE, line: "E8C9A6" });
+txt(s, "• **Heightened medical awareness** of rare and serious diseases.\n• **High academic stress.**\n• The popular idea of “medical student syndrome” (weak evidence).", { x: 0.75, y: 1.85, w: 5.2, h: 1.2, fontSize: 13, paraSpaceAfter: 2 });
+box(s, 0.6, 3.3, 5.5, 1.75);
+txt(s, "Higher unadjusted health anxiety, but this **disappeared after adjustment**: it reflected their **younger age**.\nCyberchondria scores were **identical** to other participants’: **medical knowledge did not protect** against cyberchondria.", { x: 0.75, y: 3.35, w: 5.2, h: 1.65, fontSize: 13, paraSpaceAfter: 6 });
+photo(s, "students_laptop.jpg", 6.45, 0.8, 3.0, 4.25);
 
 // ================================================================ 30 Limitations
 s = newSlide(3, S3 + "We have several limitations. First, the design is cross-sectional, so we cannot prove direction; the mediation is statistical, not causal. Second, the sample is online convenience and snowball, young, and heavy in medical students, so percentages cannot be generalised to all of Baghdad, although associations were consistent across subgroups. Third, the Arabic wording was ours, without formal back-translation, although reliability and means were the same in both languages. Fourth, behaviour items were single, non-validated questions. Fifth, many tests; we corrected with FDR.");
