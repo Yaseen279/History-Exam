@@ -23,9 +23,11 @@ python3 analysis/02_analysis.py clean.pkl output
 python3 analysis/02b_extra.py output                 # optimism-corrected AUC, SRMR, f2, item-2 sensitivity
 python3 analysis/02c_invariance.py output/analysed.pkl output/tables   # Arabic vs English multi-group CFA + item DIF
 python3 analysis/03_figures.py output
+python3 analysis/03b_framework_figures.py output    # conceptual framework (Fig. 1) and study flowchart (Fig. 2)
 python3 analysis/04_build_docx.py output output/Cyberchondria_Research_Baghdad.docx [pages.json]
 python3 analysis/05_page_map.py <rendered.pdf> pages.json output/toc_entries.json   # page numbers for TOC and lists
 python3 analysis/06_study_materials.py output        # summary + guide HTML (print to PDF) and numbers.json
+python3 analysis/11_team_guide.py output/study/numbers.json output/study/team_guide.html   # team guide (print to PDF)
 NODE_PATH=<node_modules with pptxgenjs> node analysis/07_build_deck.js output/study/numbers.json output/study/Defence_Presentation.pptx <apply_theme.js>
 NODE_PATH=<node_modules with pptxgenjs, jszip> node analysis/09_build_uobcom_deck.js output/study/numbers.json assets/uobcom output/questionnaire output/study/Defence_Presentation_UOBCOM.pptx
 node analysis/maps/10_draw_maps.mjs <node_modules with world-atlas, topojson-client, d3-geo> <out dir>   # SVG maps; rendered to assets/photos/map_*.png

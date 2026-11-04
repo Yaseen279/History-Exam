@@ -287,29 +287,29 @@ guide = f"""<!doctype html><html><head><meta charset="utf-8"><title>Study and De
 <p>{n} adults; {N['age20']} aged 20–29; {N['fem']} female; {N['med']} medical students; {N['hb']} health-related background; {N['chron']} chronic condition; {N['ar']} answered mainly in Arabic.</p>
 <div class="box warn">The sample is young and dominated by medical students: say so before the committee does.</div>
 <h3>5.2 How people search</h3>
-{img('fig2_tools_motives.png', 'Figure 1 of the thesis: tools and motivations.')}
+{img('fig2_tools_motives.png', 'Figure 3 of the thesis: tools and motivations.')}
 <div class="box say"><b>What to say:</b> "AI chatbots have overtaken search engines: {N['ai_tick']} ticked them ({N['ai']} including those who named one) versus {N['se']} for search engines, and {N['ai_only']} use AI without any search engine. ChatGPT dominates. People search mainly for convenience, to decide whether they need a doctor, and for instant reassurance."</div>
 <h3>5.3 What they do after searching</h3>
-{img('fig3_behaviours.png', 'Figure 2 of the thesis: behaviour, disclosure and relationship.')}
+{img('fig3_behaviours.png', 'Figure 4 of the thesis: behaviour, disclosure and relationship.')}
 <div class="box say"><b>What to say:</b> "The most common response is to delay or skip care because the search reassured them ({N['dr']}). Others go the opposite way: {N['urg']} seek urgent care and {N['mdoc']} see several doctors. Only {N['always']} always tell their doctor what they found; {N['never']} never do, citing fear of being judged. And {N['relneg']} feel searching has complicated their relationship with doctors."</div>
 <h3>5.4 Levels of health anxiety and cyberchondria</h3>
 <p>SHAI mean {N['shai_m']} ± {N['shai_sd']}; {N['hac']} ≥ 18 (95% CI {N['hac_ci']}). CSS mean {N['css_m']} ± {N['css_sd']}. Excessiveness highest, compulsion lowest: people search a lot, but it rarely disrupts their lives.</p>
 <h3>5.5 The main result: health anxiety and cyberchondria</h3>
-{img('fig1_scatter_shai_css.png', 'Figure 3 of the thesis: SHAI vs CSS.', '78%')}
+{img('fig1_scatter_shai_css.png', 'Figure 5 of the thesis: SHAI vs CSS.', '78%')}
 <div class="box say"><b>What to say:</b> "This is our main finding. Health anxiety and cyberchondria are moderately correlated, r = {N['r']} (95% CI {N['rci']}). The association hardly changes when we adjust for everything else (partial r = {N['pr']}). It is strongest for excessive searching and distress after searching."</div>
-{img('fig5_subscales_by_HA.png', 'Figure 8 of the thesis: CSS subscales by health-anxiety status.', '72%')}
+{img('fig5_subscales_by_HA.png', 'Figure 10 of the thesis: CSS subscales by health-anxiety status.', '72%')}
 <h3>5.6 Which items drive the link</h3>
-{img('fig9_item_by_item.png', 'Figure 9 (appendix): item-by-item correlations.', '92%')}
+{img('fig9_item_by_item.png', 'Figure 11 (appendix): item-by-item correlations.', '92%')}
 <div class="box say"><b>What to say:</b> "When we looked item by item, {N['ibF']} of 168 pairs were significant after correction. The strongest links involve <i>fear</i> of serious illness and <i>interpreting</i> sensations, for example fear of illness with panic when reading about a rare disease. Simply noticing aches and sensations was not linked. So it is the catastrophic interpretation, not body awareness, that drives searching."</div>
 <h3>5.7 Who is affected (bivariate)</h3>
 <p>Health anxiety higher in: younger respondents, students, chronic illness, social-media searchers, and reassurance seekers. Gender: no difference. Cyberchondria: almost unrelated to demographics; higher in AI users and in those combining AI + search engines.</p>
-{img('fig6_css_by_tool.png', 'Figure 5 of the thesis: cyberchondria by tool profile.', '62%')}
+{img('fig6_css_by_tool.png', 'Figure 7 of the thesis: cyberchondria by tool profile.', '62%')}
 <h3>5.8 Independent predictors</h3>
 <p><b>Cyberchondria model:</b> demographics R² {N['R2a']}; + digital use {N['R2b']}; + health anxiety {N['R2c']} (ΔR² {N['dR2']}). SHAI B = {N['B']} per point (β = {N['beta']}). AI use B = +{N['Bai']} (95% CI {N['Baici']}).</p>
 <p><b>Elevated health anxiety (logistic):</b> cyberchondria AOR {N['orCSS']} per SD; reassurance motive AOR {N['orMot']}; each older age group AOR {N['orAge']}; AUC {N['auc']}.</p>
-{img('fig7_forest_HA.png', 'Figure 6 of the thesis: adjusted odds ratios for SHAI ≥ 18.', '75%')}
+{img('fig7_forest_HA.png', 'Figure 8 of the thesis: adjusted odds ratios for SHAI ≥ 18.', '75%')}
 <h3>5.9 Pathways (mediation)</h3>
-{img('fig8_mediation.png', 'Figure 7 of the thesis: mediation models.')}
+{img('fig8_mediation.png', 'Figure 9 of the thesis: mediation models.')}
 <div class="box say"><b>What to say:</b> "As an exploratory decomposition, most of the link between health anxiety and distress runs statistically through excessive searching (indirect {N['mA']}), and distress statistically accounts for almost all of the link with reassurance-seeking visits (direct effect {N['mCd']}). But the reverse ordering fits just as well ({N['mD']}), and all the facets come from one questionnaire, so this is compatible with a cycle; it does not show one."</div>
 <h3>5.10 Behaviour models</h3>
 <p>Higher cyberchondria: more urgent visits (AOR {N['urC']}), less ignoring (AOR {N['igC']}). Disclosure: CSS AOR {N['nsC']} for never disclosing (q = {N['nsCq']}, survives FDR); SHAI AOR {N['nsS']} (q = {N['nsSq']}, exploratory). Higher trust: fewer multiple-doctor visits (AOR {N['mdT']}). Neither score predicts self-medication or reassured delay. Only the cyberchondria–disclosure result survives FDR; the rest are exploratory. Apparent AUC {N['auc']}, optimism-corrected {N['aucc']}.</p>
@@ -366,7 +366,7 @@ guide = f"""<!doctype html><html><head><meta charset="utf-8"><title>Study and De
  ('Methods', '1.5 min', f'Cross-sectional online survey, Baghdad, n = {n}; convenience/snowball; SHAI-14 and CSS-12 (show subscales); bilingual; sample-size justification (needed {N["nreq"]}); ethics.'),
  ('Analysis', '45 s', 'One slide listing analyses: reliability/CFA, correlations, non-parametric tests with FDR, robust regression, logistic, mediation/moderation, sensitivity.'),
  ('Participants', '45 s', f'Key demographics; acknowledge {N["med"]} medical students.'),
- ('How people search', '1 min', f'Figure 1: AI {N["ai"]} vs search engines {N["se"]}; motives.'),
+ ('How people search', '1 min', f'Figure 3: AI {N["ai"]} vs search engines {N["se"]}; motives.'),
  ('Levels', '45 s', f'SHAI mean {N["shai_m"]}; {N["hac"]} ≥ 18; CSS mean {N["css_m"]}; reliability α {N["aS"]} / {N["aC"]}.'),
  ('Main result', '1.5 min', f'Scatter plot: r = {N["r"]}, partial r = {N["pr"]}; subscale correlations; regression β = {N["beta"]}.'),
  ('What drives it', '1 min', 'Item-by-item heatmap: fear and interpretation, not awareness.'),

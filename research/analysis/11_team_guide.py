@@ -63,7 +63,7 @@ Each of you must be able to explain the whole study in two minutes without slide
 <ol><li><b>Abstract</b>: the whole study on one page.</li>
 <li><b>1.8 Aim and objectives</b> and the hypotheses H1–H4: everything else answers these.</li>
 <li><b>Chapter 5 Conclusions</b>: what you claim.</li>
-<li><b>Chapter 3 Results</b> with Tables 1–10 and Figures 1–8 open beside you.</li>
+<li><b>Chapter 3 Results</b> with Tables 1–13 and Figures 1–10 open beside you.</li>
 <li><b>Chapter 4 Discussion</b>, especially <b>4.8 Limitations</b> (committees love limitations).</li>
 <li><b>Chapters 1–2</b> last: background and methods.</li></ol>
 <p>While reading, mark every sentence you could <b>not</b> explain to a friend. Bring those to the team or ask me.</p>''')
@@ -118,6 +118,7 @@ student('Student 1', 's1', 'Introduction & Methods',
  ['<b>1.2–1.4</b>: health anxiety, cyberchondria, the cognitive-behavioural cycle, the two meta-analyses (r ≈ 0.62) and the Dutch longitudinal study.',
   '<b>1.5</b>: why AI chatbots are different from search engines (conversational, repeatable, empathetic-sounding).',
   '<b>1.7 Rationale</b>: the three gaps your study fills. Practise saying them in one breath.',
+  '<b>Figure 1</b> (conceptual framework) and <b>Figure 2</b> (study flowchart): you present the study model and the study flow.',
   '<b>2.1–2.5</b>: design, sampling, inclusion criteria, sample size calculation, the five parts of the questionnaire, the SHAI ≥ 18 definition and why it is called “elevated”.',
   '<b>2.6</b> at headline level: you name the methods; Student 2 explains them in detail.'],
  [f'Data collection {N["d0"]} – {N["d1"]}; n = 300', f'Sample size {N["nreq"]} for r = 0.20 (α 0.05, 80% power); margin of error ±{N["moe"]}%',
@@ -137,11 +138,11 @@ student('Student 1', 's1', 'Introduction & Methods',
 
 student('Student 2', 's2', 'Results',
  'slides 13–23 (Results divider → AI chatbots), ≈ 6 minutes. Each results slide has a script in the speaker notes: <b>Opening → Main finding → Closing “In summary…”</b>. End: “I now hand over to my colleague for the discussion.”',
- ['<b>Every table and figure</b> (Tables 1–10, Figures 1–9): what each column means, and the one message of each.',
-  '<b>3.4</b> reliability, CFA and the new invariance paragraph (Arabic vs English).',
+ ['<b>Every table and figure</b> (Tables 1–13, Figures 1–11): what each column means, and the one message of each.',
+  '<b>3.4</b> reliability, CFA, the cut-off table (Table 4) and the invariance table (Table 5, Arabic vs English).',
   '<b>3.5</b> the main correlation, partial r, and why excessiveness and distress are stronger than compulsion and reassurance.',
-  '<b>3.7</b> hierarchical regression (Table 7) and logistic regression (Table 8, Figure 6), including AUC.',
-  '<b>3.9</b> mediation (Figure 7): what “indirect effect” means and why it is not proof of cause.',
+  '<b>3.7</b> hierarchical regression (Table 9) and logistic regression (Table 10, Figure 8), including AUC.',
+  '<b>3.9</b> mediation (Figure 9): what “indirect effect” means and why it is not proof of cause.',
   '<b>2.6 Statistical analysis</b>: you are the team\'s statistics person; you answer method questions.'],
  [f'r = {N["r"]} (95% CI {N["rci"]}), Spearman ρ = {N["rho"]}, partial r = {N["pr"]}', f'Facets: excessiveness {N["rE"]}, distress {N["rD"]}, compulsion {N["rC"]}, reassurance {N["rR"]}',
   f'R²: {N["R2a"]} → {N["R2b"]} → {N["R2c"]} (health anxiety adds {N["dR2"]}); β = {N["beta"]}; B = {N["B"]} CSS points per SHAI point',
