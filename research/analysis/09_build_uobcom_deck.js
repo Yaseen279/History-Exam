@@ -201,7 +201,7 @@ box(s, 0.5, 1.19, 4.4, 2.1);
 txt(s, "• Persistent preoccupation with **having or acquiring a serious illness**.\n• A **continuum**: everyday worry → illness anxiety disorder / somatic symptom disorder (DSM-5).\n• Cognitive model: misreading normal sensations → anxiety → **checking & reassurance seeking** → short relief → worry returns.", { x: 0.6, y: 1.25, w: 4.2, h: 2.0, fontSize: 13 });
 bar(s, 5.1, 0.85, 4.4, "Burden", ORANGE);
 box(s, 5.1, 1.19, 4.4, 2.1);
-txt(s, "• Australia: **5.7%** lifetime, **3.4%** current health anxiety.\n• Highest health-anxiety patients use **more visits and outpatient costs**, independent of disease.\n• Iraq (COVID-19 online survey, n = 1591): **about half** reported health anxiety.", { x: 5.2, y: 1.25, w: 4.2, h: 2.0, fontSize: 13 });
+txt(s, "• Lifetime prevalence **≈ 6%** in the population, up to **20%** in hospital outpatients.\n• Costly: **unnecessary medical contacts**; scores rising over three decades.\n• Iraq (COVID-19 online survey, n = 1591): **about half** reported health anxiety.", { x: 5.2, y: 1.25, w: 4.2, h: 2.0, fontSize: 13 });
 bar(s, 0.5, 3.55, 9.0, "How we measured it", BLUE);
 box(s, 0.5, 3.89, 9.0, 1.15);
 txt(s, "**SHAI-14** (Short Health Anxiety Inventory): 14 items scored 0–3, total **0–42**. Validated in clinical and non-clinical samples; Arabic version validated in Saudi Arabia.\nWe used **≥ 18** to mark **elevated** health anxiety (a screening threshold, not a diagnosis).", { x: 0.6, y: 3.95, w: 8.8, h: 1.05, fontSize: 13 });
