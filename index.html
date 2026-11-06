@@ -9657,7 +9657,7 @@ function wnModal(){
 function wnHome(){
   var un=(DB.wnSeen||0)<WN_V;
   return '<div class="hcards"><button class="wnhome" data-act="wnOpen"><span class="wnst" aria-hidden="true">\u2726</span><span class="grow"><b>What\u2019s new</b><span>See the latest features</span></span>'+(un?'<i aria-label="New"></i>':'')+'</button>'
-  +'<a class="wnhome rvw" href="https://t.me/YaseenOmarLutfi" target="_blank" rel="noopener" data-rv="1"><span class="wnst" aria-hidden="true">\u2605</span><span class="grow"><b>Leave a review</b><span>Tell me on Telegram</span></span></a></div>';
+  +'<a class="wnhome rvw" href="https://t.me/YaseenOmarLutfi" target="_blank" rel="noopener" data-rv="1"><span class="wnst" aria-hidden="true">\u2605</span><span class="grow"><b>Review the app</b><span>Your feedback shapes the next update</span></span></a></div>';
 }
 document.addEventListener('click',function(ev){var a=ev.target.closest&&ev.target.closest('a[data-rv]');if(a)try{gcHit('review-tap','Tapped Leave a review',true)}catch(x){}});
 document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&UI.wnOpen)ACT.wnClose()});
