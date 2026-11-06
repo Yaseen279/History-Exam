@@ -195,6 +195,9 @@ textarea{min-height:76px;resize:vertical;line-height:1.4}
 .wnhome .grow b{display:block;font-size:.92rem}.wnhome .grow span{font-size:.78rem;color:var(--muted)}
 .wnhome .wnst{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:800}
 .wnhome i{flex:none;width:9px;height:9px;border-radius:50%;background:var(--danger)}
+.hcards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-block:0 12px}.hcards .wnhome{margin:0;min-width:0;padding:10px}
+.hcards .wnhome .grow{min-width:0}.hcards .wnhome .wnst{width:28px;height:28px}
+.wnhome.rvw{text-decoration:none;border-color:color-mix(in srgb,var(--warn) 40%,var(--line));background:var(--warn-bg)}.wnhome.rvw .wnst{background:var(--warn);color:var(--bg)}
 .wnlock body{overflow:hidden}
 .wnov{position:fixed;inset:0;z-index:80;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.45);padding:12px 0 0}
 @media (min-width:640px){.wnov{align-items:center;padding:24px}}
@@ -9653,8 +9656,10 @@ function wnModal(){
 }
 function wnHome(){
   var un=(DB.wnSeen||0)<WN_V;
-  return '<button class="wnhome" data-act="wnOpen"><span class="wnst" aria-hidden="true">✦</span><span class="grow"><b>What’s new</b><span>Press and hold, the DDx bar, “Then ask” and more</span></span>'+(un?'<i aria-label="New"></i>':'')+'</button>';
+  return '<div class="hcards"><button class="wnhome" data-act="wnOpen"><span class="wnst" aria-hidden="true">\u2726</span><span class="grow"><b>What\u2019s new</b><span>See the latest features</span></span>'+(un?'<i aria-label="New"></i>':'')+'</button>'
+  +'<a class="wnhome rvw" href="https://t.me/YaseenOmarLutfi" target="_blank" rel="noopener" data-rv="1"><span class="wnst" aria-hidden="true">\u2605</span><span class="grow"><b>Review the app</b><span>Your feedback shapes the next update</span></span></a></div>';
 }
+document.addEventListener('click',function(ev){var a=ev.target.closest&&ev.target.closest('a[data-rv]');if(a)try{gcHit('review-tap','Tapped Leave a review',true)}catch(x){}});
 document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&UI.wnOpen)ACT.wnClose()});
 function helpPanel(){
   if(!UI.helpOpen)return '';
