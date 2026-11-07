@@ -1,0 +1,75 @@
+﻿Variable,Label,Measure,Values
+id,Participant ID,nominal,
+date,Date of submission,scale,
+age_group,Age group (years),ordinal,1 = 18-19; 2 = 20-29; 3 = 30-39; 4 = 40-49; 5 = 50-59; 6 = 60+
+age4,"Age group, 40+ merged (analysis)",ordinal,1 = 18-19; 2 = 20-29; 3 = 30-39; 4 = ≥40
+age_ord,Age group as ordinal number (1-6),ordinal,
+gender,Gender,nominal,1 = Male; 2 = Female
+female,Female (1 = yes),nominal,0 = No; 1 = Yes
+education,Highest education,nominal,1 = Currently a student; 2 = High school or below; 3 = Diploma/Vocational; 4 = Bachelor; 5 = Postgraduate
+occupation,Study/work (recoded),nominal,1 = Medical student; 2 = Other health-science student; 3 = Healthcare worker; 4 = Non-health student; 5 = Non-health employee/other
+health_background,Health-related background (medical/health student or worker),nominal,0 = No; 1 = Yes
+medical_student,Medical student,nominal,0 = No; 1 = Yes
+chronic,Diagnosed chronic medical condition,nominal,0 = No; 1 = Yes
+chronic_text,"Chronic condition (free text, as written)",nominal,
+language,Language mainly relied on when answering,nominal,1 = Arabic; 2 = English
+tool_search,Tool used: search engine,nominal,0 = No; 1 = Yes
+tool_ai,Tool used: AI chatbot (ticked),nominal,0 = No; 1 = Yes
+ai_user,AI chatbot user (ticked or named a chatbot),nominal,0 = No; 1 = Yes
+ai_model_inconsistent,Named a chatbot without ticking AI,nominal,0 = No; 1 = Yes
+tool_medplat,Tool used: dedicated medical platform,nominal,0 = No; 1 = Yes
+tool_social,Tool used: social media,nominal,0 = No; 1 = Yes
+n_tools,Number of tool types used,scale,
+tool_profile,Tool profile,nominal,1 = AI + search engine; 2 = AI without search engine; 3 = No AI (search/other only)
+ai_model,Main AI chatbot,nominal,0 = None reported; 1 = ChatGPT; 2 = Gemini; 3 = Claude; 4 = Other AI
+mot_convenience,Motive: convenience/accessibility,nominal,0 = No; 1 = Yes
+mot_triage,Motive: check whether a doctor visit is needed,nominal,0 = No; 1 = Yes
+mot_reassurance,Motive: instant reassurance,nominal,0 = No; 1 = Yes
+mot_selfdx,Motive: self-diagnosis / double-check prescription,nominal,0 = No; 1 = Yes
+mot_cost,Motive: cost/logistic barriers,nominal,0 = No; 1 = Yes
+n_motives,Number of motives,scale,
+trust,Trust in medical data from online tools/AI (1-5),ordinal,1 = Do not trust at all; 2 = Slightly trust; 3 = Moderately trust; 4 = Very much trust; 5 = Completely trust
+shai1,SHAI item 1: Worry about health (0-3),ordinal,0 = 0 (least); 1 = 1; 2 = 2; 3 = 3 (most)
+shai2,SHAI item 2: Noticing aches/pains (0-3),ordinal,0 = 0 (least); 1 = 1; 2 = 2; 3 = 3 (most)
+shai3,SHAI item 3: Awareness of bodily sensations (0-3),ordinal,0 = 0 (least); 1 = 1; 2 = 2; 3 = 3 (most)
+shai4,SHAI item 4: Resisting thoughts of illness (0-3),ordinal,0 = 0 (least); 1 = 1; 2 = 2; 3 = 3 (most)
+shai5,SHAI item 5: Fear of serious illness (0-3),ordinal,0 = 0 (least); 1 = 1; 2 = 2; 3 = 3 (most)
+shai6,SHAI item 6: Images of being ill (0-3),ordinal,0 = 0 (least); 1 = 1; 2 = 2; 3 = 3 (most)
+shai7,SHAI item 7: Distraction from health thoughts (0-3),ordinal,0 = 0 (least); 1 = 1; 2 = 2; 3 = 3 (most)
+shai8,SHAI item 8: Relief after medical reassurance (0-3),ordinal,0 = 0 (least); 1 = 1; 2 = 2; 3 = 3 (most)
+shai9,SHAI item 9: Hearing about an illness (0-3),ordinal,0 = 0 (least); 1 = 1; 2 = 2; 3 = 3 (most)
+shai10,SHAI item 10: Interpreting bodily sensations (0-3),ordinal,0 = 0 (least); 1 = 1; 2 = 2; 3 = 3 (most)
+shai11,SHAI item 11: Perceived risk of serious illness (0-3),ordinal,0 = 0 (least); 1 = 1; 2 = 2; 3 = 3 (most)
+shai12,SHAI item 12: Thinking you are ill (0-3),ordinal,0 = 0 (least); 1 = 1; 2 = 2; 3 = 3 (most)
+shai13,SHAI item 13: Unexplained sensations (0-3),ordinal,0 = 0 (least); 1 = 1; 2 = 2; 3 = 3 (most)
+shai14,SHAI item 14: Family/friends view (0-3),ordinal,0 = 0 (least); 1 = 1; 2 = 2; 3 = 3 (most)
+css1,CSS item 1: Search unexplained sensation online,ordinal,1 = Never; 2 = Rarely; 3 = Sometimes; 4 = Often; 5 = Always
+css2,CSS item 2: Read different pages on same condition,ordinal,1 = Never; 2 = Rarely; 3 = Sometimes; 4 = Often; 5 = Always
+css3,CSS item 3: Enter same symptoms repeatedly,ordinal,1 = Never; 2 = Rarely; 3 = Sometimes; 4 = Often; 5 = Always
+css4,CSS item 4: Distracts from news/sports/entertainment,ordinal,1 = Never; 2 = Rarely; 3 = Sometimes; 4 = Often; 5 = Always
+css5,CSS item 5: Interrupts work,ordinal,1 = Never; 2 = Rarely; 3 = Sometimes; 4 = Often; 5 = Always
+css6,CSS item 6: Interrupts offline social activities,ordinal,1 = Never; 2 = Rarely; 3 = Sometimes; 4 = Often; 5 = Always
+css7,CSS item 7: Panic on reading of rare/serious condition,ordinal,1 = Never; 2 = Rarely; 3 = Sometimes; 4 = Often; 5 = Always
+css8,CSS item 8: Feel fine until reading online,ordinal,1 = Never; 2 = Rarely; 3 = Sometimes; 4 = Often; 5 = Always
+css9,CSS item 9: More anxious after searching,ordinal,1 = Never; 2 = Rarely; 3 = Sometimes; 4 = Often; 5 = Always
+css10,CSS item 10: Leads to consulting GP,ordinal,1 = Never; 2 = Rarely; 3 = Sometimes; 4 = Often; 5 = Always
+css11,CSS item 11: Suggest diagnostic procedure to doctor,ordinal,1 = Never; 2 = Rarely; 3 = Sometimes; 4 = Often; 5 = Always
+css12,CSS item 12: Leads to consulting other specialists,ordinal,1 = Never; 2 = Rarely; 3 = Sometimes; 4 = Often; 5 = Always
+SHAI,SHAI-14 total (0-42),scale,
+HA_elevated,Elevated health anxiety (SHAI-14 >= 18),nominal,0 = No; 1 = Yes
+CSS,CSS-12 total (12-60),scale,
+CSS_excess,CSS Excessiveness (3-15),scale,
+CSS_compul,CSS Compulsion (3-15),scale,
+CSS_distress,CSS Distress (3-15),scale,
+CSS_reassur,CSS Reassurance seeking (3-15),scale,
+CSS_high,"High cyberchondria (CSS-12 > 33, upper tertile)",nominal,0 = No; 1 = Yes
+beh_delay_reassured,After search: delay/skip care (reassured),nominal,0 = No; 1 = Yes
+beh_ignore,After search: ignore the symptom,nominal,0 = No; 1 = Yes
+beh_multidoc,After search: visit multiple doctors,nominal,0 = No; 1 = Yes
+beh_urgent,After search: urgent appointment/ER/fast diagnosis,nominal,0 = No; 1 = Yes
+beh_selfmed,After search: self-medication,nominal,0 = No; 1 = Yes
+beh_delay_terrified,After search: delay care (frightened),nominal,0 = No; 1 = Yes
+share,Discloses online/AI searches to physician,ordinal,1 = Always; 2 = Sometimes; 3 = Never (fear of judgement)
+share_never,Never discloses searches to physician,nominal,0 = No; 1 = Yes
+relationship,Effect of searching on relationship/trust with doctors,ordinal,1 = No negative impact; 2 = Somewhat complicated; 3 = Significantly reduced trust
+rel_negative,Any negative effect on relationship with doctors,nominal,0 = No; 1 = Yes
