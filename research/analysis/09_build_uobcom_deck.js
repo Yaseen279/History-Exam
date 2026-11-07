@@ -128,6 +128,15 @@ function photo(s, file, x, y, w, h) {
   s.addShape(pres.shapes.RECTANGLE, { x: x - 0.06, y: y - 0.06, w: w + 0.12, h: h + 0.12, fill: { color: "FFFFFF" }, line: { color: "FFFFFF" }, shadow: SHADOW });
   s.addImage({ path: PH(file), x, y, w, h, altText: file });
 }
+function barChart(s, x, y, w, h, title, labels, values, color, fmt, dir) {
+  s.addChart(pres.charts.BAR, [{ name: title, labels, values }], {
+    x, y, w, h, barDir: dir || "bar", catAxisOrientation: dir === "col" ? "minMax" : "maxMin", barGapWidthPct: 50,
+    showValue: true, dataLabelPosition: "outEnd", dataLabelFontSize: 11, dataLabelColor: INK, dataLabelFontFace: BODY, dataLabelFormatCode: fmt || '0.0"%"',
+    catAxisLabelFontSize: 10.5, catAxisLabelColor: INK, catAxisLabelFontFace: BODY, catAxisLineShow: false,
+    valAxisHidden: true, valGridLine: { style: "none" }, showLegend: false, chartColors: Array.isArray(color) ? color : [color],
+    showTitle: true, title, titleFontSize: 12, titleColor: GREEN, titleFontFace: BODY,
+  });
+}
 function divider(title, items, motif, notes) {
   const s = newSlide(1, notes);
   s.addText(title, { x: 0.6, y: 1.2, w: 6.5, h: 1.3, fontFace: HEAD, fontSize: 54, bold: true, color: GREEN, margin: 0, valign: "middle" });
@@ -335,7 +344,10 @@ table(s, `Table 1: Socio-demographic characteristics of the participants (n = ${
 // ================================================================ 15 Fig 1 tools
 s = newSlide(3, S2 + `Opening: Figure 3 shows the tools people use and why. Main finding: AI chatbots are now the main gateway. ${N.ai_tick} ticked AI chatbots, ${N.ai} if we include those who named one, compared with ${N.se} for search engines. ${N.ai_only} use AI with no search engine at all, and ChatGPT alone is used by ${N.gpt}. The top motives are convenience at ${N.conv}, checking whether a doctor is needed at ${N.tri}, and instant reassurance at ${N.reas}. Closing: in summary, for this sample, the first doctor is often an AI chatbot.`);
 tag(s, "How People Search", "orange");
-figure(s, "fig2_tools_motives.png", "Figure 3: Tools used and motivations for searching for health information online (n = 300)", 0.45, 0.85, 9.1, 3.05);
+box(s, 0.45, 0.82, 9.1, 3.5);
+barChart(s, 0.55, 0.88, 4.45, 3.05, "Tools used to look up symptoms (%)", ["AI chatbots", "Search engines", "Medical platforms", "Social media"], [parseFloat(N.ai_tick), N.tools[1], N.tools[2], N.tools[3]].map((v) => Math.round(v * 10) / 10), GREEN);
+barChart(s, 5.0, 0.88, 4.45, 3.05, "Why they search (%)", ["Convenience", "Is a doctor needed?", "Instant reassurance", "Self-diagnosis", "Cost / logistics"], N.motives.map((v) => Math.round(v * 10) / 10), ORANGE);
+s.addText([{ text: "Figure 3:", options: { bold: true, italic: true } }, { text: " Tools used and motivations for searching for health information online (n = 300; multiple answers)", options: { italic: true } }], { x: 0.55, y: 3.95, w: 8.9, h: 0.3, fontSize: 10, color: INK, align: "center", fontFace: BODY, margin: 0 });
 [[N.ai_tick, "ticked AI chatbots"], [N.se, "search engines"], [N.ai_only, "AI without search engine"], [N.gpt, "use ChatGPT"]].forEach(([v, l], i) => {
   const x = 0.6 + i * 2.25;
   box(s, x, 4.48, 2.05, 0.6);
@@ -383,10 +395,8 @@ table(s, "Final model: key predictors", ["Predictor", "B (95% CI)", "β", "p"], 
   ["Gender, chronic, language, job", "n.s.", "", "> 0.5"],
 ], { x: 0.55, y: 3.0, w: 5.0, colW: [2.15, 1.45, 0.5, 0.9], hi: [0], fontSize: 10, note: "*Inclusive definition; with the strict definition the AI effect is not significant (slide 23)." });
 box(s, 6.0, 0.9, 3.5, 4.15);
-s.addText([{ text: "18.4%", options: { bold: true, color: ORANGE, fontSize: 34, breakLine: true } }, { text: "extra variance explained by health anxiety, after everything else", options: { fontSize: 13, breakLine: true } },
-  { text: " ", options: { breakLine: true, fontSize: 8 } },
-  { text: "3%", options: { bold: true, color: GREEN, fontSize: 28, breakLine: true } }, { text: "explained by demographics alone", options: { fontSize: 13 } }],
-  { x: 6.15, y: 1.0, w: 3.2, h: 3.95, align: "center", valign: "middle", margin: 0, fontFace: BODY, color: INK });
+barChart(s, 6.05, 0.95, 3.4, 3.3, "Variance explained (R²)", ["Demographics", "+ digital use", "+ health anxiety"], [3, 13, 32], ["9DB3AE", "9DB3AE", ORANGE], '0"%"', "col");
+s.addText([{ text: `+${N.dR2}`, options: { bold: true, color: ORANGE, fontSize: 20 } }, { text: "  added by health anxiety", options: { fontSize: 11 } }], { x: 6.1, y: 4.3, w: 3.3, h: 0.6, align: "center", valign: "middle", margin: 0, fontFace: BODY, color: INK });
 
 // ================================================================ 19 Fig 9 item by item
 s = newSlide(3, S2 + `Opening: Figure 11 breaks the association down item by item, all 168 pairs. Main finding: ${N.ibF} pairs remained significant after FDR correction. The strongest links involve fear of serious illness and interpreting body sensations; for example fear of illness with panicking when reading about a rare condition. Simply noticing aches and pains was almost unrelated. Closing: what drives searching is fear and interpretation, not just noticing symptoms, exactly what the cognitive model predicts.`);
@@ -422,11 +432,13 @@ txt(s, `Indirect via excessive searching **${N.mA}** (CI ${N.mAci}) · via distr
 // ================================================================ 22 Fig 2 behaviour
 s = newSlide(3, S2 + `Opening: Figure 4 shows what people do after searching. Main finding: the most common response is to delay or skip care because they feel reassured, ${N.dr}. Others escalate: urgent visits ${N.urg}, multiple doctors ${N.mdoc}. Only ${N.always} always tell their doctor about their searches, and ${N.never} never do, for fear of being judged. Higher cyberchondria was linked with more disclosure, odds ratio ${N.nsC}, and this survived FDR correction. ${N.relneg} say searching complicated or reduced trust in their doctor. Closing: searching changes the consultation before it begins.`);
 tag(s, "Behaviour Before the Consultation", "orange");
-figure(s, "fig3_behaviours.png", "Figure 4: Behaviour after searching, disclosure to physicians and effect on the doctor–patient relationship", 0.45, 0.85, 9.1, 2.25);
+box(s, 0.45, 0.82, 5.55, 4.25);
+barChart(s, 0.5, 0.88, 5.45, 3.85, "After searching, people… (%)", ["Delay/skip care (reassured)", "Ignore the symptom", "Visit several doctors", "Urgent visit / ER", "Self-medication", "Delay care (frightened)"], N.behav.map((v) => Math.round(v * 10) / 10), GREEN);
+s.addText([{ text: "Figure 4:", options: { bold: true, italic: true } }, { text: " Behaviour after searching (n = 300; multiple answers)", options: { italic: true } }], { x: 0.55, y: 4.72, w: 5.35, h: 0.3, fontSize: 10, color: INK, align: "center", fontFace: BODY, margin: 0 });
 [[N.dr, "delay / skip care because reassured"], [N.never, "never tell their doctor (fear of judgement)"], [`OR ${N.nsC}`, "higher cyberchondria → more disclosure (q = " + N.nsCq + ")"], [N.relneg, "say searching strained trust in doctors"]].forEach(([v, l], i) => {
-  const x = 0.5 + i * 2.27;
-  box(s, x, 3.75, 2.1, 1.25);
-  s.addText([{ text: v, options: { bold: true, color: ORANGE, fontSize: 20, breakLine: true } }, { text: l, options: { fontSize: 11 } }], { x: x + 0.05, y: 3.75, w: 2.0, h: 1.25, align: "center", valign: "middle", margin: 0, fontFace: BODY, color: INK });
+  const x = 6.3 + (i % 2) * 1.62, y0 = 0.82 + Math.floor(i / 2) * 2.17;
+  box(s, x, y0, 1.5, 2.05);
+  s.addText([{ text: v, options: { bold: true, color: ORANGE, fontSize: 19, breakLine: true } }, { text: l, options: { fontSize: 10.5 } }], { x: x + 0.05, y: y0, w: 1.4, h: 2.05, align: "center", valign: "middle", margin: 0, fontFace: BODY, color: INK });
 });
 
 // ================================================================ 23 AI chatbots
@@ -459,16 +471,11 @@ txt(s, `To our knowledge, this is the **first** study to apply the CSS-12 in a *
 s.addImage({ path: PH("map_iraq.png"), x: 6.05, y: 0.75, w: 3.5, h: 3.5, altText: "Map of Iraq with Baghdad marked" });
 s.addText([{ text: `n = ${N.n}  ·  `, options: { fontSize: 16 } }, { text: `r = ${N.r}`, options: { bold: true, color: ORANGE, fontSize: 22 } }], { x: 6.05, y: 4.35, w: 3.5, h: 0.5, align: "center", valign: "middle", margin: 0, fontFace: HEAD, color: INK });
 
-// ================================================================ 25b World map header (as in the reference deck)
-s = newSlide(3, S3 + "Now, how do our results compare with studies from around the world?");
-tag(s, "Comparison with Worldwide Results", "orange");
-s.addImage({ path: PH("map_world.png"), x: 0.9, y: 1.0, w: 8.2, h: 4.1, altText: "World map, Baghdad marked" });
-
 // ================================================================ 26 Compared with world
-s = newSlide(3, S3 + `Our correlation of ${N.r} is weaker than the pooled estimates of about 0.62 from meta-analyses. Several reasons: first, measurement error; corrected for reliability it would be about ${N.disr}, close to the meta-analytic range. Second, our sample had low health anxiety, and a narrow range weakens correlations. Third, online recruitment may favour confident, habitual internet users. Fourth, most earlier studies used the full 33-item scale.`);
+s = newSlide(3, S3 + `How do we compare with the world? Our correlation of ${N.r} is weaker than the pooled estimates of about 0.62 from meta-analyses. Several reasons: first, measurement error; corrected for reliability it would be about ${N.disr}, close to the meta-analytic range. Second, our sample had low health anxiety, and a narrow range weakens correlations. Third, online recruitment may favour confident, habitual internet users. Fourth, most earlier studies used the full 33-item scale.`);
 tag(s, "Comparison with Worldwide Results", "orange");
 box(s, 0.5, 0.9, 4.2, 1.35);
-txt(s, `Our study: **r = ${N.r}**\nMeta-analyses (McMullan 2019; Mestre-Bach 2023): **r ≈ 0.62–0.63**\nOur r corrected for unreliability: **≈ ${N.disr}**`, { x: 0.6, y: 0.95, w: 4.0, h: 1.25, fontSize: 13, paraSpaceAfter: 4 });
+txt(s, `Our study: **r = ${N.r}**\nMeta-analyses (McMullan 2019; Schenkel 2021): **r ≈ 0.62–0.63**\nOur r corrected for unreliability: **≈ ${N.disr}**`, { x: 0.6, y: 0.95, w: 4.0, h: 1.25, fontSize: 13, paraSpaceAfter: 4 });
 s.addText("Why weaker?", { x: 0.5, y: 2.4, w: 4.2, h: 0.35, fontSize: 14, bold: true, color: GREEN, margin: 0, fontFace: BODY });
 [["Measurement error", "Corrected for reliability, r ≈ " + N.disr],
  ["Narrow range", `Low health anxiety (mean SHAI ${N.shai_m}) attenuates r`],
@@ -478,7 +485,7 @@ s.addText("Why weaker?", { x: 0.5, y: 2.4, w: 4.2, h: 0.35, fontSize: 14, bold: 
   numBadge(s, 0.5, y + 0.05, i + 1, i % 2 ? ORANGE : GREEN);
   txt(s, `**${h}:** ${b}`, { x: 0.9, y, w: 3.8, h: 0.5, fontSize: 11.5, hiColor: INK, valign: "middle" });
 });
-const studies = [["Meta-analysis (2019)", 0.62], ["Meta-analysis (2023)", 0.63], ["Our study, corrected", parseFloat(N.disr)], ["Our study", parseFloat(N.r)]];
+const studies = [["Meta-analysis (2019)", 0.62], ["Meta-analysis (2021)", 0.63], ["Our study, corrected", parseFloat(N.disr)], ["Our study", parseFloat(N.r)]];
 box(s, 5.0, 0.9, 4.5, 4.15);
 s.addText("Correlation: health anxiety ↔ cyberchondria", { x: 5.1, y: 0.95, w: 4.3, h: 0.35, fontSize: 12, bold: true, color: INK, align: "center", margin: 0, fontFace: BODY });
 studies.forEach(([l, v], i) => {

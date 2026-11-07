@@ -196,7 +196,7 @@ STUDENTS[1] = dict(
         ('1.8 Aim, objectives, hypotheses, Figure 1', 'What the study set out to do.',
          ['Aim: relationship between health anxiety and cyberchondria and their correlates among adults in Baghdad, with attention to AI chatbots and pre-consultation behaviour.',
           'H1: health anxiety ↔ cyberchondria (mainly distress, excessiveness). H2: independent of other factors. H3: excessive searching mediates HA → distress. H4: cyberchondria ↔ care-seeking and strained relationship.',
-          'H1–H2 primary (confirmatory); H3–H4 secondary; AI comparisons, item-level, moderation and sensitivity analyses exploratory.',
+          'H1–H2 primary; H3–H4 secondary; AI comparisons, item-level, moderation and sensitivity analyses exploratory.',
           'Figure 1 shows these on the cycle.'],
          'Know which hypotheses were supported: H1 yes, H2 yes, H3 statistically (not causally), H4 partially.'),
         ('2.1 Design and setting', '', [f'Analytical cross-sectional; STROBE {ref("von Elm E")} and CHERRIES {ref("Eysenbach G")}; online, Baghdad, {N["d0"]} – {N["d1"]}.'], ''),
@@ -211,7 +211,7 @@ STUDENTS[1] = dict(
           f'AI user: ticked AI or named a chatbot ({N["inc"]} named without ticking); analyses repeated with the strict definition.', 'Health background = medical, other health-science students and healthcare workers.'], ''),
         ('2.6 Statistical analysis', 'You name the methods; Student 2 explains them in depth.',
          ['Python 3 (pandas, SciPy, statsmodels, pingouin, factor_analyzer, semopy), fully scripted; SPSS file provided.',
-          f'Psychometrics: α, ω {ref("Hayes AF, Coutts")}, CFA by ML (criteria {ref("McNeish D")}), invariance by multi-group CFA {ref("Leitgöb H")} and DIF {ref("Jin KY")}.',
+          f'Psychometrics: α, ω {ref("Hayes AF, Coutts")}, CFA by ML (criteria {ref("McNeish D")}), invariance by multi-group CFA {ref("Leitgöb H")} and DIF by ordinal logistic regression {ref("Ćosić Pilepić A")}.',
           f'Correlations; Mann–Whitney/Kruskal–Wallis; χ²; FDR {ref("Benjamini Y")}; hierarchical robust regression; logistic and ordinal; bootstrap mediation {ref("Hayes AF. Introduction")}; moderation; sensitivity analyses.', 'Figure 2 summarises the study flow.'],
          ''),
         ('2.7 Ethics', '', ['Voluntary, anonymous, e-consent with age confirmation before any question; no names or contacts.', '[Ethics approval: committee, number, date: fill in before the defence.]'], 'You must know the approval details by heart.'),
@@ -281,7 +281,7 @@ STUDENTS[2] = dict(
         ('3.3 Behaviour and the doctor relationship (Figure 4)', '', [f'Delay/skip care when reassured {N["dr"]}; ignore {N["ign"]}; several doctors {N["mdoc"]}; urgent care {N["urg"]}.', f'Always tell the doctor {N["always"]}; never (fear of judgement) {N["never"]}; relationship complicated or trust reduced {N["relneg"]}.'], 'The “never” option combined frequency and a reason: say “never tell, citing fear of judgement”.'),
         ('3.4 Levels and psychometrics (Tables 3, 4, 5)', '', [f'SHAI {N["shai_m"]} ± {N["shai_sd"]}; elevated {N["hac"]} (CI {N["hac_ci"]}); Table 4: 32.7% at ≥ 15, 19.0% at ≥ 18, 7.3% at ≥ 22, 0.7% at ≥ 29.', f'CSS {N["css_m"]} ± {N["css_sd"]}; excessiveness 9.66 (highest), compulsion 5.00 (lowest).',
           f'Reliability α {N["aS"]} / {N["aC"]}; ω {N["oS"]} / {N["oC"]}. CSS-12 four-factor CFA (ML) CFI {N["cfaC"]}, RMSEA {N["cfaR"]}, SRMR {N["srmr"]}; SHAI one-factor poor (CFI 0.83): not strictly unidimensional.',
-          'Table 5: CSS-12 configural → metric (Δχ² 5.52, p 0.70, ΔCFI +0.002) → scalar (Δχ² 8.41, p 0.40, ΔCFI 0.000): fully invariant. SHAI-14 metric supported (p 0.73), scalar not (p 0.007, ΔCFI −0.018). No item DIF after FDR.'],
+          'Table 5: CSS-12 configural → metric (Δχ² 5.52, p 0.70, ΔCFI +0.002) → scalar (Δχ² 8.41, p 0.40, ΔCFI −0.001): fully invariant. Both baselines are imperfect (configural CFI 0.937 CSS, 0.808 SHAI), so the SHAI result is hard to interpret. SHAI-14 metric supported (p 0.73), scalar not (p 0.007, ΔCFI −0.018). No item DIF after FDR.'],
          'Explain why prevalence depends on the cut-off and why that is not a weakness: it is honest reporting.'),
         ('3.5 Main association (Table 6, Figures 5, 6)', 'The central result.', [f'r = {N["r"]} (95% CI {N["rci"]}), ρ = {N["rho"]}, explains {N["r2"]}; partial r = {N["pr"]}.', f'Facets: excessiveness {N["rE"]}, distress {N["rD"]} (stronger, Williams\' t p < 0.001) vs compulsion {N["rC"]}, reassurance {N["rR"]}.',
           f'Item level: fear of serious illness and interpretation of sensations matter, mere awareness does not; {N["ibF"]}/168 pairs survive FDR ({N["ibH"]} Holm); strongest ρ 0.43 (Figure 11, Appendix A).'],
@@ -357,7 +357,7 @@ STUDENTS[2] = dict(
 
 # ---------------------------------------------------------------- STUDENT 3
 STUDENTS[3] = dict(
-    tag='s3', title='Discussion & Conclusions', slides=range(24, 35), minutes='≈ 4 minutes',
+    tag='s3', title='Discussion & Conclusions', slides=range(24, 34), minutes='≈ 4 minutes',
     chapters='Chapter 4 Discussion (4.1–4.8), Chapter 5 Conclusions & Recommendations',
     opener='You close the defence. The committee\'s last impression is yours: finish calmly on the conclusion and the clinical message.',
     handover='“Thank you for listening; we welcome your questions.” (leave the r = 0.47 slide on screen)',
@@ -489,6 +489,7 @@ def build(k):
         ('What is your biggest limitation?', 'The cross-sectional design: no direction of cause.'),
         ('What is the clinical message?', 'Ask patients, without judgement, what they searched or asked an AI.'),
         ('Why did you split the presentation this way?', 'By chapter, but each of us studied the whole thesis.'),
+        ('Were your hypotheses written before you collected the data?', 'Answer truthfully. A safe true answer: they follow from our objectives and previous research, and the questionnaire was designed to measure these things; we tested all of them and report every result, including those not supported.', 'Never claim they were pre-registered.'),
         ('Who did the statistical analysis?', 'Answer honestly according to what you did. If AI tools helped with code or drafting, say so in line with your college policy and the declaration in the thesis.'),
     ]))
     w('<h3>C. Difficult or hostile questions</h3>' + qa(S['qa_hard']))

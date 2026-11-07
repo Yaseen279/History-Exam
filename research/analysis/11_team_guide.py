@@ -46,7 +46,7 @@ safely and making the writing your own. Part 4 covers <b>presenting</b>. The las
 <table><tr><th>Who</th><th>Presents (slides)</th><th>Owns in the thesis (study deeply, edit)</th><th>Time</th></tr>
 <tr><td><span class="tag s1">Student 1</span></td><td>1–12: title, quote, objectives, Introduction, Methodology</td><td>Ch. 1 Introduction, Ch. 2 Method, Acknowledgment</td><td>≈ 5 min</td></tr>
 <tr><td><span class="tag s2">Student 2</span></td><td>13–23: Results</td><td>Ch. 3 Results, all tables and figures, Appendix A</td><td>≈ 6 min</td></tr>
-<tr><td><span class="tag s3">Student 3</span></td><td>24–34: Discussion, limitations, recommendations, conclusion</td><td>Ch. 4 Discussion, Ch. 5 Conclusions &amp; Recommendations</td><td>≈ 4 min</td></tr>
+<tr><td><span class="tag s3">Student 3</span></td><td>24–33: Discussion, limitations, recommendations, conclusion</td><td>Ch. 4 Discussion, Ch. 5 Conclusions &amp; Recommendations</td><td>≈ 4 min</td></tr>
 <tr><td>All three</td><td>Questions</td><td>Abstract (rewrite together, last), title page, final read-through</td><td>Q&amp;A</td></tr></table>
 <h3>Suggested timeline (adjust to your defence date)</h3>
 <table><tr><th>When</th><th>Everyone</th></tr>
@@ -165,7 +165,7 @@ student('Student 2', 's2', 'Results',
   'You will be asked about statistics in the Method too: read 2.6 until you can explain each method in one sentence.'])
 
 student('Student 3', 's3', 'Discussion & Conclusions',
- 'slides 24–34 (Discussion divider → closing slide), ≈ 4 minutes. You end the defence: finish strongly on the conclusion and the clinical message, then “Thank you; we welcome your questions.”',
+ 'slides 24–33 (Discussion divider → closing slide), ≈ 4 minutes. You end the defence: finish strongly on the conclusion and the clinical message, then “Thank you; we welcome your questions.”',
  ['<b>4.1–4.2</b>: principal findings and why our r (0.47) is weaker than the meta-analyses (0.62–0.63): four reasons.',
   '<b>4.3</b>: the cycle question, and why the answer is “compatible, not proven”.',
   '<b>4.4–4.5</b>: AI chatbots (why our AI use is so much higher than in US surveys) and the consultation (delay, non-disclosure, trust).',
