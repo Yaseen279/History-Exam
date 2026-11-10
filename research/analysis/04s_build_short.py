@@ -112,7 +112,7 @@ figure(f'{FIG}/fig3_behaviours.png', 'Behaviour after searching, disclosure of s
 
 H('3.2 Levels of health anxiety and cyberchondria', 2)
 ''' + TAB3.split('\n')[0] + r'''
-P(f'The mean SHAI-14 score was {msd(shai)}; {npct(cnt("HA_clin"))} (95% CI {ci(*prev["HA_clin_CI"], k=1)}%) had elevated health anxiety, an estimate that ranged from {sens["prev_SHAI_ge_15"]:.1f}% at a cut-off of 15 to {sens["prev_SHAI_ge_29"]:.1f}% at 29 (Table 4). The mean CSS-12 score was {msd(css)}; participants searched frequently (excessiveness was the highest dimension) but searching rarely interfered with daily life (compulsion was the lowest). Both scales were reliable (α = {rel.loc["SHAI-14","alpha"]:.2f} and {rel.loc["CSS-12","alpha"]:.2f}), the four-factor CSS-12 structure fitted acceptably (CFI = {cfa.iloc[3].CFI:.3f}, RMSEA = {cfa.iloc[3].RMSEA:.3f}), and the CSS-12 was fully invariant across Arabic and English responders; the SHAI-14 reached metric but not scalar invariance from a weak baseline, so its language comparisons need caution (Table 3).')
+P(f'Scale scores and reliability are shown in Table 3. The mean SHAI-14 score was {msd(shai)}; {npct(cnt("HA_clin"))} (95% CI {ci(*prev["HA_clin_CI"], k=1)}%) had elevated health anxiety, an estimate that ranged from {sens["prev_SHAI_ge_15"]:.1f}% at a cut-off of 15 to {sens["prev_SHAI_ge_29"]:.1f}% at 29 (Table 4). The mean CSS-12 score was {msd(css)}; participants searched frequently (excessiveness was the highest dimension) but searching rarely interfered with daily life (compulsion was the lowest). Both scales were reliable (α = {rel.loc["SHAI-14","alpha"]:.2f} and {rel.loc["CSS-12","alpha"]:.2f}), the four-factor CSS-12 structure fitted acceptably (CFI = {cfa.iloc[3].CFI:.3f}, RMSEA = {cfa.iloc[3].RMSEA:.3f}), and the CSS-12 was fully invariant across Arabic and English responders; the SHAI-14 reached metric but not scalar invariance from a weak baseline, so its language comparisons need caution.')
 ''' + '\n'.join(TAB3.split('\n')[1:]) + '\n' + TAB4 + r'''
 
 H('3.3 Association between health anxiety and cyberchondria', 2)
@@ -233,6 +233,7 @@ Q(39, 'During a consultation, do you share your online or AI findings with your 
 Q(40, 'How has digital health information-seeking affected your relationship with and trust in healthcare providers?', ['○ Significantly reduced my trust', 'Somewhat complicated the relationship, but I still follow advice', 'No negative impact; it supplements my doctor\'s care'])
 Q(41, 'Which language did you rely on most while completing this questionnaire?', ['○ Mostly English', 'Mostly Arabic'])
 """
+MAIN = MAIN.replace('are provided in the supplementary workbook', 'are available from the authors').replace('are listed in the supplementary workbook', 'are available from the authors').replace('are given in the supplementary workbook', 'are available from the authors')
 code = HEAD + '\n' + MAIN + '\n' + REFS_PART + '\n' + APPX + '\n' + TAIL
 assert "f'{OUT}/toc_entries.json'" in code
 code = code.replace("f'{OUT}/toc_entries.json'", "f'{OUT}/toc_entries_short.json'")
