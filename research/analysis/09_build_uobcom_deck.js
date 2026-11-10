@@ -159,12 +159,12 @@ s.addText("Health Anxiety, AI Chatbot Use and Cyberchondria Among Adults in Bagh
 s.addText("An online cross-sectional survey", { x: 0.5, y: 2.25, w: 9.0, h: 0.35, align: "center", fontFace: BODY, fontSize: 14, italic: true, color: ORANGE, margin: 0 });
 s.addText([
   { text: "Prepared by:", options: { bold: true, color: GREEN, breakLine: true } },
-  { text: "[Student 1 full name]", options: { italic: true, breakLine: true } },
-  { text: "[Student 2 full name]", options: { italic: true, breakLine: true } },
-  { text: "[Student 3 full name]", options: { italic: true, breakLine: true } },
+  { text: "Abdulrahman Jamal Ghazi", options: { italic: true, breakLine: true } },
+  { text: "Mustafa Wamedh Mustafa", options: { italic: true, breakLine: true } },
+  { text: "Yaseen Omar Lutfi", options: { italic: true, breakLine: true } },
   { text: " ", options: { fontSize: 6, breakLine: true } },
   { text: "Supervisor:", options: { bold: true, color: GREEN, breakLine: true } },
-  { text: "[Title and full name]", options: { italic: true } },
+  { text: "Assist. Prof. Dr. Thikra Hasan Mathkor", options: { italic: true } },
 ], { x: 0.6, y: 2.85, w: 4.2, h: 2.2, fontFace: BODY, fontSize: 14, color: INK, margin: 0, valign: "top" });
 photo(s, "title_phone.jpg", 5.05, 2.75, 4.4, 2.45);
 searchBar(s, 5.35, 2.95, 3.8, "headache for 3 days causes **brain tumour**");
