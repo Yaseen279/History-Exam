@@ -23,7 +23,7 @@ TAIL = '\n'.join(SRC[idx('# ----------------------------------------------------
 R0 = idx("H('3. Results')")
 
 TAB1 = block("T1 = X['T1_demographics']", "table(['Characteristic'", R0)
-TAB2 = block("T2 = X['T2_digital_behaviour']", "      note='Tools, motivations", R0)
+TAB2 = block("T2 = X['T2_digital_behaviour']", "      note='Tools, motivations", R0).replace("table(['Variable', 'n', '%'], rows, widths=[10.5, 2, 2],", "table(['Variable', 'n', '%'], rows, widths=[10.5, 2, 2], size=9.5, compact=True,")
 TAB3 = block("T3 = X['T3_scale_desc']", "T3 = X['T3_scale_desc']", R0) + '\n' + block("rows = []", "      note=f'Language equivalence", idx("for lab, col, rk in", R0) - 1, edits=[
     ("(SHAI-14 means are not strictly comparable across languages because its scalar invariance was not supported; Table 5)", "(SHAI-14 means are not strictly comparable across languages because its scalar invariance was not supported)"),
     (" Measurement invariance across languages: Table 5.", " Measurement invariance (multi-group CFA): CSS-12 scalar invariant; SHAI-14 metric but not scalar invariant; no item DIF after FDR correction.")])
@@ -123,7 +123,7 @@ figure(f'{FIG}/fig1_scatter_shai_css.png', 'Health anxiety (SHAI-14) against cyb
 H('3.4 Factors associated with health anxiety and cyberchondria', 2)
 ''' + GVARS + r'''
 P(f'Across 162 group comparisons (Table 6), health anxiety was higher with a chronic condition (q = {gC.q_FDR:.3f}) and, most clearly, in those searching for instant reassurance (q = {gMR.q_FDR:.3f}); differences by age, education and occupation were borderline and exploratory, and gender made no difference. Under the inclusive definition, AI users had higher cyberchondria (q = {gAIc.q_FDR:.3f}), highest in those combining AI with search engines (Figure 5). Participants with elevated health anxiety more often had high cyberchondria (52.6% vs 23.0%; OR = {R["HA_CSShigh_OR"]["OR"]:.2f}) (Table 7).')
-''' + TAB7.replace("widths=[5.2, 1.2, 2.8, 2.4, 2.8, 2.4], size=10", "widths=[5.2, 1.2, 2.8, 2.4, 2.8, 2.4], size=9.5") + r'''
+''' + TAB7.replace("widths=[5.2, 1.2, 2.8, 2.4, 2.8, 2.4], size=10", "widths=[5.2, 1.2, 2.8, 2.4, 2.8, 2.4], size=8.5, compact=True") + r'''
 figure(f'{FIG}/fig6_css_by_tool.png', 'Cyberchondria (CSS-12) by online tool profile.', width=10.5)
 ''' + TAB8 + r'''
 
@@ -179,15 +179,59 @@ for b in ['**Clinicians:** ask every patient, without judgement, what they have 
 APPX = r"""
 page_break()
 H('Appendix. Study questionnaire')
-P('The bilingual (English–Arabic) questionnaire as administered through Google Forms (41 questions), shown at reduced size.', indent=False)
-import glob
-QIMGS = sorted(glob.glob(f'{OUT}/questionnaire/c-*.png'))
-qt = doc.add_table(rows=0, cols=2); qt.alignment = WD_TABLE_ALIGNMENT.CENTER
-for k in range(0, len(QIMGS), 2):
-    cells = qt.add_row().cells
-    for c, qi in zip(cells, QIMGS[k:k + 2]):
-        pq = c.paragraphs[0]; pq.alignment = WD_ALIGN_PARAGRAPH.CENTER; pq.paragraph_format.line_spacing = 1.0; pq.paragraph_format.space_after = Pt(2)
-        pq.add_run().add_picture(qi, width=Cm(7.6))
+def QP(text, size=10.5, after=1, bold=False, indent=0.0, italic=False):
+    qp = doc.add_paragraph(); qp.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    qp.paragraph_format.line_spacing = 1.0; qp.paragraph_format.space_after = Pt(after); qp.paragraph_format.space_before = Pt(0)
+    if indent: qp.paragraph_format.left_indent = Cm(indent)
+    add_runs(qp, f'**{text}**' if bold else (f'*{text}*' if italic else text), size); return qp
+def Q(num, text, opts=None):
+    qp = QP(f'**{num}.** {text}', after=0 if opts else 3)
+    qp.paragraph_format.keep_with_next = bool(opts)
+    if opts: QP(' · '.join(opts), size=9.5, after=3, indent=0.6, italic=True)
+QP('Administered online through Google Forms in English and Arabic (every item shown in both languages; the Arabic text is not reproduced here). All items were required except Q7 and Q9. ○ = one answer; ☐ = all that apply.', size=10, after=6, italic=True)
+QP('Part 1. Consent and socio-demographic data', bold=True, size=11, after=2)
+Q(1, 'I confirm that I am at least 18 years of age, have read the description of this study and voluntarily agree to participate; I can withdraw at any point without penalty.', ['○ I explicitly agree and consent to participate'])
+Q(2, 'Age group', ['○ 18–19', '20–29', '30–39', '40–49', '50–59', '60+'])
+Q(3, 'Gender', ['○ Male', 'Female'])
+Q(4, 'Highest level of education completed', ['○ Currently a student', 'Postgraduate (Master\'s or PhD)', 'Bachelor\'s', 'Diploma/vocational', 'High school or below', 'Other'])
+Q(5, 'Nature of current study or work', ['○ Medical student', 'Student in another healthcare field', 'Medical doctor', 'Other healthcare professional', 'Student in a non-healthcare field', 'Employed in a non-healthcare field', 'Other'])
+Q(6, 'Do you have a diagnosed chronic medical condition?', ['○ Yes', 'No'])
+Q(7, 'If yes, please specify (optional, free text).')
+QP('Part 2. Digital health information seeking', bold=True, size=11, after=2)
+Q(8, 'Which tools do you use most frequently to look up symptoms online?', ['☐ Search engine (e.g. Google)', 'AI chatbots', 'Dedicated medical platforms (e.g. WebMD, Mayo Clinic)', 'Social media (e.g. Facebook, Reddit, Instagram)'])
+Q(9, 'If you use AI, which one most of the time?', ['○ ChatGPT', 'Gemini', 'Claude', 'Other'])
+Q(10, 'Primary motivation for searching medical information online', ['☐ Convenience and easy access', 'High cost or difficulty of doctor visits', 'Instant reassurance about an unexplained symptom', 'Self-diagnosis or double-checking a prescription', 'To see if a symptom is serious enough to need a doctor', 'Other'])
+Q(11, 'How much do you trust medical information generated by online tools/AI (1–5)?', ['○ 1 Not at all', '2 Slightly', '3 Moderately', '4 Very much', '5 Completely'])
+QP('Part 3. Short Health Anxiety Inventory (SHAI-14): choose the statement that best describes you (scored 0–3)', bold=True, size=11, after=2)
+SHAI = [('Worrying about health', 'I do not worry about my health / occasionally worry / spend much of my time worrying / spend most of my time worrying'),
+ ('Body awareness*', 'I notice aches/pains as much as most people (of my age) / less than most people / more than most people / I am aware of aches/pains all the time'),
+ ('Bodily sensations', 'As a rule I am not aware of bodily sensations or changes / sometimes aware / often aware / constantly aware'),
+ ('Thoughts of illness', 'Resisting thoughts of illness is never a problem / most of the time I can resist them / I try but am often unable to / they are so strong I no longer try'),
+ ('Fear of serious illness', 'As a rule I am not afraid I have a serious illness / sometimes afraid / often afraid / always afraid'),
+ ('Images of illness', 'I do not have images of myself being ill / occasionally / frequently / constantly'),
+ ('Distraction from health thoughts', 'No difficulty taking my mind off my health / sometimes difficult / often difficult / nothing can take my mind off it'),
+ ('Medical reassurance', 'Lastingly relieved if my doctor says nothing is wrong / relieved but worries sometimes return / relieved but worries always return / not relieved'),
+ ('Hearing about illness', 'If I hear about an illness I never think I have it / sometimes / often / always'),
+ ('Interpretation of sensations', 'If I have a bodily sensation I rarely wonder what it means / often wonder / always wonder / must know what it means'),
+ ('Perceived risk', 'I usually feel at very low / fairly low / moderate / high risk of developing a serious illness'),
+ ('Thinking you are ill', 'I never / sometimes / often think I have a serious illness / I usually think I am seriously ill'),
+ ('Unexplained sensations', 'If I notice an unexplained sensation I do not find it difficult / sometimes / often / always find it difficult to think about other things'),
+ ('Family and friends', 'My family/friends would say I do not worry enough / have a normal attitude / worry too much about my health / am a hypochondriac')]
+for k, (h, o) in enumerate(SHAI, 12):
+    Q(k, h, [o])
+QP('*Options for Q13 were displayed in the order shown (the original scale lists "less than" before "as much as"); scoring followed the meaning of each statement.', size=9, after=4, italic=True)
+QP('Part 4. Cyberchondria Severity Scale (CSS-12): ○ Never (1) · Rarely (2) · Sometimes (3) · Often (4) · Always (5)', bold=True, size=11, after=2)
+CSS = ['If I notice an unexplained bodily sensation, I search for it on the Internet.', 'I read different web pages about the same health condition.', 'I enter the same symptoms into a search engine on more than one occasion.',
+ 'Researching symptoms online distracts me from reading news, sports or entertainment.', 'Researching symptoms online interrupts my work (e.g. emails, documents).', 'Researching symptoms online interrupts my offline social activities.',
+ 'I panic when I read online that a symptom I have could be a sign of a rare or serious condition.', 'I feel fine until I read about a serious medical condition online.', 'I feel more anxious or distressed after researching symptoms online.',
+ 'Researching symptoms online leads me to consult my general practitioner.', 'I suggest to my doctor a specific diagnostic procedure I have read about online (e.g. a biopsy, a blood test).', 'Researching symptoms online leads me to consult other medical specialists.']
+for k, s in enumerate(CSS, 26):
+    Q(k, s)
+QP('Part 5. Pre-consultation behaviour and the doctor–patient relationship', bold=True, size=11, after=2)
+Q(38, 'After searching your symptoms online, what are your most frequent responses?', ['☐ Buy self-prescribed medication without a doctor', 'Delay or skip medical help because the information reassured me', 'Delay help because the information frightened or overwhelmed me', 'Seek an urgent appointment or the emergency room', 'Visit several doctors to double-check', 'Ignore the symptom'])
+Q(39, 'During a consultation, do you share your online or AI findings with your physician?', ['○ Yes, always', 'Sometimes, depending on how the doctor responds', 'No, never, for fear of being judged or dismissed'])
+Q(40, 'How has digital health information-seeking affected your relationship with and trust in healthcare providers?', ['○ Significantly reduced my trust', 'Somewhat complicated the relationship, but I still follow advice', 'No negative impact; it supplements my doctor\'s care'])
+Q(41, 'Which language did you rely on most while completing this questionnaire?', ['○ Mostly English', 'Mostly Arabic'])
 """
 code = HEAD + '\n' + MAIN + '\n' + REFS_PART + '\n' + APPX + '\n' + TAIL
 assert "f'{OUT}/toc_entries.json'" in code

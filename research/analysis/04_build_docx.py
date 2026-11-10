@@ -156,7 +156,7 @@ NAVY_T, GROUP_T, ZEBRA_T, RULE_T = '1F3B4D', 'E3EBF0', 'F6F8FA', 'C9D2DA'
 def shade(cell, fill):
     tcPr = cell._tc.get_or_add_tcPr(); shd = OxmlElement('w:shd')
     shd.set(qn('w:val'), 'clear'); shd.set(qn('w:color'), 'auto'); shd.set(qn('w:fill'), fill); tcPr.append(shd)
-def table(header, rows, widths=None, size=10.5, note=None, bold_rows=()):
+def table(header, rows, widths=None, size=10.5, note=None, bold_rows=(), compact=False):
     t = doc.add_table(rows=1, cols=len(header)); t.alignment = WD_TABLE_ALIGNMENT.CENTER
     t.style = doc.styles['Table Grid']
     tblPr = t._tbl.tblPr; bd = tblPr.find(qn('w:tblBorders'))
@@ -169,12 +169,12 @@ def table(header, rows, widths=None, size=10.5, note=None, bold_rows=()):
         bd.append(el)
     tblPr.append(bd)
     mar = OxmlElement('w:tblCellMar')
-    for edge, v in [('top', 35), ('bottom', 35), ('left', 90), ('right', 90)]:
+    for edge, v in [('top', 8 if compact else 35), ('bottom', 8 if compact else 35), ('left', 90), ('right', 90)]:
         el = OxmlElement(f'w:{edge}'); el.set(qn('w:w'), str(v)); el.set(qn('w:type'), 'dxa'); mar.append(el)
     tblPr.append(mar)
     def fill(cells, vals, bold=False, color=None):
         for c, v in zip(cells, vals):
-            c.text = ''; p = c.paragraphs[0]; p.paragraph_format.line_spacing = 1.0; p.paragraph_format.space_after = Pt(0)
+            c.text = ''; p = c.paragraphs[0]; p.paragraph_format.line_spacing = (Pt(size + 2) if compact else 1.0); p.paragraph_format.space_after = Pt(0)
             v = '0.00' if str(v) == '-0.00' else v
             r = p.add_run(str(v)); r.font.size = Pt(size); r.bold = bold; r.font.name = FONT
             if color: r.font.color.rgb = RGBColor.from_string(color)
@@ -189,8 +189,11 @@ def table(header, rows, widths=None, size=10.5, note=None, bold_rows=()):
         else:
             if k % 2 == 1: [shade(c, ZEBRA_T) for c in cells]
             k += 1
-    for row in t.rows:
+    for ri, row in enumerate(t.rows):
         tr = row._tr; trPr = tr.get_or_add_trPr(); cs = OxmlElement('w:cantSplit'); trPr.append(cs)
+        if ri < len(t.rows) - 1:                       # keep the whole table on one page
+            for c in row.cells:
+                for cp in c.paragraphs: cp.paragraph_format.keep_with_next = True
     if widths:
         t.autofit = False
         lay = OxmlElement('w:tblLayout'); lay.set(qn('w:type'), 'fixed'); t._tbl.tblPr.append(lay)
