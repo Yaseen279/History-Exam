@@ -43,7 +43,7 @@ if SHORT:
     design = between('2.1 Design, setting and participants', '2.5 Statistical analysis')
     stats = between('2.5 Statistical analysis', '2.6 Ethical considerations')
     ethics = between('2.6 Ethical considerations', '3. Results')
-    lims = between('4.5 Strengths and limitations', '5. Conclusions and Recommendations')
+    lims = between('4.6 Strengths and limitations', '5. Conclusions and Recommendations')
     rationale = between('1.7 Rationale', '1.8 Aim, objectives and hypotheses')
 else:
     aim = between('1.8 Aim and objectives', '2. Method')
@@ -116,7 +116,7 @@ if not SHORT: w(f'<img class="fig" src="file://{FIG}/fig0b_flowchart.png"><p cla
 w(('<h3>Ethics (2.6)</h3>' if SHORT else '<h3>Ethics (2.7)</h3>') + paras(ethics))
 w('<h3>Conclusions (5.1, word for word)</h3>' + paras(concl))
 w('<h3>Recommendations (5.2, word for word)</h3>' + paras(recs))
-w(('<h3>Strengths and limitations (4.5, word for word)</h3>' if SHORT else '<h3>Strengths and limitations (4.8, word for word)</h3>') + paras(lims))
+w(('<h3>Strengths and limitations (4.6, word for word)</h3>' if SHORT else '<h3>Strengths and limitations (4.8, word for word)</h3>') + paras(lims))
 
 # 2 essentials (from the Student 2 guide Part 1)
 w('<h2 class="page">2 · Whole-study essentials</h2>' + g('Part 1', G))

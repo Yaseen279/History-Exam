@@ -2,6 +2,8 @@
 Usage: python3 05_page_map.py <rendered.pdf> <out.json>"""
 import sys, re, json, pdfplumber
 pdf = pdfplumber.open(sys.argv[1]); texts = [(p.extract_text() or '') for p in pdf.pages]
+HDR = 'Health Anxiety, AI Chatbot Use and Cyberchondria in Baghdad'   # running header (short thesis)
+texts = [t.split('\n', 1)[1] if t.startswith(HDR) and '\n' in t else t for t in texts]
 start = next(i for i, t in enumerate(texts) if t.strip().startswith('1. Introduction'))
 pages = {}
 for i, t in enumerate(texts[start:], start):
