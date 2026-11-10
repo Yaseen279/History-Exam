@@ -53,7 +53,11 @@ img.fig { display: block; max-width: 100%; max-height: 300px; margin: 6px auto; 
 .card .hd { font-weight: bold; color: #fff; background: #0B5394; margin: -8px -11px 6px; padding: 4px 11px; border-radius: 6px 6px 0 0; font-size: 12pt; }
 """
 H = []; w = H.append
-def lesson(title, body): w(f'<div class="lesson"><div class="t">{title}</div>{body}</div>')
+LOVR = {}
+def lesson(title, body):
+    k = title.split('.')[0]
+    if SHORT and k in LOVR: title, body = LOVR[k]
+    w(f'<div class="lesson"><div class="t">{title}</div>{body}</div>')
 def say(t): return f'<div class="say">{t}</div>'
 def why(t): return f'<div class="why">{t}</div>'
 def trap(t): return f'<div class="trap">{t}</div>'
@@ -74,6 +78,26 @@ and be able to say it simply. This guide teaches you exactly that.</p>
 <li><b>Sitting 2 (2 h):</b> Part C (why each table and figure exists, how to read it). Have the thesis open next to you.</li>
 <li><b>Sitting 3 (1.5 h):</b> Part D (your slides: what to point at), Part E (drills). Then do the drills again the next day without looking.</li></ol>
 <p>Keep the one-page cheat sheet (last page) in your pocket for the week before the defence.</p>''')
+
+if SHORT:   # SPSS-level analyses of the short thesis (02d_simple_stats.py)
+    S2 = json.load(open(f'{OUT}/simple.json')); SM = S2['mediation']; SL = S2['logit_HA']
+    A_a, A_b, A_t, A_d, A_i = [SM[0][k] for k in ['a', 'b', 'c', 'c_prime', 'indirect']]
+    C_a, C_b, C_t, C_d, C_i = [SM[1][k] for k in ['a', 'b', 'c', 'c_prime', 'indirect']]
+    N['auc'] = f"{SL['AUC']:.2f}"
+    N['palt'] = f"{S2['ai_strict']['p']:.2f}"
+    _b = pd.DataFrame(S2['behaviour']); _bp = lambda o, p: _b[(_b.Outcome == o) & (_b.Predictor == p)].iloc[0]
+    _nsS = _bp('Never disclose to physician', 'zSHAI'); _rel = _bp('Negative effect on doctor relationship', 'zCSS')
+    LOVR.update({
+     '12': ('12. Many tests and chance findings', f'<p>Like most graduation theses, we used the usual rule: <b>p &lt; 0.05 = significant</b>. Because we ran many tests, a few “significant” results could be luck (with 100 tests at 0.05, about 5 would be). We did not adjust the p-values; instead we say so honestly in the limitations and we rely most on results that are strong (p &lt; 0.001) and consistent across analyses.</p>{say("We used p below 0.05; because we ran many tests, we mention in the limitations that some weaker results may be due to chance.")}'),
+     '15': ('15. Checking the regression: VIF', '<p>If two predictors are almost the same thing, the regression cannot separate them (<b>multicollinearity</b>). SPSS gives the <b>VIF</b> for each predictor: below 5 is fine. Ours were all low.</p>'),
+     '17': ('17. AUC (ROC curve)', f'<p>How well the logistic model separates people with and without elevated health anxiety. Pick one person with and one without: AUC is the chance the model gives the higher risk to the right one. 0.5 = coin toss, 0.7–0.8 acceptable, 0.8–0.9 good.</p>{ex(f"AUC {N['auc']}: good")}'),
+     '18': ('18. The Sobel test', f'<p>Tests whether an indirect effect (a × b) is bigger than zero. You need a, its SE, b and its SE (from two regressions in SPSS): z = a×b / √(b²·SEa² + a²·SEb²). If |z| &gt; 1.96, p &lt; 0.05.</p>{ex(f"Model A: a = {A_a:.2f} (SE {SM[0]['SE_a']:.2f}), b = {A_b:.2f} (SE {SM[0]['SE_b']:.2f}) → Sobel z = {SM[0]['sobel_z']:.2f}, p &lt; 0.001")}'),
+     '20': ('20. Hosmer–Lemeshow test', f'<p>Checks whether a logistic model fits the data: here we <b>want</b> a non-significant p (p &gt; 0.05 = good fit).</p>{ex(f"Hosmer–Lemeshow p = {SL['HL_p']:.2f} → good fit")}'),
+     '21': ('21. Reliability: Cronbach α', f'<p>Do the items of a scale measure the same thing? 0.7 acceptable, 0.8 good, 0.9 excellent.</p>{ex(f"SHAI α {N['aS']}, CSS α {N['aC']}: good")}'),
+     '22': ('22. Fisher\'s exact test and Cramér\'s V', '<p>χ² needs enough people in each cell (expected count ≥ 5). When cells are small, <b>Fisher\'s exact test</b> gives the p-value instead. <b>Cramér\'s V</b> is the strength of a χ² association: 0.1 small, 0.3 medium, 0.5 large.</p>'),
+     '23': ('23. z-scores (standardised scores)', f'<p>A z-score shows how far someone is from the average in SDs (0 = average, +1 = one SD above). We used them so odds ratios are “per 1 SD” and mediation coefficients are comparable. In SPSS: Descriptives → “Save standardized values”.</p>'),
+     '24': ('24. Where each test is in SPSS', '<p>Frequencies: Analyze → Descriptive Statistics → Frequencies · Reliability: Analyze → Scale → Reliability Analysis · Correlation: Analyze → Correlate → Bivariate / Partial · Mann–Whitney, Kruskal–Wallis: Analyze → Nonparametric Tests → Legacy Dialogs · χ²: Analyze → Descriptive Statistics → Crosstabs → Statistics · Linear regression: Analyze → Regression → Linear (Next for each block) · Logistic: Analyze → Regression → Binary Logistic · AUC: Analyze → Classify → ROC Curve. All of it is in our syntax file.</p>'),
+    })
 
 # ================================================================ PART A story
 w('<h2 class="page">Part A · The Results tell one story in nine steps</h2>')
@@ -283,7 +307,37 @@ out = '\n'.join(H)
 if SHORT:
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     from numbering import remap
-    for a, b in [("19 · Item by item (Figure 11)", "19 · Item by item (supplementary figure)"),
+    for a, b in [('and <b>robust</b> regression.', 'and ordinary (multiple linear and logistic) regression.'),
+                 ('Cyberchondria → more disclosure (robust); others exploratory', 'Cyberchondria → urgent visits, strained relationship, more disclosure'),
+                 ('Columns: mean ± SD, median (IQR), range, α (95% CI), ω.</li><li>The note under the table has the CFA fit.', 'Columns: mean ± SD, median (IQR), range, Cronbach α.'),
+                 ('(exact means and p/q)', '(exact means and p)'),
+                 ("Cramér's V (strength), p, q.", "Cramér's V (strength), p."),
+                 ('fig7_forest_HA.png', 'fig7_forest_HA_simple.png'), ('fig8_mediation.png', 'fig8_mediation_sobel.png'),
+                 (f'AUC {N["auc"]} → {N["aucc"]}', f'AUC {N["auc"]}'),
+                 ('Only 57 events, so the reassurance odds ratio has a wide CI; say “exploratory”.', 'Only 57 events, so the reassurance odds ratio has a wide CI; say the estimates may be overestimated.'),
+                 (f'less never-disclosing ({N["nsC"]}, the only robust one).', f'less never-disclosing ({N["nsC"]}) and a strained relationship ({_rel.AOR:.2f}); higher SHAI → more never-disclosing ({_nsS.AOR:.2f}).'),
+                 ('Cyberchondria, not health anxiety, is what goes with behaviour; only the link with disclosure survived correction.', 'Cyberchondria, more than health anxiety, is what goes with behaviour: urgent visits, a strained relationship and more disclosure.'),
+                 ('the table adds the CIs and the reverse model.', 'the table adds the standard errors, the Sobel test and the reverse model.'),
+                 ('Below each diagram: the indirect effect with its CI.', 'Below each diagram: the indirect effect with its Sobel z and p.'),
+                 (f"the model\\'s AUC is {N['aucc']} after correction.", f"the model\\'s AUC is {N['auc']}."),
+                 (f"the model's AUC is {N['aucc']} after correction.", f"the model's AUC is {N['auc']}."),
+                 ('Higher cyberchondria goes with more disclosure, and that result survived correction.', 'Higher cyberchondria goes with more urgent visits and with more disclosure.'),
+                 ('<tr><td>Why did you correct for multiple tests?</td><td>With 162 tests, about 8 would be significant just by luck; FDR correction separates real results from probable luck.</td></tr>',
+                  '<tr><td>Why didn\'t you correct for multiple tests?</td><td>We used the standard p &lt; 0.05, like most graduation theses, and we say in the limitations that with many tests some weaker results may be chance. Our main results have p &lt; 0.001.</td></tr>'),
+                 ('How well our model tells anxious from non-anxious people apart: 0.79 is good.', f'How well our model tells anxious from non-anxious people apart: {N["auc"]} is good.'),
+                 ('<tr><td>What is measurement invariance?</td><td>Checking the questionnaire measures the same thing in Arabic and English, like checking two rulers. The CSS-12 passed fully.</td></tr>',
+                  '<tr><td>What is the Sobel test?</td><td>A test of whether the indirect effect (a × b) is really above zero. Ours were z = 5.1 and 6.0, both p &lt; 0.001.</td></tr>'),
+                 ('<tr><td>Invariance</td><td>CSS-12 scalar ✓; SHAI-14 metric ✓, scalar ✗; no DIF</td><td>Table 5</td></tr>', ''),
+                 (f'<td>AOR {N["orCSS"]} / {N["orMot"]} / {N["orAge"]}; AUC {N["auc"]} → {N["aucc"]}</td>', f'<td>AOR {N["orCSS"]} / {N["orMot"]} / {N["orAge"]}; AUC {N["auc"]}; H–L p {SL["HL_p"]:.2f}</td>'),
+                 (f'<tr><td>Behaviour (robust)</td><td>CSS → never disclose AOR {N["nsC"]}, q {N["nsCq"]}</td>', f'<tr><td>Behaviour</td><td>CSS → urgent {N["urC"]}, ignore {N["igC"]}, never disclose {N["nsC"]}, strained {_rel.AOR:.2f}; SHAI → never disclose {_nsS.AOR:.2f}</td>'),
+                 (f'via excess {N["mA"]} ({N["mAci"]})', f'via excess {N["mA"]} (Sobel z {SM[0]["sobel_z"]:.1f})'),
+                 (f'<tr><td>Item level</td><td>{N["ibF"]}/168 FDR; top ρ 0.43</td><td>Figure 11</td></tr>', ''),
+                 ('Colour = strength; stars = significant after FDR (**: also after the stricter Holm correction).', 'Colour = strength of the Spearman correlation between two questions.'),
+                 ('Is everything robust?', 'Does it hold?'),
+                 ('and finally <b>is it robust?</b>', 'and finally <b>does it hold?</b>'),
+                 ('but we will see this is not robust once we adjust.', 'but we will see this depends on how AI use is defined.'),
+                 ('<td>Table 6 (heatmaps are only in the long version)</td>', '<td>Table 6 (a correlation table)</td>'), ('AI effect not robust', 'AI effect depends on the definition'),
+                 ("19 · Item by item (Figure 11)", "19 · Item by item (supplementary figure)"),
                  ("Figure 11 looks at every pair of questions.", "This supplementary figure looks at every pair of questions."),
                  ("<tr><td>Why a heatmap for Figure 6?</td><td>There are 45 correlations; colour lets you see them all at once.</td></tr>", ""),
                  ("Why is Figure 11 in the appendix?", "Why is the item-by-item figure only on a slide, not in the thesis?"),

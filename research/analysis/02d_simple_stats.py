@@ -27,7 +27,7 @@ S['hier'] = blocks
 S['ols_final'] = dict(F=m3.fvalue, df1=int(m3.df_model), df2=int(m3.df_resid), p=m3.f_pvalue, R2=m3.rsquared, adjR2=m3.rsquared_adj)
 y_sd = d.CSS.std(); Xf = pd.DataFrame(m3.model.exog, columns=m3.model.exog_names)
 coef = pd.DataFrame({'B': m3.params, 'SE': m3.bse, 't': m3.tvalues, 'p': m3.pvalues})
-coef['beta'] = [np.nan if c == 'Intercept' else m3.params[c] * Xf[c].std() / y_sd for c in coef.index]
+coef['beta'] = [None if c == 'Intercept' else m3.params[c] * Xf[c].std() / y_sd for c in coef.index]
 S['ols_coef'] = coef.reset_index().rename(columns={'index': 'term'}).to_dict('records')
 # strict AI definition (ticked only)
 m3s = smf.ols(f'CSS ~ {covs} + {digital.replace("ai_user", "tool_ai")} + SHAI', d).fit()
@@ -82,6 +82,12 @@ S['mediation'] = med
 # ------------------------------------------------------------------ 5. simple correlations (SPSS CORRELATIONS / PARTIAL CORR)
 r, p = stats.pearsonr(d.SHAI, d.CSS); zf = np.arctanh(r); h = 1.96 / np.sqrt(len(d) - 3)
 S['pearson'] = dict(r=r, p=p, CI=[np.tanh(zf - h), np.tanh(zf + h)], rho=stats.spearmanr(d.SHAI, d.CSS)[0])
+def _clean(o):
+    if isinstance(o, dict): return {k: _clean(v) for k, v in o.items()}
+    if isinstance(o, list): return [_clean(v) for v in o]
+    if isinstance(o, float) and np.isnan(o): return None
+    return o
+S = _clean(json.loads(json.dumps(S, default=float)))
 json.dump(S, open(f'{OUT}/simple.json', 'w'), indent=1, ensure_ascii=False, default=float)
 print('wrote', f'{OUT}/simple.json')
 

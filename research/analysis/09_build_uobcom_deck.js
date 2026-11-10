@@ -6,6 +6,12 @@ const path = require("path");
 const pptxgen = require("pptxgenjs");
 const [, , NUMS, ASSETS, QDIR, OUTFILE] = process.argv;
 const N = JSON.parse(fs.readFileSync(NUMS, "utf8"));
+{ // the deck follows the short thesis: SPSS-level (classical) estimates from 02d_simple_stats.py
+  const SS = JSON.parse(fs.readFileSync(path.join(path.dirname(NUMS), "..", "simple.json"), "utf8"));
+  const ai = SS.ols_coef.find((r) => r.term === "ai_user"), t = 1.9685;
+  N.palt = SS.ai_strict.p.toFixed(2); N.Baici = `${(ai.B - t * ai.SE).toFixed(1)}–${(ai.B + t * ai.SE).toFixed(1)}`;
+  N.auc = SS.logit_HA.AUC.toFixed(2);
+}
 const FIG = N.figdir;
 const A = (f) => path.join(ASSETS, f);
 const PH = (f) => path.join(ASSETS, "..", "photos", f); // CC0 photos (StockSnap) and Natural Earth maps; see photos/CREDITS.csv
@@ -85,7 +91,8 @@ function numBadge(s, x, y, n, color) {
   s.addText(String(n), { x, y, w: 0.3, h: 0.3, align: "center", valign: "middle", fontSize: 12, bold: true, color: "FFFFFF", margin: 0, fontFace: BODY });
 }
 function figure(s, file, caption, x, y, maxW, maxH) {
-  const a = N.aspect[file];
+  let a = N.aspect[file];
+  if (!a) { const b = fs.readFileSync(path.join(FIG, file)); a = b.readUInt32BE(16) / b.readUInt32BE(20); }   // PNG header: width, height
   let w = maxW, h = w / a;
   if (h > maxH) { h = maxH; w = h * a; }
   const fx = x + (maxW - w) / 2;
@@ -305,21 +312,21 @@ txt(s, `Primary outcome: **correlation** SHAI ↔ CSS\nFisher’s z, two-sided *
 txt(s, "Bilingual **Arabic–English** Google Form · Arabic wording by the research team", { x: 4.35, y: 4.98, w: 5.15, h: 0.3, fontSize: 10.5, italic: true, color: GREY });
 
 // ================================================================ 12 Statistical analysis
-s = newSlide(3, S1 + "For the analysis we used Python, with every step scripted so it can be reproduced, and we also prepared an SPSS file. We checked reliability and factor structure, then correlations, group comparisons, multivariable regression, and mediation with bootstrapping. Because we ran many tests, we corrected p-values with the false discovery rate method, and we labelled anything that did not survive as exploratory. Now my colleague will present the results.");
+s = newSlide(3, S1 + "For the analysis we used SPSS. We described the sample with frequencies and means, checked reliability with Cronbach's alpha, and because the scores were not normally distributed we compared groups with Mann–Whitney and Kruskal–Wallis tests, and categories with chi-square. We then measured the correlation, ran hierarchical multiple linear regression and binary logistic regression, and tested mediation with the Sobel test. Significance was p below 0.05. Now my colleague will present the results.");
 tag(s, "Statistical Analysis");
 [["Describe", "Frequencies, mean ± SD, median (IQR); normality by Shapiro–Wilk", GREEN],
- ["Psychometrics", "Cronbach α, McDonald ω, confirmatory factor analysis (CFI, TLI, RMSEA, SRMR)", BLUE],
- ["Associations", "Pearson / Spearman (bootstrap CI), partial r; Mann–Whitney, Kruskal–Wallis; χ²", ORANGE],
- ["Multivariable", "Hierarchical robust (HC3) regression; logistic & ordinal logistic; AUC", MAROON],
- ["Pathways", "Bootstrapped mediation (5000 resamples); moderation by interaction terms", GREEN],
- ["Rigour", "Benjamini–Hochberg FDR for multiple testing; sensitivity analyses", BLUE]].forEach(([h, b, c], i) => {
+ ["Reliability", "Cronbach α for the SHAI-14, the CSS-12 and each CSS dimension", BLUE],
+ ["Associations", "Pearson & Spearman, partial r; Mann–Whitney, Kruskal–Wallis; χ² / Fisher, Cramér's V", ORANGE],
+ ["Multivariable", "Hierarchical multiple linear regression; binary logistic regression (AOR, Hosmer–Lemeshow, AUC)", MAROON],
+ ["Pathways", "Mediation by linear regressions (paths a, b, c, c′); Sobel test", GREEN],
+ ["Checks", "VIF for multicollinearity; sensitivity analyses of the main correlation", BLUE]].forEach(([h, b, c], i) => {
   const x = 0.5 + (i % 3) * 3.05, y = 0.9 + Math.floor(i / 3) * 1.75;
   bar(s, x, y, 2.85, h, c);
   box(s, x, y + 0.34, 2.85, 1.2);
   txt(s, b, { x: x + 0.08, y: y + 0.4, w: 2.7, h: 1.1, fontSize: 12 });
 });
 box(s, 0.5, 4.5, 8.95, 0.5, { fill: PALE, line: "E8C9A6", noShadow: true });
-txt(s, "Software: **Python 3** (pandas, SciPy, statsmodels, pingouin, semopy), fully scripted · SPSS dataset & syntax provided · **α = 0.05**, two-sided", { x: 0.6, y: 4.5, w: 8.75, h: 0.5, fontSize: 12, valign: "middle" });
+txt(s, "Software: **IBM SPSS Statistics** [version] · significance **p < 0.05**, two-sided", { x: 0.6, y: 4.5, w: 8.75, h: 0.5, fontSize: 12, valign: "middle" });
 
 // ================================================================ 13 Divider: Results
 divider("Results", ["Participants", "How people search", "Levels & reliability", "Health anxiety ↔ cyberchondria", "Predictors & pathways", "Behaviour & AI chatbots"], (s) => {
@@ -355,16 +362,16 @@ s.addText([{ text: "Figure 2:", options: { bold: true, italic: true } }, { text:
 });
 
 // ================================================================ 16 Table 3 levels & reliability
-s = newSlide(3, S2 + `Opening: Table 3 shows the scores and reliability. Main finding: mean SHAI was ${N.shai_m} out of 42 and ${N.hac} scored 18 or more, our threshold for elevated health anxiety, with a 95% confidence interval of ${N.hac_ci}. Mean CSS was ${N.css_m} out of 60. Excessiveness was the highest facet and compulsion the lowest: people search a lot, but it rarely disrupts their lives. Both scales were reliable, alpha ${N.aS} and ${N.aC}, and reliability was the same in Arabic and English responders. Formal invariance testing showed the CSS-12 works the same way in both languages, and no single item behaved differently. Closing: our tools measured well in this population.`);
+s = newSlide(3, S2 + `Opening: Table 3 shows the scores and reliability. Main finding: mean SHAI was ${N.shai_m} out of 42 and ${N.hac} scored 18 or more, our threshold for elevated health anxiety, with a 95% confidence interval of ${N.hac_ci}. Mean CSS was ${N.css_m} out of 60. Excessiveness was the highest facet and compulsion the lowest: people search a lot, but it rarely disrupts their lives. Both scales were reliable, alpha ${N.aS} and ${N.aC}, and scores did not differ between Arabic and English responders. Closing: our tools measured well in this population.`);
 tag(s, "Levels & Reliability", "orange");
-table(s, "Table 3: Descriptive statistics, reliability and language equivalence of the SHAI-14 and CSS-12 (n = 300)", ["Scale (range)", "Mean ± SD", "Median (IQR)", "α (95% CI)", "ω", "α Arabic / English"], [
-  ["SHAI-14 (0–42)", "12.35 ± 5.83", "12 (8–16)", "0.81 (0.78–0.84)", "0.82", "0.81 / 0.81"],
-  ["CSS-12 (12–60)", "28.86 ± 8.36", "29 (23–34)", "0.86 (0.84–0.89)", "0.87", "0.86 / 0.88"],
-  ["  Excessiveness (3–15)", "9.66 ± 2.94", "10 (8–12)", "0.77 (0.72–0.81)", "0.77", ""],
-  ["  Compulsion (3–15)", "5.00 ± 2.58", "4 (3–6)", "0.88 (0.86–0.90)", "0.89", ""],
-  ["  Distress (3–15)", "7.24 ± 2.74", "7 (5–9)", "0.76 (0.71–0.81)", "0.77", ""],
-  ["  Reassurance (3–15)", "6.96 ± 2.81", "7 (5–9)", "0.76 (0.71–0.81)", "0.77", ""],
-], { x: 0.55, y: 1.25, w: 8.9, colW: [2.1, 1.3, 1.25, 1.65, 0.7, 1.9], hi: [0, 1], note: `CSS-12 four-factor CFA (ML): CFI ${N.cfaC}, RMSEA ${N.cfaR}, SRMR ${N.srmr}. Arabic vs English: means equal; CSS-12 scalar-invariant, SHAI-14 metric-invariant (multi-group CFA); no item DIF after FDR.` });
+table(s, "Table 3: Descriptive statistics and reliability of the SHAI-14 and CSS-12 (n = 300)", ["Scale (range)", "Mean ± SD", "Median (IQR)", "Range", "Cronbach α"], [
+  ["SHAI-14 (0–42)", "12.35 ± 5.83", "12 (8–16)", "1–30", "0.81"],
+  ["CSS-12 (12–60)", "28.86 ± 8.36", "29 (23–34)", "12–57", "0.86"],
+  ["  Excessiveness (3–15)", "9.66 ± 2.94", "10 (8–12)", "3–15", "0.77"],
+  ["  Compulsion (3–15)", "5.00 ± 2.58", "4 (3–6)", "3–15", "0.88"],
+  ["  Distress (3–15)", "7.24 ± 2.74", "7 (5–9)", "3–15", "0.76"],
+  ["  Reassurance (3–15)", "6.96 ± 2.81", "7 (5–9)", "3–15", "0.76"],
+], { x: 0.55, y: 1.25, w: 8.9, colW: [2.4, 1.8, 1.7, 1.3, 1.7], hi: [0, 1], note: `Cronbach α ≥ 0.70 = acceptable. Arabic vs English responders: no difference in SHAI or CSS (Mann–Whitney p = 0.86 and 0.65).` });
 [[N.hac, "elevated health anxiety (SHAI ≥ 18)"], [N.hac_ci, "95% CI"]].forEach(([v, l], i) => {
   const x = 0.6 + i * 4.5;
   box(s, x, 4.15, 4.3, 0.75, { fill: PALE, line: "E8C9A6", noShadow: true });
@@ -383,25 +390,25 @@ txt(s, `Partial r (all covariates): **${N.pr}**\n\nBy CSS facet:\n• Excessiven
 // ================================================================ 18 Table 8 regression
 s = newSlide(3, S2 + `Opening: Table 8 is the hierarchical regression for cyberchondria. Main finding: demographics alone explain only about 3% of cyberchondria. Adding digital-use variables brings it to 13%. Adding health anxiety adds another ${N.dR2}, to about 32%. Health anxiety is the strongest predictor, standardised beta ${N.beta}: each extra SHAI point adds about ${N.B} CSS points. Closing: who you are matters little; how anxious you are matters most.`);
 tag(s, "What Predicts Cyberchondria?", "orange");
-table(s, "Table 8: Hierarchical robust (HC3) linear regression of cyberchondria (CSS-12 total)", ["Block", "R²", "ΔR²", "p (change)"], [
-  ["1. Socio-demographics", "0.030", "0.030", "—"],
+table(s, "Table 8: Hierarchical multiple linear regression of cyberchondria (CSS-12 total)", ["Block", "R²", "ΔR²", "p (change)"], [
+  ["1. Socio-demographics", "0.030", "0.030", "0.53"],
   ["2. + Digital-use variables", "0.133", "0.103", "< 0.001"],
   ["3. + Health anxiety (SHAI-14)", "0.317", "0.184", "< 0.001"],
 ], { x: 0.55, y: 1.3, w: 5.0, colW: [2.6, 0.75, 0.75, 0.9], hi: [2] });
 table(s, "Final model: key predictors", ["Predictor", "B (95% CI)", "β", "p"], [
   ["SHAI-14 (per point)", "0.68 (0.53–0.84)", "0.48", "< 0.001"],
-  ["AI-chatbot user*", "5.33 (2.34–8.32)", "0.20", "< 0.001"],
-  ["Age 30–39 (vs 20–29)", "6.27 (0.19–12.34)", "0.19", "0.043"],
-  ["Gender, chronic, language, job", "n.s.", "", "> 0.5"],
+  ["AI-chatbot user*", "5.33 (2.57–8.09)", "0.20", "< 0.001"],
+  ["Age 30–39 (vs 20–29)", "6.27 (2.42–10.11)", "0.19", "0.001"],
+  ["Age ≥ 40 (vs 20–29)", "3.98 (0.16–7.79)", "0.15", "0.041"],
 ], { x: 0.55, y: 3.0, w: 5.0, colW: [2.15, 1.45, 0.5, 0.9], hi: [0], fontSize: 10, note: "*Inclusive definition; with the strict definition the AI effect is not significant (slide 23)." });
 box(s, 6.0, 0.9, 3.5, 4.15);
 barChart(s, 6.05, 0.95, 3.4, 3.3, "Variance explained (R²)", ["Demographics", "+ digital use", "+ health anxiety"], [3, 13, 32], ["9DB3AE", "9DB3AE", ORANGE], '0"%"', "col");
 s.addText([{ text: `+${N.dR2}`, options: { bold: true, color: ORANGE, fontSize: 20 } }, { text: "  added by health anxiety", options: { fontSize: 11 } }], { x: 6.1, y: 4.3, w: 3.3, h: 0.6, align: "center", valign: "middle", margin: 0, fontFace: BODY, color: INK });
 
 // ================================================================ 19 Fig 9 item by item
-s = newSlide(3, S2 + `Opening: this supplementary figure breaks the association down item by item, all 168 pairs. Main finding: ${N.ibF} pairs remained significant after FDR correction. The strongest links involve fear of serious illness and interpreting body sensations; for example fear of illness with panicking when reading about a rare condition. Simply noticing aches and pains was almost unrelated. Closing: what drives searching is fear and interpretation, not just noticing symptoms, exactly what the cognitive model predicts.`);
+s = newSlide(3, S2 + `Opening: this supplementary figure breaks the association down item by item, all 168 pairs. Main finding: the strongest links involve fear of serious illness and interpreting body sensations; for example fear of illness with panicking when reading about a rare condition. Simply noticing aches and pains was almost unrelated. Closing: what drives searching is fear and interpretation, not just noticing symptoms, exactly what the cognitive model predicts.`);
 tag(s, "Item by Item: What Drives Searching?", "orange");
-figure(s, "fig9_item_by_item.png", "Supplementary figure: Item-by-item Spearman correlations, SHAI-14 × CSS-12 (* FDR, ** Holm)", 0.45, 0.85, 5.0, 3.8);
+figure(s, "fig9_item_by_item.png", "Supplementary figure: Item-by-item Spearman correlations, SHAI-14 × CSS-12", 0.45, 0.85, 5.0, 3.8);
 [["ρ = 0.43", "Fear of serious illness ↔ panic on reading of a rare condition", ORANGE],
  ["ρ = 0.42", "Interpreting sensations ↔ searching every sensation", ORANGE],
  ["≈ 0", "Merely noticing aches / sensations", GREY]].forEach(([v, t, c], i) => {
@@ -410,39 +417,38 @@ figure(s, "fig9_item_by_item.png", "Supplementary figure: Item-by-item Spearman 
   txt(s, `${v}`, { x: 6.05, y: y + 0.05, w: 3.3, h: 0.4, fontSize: 18, bold: true, color: c });
   txt(s, t, { x: 6.05, y: y + 0.45, w: 3.3, h: 0.5, fontSize: 11.5 });
 });
-txt(s, `**${N.ibF}/168** pairs significant after FDR`, { x: 5.9, y: 4.6, w: 3.6, h: 0.35, fontSize: 12, align: "center" });
 
 // ================================================================ 20 Fig 6 logistic
-s = newSlide(3, S2 + `Opening: Figure 6 shows who has elevated health anxiety, in a multivariable logistic model. Main finding: three factors are independent. Each standard deviation of cyberchondria triples the odds, adjusted odds ratio ${N.orCSS}. Searching for instant reassurance almost quadruples them, ${N.orMot}. Older age is protective, ${N.orAge} per age step. The model discriminates well: AUC ${N.auc}, ${N.aucc} after correcting for optimism. Closing: the person most at risk is young and searches to feel reassured.`);
+s = newSlide(3, S2 + `Opening: Figure 6 shows who has elevated health anxiety, in a multivariable logistic model. Main finding: three factors are independent. Each standard deviation of cyberchondria triples the odds, adjusted odds ratio ${N.orCSS}. Searching for instant reassurance almost quadruples them, ${N.orMot}. Older age is protective, ${N.orAge} per age step. The model fits well, Hosmer–Lemeshow p 0.50, and discriminates well, AUC ${N.auc}. Closing: the person most at risk is young and searches to feel reassured.`);
 tag(s, "Who Has Elevated Health Anxiety?", "orange");
-figure(s, "fig7_forest_HA.png", "Figure 6: Adjusted odds ratios for elevated health anxiety (SHAI ≥ 18). Orange: p < 0.05", 0.45, 0.85, 5.6, 3.8);
-[[N.orCSS + "×", "odds per SD of cyberchondria", ORANGE], [N.orMot + "×", "if searching for instant reassurance", ORANGE], [N.orAge + "×", "per older age group (protective)", GREEN], [`${N.auc} → ${N.aucc}`, "AUC (apparent → optimism-corrected)", BLUE]].forEach(([v, l, c], i) => {
+figure(s, "fig7_forest_HA_simple.png", "Figure 6: Adjusted odds ratios for elevated health anxiety (SHAI ≥ 18). Orange: p < 0.05", 0.45, 0.85, 5.6, 3.8);
+[[N.orCSS + "×", "odds per SD of cyberchondria", ORANGE], [N.orMot + "×", "if searching for instant reassurance", ORANGE], [N.orAge + "×", "per older age group (protective)", GREEN], [`${N.auc}`, "AUC (area under the ROC curve)", BLUE]].forEach(([v, l, c], i) => {
   const y = 0.85 + i * 1.06;
   box(s, 6.45, y, 3.05, 0.9);
   s.addText([{ text: v, options: { bold: true, color: c, fontSize: 20, breakLine: true } }, { text: l, options: { fontSize: 11 } }], { x: 6.5, y, w: 2.95, h: 0.9, align: "center", valign: "middle", margin: 0, fontFace: BODY, color: INK });
 });
 
 // ================================================================ 21 Fig 7 mediation
-s = newSlide(3, S2 + `Opening: Figure 7 shows the pathways. Main finding: in model A, part of the link from health anxiety to post-search distress runs through excessive searching, indirect effect ${N.mA}, CI ${N.mAci}. In model B, post-search distress carries almost all of the link from health anxiety to reassurance-seeking visits: the direct effect drops to ${N.mCd}. But the reverse direction also fits, ${N.mD}. Closing: our data are compatible with the cycle, but one survey at one time point cannot prove direction. Hypothesis 3 is supported statistically, not causally.`);
+s = newSlide(3, S2 + `Opening: Figure 7 shows the pathways. Main finding: in model A, part of the link from health anxiety to post-search distress runs through excessive searching, indirect effect ${N.mA}, Sobel z 5.14, p below 0.001. In model B, post-search distress carries almost all of the link from health anxiety to reassurance-seeking visits: the direct effect drops to ${N.mCd}. But the reverse direction also fits, ${N.mD}. Closing: our data are compatible with the cycle, but one survey at one time point cannot prove direction. Hypothesis 3 is supported statistically, not causally.`);
 tag(s, "Pathways: Is There a Cycle?", "orange");
-figure(s, "fig8_mediation.png", "Figure 7: Mediation models (standardised; 5000 bootstrap resamples)", 0.45, 0.85, 9.1, 2.95);
+figure(s, "fig8_mediation_sobel.png", "Figure 7: Mediation models (standardised coefficients; Sobel test)", 0.45, 0.85, 9.1, 2.95);
 box(s, 0.5, 4.35, 9.0, 0.7, { fill: PALE, line: "E8C9A6", noShadow: true });
-txt(s, `Indirect via excessive searching **${N.mA}** (CI ${N.mAci}) · via distress **${N.mC}** (direct → **${N.mCd}**) · reverse path also **${N.mD}** → **compatible with a cycle, not proof of direction**`, { x: 0.65, y: 4.38, w: 8.7, h: 0.64, fontSize: 12, valign: "middle" });
+txt(s, `Indirect via excessive searching **${N.mA}** (Sobel z 5.14) · via distress **${N.mC}** (direct → **${N.mCd}**) · reverse path also **${N.mD}** → **compatible with a cycle, not proof of direction**`, { x: 0.65, y: 4.38, w: 8.7, h: 0.64, fontSize: 12, valign: "middle" });
 
 // ================================================================ 22 Fig 2 behaviour
-s = newSlide(3, S2 + `Opening: Figure 3 shows what people do after searching. Main finding: the most common response is to delay or skip care because they feel reassured, ${N.dr}. Others escalate: urgent visits ${N.urg}, multiple doctors ${N.mdoc}. Only ${N.always} always tell their doctor about their searches, and ${N.never} never do, for fear of being judged. Higher cyberchondria was linked with more disclosure, odds ratio ${N.nsC}, and this survived FDR correction. ${N.relneg} say searching complicated or reduced trust in their doctor. Closing: searching changes the consultation before it begins.`);
+s = newSlide(3, S2 + `Opening: Figure 3 shows what people do after searching. Main finding: the most common response is to delay or skip care because they feel reassured, ${N.dr}. Others escalate: urgent visits ${N.urg}, multiple doctors ${N.mdoc}. Only ${N.always} always tell their doctor about their searches, and ${N.never} never do, for fear of being judged. Higher cyberchondria was linked with more disclosure, odds ratio ${N.nsC}, and also with urgent visits and a strained relationship. ${N.relneg} say searching complicated or reduced trust in their doctor. Closing: searching changes the consultation before it begins.`);
 tag(s, "Behaviour Before the Consultation", "orange");
 box(s, 0.45, 0.82, 5.55, 4.25);
 barChart(s, 0.5, 0.88, 5.45, 3.85, "After searching, people… (%)", ["Delay/skip care (reassured)", "Ignore the symptom", "Visit several doctors", "Urgent visit / ER", "Self-medication", "Delay care (frightened)"], N.behav.map((v) => Math.round(v * 10) / 10), GREEN);
 s.addText([{ text: "Figure 3:", options: { bold: true, italic: true } }, { text: " Behaviour after searching (n = 300; multiple answers)", options: { italic: true } }], { x: 0.55, y: 4.72, w: 5.35, h: 0.3, fontSize: 10, color: INK, align: "center", fontFace: BODY, margin: 0 });
-[[N.dr, "delay / skip care because reassured"], [N.never, "never tell their doctor (fear of judgement)"], [`OR ${N.nsC}`, "higher cyberchondria → more disclosure (q = " + N.nsCq + ")"], [N.relneg, "say searching strained trust in doctors"]].forEach(([v, l], i) => {
+[[N.dr, "delay / skip care because reassured"], [N.never, "never tell their doctor (fear of judgement)"], [`OR ${N.nsC}`, "higher cyberchondria → more disclosure (p = 0.001)"], [N.relneg, "say searching strained trust in doctors"]].forEach(([v, l], i) => {
   const x = 6.3 + (i % 2) * 1.62, y0 = 0.82 + Math.floor(i / 2) * 2.17;
   box(s, x, y0, 1.5, 2.05);
   s.addText([{ text: v, options: { bold: true, color: ORANGE, fontSize: 19, breakLine: true } }, { text: l, options: { fontSize: 10.5 } }], { x: x + 0.05, y: y0, w: 1.4, h: 2.05, align: "center", valign: "middle", margin: 0, fontFace: BODY, color: INK });
 });
 
 // ================================================================ 23 AI chatbots
-s = newSlide(3, S2 + `Opening: finally, did AI chatbots themselves matter? Main finding: AI users scored ${N.Bai} points higher on cyberchondria after adjustment, mainly excessiveness and reassurance. But ${N.inc} people named a chatbot without ticking the AI option. When we use the strict definition, only people who ticked it, the effect disappears: B = ${N.Balt}, p = ${N.palt}. And only 34 people were true non-users. AI use also did not change the strength of the anxiety–cyberchondria link. Closing: no reliable independent effect of AI. Absence of evidence, not evidence of absence. I now hand over to my colleague for the discussion.`);
+s = newSlide(3, S2 + `Opening: finally, did AI chatbots themselves matter? Main finding: AI users scored ${N.Bai} points higher on cyberchondria after adjustment, mainly excessiveness and reassurance. But ${N.inc} people named a chatbot without ticking the AI option. When we use the strict definition, only people who ticked it, the effect disappears: B = ${N.Balt}, p = ${N.palt}. And only 34 people were true non-users. Closing: no reliable independent effect of AI. Absence of evidence, not evidence of absence. I now hand over to my colleague for the discussion.`);
 tag(s, "AI Chatbots: An Independent Effect?", "orange");
 table(s, "Table: Adjusted difference in cyberchondria (CSS-12) for AI-chatbot users", ["Definition of AI user", "B (CSS points)", "95% CI", "p"], [
   ["Inclusive: ticked OR named a chatbot", `+${N.Bai}`, N.Baici, "< 0.001"],
@@ -450,7 +456,7 @@ table(s, "Table: Adjusted difference in cyberchondria (CSS-12) for AI-chatbot us
 ], { x: 0.55, y: 1.3, w: 8.9, colW: [4.1, 1.6, 1.6, 1.6], hi: [1], note: `${N.inc} respondents named a chatbot without ticking it (mean CSS ${N.inc_css} vs ${N.non_css} in non-users); only 34 were non-users.` });
 [["The classification decides it", `${N.inc} “named but not ticked” respondents had the **highest** scores`, ORANGE],
  ["Small comparison group", "Only **34** true non-users", BLUE],
- ["No moderation", "AI use did **not** change the SHAI ↔ CSS link", GREEN]].forEach(([h, b, c], i) => {
+ ["Strict definition", "Ticked-only AI users: **not** significant (p = " + N.palt + ")", GREEN]].forEach(([h, b, c], i) => {
   const x = 0.5 + i * 3.05;
   bar(s, x, 3.15, 2.85, h, c);
   box(s, x, 3.49, 2.85, 0.95);
@@ -467,17 +473,17 @@ divider("Discussion", ["Our main finding vs the world", "Why weaker than meta-an
 // ================================================================ 25 First in Baghdad
 s = newSlide(3, S3 + `To our knowledge, this is the first study to use the CSS-12 in Baghdad, and among the first anywhere to look at AI chatbots next to search engines before seeing a doctor. Our main finding, r = ${N.r}, supports our first two hypotheses: health anxiety and cyberchondria go together, independently of everything else we measured.`);
 box(s, 0.6, 1.3, 5.2, 2.6);
-txt(s, `To our knowledge, this is the **first** study to apply the CSS-12 in a **Baghdad**-based sample, and among the first to place **AI chatbots** alongside search engines as a source of health information before consulting a doctor.\n\nHealth anxiety and cyberchondria were **moderately and robustly associated (r = ${N.r})**, independent of all other measured factors.`, { x: 0.75, y: 1.4, w: 4.9, h: 2.4, fontSize: 14, paraSpaceAfter: 6 });
+txt(s, `To our knowledge, this is the **first** study to apply the CSS-12 in a **Baghdad**-based sample, and among the first to place **AI chatbots** alongside search engines as a source of health information before consulting a doctor.\n\nHealth anxiety and cyberchondria were **moderately associated (r = ${N.r})**, independent of all other measured factors.`, { x: 0.75, y: 1.4, w: 4.9, h: 2.4, fontSize: 14, paraSpaceAfter: 6 });
 s.addImage({ path: PH("map_iraq.png"), x: 6.05, y: 0.75, w: 3.5, h: 3.5, altText: "Map of Iraq with Baghdad marked" });
 s.addText([{ text: `n = ${N.n}  ·  `, options: { fontSize: 16 } }, { text: `r = ${N.r}`, options: { bold: true, color: ORANGE, fontSize: 22 } }], { x: 6.05, y: 4.35, w: 3.5, h: 0.5, align: "center", valign: "middle", margin: 0, fontFace: HEAD, color: INK });
 
 // ================================================================ 26 Compared with world
-s = newSlide(3, S3 + `How do we compare with the world? Our correlation of ${N.r} is weaker than the pooled estimates of about 0.62 from meta-analyses. Several reasons: first, measurement error; corrected for reliability it would be about ${N.disr}, close to the meta-analytic range. Second, our sample had low health anxiety, and a narrow range weakens correlations. Third, online recruitment may favour confident, habitual internet users. Fourth, most earlier studies used the full 33-item scale.`);
+s = newSlide(3, S3 + `How do we compare with the world? Our correlation of ${N.r} is weaker than the pooled estimates of about 0.62 from meta-analyses. Several reasons: first, measurement error, because no scale is perfectly reliable. Second, our sample had low health anxiety, and a narrow range weakens correlations. Third, online recruitment may favour confident, habitual internet users. Fourth, most earlier studies used the full 33-item scale.`);
 tag(s, "Comparison with Worldwide Results", "orange");
 box(s, 0.5, 0.9, 4.2, 1.35);
-txt(s, `Our study: **r = ${N.r}**\nMeta-analyses (McMullan 2019; Schenkel 2021): **r ≈ 0.62–0.63**\nOur r corrected for unreliability: **≈ ${N.disr}**`, { x: 0.6, y: 0.95, w: 4.0, h: 1.25, fontSize: 13, paraSpaceAfter: 4 });
+txt(s, `Our study: **r = ${N.r}**\nMeta-analyses (McMullan 2019; Schenkel 2021): **r ≈ 0.62–0.63**`, { x: 0.6, y: 0.95, w: 4.0, h: 1.25, fontSize: 13, paraSpaceAfter: 4 });
 s.addText("Why weaker?", { x: 0.5, y: 2.4, w: 4.2, h: 0.35, fontSize: 14, bold: true, color: GREEN, margin: 0, fontFace: BODY });
-[["Measurement error", "Corrected for reliability, r ≈ " + N.disr],
+[["Measurement error", "Imperfect reliability of both scales lowers r"],
  ["Narrow range", `Low health anxiety (mean SHAI ${N.shai_m}) attenuates r`],
  ["Who answered", "Online recruitment favours confident, habitual users"],
  ["Short form", "Most earlier studies used the 33-item CSS"]].forEach(([h, b], i) => {
@@ -485,13 +491,13 @@ s.addText("Why weaker?", { x: 0.5, y: 2.4, w: 4.2, h: 0.35, fontSize: 14, bold: 
   numBadge(s, 0.5, y + 0.05, i + 1, i % 2 ? ORANGE : GREEN);
   txt(s, `**${h}:** ${b}`, { x: 0.9, y, w: 3.8, h: 0.5, fontSize: 11.5, hiColor: INK, valign: "middle" });
 });
-const studies = [["Meta-analysis (2019)", 0.62], ["Meta-analysis (2021)", 0.63], ["Our study, corrected", parseFloat(N.disr)], ["Our study", parseFloat(N.r)]];
+const studies = [["Meta-analysis (2019)", 0.62], ["Meta-analysis (2021)", 0.63], ["Our study", parseFloat(N.r)]];
 box(s, 5.0, 0.9, 4.5, 4.15);
 s.addText("Correlation: health anxiety ↔ cyberchondria", { x: 5.1, y: 0.95, w: 4.3, h: 0.35, fontSize: 12, bold: true, color: INK, align: "center", margin: 0, fontFace: BODY });
 studies.forEach(([l, v], i) => {
   const y = 1.5 + i * 0.85;
   s.addText(l, { x: 5.15, y, w: 4.2, h: 0.3, fontSize: 11, color: INK, margin: 0, fontFace: BODY });
-  s.addShape(pres.shapes.RECTANGLE, { x: 5.15, y: y + 0.32, w: 3.4 * v / 0.7, h: 0.3, fill: { color: i === 3 ? ORANGE : i === 2 ? "E3A869" : "9DB3AE" }, line: { color: "FFFFFF" } });
+  s.addShape(pres.shapes.RECTANGLE, { x: 5.15, y: y + 0.32, w: 3.4 * v / 0.7, h: 0.3, fill: { color: i === studies.length - 1 ? ORANGE : "9DB3AE" }, line: { color: "FFFFFF" } });
   s.addText(v.toFixed(2), { x: 5.2 + 3.4 * v / 0.7, y: y + 0.32, w: 0.6, h: 0.3, fontSize: 11, bold: true, color: INK, margin: 0, valign: "middle", fontFace: BODY });
 });
 
@@ -515,10 +521,10 @@ s = newSlide(3, S3 + `AI use in our sample, ${N.ai_tick} to ${N.ai}, is far high
 tag(s, "AI Chatbots & the Consultation");
 bar(s, 0.5, 0.85, 4.4, "AI chatbots", BLUE);
 box(s, 0.5, 1.19, 4.4, 3.0);
-txt(s, `• Our use **${N.ai_tick}–${N.ai}** vs ~**20%** (US 2024) and **21%** (2025 survey).\n• Young sample: AI use fell from **96%** (18–19 y) to **72%** (≥ 40 y).\n• Conversational AI may invite “**one more question**” (excessiveness, reassurance).\n• Higher trust → **fewer** multiple-doctor visits, but a trend to **delay care** (OR 1.33, p = 0.088).`, { x: 0.6, y: 1.25, w: 4.2, h: 2.9, fontSize: 13.5, paraSpaceAfter: 8 });
+txt(s, `• Our use **${N.ai_tick}–${N.ai}** vs ~**20%** (US 2024) and **21%** (2025 survey).\n• Young sample: AI use fell from **96%** (18–19 y) to **72%** (≥ 40 y).\n• Conversational AI may invite “**one more question**” (excessiveness, reassurance).\n• Higher trust → **fewer** multiple-doctor visits, but a trend to **delay care** (OR 1.33, p = 0.11).`, { x: 0.6, y: 1.25, w: 4.2, h: 2.9, fontSize: 13.5, paraSpaceAfter: 8 });
 bar(s, 5.1, 0.85, 4.4, "The consultation", ORANGE);
 box(s, 5.1, 1.19, 4.4, 3.0);
-txt(s, `• Delay because reassured (**${N.dr}**): saves visits, but risks **delayed diagnosis**; seen at **all** anxiety levels.\n• **${N.never}** never disclose searches (fear of judgement).\n• Higher cyberchondria → **more** disclosure (robust); health anxiety → concealment (**exploratory**).\n• H4 only **partially** supported.`, { x: 5.2, y: 1.25, w: 4.2, h: 2.9, fontSize: 13.5, paraSpaceAfter: 8 });
+txt(s, `• Delay because reassured (**${N.dr}**): saves visits, but risks **delayed diagnosis**; seen at **all** anxiety levels.\n• **${N.never}** never disclose searches (fear of judgement).\n• Higher cyberchondria → **more** disclosure, but also **urgent visits** and a strained relationship; health anxiety → **concealment**.\n• H4 **partially** supported.`, { x: 5.2, y: 1.25, w: 4.2, h: 2.9, fontSize: 13.5, paraSpaceAfter: 8 });
 box(s, 0.5, 4.4, 9.0, 0.6, { fill: PALE, line: "E8C9A6", noShadow: true });
 txt(s, "**Clinical message:** ask every patient, without judgement, what they searched or asked an AI.", { x: 0.65, y: 4.4, w: 8.7, h: 0.6, fontSize: 13.5, valign: "middle", align: "center", hiColor: GREEN });
 
@@ -533,13 +539,13 @@ txt(s, "Higher unadjusted health anxiety, but this **disappeared after adjustmen
 photo(s, "students_laptop.jpg", 6.45, 0.8, 3.0, 4.25);
 
 // ================================================================ 30 Limitations
-s = newSlide(3, S3 + "We have several limitations. First, the design is cross-sectional, so we cannot prove direction; the mediation is statistical, not causal. Second, the sample is online convenience and snowball, young, and heavy in medical students, so percentages cannot be generalised to all of Baghdad, although associations were consistent across subgroups. Third, the Arabic wording was ours, without formal back-translation, although reliability and means were the same in both languages. Fourth, behaviour items were single, non-validated questions. Fifth, many tests; we corrected with FDR.");
+s = newSlide(3, S3 + "We have several limitations. First, the design is cross-sectional, so we cannot prove direction; the mediation is statistical, not causal. Second, the sample is online convenience and snowball, young, and heavy in medical students, so percentages cannot be generalised to all of Baghdad, although associations were consistent across subgroups. Third, the Arabic wording was ours, without formal back-translation, although reliability and means were the same in both languages. Fourth, behaviour items were single, non-validated questions. Fifth, we ran many tests without correction, so some weaker results may be due to chance.");
 tag(s, "Limitations");
 [["Cross-sectional design", "Cannot establish direction; mediation is **statistical, not causal**"],
  ["Online convenience sample", `Young, **${N.med}** medical students; percentages **not generalisable**, associations consistent across subgroups`],
- ["Arabic wording", "Team translation without formal back-translation; but CSS-12 **fully invariant** and SHAI-14 metric invariant across languages, no item DIF"],
- ["Single-item measures", "Behaviour, disclosure and trust items **not validated**; labelled exploratory"],
- ["Multiple testing & self-report", "FDR correction applied; recall and social-desirability bias possible"]].forEach(([h, b], i) => {
+ ["Arabic wording", "Team translation without formal back-translation; reliability good and **scores equal** in Arabic and English"],
+ ["Single-item measures", "Behaviour, disclosure and trust items **not validated**; interpreted cautiously"],
+ ["Multiple testing & self-report", "No correction for many tests; recall and social-desirability bias possible"]].forEach(([h, b], i) => {
   const y = 0.85 + i * 0.84;
   numBadge(s, 0.5, y + 0.17, i + 1, i % 2 ? ORANGE : GREEN);
   box(s, 0.95, y, 8.55, 0.7);
@@ -562,13 +568,13 @@ txt(s, "• **Longitudinal** / experience-sampling studies of the cycle.\n• **
 });
 
 // ================================================================ 32 Conclusion
-s = newSlide(3, S3 + `To conclude. AI chatbots, mainly ChatGPT, are now the main source of health information before seeing a doctor in our sample. About one in five has elevated health anxiety. Health anxiety and cyberchondria are moderately and robustly linked, r = ${N.r}, compatible with a cycle. We found no reliable independent effect of AI. And searching shapes the consultation: delays, non-disclosure and strained trust. Thank you.`);
+s = newSlide(3, S3 + `To conclude. AI chatbots, mainly ChatGPT, are now the main source of health information before seeing a doctor in our sample. About one in five has elevated health anxiety. Health anxiety and cyberchondria are moderately linked, r = ${N.r}, compatible with a cycle. We found no reliable independent effect of AI. And searching shapes the consultation: delays, non-disclosure and strained trust. Thank you.`);
 s.addText("Conclusion", { x: 0.6, y: 0.5, w: 4, h: 0.5, fontFace: HEAD, fontSize: 24, bold: true, color: GREEN, margin: 0 });
 box(s, 0.6, 1.15, 8.8, 3.85);
 txt(s, [
   `• **AI chatbots** (mainly ChatGPT) are a leading source of health information: **${N.ai_tick}** ticked them (**${N.ai}** incl. named), more than search engines.`,
   `• **${N.hac}** had elevated health anxiety (SHAI ≥ 18, a screening threshold); younger people and reassurance-seekers most affected.`,
-  `• Health anxiety and cyberchondria are **moderately and robustly associated (r = ${N.r})**, mainly through excessive searching and distress, compatible with a **cycle**.`,
+  `• Health anxiety and cyberchondria are **moderately associated (r = ${N.r})**, mainly through excessive searching and distress, compatible with a **cycle**.`,
   "• **No reliable independent effect of AI** beyond health anxiety.",
   `• Searching shapes the consultation: **${N.dr}** delay care when reassured, **${N.never}** never disclose searches.`,
 ].join("\n"), { x: 0.8, y: 1.25, w: 8.4, h: 3.7, fontSize: 16, paraSpaceAfter: 10 });

@@ -106,17 +106,17 @@ w('<h3>Aim, objectives and hypotheses (1.8, word for word)</h3>' + paras(aim))
 w('<h3>Were the hypotheses supported? (memorise this table)</h3><table class="verdict"><tr><th>Hypothesis</th><th>Verdict</th><th>Evidence (where)</th></tr>' + ''.join(f'<tr><td>{a}</td><td>{b}</td><td>{RM(c)}</td></tr>' for a, b, c in [
     ('H1: health anxiety is positively associated with cyberchondria, most with distress and excessiveness', 'Supported', f'r = {N["r"]} ({N["rci"]}); excessiveness {N["rE"]} and distress {N["rD"]} strongest (Table 6, Figure 5)'),
     ('H2: independent of socio-demographic and digital-use factors', 'Supported', f'partial r = {N["pr"]}; health anxiety adds {N["dR2"]}, β {N["beta"]} (Table 9)'),
-    ('H3: excessive searching mediates health anxiety → post-search distress', 'Supported statistically, not causally', f'indirect {N["mA"]} ({N["mAci"]}), but reverse path also {N["mD"]} (Table 12, Figure 9)'),
-    ('H4: cyberchondria ↔ care-seeking and strained relationship', 'Partially supported', f'only more disclosure survived FDR (AOR {N["nsC"]}, q {N["nsCq"]}); urgent visits, strained relationship exploratory (Table 11)'),
+    ('H3: excessive searching mediates health anxiety → post-search distress', 'Supported statistically, not causally', f'indirect {N["mA"]} (Sobel z 5.14, p < 0.001), but reverse path also {N["mD"]} (Table 12, Figure 9)' if SHORT else f'indirect {N["mA"]} ({N["mAci"]}), but reverse path also {N["mD"]} (Table 12, Figure 9)'),
+    ('H4: cyberchondria ↔ care-seeking and strained relationship', 'Partially supported', 'higher CSS → urgent visits (AOR 1.51, p 0.013) and strained relationship (AOR 1.35, p 0.041), but not multiple doctors (Table 11)' if SHORT else f'only more disclosure survived FDR (AOR {N["nsC"]}, q {N["nsCq"]}); urgent visits, strained relationship exploratory (Table 11)'),
 ]) + '</table>')
 w('<div class="say">H1 and H2 were supported; H3 was supported statistically but not causally; H4 was only partially supported.</div>')
 w(f'<img class="fig" src="file://{FIG}/fig0a_framework.png"><p class="small" style="text-align:center">Figure 1: conceptual framework (where each hypothesis sits).</p>')
 w(('<h3>Methods (2.1–2.4, word for word; 2.5 is in Section 7)</h3>' if SHORT else '<h3>Methods (2.1–2.5, word for word; 2.6 is in Section 7)</h3>') + paras(design))
 if not SHORT: w(f'<img class="fig" src="file://{FIG}/fig0b_flowchart.png"><p class="small" style="text-align:center">Figure 2: study flowchart.</p>')
-w('<h3>Ethics (2.7)</h3>' + paras(ethics))
+w(('<h3>Ethics (2.6)</h3>' if SHORT else '<h3>Ethics (2.7)</h3>') + paras(ethics))
 w('<h3>Conclusions (5.1, word for word)</h3>' + paras(concl))
 w('<h3>Recommendations (5.2, word for word)</h3>' + paras(recs))
-w('<h3>Strengths and limitations (4.8, word for word)</h3>' + paras(lims))
+w(('<h3>Strengths and limitations (4.5, word for word)</h3>' if SHORT else '<h3>Strengths and limitations (4.8, word for word)</h3>') + paras(lims))
 
 # 2 essentials (from the Student 2 guide Part 1)
 w('<h2 class="page">2 · Whole-study essentials</h2>' + g('Part 1', G))

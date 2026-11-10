@@ -30,6 +30,8 @@ for i, s in enumerate(Presentation(PPTX).slides, 1):
     title = next((t for t in texts if len(t) < 60 and '\n' not in t), texts[0] if texts else '')
     notes = s.notes_slide.notes_text_frame.text if s.has_notes_slide else ''
     notes = re.sub(r'^\[[^\]]+\]\s*', '', notes)
+    if SHORT:   # the deck already uses short numbers: non-breaking space keeps remap() from renumbering them again
+        notes = re.sub(r'\b(Tables?|Figures?) (\d)', '\\1\u00a0\\2', notes); title = re.sub(r'\b(Tables?|Figures?) (\d)', '\\1\u00a0\\2', title)
     SLIDES.append((i, title, notes))
 
 CSS = """
@@ -565,42 +567,95 @@ if SHORT:   # Student 2 for the short (submitted) thesis
     S2 = STUDENTS[2]
     S2['chapters'] = 'Chapter 3 Results (3.1–3.6), Tables 1–11, Figures 2–8; and Section 2.5 Statistical analysis (you are the team\'s statistics person)'
     S2['figs'] = [f for f in S2['figs'] if 'corr_heatmap' not in f[0]]
+    SS = json.load(open(os.path.join(os.path.dirname(os.path.abspath(NUMS)), '..', 'simple.json')))
+    _ai = [r for r in SS['ols_coef'] if r['term'] == 'ai_user'][0]
+    N['palt'] = f"{SS['ai_strict']['p']:.2f}"; N['Baici'] = f"{_ai['B'] - 1.9685 * _ai['SE']:.1f}–{_ai['B'] + 1.9685 * _ai['SE']:.1f}"; N['auc'] = f"{SS['logit_HA']['AUC']:.2f}"
+    _sm, _sl = SS['mediation'], SS['logit_HA']
+    _b = {(r['Outcome'], r['Predictor']): r for r in SS['behaviour']}
+    _rel = _b[('Negative effect on doctor relationship', 'zCSS')]; _nsS = _b[('Never disclose to physician', 'zSHAI')]; _nsC = _b[('Never disclose to physician', 'zCSS')]
+    _oc = {r['term']: r for r in SS['ols_coef']}; _a30 = _oc["C(age_c, Treatment('20–29'))[T.30–39]"]; _a40 = _oc["C(age_c, Treatment('20–29'))[T.≥40]"]
+    T_ = lambda k, n: f'{k} {n}'          # short-numbered reference that remap() must not touch
     S2['walkthrough'] = [
-        ('3.1 Participants and online health-information seeking (Tables 1–2, Figures 2–3)', 'Who answered, how they search, and what they do after searching.',
+        (f'3.1 Participants and online health-information seeking ({T_("Tables", "1–2")}, {T_("Figures", "2–3")})', 'Who answered, how they search, and what they do after searching.',
          [f'{N["n"]} adults, no missing data; {N["age20"]} aged 20–29; {N["fem"]} female; medical students {N["med"]}; health background {N["hb"]}; chronic condition {N["chron"]}; Arabic {N["ar"]}.',
           f'AI ticked {N["ai_tick"]} ({N["ai"]} incl. named) vs search engines {N["se"]}; AI without any search engine {N["ai_only"]}; ChatGPT {N["gpt"]}. AI use 96% at 18–19 y vs 72% at ≥ 40 y.',
           f'Motives: convenience {N["conv"]}, “do I need a doctor?” {N["tri"]}, reassurance {N["reas"]}.',
           f'After searching: delay/skip care when reassured {N["dr"]}; ignore {N["ign"]}; several doctors {N["mdoc"]}; urgent care {N["urg"]}. Always tell the doctor {N["always"]}; never (fear of judgement) {N["never"]}; relationship strained {N["relneg"]}.'],
          'Message: a young, digitally active sample whose first “doctor” is often an AI; searching changes the consultation.'),
-        ('3.2 Levels of health anxiety and cyberchondria (Tables 3–4)', '', [
-          f'SHAI {N["shai_m"]} ± {N["shai_sd"]}; elevated {N["hac"]} (CI {N["hac_ci"]}); Table 4: 32.7% at ≥ 15, 19.0% at ≥ 18, 7.3% at ≥ 22, 0.7% at ≥ 29.',
+        (f'3.2 Levels of health anxiety and cyberchondria ({T_("Tables", "3–4")})', '', [
+          f'SHAI {N["shai_m"]} ± {N["shai_sd"]}; elevated {N["hac"]} (CI {N["hac_ci"]}); {T_("Table", "4")}: 32.7% at ≥ 15, 19.0% at ≥ 18, 7.3% at ≥ 22, 0.7% at ≥ 29.',
           f'CSS {N["css_m"]} ± {N["css_sd"]}; excessiveness highest, compulsion lowest.',
-          f'Reliability α {N["aS"]} / {N["aC"]}; CSS-12 four-factor CFA acceptable (CFI {N["cfaC"]}, RMSEA {N["cfaR"]}).',
-          'Arabic vs English (text only in the short version): CSS-12 fully invariant; SHAI-14 metric but not scalar invariant from a weak baseline, so SHAI language comparisons need caution.'],
+          f'Cronbach α {N["aS"]} (SHAI) and {N["aC"]} (CSS): good. Arabic and English responders did not differ (Mann–Whitney p 0.86 and 0.65).'],
          'Why several cut-offs? Because prevalence depends on the threshold; reporting all four is honest.'),
-        ('3.3 Main association (Table 5, Figure 4)', 'The central result (H1, H2).', [
-          f'r = {N["r"]} (95% CI {N["rci"]}), ρ = {N["rho"]}, explains {N["r2"]}; partial r = {N["pr"]}.',
-          f'Facets: excessiveness {N["rE"]} and distress {N["rD"]} stronger (Williams\' T2, p < 0.001) than compulsion {N["rC"]} and reassurance {N["rR"]}.',
-          f'Item level (text only): fear of serious illness and interpretation of sensations matter, mere awareness does not; {N["ibF"]}/168 item pairs survive FDR.'],
+        (f'3.3 Main association ({T_("Table", "5")}, {T_("Figure", "4")})', 'The central result (H1, H2).', [
+          f'Pearson r = {N["r"]} (95% CI {N["rci"]}), Spearman ρ = {N["rho"]}, p < 0.001; explains {N["r2"]}; partial r = {N["pr"]}.',
+          f'Facets: strongest with excessiveness {N["rE"]} and distress {N["rD"]}, weakest with compulsion {N["rC"]} and reassurance {N["rR"]}.'],
          'H1 and H2 are answered here.'),
-        ('3.4 Factors associated (Tables 6–7, Figure 5)', '162 group comparisons plus χ² tests.', [
-          'Health anxiety higher with chronic condition (q 0.028) and in reassurance seekers (q 0.002); age, education, occupation borderline (exploratory); gender no difference.',
-          'AI users higher CSS (inclusive definition, q 0.005), highest in AI + search engine users (Figure 5); chatbot brand no difference.',
-          'Elevated health anxiety → 52.6% vs 23.0% high cyberchondria (OR 3.71) (Table 7).'],
-         'Know q-values: “survives correction” vs “exploratory”.'),
-        ('3.5 Independent predictors (Tables 8–9, Figure 6)', '', [
-          f'Regression: R² {N["R2a"]} → {N["R2b"]} → {N["R2c"]}; health anxiety adds {N["dR2"]}; B = {N["B"]}, β = {N["beta"]}.',
+        (f'3.4 Factors associated ({T_("Tables", "6–7")}, {T_("Figure", "5")})', 'Mann–Whitney / Kruskal–Wallis and χ² tests (p < 0.05).', [
+          'Health anxiety higher with a chronic condition (p 0.004), in reassurance seekers (p < 0.001), social-media users (p 0.001) and AI users (p 0.008); differs by age (p 0.008), education (p 0.002) and occupation (p 0.005); gender and language no difference.',
+          'Cyberchondria higher in AI users (p < 0.001), highest in AI + search engine users (p < 0.001), and in social-media users (p 0.021).',
+          f'Elevated health anxiety → 52.6% vs 23.0% high cyberchondria (OR 3.71) ({T_("Table", "7")}).'],
+         'Many tests at p < 0.05: a few weaker results could be chance (we say so in the limitations).'),
+        (f'3.5 Independent predictors ({T_("Tables", "8–9")}, {T_("Figure", "6")})', '', [
+          f'Hierarchical linear regression: R² {N["R2a"]} → {N["R2b"]} → {N["R2c"]}; health anxiety adds {N["dR2"]}; B = {N["B"]}, β = {N["beta"]}, p < 0.001. Ages 30–39 (B {_a30["B"]:.1f}) and ≥ 40 (B {_a40["B"]:.1f}) also higher than 20–29.',
           f'AI: +{N["Bai"]} inclusive vs +{N["Balt"]}, p {N["palt"]} strict → no reliable independent effect.',
-          f'Logistic (57 events): AOR {N["orCSS"]} cyberchondria per SD, {N["orMot"]} reassurance motive, {N["orAge"]} age; AUC {N["auc"]} → {N["aucc"]}; ≈ 5 events per variable → exploratory.',
-          'Sensitivity (one sentence in the short version): r stayed 0.46–0.48 in every check.'],
-         'You will be asked about AOR, AUC and why it was corrected.'),
-        ('3.6 Behaviour and pathways (Tables 10–11, Figures 7–8)', '', [
-          f'Behaviour related more to cyberchondria than to health anxiety: urgent visits (AOR {N["urC"]}), less ignoring ({N["igC"]}), strained relationship (ordinal OR 1.34).',
-          f'Only robust behavioural result: higher CSS → less likely to report never telling the doctor, i.e. more disclosure (AOR {N["nsC"]}, q {N["nsCq"]}). Health anxiety → concealment AOR {N["nsS"]}, q {N["nsSq"]} (exploratory).',
-          f'Mediation: via excessive searching {N["mA"]} (CI {N["mAci"]}); via distress {N["mC"]}, direct {N["mCd"]}; reverse {N["mD"]}. No moderator after FDR.'],
+          f'Binary logistic (57 events): AOR {N["orCSS"]} cyberchondria per SD, {N["orMot"]} reassurance motive, {N["orAge"]} age; Nagelkerke R² {_sl["nagelkerke"]:.2f}; Hosmer–Lemeshow p {_sl["HL_p"]:.2f} (good fit); AUC {_sl["AUC"]:.2f}; ≈ 5 events per variable → estimates may be overestimated.',
+          'Sensitivity (one sentence): r stayed 0.46–0.48 in every check.'],
+         'You will be asked about AOR, AUC and Hosmer–Lemeshow.'),
+        (f'3.6 Behaviour and pathways ({T_("Tables", "10–11")}, {T_("Figures", "7–8")})', '', [
+          f'Higher CSS → urgent visits (AOR {N["urC"]}, p 0.013), less ignoring ({N["igC"]}, p 0.009), strained relationship ({_rel["AOR"]:.2f}, p {_rel["p"]:.3f}) and more disclosure (never-disclose AOR {_nsC["AOR"]:.2f}, p 0.001).',
+          f'Higher SHAI → concealment (never-disclose AOR {_nsS["AOR"]:.2f}, p {_nsS["p"]:.3f}). Trust → fewer multiple doctors (AOR 0.59, p 0.004).',
+          f'Mediation (Sobel test): via excessive searching {_sm[0]["indirect"]:.2f} (z {_sm[0]["sobel_z"]:.2f}, p < 0.001; about a third); via distress {_sm[1]["indirect"]:.2f} (z {_sm[1]["sobel_z"]:.2f}), direct {_sm[1]["c_prime"]:.2f} (ns); reverse {_sm[2]["indirect"]:.2f} (z {_sm[2]["sobel_z"]:.2f}).'],
          'Always end with: “compatible with a cycle, not proof of direction”.'),
     ]
+    S2['figs'] = [('fig2_tools_motives.png', 'Figure 3: tools and motives. Read: bars = % of participants; multiple answers allowed, so they add to more than 100%.'),
+          ('fig1_scatter_shai_css.png', 'Figure 5: each dot is a participant; the line is the best fit, the band its 95% CI. The upward slope is r = 0.47.'),
+          ('fig7_forest_HA_simple.png', 'Figure 8: each dot is an AOR with its 95% CI; the vertical line at 1 = no effect; lines that cross 1 are not significant.'),
+          ('fig8_mediation_sobel.png', 'Figure 9: a = predictor → mediator, b = mediator → outcome, c′ = direct effect; the indirect effect is a × b, tested with the Sobel test.'),
+          ('fig3_behaviours.png', 'Figure 4: behaviour after searching, disclosure, and effect on the relationship.')]
+    _drop = ('What is FDR', 'Why robust (HC3)', 'What is the AUC and why corrected', 'What do CFI, RMSEA', 'Why does the SHAI fit poorly', 'What is measurement invariance', 'What does Table 13 show')
+    S2['qa_own'] = [q for q in S2['qa_own'] if not q[0].startswith(_drop)] + [
+        ('Which software did you use?', 'IBM SPSS Statistics [version]; the syntax file reproduces every table (say this only after the team has run it and checked the numbers).'),
+        ('Why didn\'t you correct for multiple testing?', 'We used the standard p < 0.05, as most graduation theses do, and we say in the limitations that with many tests some weaker results may be chance. Our main results are p < 0.001.'),
+        ('What is the AUC?', f'The area under the ROC curve: how well the model separates elevated from non-elevated anxiety. {_sl["AUC"]:.2f} is good.'),
+        ('What does the Hosmer–Lemeshow test tell you?', f'Whether the logistic model fits the data. We want it non-significant: p = {_sl["HL_p"]:.2f}, so the fit is good.'),
+        ('How did you test mediation?', 'Three linear regressions per model (paths a, b, c and c′) and the Sobel test for the indirect effect a × b.'),
+        ('What does Sobel z = 5.14 mean?', 'The indirect effect is about five standard errors above zero, so p < 0.001: part of the link runs through excessive searching, statistically.'),
+        ('Why Mann–Whitney and not the t-test?', 'Shapiro–Wilk showed the scores were not normal (p < 0.01), so we used non-parametric tests that compare ranks.')]
+    S2['qa_own'] = [((a.replace('Welch tests confirmed the same conclusions.', '').strip()), b) if False else (a, b.replace(' Welch tests confirmed the same conclusions.', '').replace('we label them exploratory', 'we interpret them cautiously')) for a, b in S2['qa_own']]
+    S2['qa_hard'] = [
+        ('“Your p-values are tiny because your sample is large.”', 'The effect sizes are meaningful too: r = 0.47 is moderate and ΔR² 18.4% is a medium effect.'),
+        ('“You ran so many tests; something will be significant.”', 'Yes, that is possible for the weaker results, and we say so in the limitations. The main findings (r = 0.47, health anxiety in the regression, the mediation paths) have p < 0.001 and would survive any correction.'),
+        ('“The mediators are subscales of the same scale. Isn\'t that circular?”', 'Partly, yes: shared method variance inflates the paths. That is why we call it a statistical decomposition, not a mechanism.'),
+    ]
+    S2['edit'] = [x.replace(', p, q, CI', ', p, CI').replace('Read 2.6', 'Read 2.5') for x in S2['edit']]
+    S2['self_test'] = [q for q in S2['self_test'] if not q[0].startswith(('AUC apparent', 'Indirect effect via', 'The only behavioural', 'Which scale is fully', 'How many of 168'))] + [
+        ('AUC and Hosmer–Lemeshow p?', f'{_sl["AUC"]:.2f}; p {_sl["HL_p"]:.2f}'),
+        ('Indirect effect via excessive searching and its Sobel z?', f'{_sm[0]["indirect"]:.2f}; z {_sm[0]["sobel_z"]:.2f}'),
+        ('Behaviours linked to higher cyberchondria?', 'Urgent visits, less ignoring, strained relationship, more disclosure'),
+        ('Which significance level did you use?', 'p < 0.05, two-sided, no correction for multiple tests')]
     html_ = build(2).replace('2.6 Statistical analysis', '2.5 Statistical analysis').replace('Read 2.6 Statistical analysis', 'Read 2.5 Statistical analysis')
+    for a, b in [(f'; ω {N["oS"]}, {N["oC"]} · CSS-12 4-factor CFA: CFI {N["cfaC"]}, RMSEA {N["cfaR"]}, SRMR {N["srmr"]}', ' (Cronbach α ≥ 0.8 = good)'),
+                 ('CSS-12 fully (scalar) invariant; SHAI-14 metric invariant; no item DIF after FDR', 'no difference in SHAI or CSS scores (Mann–Whitney p 0.86 and 0.65)'),
+                 (f'AUC {N["auc"]} → {N["aucc"]}', f'AUC {_sl["AUC"]:.2f}'),
+                 (f'via excessive searching {N["mA"]} (CI {N["mAci"]})', f'via excessive searching {N["mA"]} (Sobel z {_sm[0]["sobel_z"]:.2f})'),
+                 (f'higher cyberchondria → more disclosure (OR {N["nsC"]}, q {N["nsCq"]})', f'higher cyberchondria → more disclosure (AOR {N["nsC"]}, p 0.001)'),
+                 ('every sensitivity analysis left the main result unchanged (Table 13)', 'every sensitivity analysis left the main result unchanged (r 0.46–0.48)'),
+                 ("<tr><td>FDR (q-value)</td><td>Correction for running many tests; a result is “robust” if q &lt; 0.05, otherwise exploratory.</td></tr>", "<tr><td>Sobel test</td><td>Tests whether an indirect (mediated) effect a × b is different from zero.</td></tr>"),
+                 ("<tr><td>FDR (q-value)</td><td>Correction for running many tests; a result is “robust” if q < 0.05, otherwise exploratory.</td></tr>", "<tr><td>Sobel test</td><td>Tests whether an indirect (mediated) effect a × b is different from zero.</td></tr>"),
+                 ("<tr><td>Moderation</td><td>Whether a third variable changes the strength of a link (e.g., does AI use make the link stronger? No).</td></tr>", "<tr><td>Hosmer–Lemeshow test</td><td>Checks the fit of a logistic model; p &gt; 0.05 = good fit.</td></tr>"),
+                 ('Cronbach α / McDonald ω', 'Cronbach α'),
+                 ("<tr><td>CFA (CFI, RMSEA, SRMR)</td><td>Checks the items group into the intended factors. Good: CFI ≈ 0.95+, RMSEA ≤ 0.08, SRMR ≤ 0.08.</td></tr>", "<tr><td>Cramér's V</td><td>Strength of a χ² association: 0.1 small, 0.3 medium, 0.5 large.</td></tr>"),
+                 ("<tr><td>Measurement invariance</td><td>Checks the scale measures the same thing in two groups (here Arabic vs English) before comparing them.</td></tr>", "<tr><td>VIF</td><td>Checks that regression predictors are not near-duplicates; below 5 is fine.</td></tr>"),
+                 ('“we tested it: equal reliability and formal invariance, but no formal back-translation”', '“the team wrote the Arabic wording; reliability was good and Arabic and English scores did not differ, but there was no formal back-translation”'),
+                 ('Health anxiety and cyberchondria are moderately and robustly associated', 'Health anxiety and cyberchondria are moderately associated'),
+                 ('Equal reliability and means; CSS-12 fully invariant, SHAI-14 metric; no item DIF', 'Good reliability; Arabic and English scores did not differ'),
+                 ('Reported descriptively; associations labelled exploratory', 'Reported descriptively; interpreted cautiously'),
+                 ('FDR correction; robust vs exploratory separated', 'Stated in the limitations; main results p < 0.001'),
+                 ('Acknowledged; AI effect called “not robust”', 'Acknowledged; AI effect depends on the definition')]:
+        html_ = html_.replace(a, b)
+    html_ = html_.replace('is it robust?', 'does it hold?')
+    html_ = html_.replace('Under the strict definition p = 0.31', f'Under the strict definition p = {N["palt"]}').replace('(p 0.31)', f'(p {N["palt"]})')
     open(f'{OUT}/Student2_Guide.html', 'w').write(remap(html_))
 else:
     os.makedirs(OUT, exist_ok=True)
