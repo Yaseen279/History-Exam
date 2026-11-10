@@ -6,7 +6,7 @@ Method; Results; Discussion; Conclusions and Recommendations; References (Vancou
 Preliminary pages (Title, Acknowledgment, Abbreviations, Tables, Figures, Abstract) use
 roman numerals; arabic numbering starts at 1 on the Introduction.
 """
-import sys, json, re
+import os, sys, json, re
 import numpy as np, pandas as pd
 from scipy import stats
 from docx import Document
@@ -110,7 +110,11 @@ def numbered(text):
     p.paragraph_format.tab_stops.add_tab_stop(Cm(0.9)); p.paragraph_format.space_after = Pt(3); return p
 HEADS = []
 def H(text, lvl=1):
-    HEADS.append((lvl, text)); NUM[0] = 0; return doc.add_heading(text, level=lvl)
+    HEADS.append((lvl, text)); NUM[0] = 0; h = doc.add_heading(text, level=lvl)
+    if lvl == 1:
+        pPr = h._p.get_or_add_pPr(); pb = OxmlElement('w:pBdr'); b = OxmlElement('w:bottom')
+        b.set(qn('w:val'), 'single'); b.set(qn('w:sz'), '8'); b.set(qn('w:space'), '4'); b.set(qn('w:color'), '1F3B4D'); pb.append(b); pPr.append(pb)
+    return h
 def page_break(): doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
 
 def add_field(run, instr, cached='1'):
@@ -148,22 +152,43 @@ def set_cell_border(cell, **kw):
     for edge, val in kw.items():
         el = OxmlElement(f'w:{edge}'); el.set(qn('w:val'), val); el.set(qn('w:sz'), '8'); el.set(qn('w:color'), '000000'); b.append(el)
 
+NAVY_T, GROUP_T, ZEBRA_T, RULE_T = '1F3B4D', 'E3EBF0', 'F6F8FA', 'C9D2DA'
+def shade(cell, fill):
+    tcPr = cell._tc.get_or_add_tcPr(); shd = OxmlElement('w:shd')
+    shd.set(qn('w:val'), 'clear'); shd.set(qn('w:color'), 'auto'); shd.set(qn('w:fill'), fill); tcPr.append(shd)
 def table(header, rows, widths=None, size=10.5, note=None, bold_rows=()):
     t = doc.add_table(rows=1, cols=len(header)); t.alignment = WD_TABLE_ALIGNMENT.CENTER
     t.style = doc.styles['Table Grid']
-    # three-line (APA-like) table: remove inner borders
     tblPr = t._tbl.tblPr; bd = tblPr.find(qn('w:tblBorders'))
     if bd is not None: tblPr.remove(bd)
-    def fill(cells, vals, bold=False, italic_first=False):
+    bd = OxmlElement('w:tblBorders')          # heavy top/bottom rules, fine horizontal lines, no vertical lines
+    for edge, val, sz, col in [('top', 'single', 12, NAVY_T), ('bottom', 'single', 12, NAVY_T), ('left', 'nil', 0, 'auto'), ('right', 'nil', 0, 'auto'),
+                               ('insideH', 'single', 4, RULE_T), ('insideV', 'nil', 0, 'auto')]:
+        el = OxmlElement(f'w:{edge}'); el.set(qn('w:val'), val)
+        if val != 'nil': el.set(qn('w:sz'), str(sz)); el.set(qn('w:color'), col); el.set(qn('w:space'), '0')
+        bd.append(el)
+    tblPr.append(bd)
+    mar = OxmlElement('w:tblCellMar')
+    for edge, v in [('top', 35), ('bottom', 35), ('left', 90), ('right', 90)]:
+        el = OxmlElement(f'w:{edge}'); el.set(qn('w:w'), str(v)); el.set(qn('w:type'), 'dxa'); mar.append(el)
+    tblPr.append(mar)
+    def fill(cells, vals, bold=False, color=None):
         for c, v in zip(cells, vals):
             c.text = ''; p = c.paragraphs[0]; p.paragraph_format.line_spacing = 1.0; p.paragraph_format.space_after = Pt(0)
             v = '0.00' if str(v) == '-0.00' else v
             r = p.add_run(str(v)); r.font.size = Pt(size); r.bold = bold; r.font.name = FONT
-    fill(t.rows[0].cells, header, bold=True)
-    for c in t.rows[0].cells: set_cell_border(c, top='single', bottom='single')
+            if color: r.font.color.rgb = RGBColor.from_string(color)
+    fill(t.rows[0].cells, header, bold=True, color='FFFFFF')
+    for c in t.rows[0].cells: shade(c, NAVY_T)
+    trPr = t.rows[0]._tr.get_or_add_trPr(); th = OxmlElement('w:tblHeader'); trPr.append(th)   # repeat header on new page
+    k = 0
     for i, row in enumerate(rows):
-        cells = t.add_row().cells; fill(cells, row, bold=(i in bold_rows))
-    for c in t.rows[-1].cells: set_cell_border(c, bottom='single')
+        cells = t.add_row().cells; grp = i in bold_rows
+        fill(cells, row, bold=grp)
+        if grp: [shade(c, GROUP_T) for c in cells]; k = 0
+        else:
+            if k % 2 == 1: [shade(c, ZEBRA_T) for c in cells]
+            k += 1
     for row in t.rows:
         tr = row._tr; trPr = tr.get_or_add_trPr(); cs = OxmlElement('w:cantSplit'); trPr.append(cs)
     if widths:
@@ -173,15 +198,19 @@ def table(header, rows, widths=None, size=10.5, note=None, bold_rows=()):
         for row in t.rows:
             for c, w in zip(row.cells, widths): c.width = Cm(w)
     if note:
-        p = doc.add_paragraph(); p.paragraph_format.line_spacing = 1.0; p.paragraph_format.space_after = Pt(10)
+        p = doc.add_paragraph(); p.paragraph_format.line_spacing = 1.0; p.paragraph_format.space_before = Pt(3); p.paragraph_format.space_after = Pt(12)
+        r0 = p.add_run('Note. '); r0.italic = True; r0.font.size = Pt(9.5); r0.font.name = FONT
         add_runs(p, note, size=9.5)
     else:
-        doc.add_paragraph().paragraph_format.space_after = Pt(4)
+        doc.add_paragraph().paragraph_format.space_after = Pt(6)
     return t
 
 def figure(path, text, width=15.5):
     p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.keep_with_next = True
-    p.add_run().add_picture(path, width=Cm(width))
+    run = p.add_run(); run.add_picture(path, width=Cm(width))
+    spPr = run._r.xpath('.//pic:spPr')[0]                     # thin grey frame around the figure
+    ln = OxmlElement('a:ln'); ln.set('w', '9525'); sf = OxmlElement('a:solidFill'); cl = OxmlElement('a:srgbClr'); cl.set('val', 'B8C2CC')
+    sf.append(cl); ln.append(sf); spPr.append(ln)
     caption('Figure', text)
 
 FIG = f'{OUT}/figures'
@@ -227,23 +256,43 @@ lg_css = lg.loc['zCSS']; lg_mot = lg.loc['mot_reassurance']; lg_age = lg.loc['ag
 hiS = olsS.loc['CSS']; hiChron = olsS.loc['chronic']; hiMot = olsS.loc['mot_reassurance']
 
 # ================================================================== TITLE PAGE (section 1: roman)
-P('', indent=False)
-P('[College logo]', align='center', indent=False)
-P('[University name]', align='center', indent=False, bold=True)
-P('[College name]', align='center', indent=False, bold=True)
+LOGO = os.path.join(os.path.dirname(os.path.abspath(OUT)), 'assets', 'uobcom')
+hdr = doc.add_table(rows=1, cols=3); hdr.alignment = WD_TABLE_ALIGNMENT.CENTER; hdr.autofit = False
+_lay = OxmlElement('w:tblLayout'); _lay.set(qn('w:type'), 'fixed'); hdr._tbl.tblPr.append(_lay)
+_tw = hdr._tbl.tblPr.find(qn('w:tblW'))
+if _tw is None: _tw = OxmlElement('w:tblW'); hdr._tbl.tblPr.append(_tw)
+_tw.set(qn('w:w'), str(int(16.0 * 567))); _tw.set(qn('w:type'), 'dxa')
+for col, w in zip(hdr.columns, [3.0, 10.0, 3.0]): col.width = Cm(w)
+for c, w in zip(hdr.rows[0].cells, [3.0, 10.0, 3.0]): c.width = Cm(w)
+c0, c1, c2 = hdr.rows[0].cells
+for c, f, wd in [(c0, 'logo_uob.png', 2.9), (c2, 'logo_med.png', 2.45)]:
+    pp = c.paragraphs[0]; pp.alignment = WD_ALIGN_PARAGRAPH.CENTER; pp.add_run().add_picture(os.path.join(LOGO, f), width=Cm(wd))
+    c.vertical_alignment = 1
+c1.vertical_alignment = 1
+for k, (txt_, sz) in enumerate([('Republic of Iraq', 11), ('Ministry of Higher Education and Scientific Research', 10.5), ('University of Baghdad', 14), ('College of Medicine', 14)]):
+    pp = c1.paragraphs[0] if k == 0 else c1.add_paragraph()
+    pp.alignment = WD_ALIGN_PARAGRAPH.CENTER; pp.paragraph_format.space_after = Pt(0); pp.paragraph_format.line_spacing = 1.15
+    r = pp.add_run(txt_); r.bold = True; r.font.size = Pt(sz); r.font.name = FONT; r.font.color.rgb = RGBColor.from_string('1F3B4D')
+rule = doc.add_paragraph(); rpPr = rule._p.get_or_add_pPr(); pb = OxmlElement('w:pBdr'); b = OxmlElement('w:bottom')
+b.set(qn('w:val'), 'double'); b.set(qn('w:sz'), '6'); b.set(qn('w:space'), '1'); b.set(qn('w:color'), '1F3B4D'); pb.append(b); rpPr.append(pb)
 P('', indent=False)
 p = P('Health Anxiety, AI Chatbot Use and Cyberchondria Among Adults in Baghdad: An Online Cross-Sectional Survey',
-      align='center', indent=False, size=18, bold=True)
+      align='center', indent=False, size=20, bold=True)
+for r in p.runs: r.font.color.rgb = RGBColor.from_string('1F3B4D')
 P('', indent=False)
-P('A graduation research project submitted in partial fulfilment of the requirements for the degree of [Degree]', align='center', indent=False)
+P('A graduation research project submitted to the College of Medicine, University of Baghdad, in partial fulfilment of the requirements for the degree of [Degree]', align='center', indent=False, size=13)
 P('', indent=False)
-P('**Prepared by:**', align='center', indent=False)
-P('[Student name 1]   ·   [Student name 2]   ·   [Student name 3]', align='center', indent=False)
+P('**Prepared by**', align='center', indent=False)
+P('[Student name 1]', align='center', indent=False, space_after=0)
+P('[Student name 2]', align='center', indent=False, space_after=0)
+P('[Student name 3]', align='center', indent=False)
 P('', indent=False)
-P('**Supervised by:**', align='center', indent=False)
+P('**Supervised by**', align='center', indent=False)
 P('[Supervisor name and title]', align='center', indent=False)
 P('', indent=False)
 P('[Academic year]', align='center', indent=False)
+rule2 = doc.add_paragraph(); r2pPr = rule2._p.get_or_add_pPr(); pb2 = OxmlElement('w:pBdr'); b2 = OxmlElement('w:bottom')
+b2.set(qn('w:val'), 'double'); b2.set(qn('w:sz'), '6'); b2.set(qn('w:space'), '1'); b2.set(qn('w:color'), '1F3B4D'); pb2.append(b2); r2pPr.append(pb2)
 page_break()
 
 # ACKNOWLEDGMENT
