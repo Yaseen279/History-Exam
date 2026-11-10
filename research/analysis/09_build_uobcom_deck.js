@@ -342,12 +342,12 @@ table(s, `Table 1: Socio-demographic characteristics of the participants (n = ${
 ], { x: 0.6, y: 1.25, w: 8.8, colW: [2.2, 3.5, 3.1], hi: [1, 3], note: "Health-related background = medical students, other health-science students and healthcare workers." });
 
 // ================================================================ 15 Fig 1 tools
-s = newSlide(3, S2 + `Opening: Figure 3 shows the tools people use and why. Main finding: AI chatbots are now the main gateway. ${N.ai_tick} ticked AI chatbots, ${N.ai} if we include those who named one, compared with ${N.se} for search engines. ${N.ai_only} use AI with no search engine at all, and ChatGPT alone is used by ${N.gpt}. The top motives are convenience at ${N.conv}, checking whether a doctor is needed at ${N.tri}, and instant reassurance at ${N.reas}. Closing: in summary, for this sample, the first doctor is often an AI chatbot.`);
+s = newSlide(3, S2 + `Opening: Figure 2 shows the tools people use and why. Main finding: AI chatbots are now the main gateway. ${N.ai_tick} ticked AI chatbots, ${N.ai} if we include those who named one, compared with ${N.se} for search engines. ${N.ai_only} use AI with no search engine at all, and ChatGPT alone is used by ${N.gpt}. The top motives are convenience at ${N.conv}, checking whether a doctor is needed at ${N.tri}, and instant reassurance at ${N.reas}. Closing: in summary, for this sample, the first doctor is often an AI chatbot.`);
 tag(s, "How People Search", "orange");
 box(s, 0.45, 0.82, 9.1, 3.5);
 barChart(s, 0.55, 0.88, 4.45, 3.05, "Tools used to look up symptoms (%)", ["AI chatbots", "Search engines", "Medical platforms", "Social media"], [parseFloat(N.ai_tick), N.tools[1], N.tools[2], N.tools[3]].map((v) => Math.round(v * 10) / 10), GREEN);
 barChart(s, 5.0, 0.88, 4.45, 3.05, "Why they search (%)", ["Convenience", "Is a doctor needed?", "Instant reassurance", "Self-diagnosis", "Cost / logistics"], N.motives.map((v) => Math.round(v * 10) / 10), ORANGE);
-s.addText([{ text: "Figure 3:", options: { bold: true, italic: true } }, { text: " Tools used and motivations for searching for health information online (n = 300; multiple answers)", options: { italic: true } }], { x: 0.55, y: 3.95, w: 8.9, h: 0.3, fontSize: 10, color: INK, align: "center", fontFace: BODY, margin: 0 });
+s.addText([{ text: "Figure 2:", options: { bold: true, italic: true } }, { text: " Tools used and motivations for searching for health information online (n = 300; multiple answers)", options: { italic: true } }], { x: 0.55, y: 3.95, w: 8.9, h: 0.3, fontSize: 10, color: INK, align: "center", fontFace: BODY, margin: 0 });
 [[N.ai_tick, "ticked AI chatbots"], [N.se, "search engines"], [N.ai_only, "AI without search engine"], [N.gpt, "use ChatGPT"]].forEach(([v, l], i) => {
   const x = 0.6 + i * 2.25;
   box(s, x, 4.48, 2.05, 0.6);
@@ -372,18 +372,18 @@ table(s, "Table 3: Descriptive statistics, reliability and language equivalence 
 });
 
 // ================================================================ 17 Fig 3 main association
-s = newSlide(3, S2 + `Opening: this is our main result, Figure 5. Main finding: health anxiety and cyberchondria rise together, r = ${N.r}, 95% CI ${N.rci}, so health anxiety explains about ${N.r2} of the variation in cyberchondria. After adjusting for every other variable, the partial correlation is still ${N.pr}. The link is strongest for excessive searching, ${N.rE}, and distress, ${N.rD}, and weaker for compulsion and reassurance. Closing: in summary, hypotheses 1 and 2 are supported.`);
+s = newSlide(3, S2 + `Opening: this is our main result, Figure 4. Main finding: health anxiety and cyberchondria rise together, r = ${N.r}, 95% CI ${N.rci}, so health anxiety explains about ${N.r2} of the variation in cyberchondria. After adjusting for every other variable, the partial correlation is still ${N.pr}. The link is strongest for excessive searching, ${N.rE}, and distress, ${N.rD}, and weaker for compulsion and reassurance. Closing: in summary, hypotheses 1 and 2 are supported.`);
 tag(s, "Health Anxiety ↔ Cyberchondria", "orange");
-figure(s, "fig1_scatter_shai_css.png", "Figure 5: Health anxiety (SHAI-14) against cyberchondria (CSS-12), least-squares line and 95% band", 0.45, 0.9, 5.3, 3.75);
+figure(s, "fig1_scatter_shai_css.png", "Figure 4: Health anxiety (SHAI-14) against cyberchondria (CSS-12), least-squares line and 95% band", 0.45, 0.9, 5.3, 3.75);
 box(s, 6.1, 0.9, 3.4, 1.15);
 s.addText([{ text: `r = ${N.r}`, options: { bold: true, color: ORANGE, fontSize: 28, breakLine: true } }, { text: `95% CI ${N.rci} · p < 0.001`, options: { fontSize: 12 } }], { x: 6.1, y: 0.9, w: 3.4, h: 1.15, align: "center", valign: "middle", margin: 0, fontFace: BODY, color: INK });
 box(s, 6.1, 2.2, 3.4, 2.85);
 txt(s, `Partial r (all covariates): **${N.pr}**\n\nBy CSS facet:\n• Excessiveness **${N.rE}**\n• Distress **${N.rD}**\n• Compulsion ${N.rC}\n• Reassurance ${N.rR}\n\nH1 & H2 **supported**`, { x: 6.25, y: 2.28, w: 3.15, h: 2.7, fontSize: 12.5, paraSpaceAfter: 1 });
 
-// ================================================================ 18 Table 9 regression
-s = newSlide(3, S2 + `Opening: Table 9 is the hierarchical regression for cyberchondria. Main finding: demographics alone explain only about 3% of cyberchondria. Adding digital-use variables brings it to 13%. Adding health anxiety adds another ${N.dR2}, to about 32%. Health anxiety is the strongest predictor, standardised beta ${N.beta}: each extra SHAI point adds about ${N.B} CSS points. Closing: who you are matters little; how anxious you are matters most.`);
+// ================================================================ 18 Table 8 regression
+s = newSlide(3, S2 + `Opening: Table 8 is the hierarchical regression for cyberchondria. Main finding: demographics alone explain only about 3% of cyberchondria. Adding digital-use variables brings it to 13%. Adding health anxiety adds another ${N.dR2}, to about 32%. Health anxiety is the strongest predictor, standardised beta ${N.beta}: each extra SHAI point adds about ${N.B} CSS points. Closing: who you are matters little; how anxious you are matters most.`);
 tag(s, "What Predicts Cyberchondria?", "orange");
-table(s, "Table 9: Hierarchical robust (HC3) linear regression of cyberchondria (CSS-12 total)", ["Block", "R²", "ΔR²", "p (change)"], [
+table(s, "Table 8: Hierarchical robust (HC3) linear regression of cyberchondria (CSS-12 total)", ["Block", "R²", "ΔR²", "p (change)"], [
   ["1. Socio-demographics", "0.030", "0.030", "—"],
   ["2. + Digital-use variables", "0.133", "0.103", "< 0.001"],
   ["3. + Health anxiety (SHAI-14)", "0.317", "0.184", "< 0.001"],
@@ -399,9 +399,9 @@ barChart(s, 6.05, 0.95, 3.4, 3.3, "Variance explained (R²)", ["Demographics", "
 s.addText([{ text: `+${N.dR2}`, options: { bold: true, color: ORANGE, fontSize: 20 } }, { text: "  added by health anxiety", options: { fontSize: 11 } }], { x: 6.1, y: 4.3, w: 3.3, h: 0.6, align: "center", valign: "middle", margin: 0, fontFace: BODY, color: INK });
 
 // ================================================================ 19 Fig 9 item by item
-s = newSlide(3, S2 + `Opening: Figure 11 breaks the association down item by item, all 168 pairs. Main finding: ${N.ibF} pairs remained significant after FDR correction. The strongest links involve fear of serious illness and interpreting body sensations; for example fear of illness with panicking when reading about a rare condition. Simply noticing aches and pains was almost unrelated. Closing: what drives searching is fear and interpretation, not just noticing symptoms, exactly what the cognitive model predicts.`);
+s = newSlide(3, S2 + `Opening: this supplementary figure breaks the association down item by item, all 168 pairs. Main finding: ${N.ibF} pairs remained significant after FDR correction. The strongest links involve fear of serious illness and interpreting body sensations; for example fear of illness with panicking when reading about a rare condition. Simply noticing aches and pains was almost unrelated. Closing: what drives searching is fear and interpretation, not just noticing symptoms, exactly what the cognitive model predicts.`);
 tag(s, "Item by Item: What Drives Searching?", "orange");
-figure(s, "fig9_item_by_item.png", "Figure 11: Item-by-item Spearman correlations, SHAI-14 × CSS-12 (* FDR, ** Holm)", 0.45, 0.85, 5.0, 3.8);
+figure(s, "fig9_item_by_item.png", "Supplementary figure: Item-by-item Spearman correlations, SHAI-14 × CSS-12 (* FDR, ** Holm)", 0.45, 0.85, 5.0, 3.8);
 [["ρ = 0.43", "Fear of serious illness ↔ panic on reading of a rare condition", ORANGE],
  ["ρ = 0.42", "Interpreting sensations ↔ searching every sensation", ORANGE],
  ["≈ 0", "Merely noticing aches / sensations", GREY]].forEach(([v, t, c], i) => {
@@ -413,9 +413,9 @@ figure(s, "fig9_item_by_item.png", "Figure 11: Item-by-item Spearman correlation
 txt(s, `**${N.ibF}/168** pairs significant after FDR`, { x: 5.9, y: 4.6, w: 3.6, h: 0.35, fontSize: 12, align: "center" });
 
 // ================================================================ 20 Fig 6 logistic
-s = newSlide(3, S2 + `Opening: Figure 8 shows who has elevated health anxiety, in a multivariable logistic model. Main finding: three factors are independent. Each standard deviation of cyberchondria triples the odds, adjusted odds ratio ${N.orCSS}. Searching for instant reassurance almost quadruples them, ${N.orMot}. Older age is protective, ${N.orAge} per age step. The model discriminates well: AUC ${N.auc}, ${N.aucc} after correcting for optimism. Closing: the person most at risk is young and searches to feel reassured.`);
+s = newSlide(3, S2 + `Opening: Figure 6 shows who has elevated health anxiety, in a multivariable logistic model. Main finding: three factors are independent. Each standard deviation of cyberchondria triples the odds, adjusted odds ratio ${N.orCSS}. Searching for instant reassurance almost quadruples them, ${N.orMot}. Older age is protective, ${N.orAge} per age step. The model discriminates well: AUC ${N.auc}, ${N.aucc} after correcting for optimism. Closing: the person most at risk is young and searches to feel reassured.`);
 tag(s, "Who Has Elevated Health Anxiety?", "orange");
-figure(s, "fig7_forest_HA.png", "Figure 8: Adjusted odds ratios for elevated health anxiety (SHAI ≥ 18). Orange: p < 0.05", 0.45, 0.85, 5.6, 3.8);
+figure(s, "fig7_forest_HA.png", "Figure 6: Adjusted odds ratios for elevated health anxiety (SHAI ≥ 18). Orange: p < 0.05", 0.45, 0.85, 5.6, 3.8);
 [[N.orCSS + "×", "odds per SD of cyberchondria", ORANGE], [N.orMot + "×", "if searching for instant reassurance", ORANGE], [N.orAge + "×", "per older age group (protective)", GREEN], [`${N.auc} → ${N.aucc}`, "AUC (apparent → optimism-corrected)", BLUE]].forEach(([v, l, c], i) => {
   const y = 0.85 + i * 1.06;
   box(s, 6.45, y, 3.05, 0.9);
@@ -423,18 +423,18 @@ figure(s, "fig7_forest_HA.png", "Figure 8: Adjusted odds ratios for elevated hea
 });
 
 // ================================================================ 21 Fig 7 mediation
-s = newSlide(3, S2 + `Opening: Figure 9 shows the pathways. Main finding: in model A, part of the link from health anxiety to post-search distress runs through excessive searching, indirect effect ${N.mA}, CI ${N.mAci}. In model B, post-search distress carries almost all of the link from health anxiety to reassurance-seeking visits: the direct effect drops to ${N.mCd}. But the reverse direction also fits, ${N.mD}. Closing: our data are compatible with the cycle, but one survey at one time point cannot prove direction. Hypothesis 3 is supported statistically, not causally.`);
+s = newSlide(3, S2 + `Opening: Figure 7 shows the pathways. Main finding: in model A, part of the link from health anxiety to post-search distress runs through excessive searching, indirect effect ${N.mA}, CI ${N.mAci}. In model B, post-search distress carries almost all of the link from health anxiety to reassurance-seeking visits: the direct effect drops to ${N.mCd}. But the reverse direction also fits, ${N.mD}. Closing: our data are compatible with the cycle, but one survey at one time point cannot prove direction. Hypothesis 3 is supported statistically, not causally.`);
 tag(s, "Pathways: Is There a Cycle?", "orange");
-figure(s, "fig8_mediation.png", "Figure 9: Mediation models (standardised; 5000 bootstrap resamples)", 0.45, 0.85, 9.1, 2.95);
+figure(s, "fig8_mediation.png", "Figure 7: Mediation models (standardised; 5000 bootstrap resamples)", 0.45, 0.85, 9.1, 2.95);
 box(s, 0.5, 4.35, 9.0, 0.7, { fill: PALE, line: "E8C9A6", noShadow: true });
 txt(s, `Indirect via excessive searching **${N.mA}** (CI ${N.mAci}) · via distress **${N.mC}** (direct → **${N.mCd}**) · reverse path also **${N.mD}** → **compatible with a cycle, not proof of direction**`, { x: 0.65, y: 4.38, w: 8.7, h: 0.64, fontSize: 12, valign: "middle" });
 
 // ================================================================ 22 Fig 2 behaviour
-s = newSlide(3, S2 + `Opening: Figure 4 shows what people do after searching. Main finding: the most common response is to delay or skip care because they feel reassured, ${N.dr}. Others escalate: urgent visits ${N.urg}, multiple doctors ${N.mdoc}. Only ${N.always} always tell their doctor about their searches, and ${N.never} never do, for fear of being judged. Higher cyberchondria was linked with more disclosure, odds ratio ${N.nsC}, and this survived FDR correction. ${N.relneg} say searching complicated or reduced trust in their doctor. Closing: searching changes the consultation before it begins.`);
+s = newSlide(3, S2 + `Opening: Figure 3 shows what people do after searching. Main finding: the most common response is to delay or skip care because they feel reassured, ${N.dr}. Others escalate: urgent visits ${N.urg}, multiple doctors ${N.mdoc}. Only ${N.always} always tell their doctor about their searches, and ${N.never} never do, for fear of being judged. Higher cyberchondria was linked with more disclosure, odds ratio ${N.nsC}, and this survived FDR correction. ${N.relneg} say searching complicated or reduced trust in their doctor. Closing: searching changes the consultation before it begins.`);
 tag(s, "Behaviour Before the Consultation", "orange");
 box(s, 0.45, 0.82, 5.55, 4.25);
 barChart(s, 0.5, 0.88, 5.45, 3.85, "After searching, people… (%)", ["Delay/skip care (reassured)", "Ignore the symptom", "Visit several doctors", "Urgent visit / ER", "Self-medication", "Delay care (frightened)"], N.behav.map((v) => Math.round(v * 10) / 10), GREEN);
-s.addText([{ text: "Figure 4:", options: { bold: true, italic: true } }, { text: " Behaviour after searching (n = 300; multiple answers)", options: { italic: true } }], { x: 0.55, y: 4.72, w: 5.35, h: 0.3, fontSize: 10, color: INK, align: "center", fontFace: BODY, margin: 0 });
+s.addText([{ text: "Figure 3:", options: { bold: true, italic: true } }, { text: " Behaviour after searching (n = 300; multiple answers)", options: { italic: true } }], { x: 0.55, y: 4.72, w: 5.35, h: 0.3, fontSize: 10, color: INK, align: "center", fontFace: BODY, margin: 0 });
 [[N.dr, "delay / skip care because reassured"], [N.never, "never tell their doctor (fear of judgement)"], [`OR ${N.nsC}`, "higher cyberchondria → more disclosure (q = " + N.nsCq + ")"], [N.relneg, "say searching strained trust in doctors"]].forEach(([v, l], i) => {
   const x = 6.3 + (i % 2) * 1.62, y0 = 0.82 + Math.floor(i / 2) * 2.17;
   box(s, x, y0, 1.5, 2.05);

@@ -5,6 +5,8 @@ import sys, json, html
 import numpy as np, pandas as pd
 
 OUT, HTML = sys.argv[1], sys.argv[2]
+import os
+SHORT = os.environ.get('THESIS') == 'short'
 N = json.load(open(f'{OUT}/study/numbers.json')); FIG = N['figdir']
 X = pd.read_excel(f'{OUT}/tables/all_results.xlsx', sheet_name=None, index_col=0)
 d = pd.read_pickle(f'{OUT}/analysed.pkl')
@@ -200,6 +202,9 @@ items = [
  ('Table 13 · Sensitivity analyses', None, 'Committees always ask “is it robust?”. One table answers all such questions at once.',
   ['Each row = a check; Result; Conclusion column.'], 'r stays 0.46–0.48 whatever we exclude; only the AI effect depended on a decision.', 'Every check left the main result unchanged.', ''),
 ]
+if SHORT:   # items that exist only in the long version
+    items = [it for it in items if not it[0].startswith(('Table 5 ·', 'Figure 6 ·', 'Table 13 ·'))]
+    items = [(('Supplementary figure · Item by item (slide 19 only)',) + it[1:]) if it[0].startswith('Figure 11') else it for it in items]
 for title, fig, whytxt, howto, shows, saytxt, traptxt in items:
     parts = [why(whytxt)]
     if fig: parts.append(img(fig))
@@ -274,4 +279,17 @@ w(table(['What', 'Number', 'Where'], [
 ]))
 w('<div class="say">Health anxiety and cyberchondria travel together, r = 0.47; AI chatbots are the main source but have no reliable independent effect; and searching changes the consultation before it begins.</div>')
 w('</body></html>')
-open(HTML, 'w').write('\n'.join(H)); print('wrote', HTML)
+out = '\n'.join(H)
+if SHORT:
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from numbering import remap
+    for a, b in [("19 · Item by item (Figure 11)", "19 · Item by item (supplementary figure)"),
+                 ("Figure 11 looks at every pair of questions.", "This supplementary figure looks at every pair of questions."),
+                 ("<tr><td>Why a heatmap for Figure 6?</td><td>There are 45 correlations; colour lets you see them all at once.</td></tr>", ""),
+                 ("Why is Figure 11 in the appendix?", "Why is the item-by-item figure only on a slide, not in the thesis?"),
+                 ("It has 168 numbers: important detail, but too much for the main chapter.", "It has 168 numbers: the thesis reports the key result in one sentence; the full figure is in the long version."),
+                 ("Chapter 3 (Results)", "Chapter 3 (Results, 3.1–3.6)"),
+                 ("<td>Figures 6, 11</td>", "<td>Table 6 (heatmaps are only in the long version)</td>")]:
+        out = out.replace(a, b)
+    out = remap(out)
+open(HTML, 'w').write(out); print('wrote', HTML)

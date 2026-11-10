@@ -28,19 +28,32 @@ def g(prefix, src):
     k = [k for k in src if k.startswith(prefix)]; assert len(k) == 1, (prefix, list(src)); return src[k[0]]
 
 # ---------------------------------------------------------------- thesis text, word for word
-ps = [p.text for p in Document(f'{OUT}/Cyberchondria_Research_Baghdad.docx').paragraphs]
+import os
+SHORT = os.environ.get('THESIS') == 'short'
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from numbering import remap
+RM = remap if SHORT else (lambda s: s)          # renumber only this script's own text (inserted guides are already numbered)
+ps = [p.text for p in Document(f'{OUT}/Cyberchondria_Research_Baghdad' + ('_SHORT' if SHORT else '') + '.docx').paragraphs]
 def between(a, b):
     i, j = ps.index(a), ps.index(b)
     return [p for p in ps[i + 1:j] if p.strip() and not re.match(r'^(Table|Figure) \d+\. ', p)]
 def paras(lst): return ''.join((f'<h4>{e(p)}</h4>' if re.match(r'^\d\.\d+ ', p) else f'<p>{e(p)}</p>') for p in lst)
-aim = between('1.8 Aim and objectives', '2. Method')
-design = between('2.1 Study design and setting', '2.6 Statistical analysis')
-stats = between('2.6 Statistical analysis', '2.7 Ethical considerations')
-ethics = between('2.7 Ethical considerations', '3. Results')
+if SHORT:
+    aim = between('1.8 Aim, objectives and hypotheses', '2. Method')
+    design = between('2.1 Design, setting and participants', '2.5 Statistical analysis')
+    stats = between('2.5 Statistical analysis', '2.6 Ethical considerations')
+    ethics = between('2.6 Ethical considerations', '3. Results')
+    lims = between('4.5 Strengths and limitations', '5. Conclusions and Recommendations')
+    rationale = between('1.7 Rationale', '1.8 Aim, objectives and hypotheses')
+else:
+    aim = between('1.8 Aim and objectives', '2. Method')
+    design = between('2.1 Study design and setting', '2.6 Statistical analysis')
+    stats = between('2.6 Statistical analysis', '2.7 Ethical considerations')
+    ethics = between('2.7 Ethical considerations', '3. Results')
+    lims = between('4.8 Strengths and limitations', '5. Conclusions and Recommendations')
+    rationale = between('1.7 Rationale', '1.8 Aim and objectives')
 concl = between('5.1 Conclusions', '5.2 Recommendations')
 recs = between('5.2 Recommendations', '6. References')
-lims = between('4.8 Strengths and limitations', '5. Conclusions and Recommendations')
-rationale = between('1.7 Rationale', '1.8 Aim and objectives')
 abstract = between('Summary / Abstract', '1. Introduction')
 
 # ---------------------------------------------------------------- assemble
@@ -58,7 +71,7 @@ SECTIONS = [
     ('4', 'Statistics from zero (with our numbers)'),
     ('5', 'Every table and figure: why it is there and how to read it'),
     ('6', 'Your chapter, section by section'),
-    ('7', 'Statistical analysis (Section 2.6, word for word)'),
+    ('7', 'Statistical analysis (Section ' + ('2.5' if SHORT else '2.6') + ', word for word)'),
     ('8', 'Your slides: what to point at, and the full scripts'),
     ('9', 'Questions and model answers, plus drills'),
     ('10', 'Your key sources'),
@@ -70,7 +83,7 @@ w(f'''<h1>Student 2 · Master File</h1>
 <p style="font-size:12.5pt;color:#555">Everything you need in one place: the study, your Results part from zero, your slides, your questions.<br>
 Health Anxiety, AI Chatbot Use and Cyberchondria Among Adults in Baghdad</p>
 <div class="box"><b>Your role.</b> You present slides 13–23 (Results, about 6 minutes) and you are the team's statistics person.
-You own Chapter 3 (Results), Tables 1–13, Figures 3–11 and Appendix A, and you must understand Section 2.6 (Statistical analysis).
+You own Chapter 3 (Results''' + (', 3.1–3.6' if SHORT else '') + '''), ''' + ('Tables 1–11 and Figures 2–8' if SHORT else 'Tables 1–13, Figures 3–11 and Appendix A') + ''', and you must understand Section ''' + ('2.5' if SHORT else '2.6') + ''' (Statistical analysis).
 Handover line at the end of your part: “Those are our results. My colleague will now discuss what they mean.”</div>
 <h3>Contents</h3><ol class="toc">''' + ''.join(f'<li><b>{t}</b></li>' for _, t in SECTIONS) + '''</ol>
 <h3>How to study this file</h3>
@@ -90,7 +103,7 @@ w('<h3>Title</h3><p><b>Health Anxiety, AI Chatbot Use and Cyberchondria Among Ad
 w('<h3>Abstract (as in the thesis)</h3>' + paras(abstract))
 w('<h3>Why the study was done (Rationale, 1.7)</h3>' + paras(rationale))
 w('<h3>Aim, objectives and hypotheses (1.8, word for word)</h3>' + paras(aim))
-w('<h3>Were the hypotheses supported? (memorise this table)</h3><table class="verdict"><tr><th>Hypothesis</th><th>Verdict</th><th>Evidence (where)</th></tr>' + ''.join(f'<tr><td>{a}</td><td>{b}</td><td>{c}</td></tr>' for a, b, c in [
+w('<h3>Were the hypotheses supported? (memorise this table)</h3><table class="verdict"><tr><th>Hypothesis</th><th>Verdict</th><th>Evidence (where)</th></tr>' + ''.join(f'<tr><td>{a}</td><td>{b}</td><td>{RM(c)}</td></tr>' for a, b, c in [
     ('H1: health anxiety is positively associated with cyberchondria, most with distress and excessiveness', 'Supported', f'r = {N["r"]} ({N["rci"]}); excessiveness {N["rE"]} and distress {N["rD"]} strongest (Table 6, Figure 5)'),
     ('H2: independent of socio-demographic and digital-use factors', 'Supported', f'partial r = {N["pr"]}; health anxiety adds {N["dR2"]}, β {N["beta"]} (Table 9)'),
     ('H3: excessive searching mediates health anxiety → post-search distress', 'Supported statistically, not causally', f'indirect {N["mA"]} ({N["mAci"]}), but reverse path also {N["mD"]} (Table 12, Figure 9)'),
@@ -98,8 +111,8 @@ w('<h3>Were the hypotheses supported? (memorise this table)</h3><table class="ve
 ]) + '</table>')
 w('<div class="say">H1 and H2 were supported; H3 was supported statistically but not causally; H4 was only partially supported.</div>')
 w(f'<img class="fig" src="file://{FIG}/fig0a_framework.png"><p class="small" style="text-align:center">Figure 1: conceptual framework (where each hypothesis sits).</p>')
-w('<h3>Methods (2.1–2.5, word for word; 2.6 is in Section 7)</h3>' + paras(design))
-w(f'<img class="fig" src="file://{FIG}/fig0b_flowchart.png"><p class="small" style="text-align:center">Figure 2: study flowchart.</p>')
+w(('<h3>Methods (2.1–2.4, word for word; 2.5 is in Section 7)</h3>' if SHORT else '<h3>Methods (2.1–2.5, word for word; 2.6 is in Section 7)</h3>') + paras(design))
+if not SHORT: w(f'<img class="fig" src="file://{FIG}/fig0b_flowchart.png"><p class="small" style="text-align:center">Figure 2: study flowchart.</p>')
 w('<h3>Ethics (2.7)</h3>' + paras(ethics))
 w('<h3>Conclusions (5.1, word for word)</h3>' + paras(concl))
 w('<h3>Recommendations (5.2, word for word)</h3>' + paras(recs))
@@ -115,7 +128,7 @@ w('<h2 class="page">5 · Every table and figure: why it is there and how to read
 ch = g('Part 2', G); ch = ch.split('<h3>How to read your figures</h3>')[0]
 w('<h2 class="page">6 · Your chapter, section by section</h2>' + ch)
 # 7 statistical analysis verbatim
-w('<h2 class="page">7 · Statistical analysis (Section 2.6, word for word)</h2><p>You are the team\'s statistics person. Read this until you can explain each method in one sentence (Section 4 gives the plain-language version of each).</p>' + paras(stats))
+w('<h2 class="page">7 · Statistical analysis (Section ' + ('2.5' if SHORT else '2.6') + ', word for word)</h2><p>You are the team\'s statistics person. Read this until you can explain each method in one sentence (Section 4 gives the plain-language version of each).</p>' + paras(stats))
 # 8 slides
 w('<h2 class="page">8 · Your slides</h2><h3>A. What to point at and what to say (short version)</h3>' + g('Part D', Z) + '<h3>B. Full scripts (speaker notes)</h3>' + g('Part 4', G))
 # 9 questions + drills

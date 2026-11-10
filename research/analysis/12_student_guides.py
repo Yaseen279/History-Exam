@@ -8,6 +8,7 @@ from docx import Document
 from pptx import Presentation
 
 NUMS, DOCX, PPTX, OUT = sys.argv[1:5]
+SHORT = os.environ.get('THESIS') == 'short'
 N = json.load(open(NUMS)); FIG = N['figdir']
 e = html.escape
 
@@ -17,6 +18,7 @@ _i = _ps.index('6. References')
 REFS = {int(m.group(1)): m.group(2) for p in _ps[_i + 1:] for m in [re.match(r'^(\d+)\.\t(.*)', p)] if m}
 def R(start):
     hits = [k for k, v in REFS.items() if v.startswith(start)]
+    if SHORT and len(hits) != 1: return 0          # reference not cited in the short thesis
     assert len(hits) == 1, (start, hits)
     return hits[0]
 def ref(start): return f'[{R(start)}]'
@@ -557,7 +559,51 @@ def _chap(a, b):
 CHAP = {'intro': _chap('1. Introduction', '2. Method'), 'method': _chap('2. Method', '3. Results'),
         'results': _chap('3. Results', '4. Discussion'), 'disc': _chap('4. Discussion', '6. References')}
 
-os.makedirs(OUT, exist_ok=True)
-for k in (1, 2, 3):
-    open(f'{OUT}/Student{k}_Guide.html', 'w').write(build(k))
+if SHORT:   # Student 2 for the short (submitted) thesis
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from numbering import remap
+    S2 = STUDENTS[2]
+    S2['chapters'] = 'Chapter 3 Results (3.1–3.6), Tables 1–11, Figures 2–8; and Section 2.5 Statistical analysis (you are the team\'s statistics person)'
+    S2['figs'] = [f for f in S2['figs'] if 'corr_heatmap' not in f[0]]
+    S2['walkthrough'] = [
+        ('3.1 Participants and online health-information seeking (Tables 1–2, Figures 2–3)', 'Who answered, how they search, and what they do after searching.',
+         [f'{N["n"]} adults, no missing data; {N["age20"]} aged 20–29; {N["fem"]} female; medical students {N["med"]}; health background {N["hb"]}; chronic condition {N["chron"]}; Arabic {N["ar"]}.',
+          f'AI ticked {N["ai_tick"]} ({N["ai"]} incl. named) vs search engines {N["se"]}; AI without any search engine {N["ai_only"]}; ChatGPT {N["gpt"]}. AI use 96% at 18–19 y vs 72% at ≥ 40 y.',
+          f'Motives: convenience {N["conv"]}, “do I need a doctor?” {N["tri"]}, reassurance {N["reas"]}.',
+          f'After searching: delay/skip care when reassured {N["dr"]}; ignore {N["ign"]}; several doctors {N["mdoc"]}; urgent care {N["urg"]}. Always tell the doctor {N["always"]}; never (fear of judgement) {N["never"]}; relationship strained {N["relneg"]}.'],
+         'Message: a young, digitally active sample whose first “doctor” is often an AI; searching changes the consultation.'),
+        ('3.2 Levels of health anxiety and cyberchondria (Tables 3–4)', '', [
+          f'SHAI {N["shai_m"]} ± {N["shai_sd"]}; elevated {N["hac"]} (CI {N["hac_ci"]}); Table 4: 32.7% at ≥ 15, 19.0% at ≥ 18, 7.3% at ≥ 22, 0.7% at ≥ 29.',
+          f'CSS {N["css_m"]} ± {N["css_sd"]}; excessiveness highest, compulsion lowest.',
+          f'Reliability α {N["aS"]} / {N["aC"]}; CSS-12 four-factor CFA acceptable (CFI {N["cfaC"]}, RMSEA {N["cfaR"]}).',
+          'Arabic vs English (text only in the short version): CSS-12 fully invariant; SHAI-14 metric but not scalar invariant from a weak baseline, so SHAI language comparisons need caution.'],
+         'Why several cut-offs? Because prevalence depends on the threshold; reporting all four is honest.'),
+        ('3.3 Main association (Table 5, Figure 4)', 'The central result (H1, H2).', [
+          f'r = {N["r"]} (95% CI {N["rci"]}), ρ = {N["rho"]}, explains {N["r2"]}; partial r = {N["pr"]}.',
+          f'Facets: excessiveness {N["rE"]} and distress {N["rD"]} stronger (Williams\' T2, p < 0.001) than compulsion {N["rC"]} and reassurance {N["rR"]}.',
+          f'Item level (text only): fear of serious illness and interpretation of sensations matter, mere awareness does not; {N["ibF"]}/168 item pairs survive FDR.'],
+         'H1 and H2 are answered here.'),
+        ('3.4 Factors associated (Tables 6–7, Figure 5)', '162 group comparisons plus χ² tests.', [
+          'Health anxiety higher with chronic condition (q 0.028) and in reassurance seekers (q 0.002); age, education, occupation borderline (exploratory); gender no difference.',
+          'AI users higher CSS (inclusive definition, q 0.005), highest in AI + search engine users (Figure 5); chatbot brand no difference.',
+          'Elevated health anxiety → 52.6% vs 23.0% high cyberchondria (OR 3.71) (Table 7).'],
+         'Know q-values: “survives correction” vs “exploratory”.'),
+        ('3.5 Independent predictors (Tables 8–9, Figure 6)', '', [
+          f'Regression: R² {N["R2a"]} → {N["R2b"]} → {N["R2c"]}; health anxiety adds {N["dR2"]}; B = {N["B"]}, β = {N["beta"]}.',
+          f'AI: +{N["Bai"]} inclusive vs +{N["Balt"]}, p {N["palt"]} strict → no reliable independent effect.',
+          f'Logistic (57 events): AOR {N["orCSS"]} cyberchondria per SD, {N["orMot"]} reassurance motive, {N["orAge"]} age; AUC {N["auc"]} → {N["aucc"]}; ≈ 5 events per variable → exploratory.',
+          'Sensitivity (one sentence in the short version): r stayed 0.46–0.48 in every check.'],
+         'You will be asked about AOR, AUC and why it was corrected.'),
+        ('3.6 Behaviour and pathways (Tables 10–11, Figures 7–8)', '', [
+          f'Behaviour related more to cyberchondria than to health anxiety: urgent visits (AOR {N["urC"]}), less ignoring ({N["igC"]}), strained relationship (ordinal OR 1.34).',
+          f'Only robust behavioural result: higher CSS → less likely to report never telling the doctor, i.e. more disclosure (AOR {N["nsC"]}, q {N["nsCq"]}). Health anxiety → concealment AOR {N["nsS"]}, q {N["nsSq"]} (exploratory).',
+          f'Mediation: via excessive searching {N["mA"]} (CI {N["mAci"]}); via distress {N["mC"]}, direct {N["mCd"]}; reverse {N["mD"]}. No moderator after FDR.'],
+         'Always end with: “compatible with a cycle, not proof of direction”.'),
+    ]
+    html_ = build(2).replace('2.6 Statistical analysis', '2.5 Statistical analysis').replace('Read 2.6 Statistical analysis', 'Read 2.5 Statistical analysis')
+    open(f'{OUT}/Student2_Guide.html', 'w').write(remap(html_))
+else:
+    os.makedirs(OUT, exist_ok=True)
+    for k in (1, 2, 3):
+        open(f'{OUT}/Student{k}_Guide.html', 'w').write(build(k))
     print('wrote', f'{OUT}/Student{k}_Guide.html')
