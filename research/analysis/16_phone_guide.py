@@ -1,5 +1,5 @@
 """Phone version of the Student 2 master file: one self-contained HTML page (figures embedded) with
-collapsible sections, progress ticks and a flashcard mode built from the questions, self-test and drills.
+one-screen pages with a Next button, a section menu and a flashcard mode built from the questions, self-test and drills.
 Usage: python3 16_phone_guide.py <Student2_Master_File.html> <out.html>"""
 import sys, re, io, json, base64, html as H
 from PIL import Image
@@ -50,15 +50,55 @@ for i in range(1, len(parts), 2):
 intro = re.sub(r'<h1>.*?</h1>', '', intro, flags=re.S)
 intro = re.sub(r'^\s*<p>Everything you need.*?</p>', '', intro, flags=re.S)
 intro = re.sub(r'<h3>Contents</h3><ol class="toc">.*?</ol>', '', intro, flags=re.S)
-sec_html = ''.join(f'''<details class="sec" id="s{n}" data-id="{n}"><summary><span class="sn">{n}</span><span class="st">{H.escape(nm)}</span><span class="tick" aria-hidden="true"></span></summary>
-<div class="sb">{b}<button class="done" type="button" data-id="{n}">Mark section {n} as studied</button></div></details>''' for n, nm, b in secs)
-
+# ---------------------------------------------------------------- split everything into phone-sized pages
+from bs4 import BeautifulSoup, NavigableString
+BUDGET = 650            # characters of text per page (about one phone screen at 17px)
+def tlen(node): return len(node.get_text(' ', strip=True)) if hasattr(node, 'get_text') else len(str(node).strip())
+def pieces(node):
+    """Break long lists and tables into smaller pieces; keep everything else whole."""
+    if getattr(node, 'name', None) in ('ul', 'ol') and tlen(node) > BUDGET:
+        lis = node.find_all('li', recursive=False); out, cur = [], []
+        for li in lis:
+            cur.append(str(li))
+            if sum(len(BeautifulSoup(x, 'html.parser').get_text()) for x in cur) > BUDGET * .8:
+                out.append(f'<{node.name}>' + ''.join(cur) + f'</{node.name}>'); cur = []
+        if cur: out.append(f'<{node.name}>' + ''.join(cur) + f'</{node.name}>')
+        return [(x, min(len(BeautifulSoup(x, 'html.parser').get_text()), BUDGET)) for x in out]
+    if getattr(node, 'name', None) == 'div' and 'tw' in (node.get('class') or []) and tlen(node) > BUDGET:
+        rows = node.find_all('tr'); head = str(rows[0]) if rows and rows[0].find('th') else ''
+        body_rows = rows[1:] if head else rows; out, cur, n = [], [], 0
+        for r in body_rows:
+            cur.append(str(r)); n += tlen(r)
+            if n > BUDGET * .85: out.append((f'<div class="tw"><table>{head}{"".join(cur)}</table></div>', n)); cur, n = [], 0
+        if cur: out.append((f'<div class="tw"><table>{head}{"".join(cur)}</table></div>', n))
+        return out
+    if getattr(node, 'name', None) == 'img': return [(str(node), BUDGET)]
+    return [(str(node), tlen(node) + (BUDGET if getattr(node, 'find', None) and node.find('img') else 0))]
+PAGES = []      # (section number, section name, html)
+def paginate(num, name, html_):
+    soup = BeautifulSoup(html_, 'html.parser'); cur, n = [], 0
+    def flush():
+        nonlocal cur, n
+        if cur and any(BeautifulSoup(x, 'html.parser').get_text(strip=True) or '<img' in x for x in cur): PAGES.append((num, name, ''.join(cur)))
+        cur, n = [], 0
+    for node in soup.contents:
+        if isinstance(node, NavigableString) and not node.strip(): continue
+        heading = getattr(node, 'name', None) in ('h3', 'h4')
+        if heading and n > BUDGET * .35: flush()
+        for piece, size in pieces(node):
+            if n and n + size > BUDGET and not (cur and cur[-1].startswith(('<h3', '<h4'))): flush()
+            cur.append(piece); n += size
+    flush()
+paginate('0', 'Start here', intro)
+for n_, nm, b in secs: paginate(n_, nm, b)
+SECS = [{'n': n_, 'name': nm, 'first': next(k for k, p in enumerate(PAGES) if p[0] == n_)} for n_, nm, b in secs]
+pages_html = ''.join(f'<article class="pg" data-sec="{n_}" hidden><div class="eyebrow">{"<span>Start here</span>" if n_ == "0" else f"<span>Section {n_}</span> {H.escape(nm)}"}</div>{h}</article>' for n_, nm, h in PAGES)
 page = r'''<title>Student 2 Gym Guide</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Archivo:wght@600;800&display=swap">
 <style>
-/* Layout: one narrow reading column; sticky two-tab bar (Read / Cards); sections fold so the phone shows one topic at a time. */
+/* Layout: one narrow reading column; sticky top bar (menu, Read / Cards); the Read view shows one screen-sized page at a time with a thumb-height Next bar. */
 :root {
   --bg: #f3f6f4; --surface: #ffffff; --ink: #14231d; --muted: #55665f; --line: #d5ded9;
   --accent: #0f6b52; --accent-ink: #ffffff; --warm: #b5541c; --warm-bg: #fbeee4;
@@ -75,6 +115,7 @@ page = r'''<title>Student 2 Gym Guide</title>
   --accent: #39b98f; --accent-ink: #06140f; --warm: #f0995f; --warm-bg: #2b1d14;
   --say-bg: #13291f; --trap-bg: #2c161d; --trap: #f08aa6; --tip-bg: #161d30; --tip: #9fb4f0; color-scheme: dark }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 body { background: var(--bg); color: var(--ink); font: var(--fs)/1.6 var(--f-body); }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
 .wrap { max-width: 44rem; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 4rem; }
@@ -92,20 +133,6 @@ h2, h3, h4 { font-family: var(--f-head); text-wrap: balance; line-height: 1.25; 
 h3 { font-size: 1.12rem; margin: 1.4rem 0 .4rem; color: var(--warm); }
 h4 { font-size: 1rem; margin: 1rem 0 .3rem; }
 p { margin: .35rem 0 .7rem; } ul, ol { padding-left: 1.25rem; margin: .3rem 0 .8rem; } li { margin: .25rem 0; }
-.quick { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin: 1rem 0 1.3rem; }
-.quick button { font: 700 1rem var(--f-head); padding: .9rem .8rem; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); text-align: left; min-height: 3.4rem; cursor: pointer; }
-.quick button span { display: block; font: 400 .82rem var(--f-body); color: var(--muted); }
-details.sec { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; margin: .6rem 0; }
-details.sec > summary { list-style: none; cursor: pointer; display: flex; gap: .75rem; align-items: center; padding: .95rem 1rem; min-height: 3.5rem; }
-details.sec > summary::-webkit-details-marker { display: none; }
-.sn { font: 800 .95rem var(--f-head); color: var(--accent); min-width: 1.6rem; font-variant-numeric: tabular-nums; }
-.st { flex: 1; font: 600 1.02rem/1.3 var(--f-head); min-width: 0; }
-.tick { width: 1.5rem; height: 1.5rem; border-radius: 50%; border: 2px solid var(--line); flex: none; }
-details.sec.is-done .tick { background: var(--accent); border-color: var(--accent); box-shadow: inset 0 0 0 3px var(--surface); }
-details.sec[open] > summary { border-bottom: 1px solid var(--line); position: sticky; top: calc(env(safe-area-inset-top, 0px) + 3.6rem); background: var(--surface); border-radius: 14px 14px 0 0; z-index: 2; }
-.sb { padding: .3rem 1rem 1.1rem; min-width: 0; }
-.done { width: 100%; margin-top: 1.2rem; font: 700 1rem var(--f-head); padding: .9rem; border-radius: 12px; border: 2px solid var(--accent); background: transparent; color: var(--accent); cursor: pointer; min-height: 3.2rem; }
-details.sec.is-done .done { background: var(--accent); color: var(--accent-ink); }
 .say, .why, .trap, .tip, .box { border-radius: 10px; padding: .65rem .85rem; margin: .7rem 0; }
 .say { background: var(--say-bg); } .say::before { content: "Say it: "; font-weight: 700; color: var(--accent); }
 .why { background: var(--warm-bg); } .why::before { content: "Why: "; font-weight: 700; color: var(--warm); }
@@ -143,28 +170,39 @@ img.fig { display: block; width: 100%; height: auto; border-radius: 8px; backgro
 .sub { display: flex; justify-content: space-between; align-items: center; gap: .6rem; margin-top: .8rem; color: var(--muted); font-size: .92rem; flex-wrap: wrap; }
 .sub button { font: 600 .92rem var(--f-head); background: none; border: 1px solid var(--line); color: var(--ink); border-radius: 999px; padding: .5rem .9rem; min-height: 2.6rem; cursor: pointer; }
 .empty { text-align: center; padding: 2rem 1rem; background: var(--surface); border-radius: 18px; border: 1px solid var(--line); }
+.pg { padding-block: 1rem 7.5rem; min-height: 60vh; }
+.eyebrow { font: 700 .78rem var(--f-head); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: .6rem; }
+.eyebrow span { color: var(--accent); margin-right: .35rem; }
+.pg > h3:first-of-type, .pg > .eyebrow + h3, .pg > .eyebrow + h4 { margin-top: .3rem; }
+.pager { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; display: flex; gap: .6rem; background: var(--surface); border-top: 1px solid var(--line);
+  padding: .6rem max(16px, env(safe-area-inset-right, 0px)) calc(.6rem + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.pager button { border: 0; border-radius: 16px; font: 800 1.25rem var(--f-head); min-height: 4rem; cursor: pointer; }
+#back { width: 4.2rem; background: var(--bg); color: var(--ink); font-size: 1.8rem; }
+#next { flex: 1; background: var(--accent); color: var(--accent-ink); }
+#next small { display: block; font: 400 .8rem var(--f-body); opacity: .85; }
+#back:disabled { opacity: .35; }
+.menu { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 12px; width: 2.75rem; height: 2.75rem; font-size: 1.2rem; cursor: pointer; flex: none; }
+.sheet { position: fixed; inset: 0; z-index: 15; background: rgba(0,0,0,.45); display: flex; align-items: flex-end; }
+.sheet-in { background: var(--surface); width: 100%; max-height: 85%; overflow: auto; border-radius: 18px 18px 0 0;
+  padding: 1rem max(16px, env(safe-area-inset-right, 0px)) calc(1rem + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.sheet-hd { display: flex; justify-content: space-between; align-items: center; margin-bottom: .5rem; }
+.sheet-hd button { font: 600 .95rem var(--f-head); border: 1px solid var(--line); background: none; color: var(--ink); border-radius: 999px; padding: .5rem 1rem; min-height: 2.6rem; }
+#toc { list-style: none; padding: 0; margin: 0; }
+#toc button { width: 100%; text-align: left; display: flex; gap: .7rem; align-items: center; padding: .85rem .4rem; border: 0; border-bottom: 1px solid var(--line); background: none; color: var(--ink); font: 600 1rem var(--f-head); min-height: 3.2rem; cursor: pointer; }
+#toc .sn { min-width: 1.6rem; } #toc .tk { margin-left: auto; color: var(--accent); }
+#toc .here { background: var(--say-bg); }
 :focus-visible { outline: 3px solid var(--warm); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
 </style>
 
 <header class="bar"><div class="in">
   <div class="brand">Student 2 · Results<small id="sub">Cyberchondria study, Baghdad</small></div>
-  <nav class="tabs" aria-label="Mode"><a href="#read" id="t-read">Read</a><a href="#cards" id="t-cards">Cards</a></nav>
+  <button type="button" class="menu" id="menu" aria-label="Sections">☰</button><nav class="tabs" aria-label="Mode"><a href="#read" id="t-read">Read</a><a href="#cards" id="t-cards">Cards</a></nav>
 </div><div class="prog" aria-hidden="true"><i id="pbar"></i></div></header>
 
 <main class="wrap">
 <section id="v-read">
-  <h1>Your Results part, pocket size</h1>
-  <p class="lede">Health anxiety, AI chatbots and cyberchondria in 300 adults in Baghdad. Open one section per set. Tap a figure to zoom. Tick a section when you can explain it out loud.</p>
-  <div class="quick">
-    <button type="button" data-open="13">Cheat sheet<span>All key numbers, one screen</span></button>
-    <button type="button" data-go="cards">Flashcards<span id="qcount">Test yourself between sets</span></button>
-    <button type="button" data-open="8">My slides<span>What to point at and say</span></button>
-    <button type="button" data-open="9">Hard questions<span>Model answers</span></button>
-  </div>
-  <div class="intro">__INTRO__</div>
-  __SECS__
-  <p class="small">Built from the Student 2 master file (short thesis, SPSS-level analysis). Your ticks are saved on this device only.</p>
+  <div id="pages">__PAGES__</div>
 </section>
 
 <section id="v-cards" hidden>
@@ -174,6 +212,11 @@ img.fig { display: block; width: 100%; height: auto; border-radius: 8px; backgro
   <div id="cardbox"></div>
 </section>
 </main>
+<nav class="pager" id="pager" aria-label="Page controls">
+  <button type="button" id="back" aria-label="Previous page">‹</button>
+  <button type="button" id="next">Next</button>
+</nav>
+<div class="sheet" id="sheet" hidden><div class="sheet-in"><div class="sheet-hd"><b>Jump to a section</b><button type="button" id="sclose">Close</button></div><ol id="toc"></ol></div></div>
 <div class="zoom" id="zoom" hidden><button type="button" id="zclose">Close</button><img id="zimg" alt="Enlarged figure"><p>Scroll sideways to see the whole figure. Turn the phone for a bigger view.</p></div>
 
 <script>
@@ -183,23 +226,42 @@ let S = { done: [], known: [] };
 try { S = Object.assign(S, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) {}
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
-const secs = $$('details.sec');
-
+const SECS = __SECJSON__;
+const pages = $$('.pg');
+let pi = 0; try { pi = Math.min(pages.length - 1, Math.max(0, +(localStorage.getItem(KEY + '-page') || 0))); } catch (e) {}
 function paintProgress() {
-  secs.forEach(d => d.classList.toggle('is-done', S.done.includes(d.dataset.id)));
-  $$('.done').forEach(b => b.textContent = S.done.includes(b.dataset.id) ? `Section ${b.dataset.id} studied ✓ (tap to undo)` : `Mark section ${b.dataset.id} as studied`);
-  const r = mode === 'cards' ? S.known.length / CARDS.length : S.done.length / secs.length;
+  const r = mode === 'cards' ? S.known.length / CARDS.length : (pi + 1) / pages.length;
   $('#pbar').style.width = (r * 100).toFixed(1) + '%';
-  $('#sub').textContent = mode === 'cards' ? `${S.known.length} of ${CARDS.length} cards known` : `${S.done.length} of ${secs.length} sections studied`;
+  $('#sub').textContent = mode === 'cards' ? `${S.known.length} of ${CARDS.length} cards known` : `Page ${pi + 1} of ${pages.length}`;
 }
-$$('.done').forEach(b => b.addEventListener('click', () => {
-  const id = b.dataset.id; S.done = S.done.includes(id) ? S.done.filter(x => x !== id) : [...S.done, id]; save(); paintProgress();
-  if (S.done.includes(id)) { const d = b.closest('details'); d.open = false; d.scrollIntoView({ block: 'start' }); }
-}));
-secs.forEach(d => d.addEventListener('toggle', () => { if (d.open) { secs.forEach(o => { if (o !== d) o.open = false; }); d.scrollIntoView({ block: 'start' }); } }));
-$$('[data-open]').forEach(b => b.addEventListener('click', () => { const d = $('#s' + b.dataset.open); d.open = true; }));
-$$('[data-go]').forEach(b => b.addEventListener('click', () => { location.hash = b.dataset.go; }));
-$('#qcount').textContent = `${CARDS.length} cards from your Q&A and self-test`;
+function show(k) {
+  pi = Math.min(pages.length - 1, Math.max(0, k));
+  pages.forEach((p, i) => p.hidden = i !== pi);
+  const sec = pages[pi].dataset.sec;
+  // a section counts as studied once you reach its last page
+  if (pi === pages.length - 1 || pages[pi + 1].dataset.sec !== sec) { if (sec !== '0' && !S.done.includes(sec)) { S.done.push(sec); save(); } }
+  try { localStorage.setItem(KEY + '-page', pi); } catch (e) {}
+  $('#back').disabled = pi === 0;
+  const nxt = pages[pi + 1];
+  $('#next').innerHTML = !nxt ? 'Finished · go to cards' : (nxt.dataset.sec !== sec ? `Next<small>Section ${nxt.dataset.sec}: ${SECS.find(x => x.n === nxt.dataset.sec).name}</small>` : 'Next');
+  paintProgress(); window.scrollTo(0, 0);
+}
+$('#next').addEventListener('click', () => { if (pi === pages.length - 1) { location.hash = 'cards'; return; } show(pi + 1); });
+$('#back').addEventListener('click', () => show(pi - 1));
+let sx = null;
+$('#pages').addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+$('#pages').addEventListener('touchend', e => { if (sx === null || e.target.closest('.tw')) return; const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 70) show(pi + (dx < 0 ? 1 : -1)); sx = null; }, { passive: true });
+function openToc() {
+  const cur = pages[pi].dataset.sec;
+  $('#toc').innerHTML = [{ n: '0', name: 'Start here', first: 0 }, ...SECS].map(x => `<li><button type="button" data-p="${x.first}" class="${x.n === cur ? 'here' : ''}"><span class="sn">${x.n === '0' ? '•' : x.n}</span><span>${x.name}</span><span class="tk">${S.done.includes(x.n) ? '✓' : ''}</span></button></li>`).join('')
+    + `<li><button type="button" data-cards="1"><span class="sn">★</span><span>Flashcards (${CARDS.length})</span></button></li>`;
+  $$('#toc button').forEach(b => b.addEventListener('click', () => { $('#sheet').hidden = true; if (b.dataset.cards) { location.hash = 'cards'; return; } if (mode !== 'read') location.hash = 'read'; show(+b.dataset.p); }));
+  $('#sheet').hidden = false;
+}
+$('#menu').addEventListener('click', openToc);
+$('#sclose').addEventListener('click', () => { $('#sheet').hidden = true; });
+$('#sheet').addEventListener('click', e => { if (e.target.id === 'sheet') $('#sheet').hidden = true; });
+document.addEventListener('keydown', e => { if (mode === 'read' && $('#zoom').hidden && $('#sheet').hidden) { if (e.key === 'ArrowRight') show(pi + 1); if (e.key === 'ArrowLeft') show(pi - 1); } });
 
 // zoom
 $$('img.fig').forEach(im => { const open = () => { $('#zimg').src = im.src; $('#zoom').hidden = false; }; im.addEventListener('click', open); im.addEventListener('keydown', e => { if (e.key === 'Enter') open(); }); });
@@ -253,12 +315,12 @@ function route() {
   mode = location.hash === '#cards' ? 'cards' : 'read';
   $('#v-read').hidden = mode !== 'read'; $('#v-cards').hidden = mode !== 'cards';
   $('#t-read').setAttribute('aria-current', mode === 'read' ? 'page' : 'false'); $('#t-cards').setAttribute('aria-current', mode === 'cards' ? 'page' : 'false');
-  if (mode === 'cards') { build(); wake(true); } else wake(false);
-  paintProgress(); window.scrollTo(0, 0);
+  $('#pager').hidden = mode !== 'read';
+  if (mode === 'cards') { build(); wake(true); paintProgress(); window.scrollTo(0, 0); } else { wake(true); show(pi); }
 }
 window.addEventListener('hashchange', route); route();
 </script>
 '''
-page = page.replace('__INTRO__', intro).replace('__SECS__', sec_html).replace('__CARDS__', json.dumps(cards, ensure_ascii=False).replace('</', '<\\/'))
+page = page.replace('__PAGES__', pages_html).replace('__SECJSON__', json.dumps(SECS, ensure_ascii=False)).replace('__CARDS__', json.dumps(cards, ensure_ascii=False).replace('</', '<\\/'))
 open(OUT, 'w').write(page)
 print('wrote', OUT, f'{len(page)/1e6:.2f} MB', len(cards), 'cards', len(secs), 'sections')
