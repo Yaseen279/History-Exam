@@ -265,10 +265,10 @@ _lay = OxmlElement('w:tblLayout'); _lay.set(qn('w:type'), 'fixed'); hdr._tbl.tbl
 _tw = hdr._tbl.tblPr.find(qn('w:tblW'))
 if _tw is None: _tw = OxmlElement('w:tblW'); hdr._tbl.tblPr.append(_tw)
 _tw.set(qn('w:w'), str(int(16.0 * 567))); _tw.set(qn('w:type'), 'dxa')
-for col, w in zip(hdr.columns, [3.0, 10.0, 3.0]): col.width = Cm(w)
-for c, w in zip(hdr.rows[0].cells, [3.0, 10.0, 3.0]): c.width = Cm(w)
+for col, w in zip(hdr.columns, [3.3, 9.4, 3.3]): col.width = Cm(w)
+for c, w in zip(hdr.rows[0].cells, [3.3, 9.4, 3.3]): c.width = Cm(w)
 c0, c1, c2 = hdr.rows[0].cells
-for c, f, wd in [(c0, 'logo_uob.png', 2.9), (c2, 'logo_med.png', 2.45)]:
+for c, f, wd in [(c0, 'logo_uob.png', 2.7), (c2, 'logo_med.png', 2.27)]:   # both 2.7 cm tall; cells leave room for padding
     pp = c.paragraphs[0]; pp.alignment = WD_ALIGN_PARAGRAPH.CENTER; pp.add_run().add_picture(os.path.join(LOGO, f), width=Cm(wd))
     c.vertical_alignment = 1
 c1.vertical_alignment = 1
