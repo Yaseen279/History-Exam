@@ -345,5 +345,6 @@ if SHORT:
                  ("Chapter 3 (Results)", "Chapter 3 (Results, 3.1–3.6)"),
                  ("<td>Figures 6, 11</td>", "<td>Table 6 (heatmaps are only in the long version)</td>")]:
         out = out.replace(a, b)
+    out = out.replace('0.46–0.48', '0.47–0.48').replace('(excluding doubtful responses, removing one item, another method)', '(excluding straight-line responders, removing one item)')
     out = remap(out)
 open(HTML, 'w').write(out); print('wrote', HTML)

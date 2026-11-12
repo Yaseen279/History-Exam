@@ -8,8 +8,8 @@
 *   2. Open this file (File > Open > Syntax), then Run > All.
 *   3. Compare the output with the thesis tables (each section says which table it feeds).
 *      Small differences in the last decimal are normal; tell the team if anything differs more.
-*   4. Write your SPSS version in Section 2.5 of the thesis
-*      ("Data were analysed with IBM SPSS Statistics version __").
+*   4. Replace [XX] in Section 2.5 of the thesis with your SPSS version
+*      (Help > About in SPSS), e.g. "IBM SPSS Statistics version 26".
 * =====================================================================================.
 
 * ------------------------------------------------ 0. Helper variables.
@@ -81,7 +81,7 @@ NPAR TESTS /K-W= SHAI CSS BY age4(1 4)
   /K-W= SHAI CSS BY occupation(1 5)
   /K-W= SHAI CSS BY tool_profile(1 3)
   /K-W= SHAI CSS BY trust(1 5).
-MEANS TABLES=SHAI CSS BY age4 gender occupation chronic ai_user tool_search tool_social tool_profile mot_reassurance mot_selfdx trust language
+MEANS TABLES=SHAI CSS BY age4 gender education occupation chronic ai_user tool_search tool_social tool_profile mot_reassurance mot_selfdx trust language
   /CELLS=COUNT MEAN STDDEV.
 EXAMINE VARIABLES=CSS BY tool_profile /PLOT=BOXPLOT /STATISTICS=NONE.
 
@@ -100,7 +100,8 @@ REGRESSION /STATISTICS COEFF OUTS CI(95) R ANOVA CHANGE COLLIN TOL
   /DEPENDENT CSS
   /METHOD=ENTER age_1819 age_3039 age_40plus female occ_hcw occ_medstud occ_nonhstud occ_othhealth chronic lang_en
   /METHOD=ENTER ai_user tool_search tool_medplat tool_social trust mot_reassurance mot_selfdx mot_cost mot_triage
-  /METHOD=ENTER SHAI.
+  /METHOD=ENTER SHAI
+  /RESIDUALS HISTOGRAM(ZRESID) NORMPROB(ZRESID).
 * Strict AI definition (ticked only): same model with tool_ai instead of ai_user (Section 3.5).
 REGRESSION /STATISTICS COEFF OUTS CI(95) R ANOVA /DEPENDENT CSS
   /METHOD=ENTER age_1819 age_3039 age_40plus female occ_hcw occ_medstud occ_nonhstud occ_othhealth chronic lang_en

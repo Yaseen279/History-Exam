@@ -52,6 +52,8 @@ REFS = {
  'eysenbach2004': 'Eysenbach G. Improving the quality of Web surveys: the Checklist for Reporting Results of Internet E-Surveys (CHERRIES). J Med Internet Res. 2004;6(3):e34. doi:10.2196/jmir.6.3.e34',
  'hayescoutts2020': 'Hayes AF, Coutts JJ. Use omega rather than Cronbach\'s alpha for estimating reliability. But… Commun Methods Meas. 2020;14(1):1-24. doi:10.1080/19312458.2020.1718629',
  'bh1995': 'Benjamini Y, Hochberg Y. Controlling the false discovery rate: a practical and powerful approach to multiple testing. J R Stat Soc Series B Methodol. 1995;57(1):289-300. doi:10.1111/j.2517-6161.1995.tb02031.x',
+ 'baron1986': 'Baron RM, Kenny DA. The moderator–mediator variable distinction in social psychological research: conceptual, strategic, and statistical considerations. J Pers Soc Psychol. 1986;51(6):1173–82. doi:10.1037/0022-3514.51.6.1173',
+ 'sobel1982': 'Sobel ME. Asymptotic confidence intervals for indirect effects in structural equation models. Sociol Methodol. 1982;13:290–312. doi:10.2307/270723',
  'hayes2022': 'Hayes AF. Introduction to mediation, moderation, and conditional process analysis: a regression-based approach. 3rd ed. New York: Guilford Press; 2022.',
  'taha2021': 'Taha PH. Home quarantine induced health anxiety during the beginning of the COVID-19 pandemic: evidence from Iraq. Disaster Med Public Health Prep. 2023;17:e26. Epub 2021 Jul 26. doi:10.1017/dmp.2021.242',
  'svestkova2025': 'Svestkova A, Huang Y, Smahel D. Factors that influence trust and willingness to use generative AI for health information: a cross-sectional study. Digit Health. 2025;11:20552076251360973. doi:10.1177/20552076251360973',

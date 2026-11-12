@@ -600,7 +600,7 @@ if SHORT:   # Student 2 for the short (submitted) thesis
           f'Hierarchical linear regression: R² {N["R2a"]} → {N["R2b"]} → {N["R2c"]}; health anxiety adds {N["dR2"]}; B = {N["B"]}, β = {N["beta"]}, p < 0.001. Ages 30–39 (B {_a30["B"]:.1f}) and ≥ 40 (B {_a40["B"]:.1f}) also higher than 20–29.',
           f'AI: +{N["Bai"]} inclusive vs +{N["Balt"]}, p {N["palt"]} strict → no reliable independent effect.',
           f'Binary logistic (57 events): AOR {N["orCSS"]} cyberchondria per SD, {N["orMot"]} reassurance motive, {N["orAge"]} age; Nagelkerke R² {_sl["nagelkerke"]:.2f}; Hosmer–Lemeshow p {_sl["HL_p"]:.2f} (good fit); AUC {_sl["AUC"]:.2f}; ≈ 5 events per variable → estimates may be overestimated.',
-          'Sensitivity (one sentence): r stayed 0.46–0.48 in every check.'],
+          'Sensitivity (one sentence): r stayed 0.47–0.48 in every check.'],
          'You will be asked about AOR, AUC and Hosmer–Lemeshow.'),
         (f'3.6 Behaviour and pathways ({T_("Tables", "10–11")}, {T_("Figures", "7–8")})', '', [
           f'Higher CSS → urgent visits (AOR {N["urC"]}, p 0.013), less ignoring ({N["igC"]}, p 0.009), strained relationship ({_rel["AOR"]:.2f}, p {_rel["p"]:.3f}) and more disclosure (never-disclose AOR {_nsC["AOR"]:.2f}, p 0.001).',
@@ -640,7 +640,7 @@ if SHORT:   # Student 2 for the short (submitted) thesis
                  (f'AUC {N["auc"]} → {N["aucc"]}', f'AUC {_sl["AUC"]:.2f}'),
                  (f'via excessive searching {N["mA"]} (CI {N["mAci"]})', f'via excessive searching {N["mA"]} (Sobel z {_sm[0]["sobel_z"]:.2f})'),
                  (f'higher cyberchondria → more disclosure (OR {N["nsC"]}, q {N["nsCq"]})', f'higher cyberchondria → more disclosure (AOR {N["nsC"]}, p 0.001)'),
-                 ('every sensitivity analysis left the main result unchanged (Table 13)', 'every sensitivity analysis left the main result unchanged (r 0.46–0.48)'),
+                 ('every sensitivity analysis left the main result unchanged (Table 13)', 'every sensitivity analysis left the main result unchanged (r 0.47–0.48)'),
                  ("<tr><td>FDR (q-value)</td><td>Correction for running many tests; a result is “robust” if q &lt; 0.05, otherwise exploratory.</td></tr>", "<tr><td>Sobel test</td><td>Tests whether an indirect (mediated) effect a × b is different from zero.</td></tr>"),
                  ("<tr><td>FDR (q-value)</td><td>Correction for running many tests; a result is “robust” if q < 0.05, otherwise exploratory.</td></tr>", "<tr><td>Sobel test</td><td>Tests whether an indirect (mediated) effect a × b is different from zero.</td></tr>"),
                  ("<tr><td>Moderation</td><td>Whether a third variable changes the strength of a link (e.g., does AI use make the link stronger? No).</td></tr>", "<tr><td>Hosmer–Lemeshow test</td><td>Checks the fit of a logistic model; p &gt; 0.05 = good fit.</td></tr>"),
@@ -655,6 +655,7 @@ if SHORT:   # Student 2 for the short (submitted) thesis
                  ('Acknowledged; AI effect called “not robust”', 'Acknowledged; AI effect depends on the definition')]:
         html_ = html_.replace(a, b)
     html_ = html_.replace('is it robust?', 'does it hold?')
+    html_ = html_.replace('straight-liners and annotated responses excluded in sensitivity analyses', 'straight-line responders excluded in a sensitivity analysis').replace('We excluded straight-liners and annotated responses in sensitivity analyses', 'We excluded straight-line responders in a sensitivity analysis').replace('0.46–0.48', '0.47–0.48')
     html_ = html_.replace('Under the strict definition p = 0.31', f'Under the strict definition p = {N["palt"]}').replace('(p 0.31)', f'(p {N["palt"]})')
     open(f'{OUT}/Student2_Guide.html', 'w').write(remap(html_))
 else:
