@@ -1,7 +1,7 @@
 * Encoding: UTF-8.
 * =====================================================================================
 * Health Anxiety, AI Chatbot Use and Cyberchondria Among Adults in Baghdad (n = 300)
-* SPSS syntax for EVERY analysis reported in the short thesis (Tables 1-11, Figures 4-8).
+* SPSS syntax for EVERY analysis reported in the short thesis (Tables 1-10, Figures 4-6).
 *
 * HOW TO USE
 *   1. Open Cyberchondria_Baghdad.sav in SPSS (File > Open > Data).
@@ -30,8 +30,8 @@ COMPUTE shai_ge15 = (SHAI >= 15).
 COMPUTE shai_ge22 = (SHAI >= 22).
 COMPUTE shai_ge29 = (SHAI >= 29).
 EXECUTE.
-* z-scores: creates ZSHAI, ZCSS, ZCSS_excess, ZCSS_compul, ZCSS_distress, ZCSS_reassur.
-DESCRIPTIVES VARIABLES=SHAI CSS CSS_excess CSS_compul CSS_distress CSS_reassur /SAVE.
+* z-score of CSS (creates ZCSS, used in the logistic model of Table 9).
+DESCRIPTIVES VARIABLES=CSS /SAVE.
 
 * ------------------------------------------------ 1. Descriptive statistics (Tables 1, 2, 4; Figures 2, 3).
 FREQUENCIES VARIABLES=age4 gender education occupation health_background chronic language
@@ -119,38 +119,13 @@ LOGISTIC REGRESSION VARIABLES HA_elevated
 * Area under the ROC curve.
 ROC pred_HA BY HA_elevated (1) /PLOT=CURVE(REFERENCE) /PRINT=SE.
 
-* ------------------------------------------------ 8. Behaviours (Table 10): one logistic model per behaviour.
-* Read the Exp(B) and 95% CI of ZSHAI and ZCSS (and trust for multiple doctors).
-DEFINE !beh (y = !TOKENS(1))
-LOGISTIC REGRESSION VARIABLES !y
-  /METHOD=ENTER ZSHAI ZCSS trust ai_user age_ord female health_background chronic lang_en
-  /PRINT=CI(95).
-!ENDDEFINE.
-!beh y=beh_urgent.
-!beh y=beh_multidoc.
-!beh y=beh_delay_reassured.
-!beh y=beh_delay_terrified.
-!beh y=beh_selfmed.
-!beh y=beh_ignore.
-!beh y=share_never.
-!beh y=rel_negative.
-
-* ------------------------------------------------ 9. Mediation with the Sobel test (Table 11, Figure 7).
-* All variables are z-scores, so the coefficients (B) are standardised.
-* For each model run three regressions: path a (M on X), paths b and c' (Y on X and M), path c (Y on X).
-* Sobel z = (a*b) / SQRT(b**2 * SEa**2 + a**2 * SEb**2); two-sided p from the normal distribution
-* (any online "Sobel test calculator" does the same from a, SEa, b, SEb).
-* Model A: X = ZSHAI, M = ZCSS_excess, Y = ZCSS_distress.
-REGRESSION /STATISTICS COEFF OUTS /DEPENDENT ZCSS_excess /METHOD=ENTER ZSHAI age_ord female health_background chronic trust ai_user.
-REGRESSION /STATISTICS COEFF OUTS /DEPENDENT ZCSS_distress /METHOD=ENTER ZSHAI ZCSS_excess age_ord female health_background chronic trust ai_user.
-REGRESSION /STATISTICS COEFF OUTS /DEPENDENT ZCSS_distress /METHOD=ENTER ZSHAI age_ord female health_background chronic trust ai_user.
-* Model B (thesis model C): X = ZSHAI, M = ZCSS_distress, Y = ZCSS_reassur.
-REGRESSION /STATISTICS COEFF OUTS /DEPENDENT ZCSS_distress /METHOD=ENTER ZSHAI age_ord female health_background chronic trust ai_user.
-REGRESSION /STATISTICS COEFF OUTS /DEPENDENT ZCSS_reassur /METHOD=ENTER ZSHAI ZCSS_distress age_ord female health_background chronic trust ai_user.
-REGRESSION /STATISTICS COEFF OUTS /DEPENDENT ZCSS_reassur /METHOD=ENTER ZSHAI age_ord female health_background chronic trust ai_user.
-* Reverse order: X = ZCSS_excess, M = ZCSS_distress, Y = ZSHAI.
-REGRESSION /STATISTICS COEFF OUTS /DEPENDENT ZCSS_distress /METHOD=ENTER ZCSS_excess age_ord female health_background chronic trust ai_user.
-REGRESSION /STATISTICS COEFF OUTS /DEPENDENT ZSHAI /METHOD=ENTER ZCSS_excess ZCSS_distress age_ord female health_background chronic trust ai_user.
-REGRESSION /STATISTICS COEFF OUTS /DEPENDENT ZSHAI /METHOD=ENTER ZCSS_excess age_ord female health_background chronic trust ai_user.
-* Figure 8: mean of each CSS dimension by health-anxiety status.
-MEANS TABLES=CSS_excess CSS_compul CSS_distress CSS_reassur BY HA_elevated /CELLS=MEAN STDDEV COUNT.
+* ------------------------------------------------ 8. Medical students vs all other participants (Table 10, H3).
+* Unadjusted: Mann-Whitney for the scores, chi-square for the yes/no outcomes.
+NPAR TESTS /M-W= SHAI CSS BY medical_student(0 1).
+MEANS TABLES=SHAI CSS BY medical_student /CELLS=COUNT MEAN STDDEV.
+CROSSTABS /TABLES=HA_elevated CSS_high BY medical_student /STATISTICS=CHISQ RISK /CELLS=COUNT COLUMN.
+* Adjusted for age group, gender, chronic disease and language: read the row "medical_student".
+REGRESSION /STATISTICS COEFF CI(95) R ANOVA /DEPENDENT SHAI /METHOD=ENTER medical_student age_ord female chronic lang_en.
+REGRESSION /STATISTICS COEFF CI(95) R ANOVA /DEPENDENT CSS /METHOD=ENTER medical_student age_ord female chronic lang_en.
+LOGISTIC REGRESSION VARIABLES HA_elevated /METHOD=ENTER medical_student age_ord female chronic lang_en /PRINT=CI(95).
+LOGISTIC REGRESSION VARIABLES CSS_high /METHOD=ENTER medical_student age_ord female chronic lang_en /PRINT=CI(95).

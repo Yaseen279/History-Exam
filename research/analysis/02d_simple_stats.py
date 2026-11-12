@@ -79,6 +79,21 @@ for key, lab, x, mv, y in [('A', 'HA → excessive searching → post-search dis
                     prop=a * b / mc.params[x]))
 S['mediation'] = med
 
+# ------------------------------------------------------------------ 4b. medical students vs other participants (H3)
+ms = d.medical_student == 1; adj = 'age_ord + female + chronic + lang_en'
+mst = {'n_med': int(ms.sum()), 'n_oth': int((~ms).sum())}
+for v in ['SHAI', 'CSS']:
+    f = smf.ols(f'{v} ~ medical_student + {adj}', d).fit(); ci = f.conf_int().loc['medical_student']
+    mst[v] = dict(m_med=d.loc[ms, v].mean(), sd_med=d.loc[ms, v].std(), m_oth=d.loc[~ms, v].mean(), sd_oth=d.loc[~ms, v].std(),
+                  p_mw=stats.mannwhitneyu(d.loc[ms, v], d.loc[~ms, v])[1], B=f.params['medical_student'], lo=ci[0], hi=ci[1], p_adj=f.pvalues['medical_student'])
+for y in ['HA_clin', 'CSS_high']:
+    a_, b_ = int(d.loc[ms, y].sum()), int(d.loc[~ms, y].sum())
+    tab = np.array([[a_, ms.sum() - a_], [b_, (~ms).sum() - b_]])
+    f = smf.logit(f'{y} ~ medical_student + {adj}', d).fit(disp=0); ci = np.exp(f.conf_int().loc['medical_student'])
+    mst[y] = dict(k_med=a_, k_oth=b_, pct_med=a_ / ms.sum() * 100, pct_oth=b_ / (~ms).sum() * 100, p_chi=stats.chi2_contingency(tab, correction=False)[1],
+                  OR=(tab[0, 0] * tab[1, 1]) / (tab[0, 1] * tab[1, 0]), AOR=float(np.exp(f.params['medical_student'])), lo=float(ci[0]), hi=float(ci[1]), p_adj=float(f.pvalues['medical_student']))
+S['medstud'] = mst
+
 # ------------------------------------------------------------------ 5. simple correlations (SPSS CORRELATIONS / PARTIAL CORR)
 r, p = stats.pearsonr(d.SHAI, d.CSS); zf = np.arctanh(r); h = 1.96 / np.sqrt(len(d) - 3)
 S['pearson'] = dict(r=r, p=p, CI=[np.tanh(zf - h), np.tanh(zf + h)], rho=stats.spearmanr(d.SHAI, d.CSS)[0])

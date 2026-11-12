@@ -11,6 +11,7 @@ const N = JSON.parse(fs.readFileSync(NUMS, "utf8"));
   const ai = SS.ols_coef.find((r) => r.term === "ai_user"), t = 1.9685;
   N.palt = SS.ai_strict.p.toFixed(2); N.Baici = `${(ai.B - t * ai.SE).toFixed(1)}–${(ai.B + t * ai.SE).toFixed(1)}`;
   N.auc = SS.logit_HA.AUC.toFixed(2);
+  N.MS = SS.medstud;
 }
 const FIG = N.figdir;
 const A = (f) => path.join(ASSETS, f);
@@ -192,16 +193,15 @@ searchBar(s, 5.3, 1.0, 3.6, "is my chest pain a heart attack?");
 bubble(s, 7.0, 4.2, 2.3, 0.45, "…but what if it is?", true);
 
 // ================================================================ 3 Objectives
-s = newSlide(3, S1 + "Our aim was to study the relationship between health anxiety and cyberchondria among adults in Baghdad who search for health information online. We had four objectives. First, describe how people search, including AI chatbots. Second, measure health anxiety and cyberchondria and how strongly they are linked. Third, look for pathways that fit a vicious cycle. Fourth, see how all this affects what people do before and during the consultation.");
+s = newSlide(3, S1 + "Our aim was to study the relationship between health anxiety and cyberchondria among adults in Baghdad who search for health information online. We had three objectives. First, describe how people search, including AI chatbots, and what they do before seeing a doctor. Second, measure health anxiety and cyberchondria and how strongly they are linked. Third, compare medical students with everyone else.");
 s.addText("Objectives", { x: 0.6, y: 0.55, w: 4, h: 0.5, fontFace: HEAD, fontSize: 24, bold: true, color: GREEN, margin: 0 });
 txt(s, [
   "• **Describe** online and AI-chatbot health-information seeking and pre-consultation behaviour among adults in Baghdad.",
   "• **Estimate** levels of health anxiety and cyberchondria and the **strength of their association**, independent of other factors.",
-  "• **Examine pathways** consistent with a mutually reinforcing cycle between the two.",
-  "• **Relate** both to pre-consultation behaviour, **disclosure** of searches to doctors and **trust** in physicians.",
+  "• **Compare** health anxiety and cyberchondria between **medical students** and other participants.",
 ].join("\n"), { x: 0.8, y: 1.3, w: 8.4, h: 3.0, fontSize: 16, paraSpaceAfter: 12 });
 box(s, 0.8, 4.35, 8.4, 0.65, { fill: PALE, line: "E8C9A6", noShadow: true });
-txt(s, "**Primary hypothesis (H1–H2):** health anxiety is positively associated with cyberchondria, independently of socio-demographic and digital-use factors.", { x: 0.95, y: 4.4, w: 8.1, h: 0.55, fontSize: 13, valign: "middle", hiColor: GREEN });
+txt(s, "**H1–H2:** health anxiety is positively associated with cyberchondria, independently of other factors. **H3:** medical students have higher health anxiety and cyberchondria.", { x: 0.95, y: 4.4, w: 8.1, h: 0.55, fontSize: 13, valign: "middle", hiColor: GREEN });
 
 // ================================================================ 4 Divider: Introduction
 divider("Introduction", ["Health anxiety", "Cyberchondria", "The vicious cycle", "From search engines to AI chatbots", "Rationale"], (s) => {
@@ -312,13 +312,13 @@ txt(s, `Primary outcome: **correlation** SHAI ↔ CSS\nFisher’s z, two-sided *
 txt(s, "Bilingual **Arabic–English** Google Form · Arabic wording by the research team", { x: 4.35, y: 4.98, w: 5.15, h: 0.3, fontSize: 10.5, italic: true, color: GREY });
 
 // ================================================================ 12 Statistical analysis
-s = newSlide(3, S1 + "For the analysis we used SPSS. We described the sample with frequencies and means, checked reliability with Cronbach's alpha, and because the scores were not normally distributed we compared groups with Mann–Whitney and Kruskal–Wallis tests, and categories with chi-square. We then measured the correlation, ran hierarchical multiple linear regression and binary logistic regression, and tested mediation with the Sobel test. Significance was p below 0.05. Now my colleague will present the results.");
+s = newSlide(3, S1 + "For the analysis we used SPSS. We described the sample with frequencies and means, checked reliability with Cronbach's alpha, and because the scores were not normally distributed we compared groups with Mann–Whitney and Kruskal–Wallis tests, and categories with chi-square. We then measured the correlation, ran hierarchical multiple linear regression and binary logistic regression, and compared medical students with everyone else before and after adjustment. Significance was p below 0.05. Now my colleague will present the results.");
 tag(s, "Statistical Analysis");
 [["Describe", "Frequencies, mean ± SD, median (IQR); normality by Shapiro–Wilk", GREEN],
  ["Reliability", "Cronbach α for the SHAI-14, the CSS-12 and each CSS dimension", BLUE],
  ["Associations", "Pearson & Spearman, partial r; Mann–Whitney, Kruskal–Wallis; χ² / Fisher, Cramér's V", ORANGE],
  ["Multivariable", "Hierarchical multiple linear regression; binary logistic regression (AOR, Hosmer–Lemeshow, AUC)", MAROON],
- ["Pathways", "Mediation by linear regressions (paths a, b, c, c′); Sobel test", GREEN],
+ ["Medical students", "Mann–Whitney, χ²; then linear and logistic regression adjusted for age, gender, chronic disease, language", GREEN],
  ["Checks", "VIF for multicollinearity; sensitivity analyses of the main correlation", BLUE]].forEach(([h, b, c], i) => {
   const x = 0.5 + (i % 3) * 3.05, y = 0.9 + Math.floor(i / 3) * 1.75;
   bar(s, x, y, 2.85, h, c);
@@ -428,20 +428,26 @@ figure(s, "fig7_forest_HA_simple.png", "Figure 6: Adjusted odds ratios for eleva
   s.addText([{ text: v, options: { bold: true, color: c, fontSize: 20, breakLine: true } }, { text: l, options: { fontSize: 11 } }], { x: 6.5, y, w: 2.95, h: 0.9, align: "center", valign: "middle", margin: 0, fontFace: BODY, color: INK });
 });
 
-// ================================================================ 21 Fig 7 mediation
-s = newSlide(3, S2 + `Opening: Figure 7 shows the pathways. Main finding: in model A, part of the link from health anxiety to post-search distress runs through excessive searching, indirect effect ${N.mA}, Sobel z 5.14, p below 0.001. In model B, post-search distress carries almost all of the link from health anxiety to reassurance-seeking visits: the direct effect drops to ${N.mCd}. But the reverse direction also fits, ${N.mD}. Closing: our data are compatible with the cycle, but one survey at one time point cannot prove direction. Hypothesis 3 is supported statistically, not causally.`);
-tag(s, "Pathways: Is There a Cycle?", "orange");
-figure(s, "fig8_mediation_sobel.png", "Figure 7: Mediation models (standardised coefficients; Sobel test)", 0.45, 0.85, 9.1, 2.95);
-box(s, 0.5, 4.35, 9.0, 0.7, { fill: PALE, line: "E8C9A6", noShadow: true });
-txt(s, `Indirect via excessive searching **${N.mA}** (Sobel z 5.14) · via distress **${N.mC}** (direct → **${N.mCd}**) · reverse path also **${N.mD}** → **compatible with a cycle, not proof of direction**`, { x: 0.65, y: 4.38, w: 8.7, h: 0.64, fontSize: 12, valign: "middle" });
+// ================================================================ 21 Medical students (H3)
+{ const M = N.MS, f1 = (x) => x.toFixed(1), f2 = (x) => x.toFixed(2), pp = (p) => (p < 0.001 ? "< 0.001" : p.toFixed(3));
+s = newSlide(3, S2 + `Opening: our third hypothesis asked whether medical students are at higher risk. Main finding: before adjustment, medical students had higher health anxiety, ${f1(M.SHAI.m_med)} against ${f1(M.SHAI.m_oth)}, p = ${pp(M.SHAI.p_mw)}. But after adjusting for age, gender, chronic disease and language, the difference was no longer significant, p = ${pp(M.SHAI.p_adj)}, because medical students are younger and younger people were more anxious. Their cyberchondria was exactly the same as everyone else's, ${f1(M.CSS.m_med)} against ${f1(M.CSS.m_oth)}. Closing: hypothesis 3 was not supported; being a medical student did not raise the risk once age was taken into account.`);
+tag(s, "Are Medical Students at Higher Risk? (H3)", "orange");
+table(s, `Table 10: Medical students (n = ${M.n_med}) vs other participants (n = ${M.n_oth})`, ["Measure", "Medical students", "Others", "p", "Adjusted p"], [
+  ["SHAI-14 mean ± SD", `${f1(M.SHAI.m_med)} ± ${f1(M.SHAI.sd_med)}`, `${f1(M.SHAI.m_oth)} ± ${f1(M.SHAI.sd_oth)}`, pp(M.SHAI.p_mw), pp(M.SHAI.p_adj)],
+  ["Elevated health anxiety", `${f1(M.HA_clin.pct_med)}%`, `${f1(M.HA_clin.pct_oth)}%`, pp(M.HA_clin.p_chi), pp(M.HA_clin.p_adj)],
+  ["CSS-12 mean ± SD", `${f1(M.CSS.m_med)} ± ${f1(M.CSS.sd_med)}`, `${f1(M.CSS.m_oth)} ± ${f1(M.CSS.sd_oth)}`, pp(M.CSS.p_mw), pp(M.CSS.p_adj)],
+  ["High cyberchondria", `${f1(M.CSS_high.pct_med)}%`, `${f1(M.CSS_high.pct_oth)}%`, pp(M.CSS_high.p_chi), pp(M.CSS_high.p_adj)],
+], { x: 0.55, y: 1.25, w: 8.9, colW: [2.9, 1.7, 1.7, 1.2, 1.4], hi: [0], note: "p: Mann–Whitney or χ². Adjusted: linear or logistic regression adjusted for age group, gender, chronic disease and language." });
+box(s, 0.55, 4.05, 8.9, 0.95, { fill: PALE, line: "E8C9A6", noShadow: true });
+txt(s, `Higher health anxiety **only before adjustment** (it reflected their **younger age**); cyberchondria **identical** → **H3 not supported**`, { x: 0.7, y: 4.1, w: 8.6, h: 0.85, fontSize: 14, valign: "middle", align: "center" }); }
 
 // ================================================================ 22 Fig 2 behaviour
-s = newSlide(3, S2 + `Opening: Figure 3 shows what people do after searching. Main finding: the most common response is to delay or skip care because they feel reassured, ${N.dr}. Others escalate: urgent visits ${N.urg}, multiple doctors ${N.mdoc}. Only ${N.always} always tell their doctor about their searches, and ${N.never} never do, for fear of being judged. Higher cyberchondria was linked with more disclosure, odds ratio ${N.nsC}, and also with urgent visits and a strained relationship. ${N.relneg} say searching complicated or reduced trust in their doctor. Closing: searching changes the consultation before it begins.`);
+s = newSlide(3, S2 + `Opening: Figure 3 shows what people do after searching. Main finding: the most common response is to delay or skip care because they feel reassured, ${N.dr}. Others escalate: urgent visits ${N.urg}, multiple doctors ${N.mdoc}. Only ${N.always} always tell their doctor about their searches, and ${N.never} never do, for fear of being judged. ${N.relneg} say searching complicated or reduced trust in their doctor. Closing: searching changes the consultation before it begins.`);
 tag(s, "Behaviour Before the Consultation", "orange");
 box(s, 0.45, 0.82, 5.55, 4.25);
 barChart(s, 0.5, 0.88, 5.45, 3.85, "After searching, people… (%)", ["Delay/skip care (reassured)", "Ignore the symptom", "Visit several doctors", "Urgent visit / ER", "Self-medication", "Delay care (frightened)"], N.behav.map((v) => Math.round(v * 10) / 10), GREEN);
 s.addText([{ text: "Figure 3:", options: { bold: true, italic: true } }, { text: " Behaviour after searching (n = 300; multiple answers)", options: { italic: true } }], { x: 0.55, y: 4.72, w: 5.35, h: 0.3, fontSize: 10, color: INK, align: "center", fontFace: BODY, margin: 0 });
-[[N.dr, "delay / skip care because reassured"], [N.never, "never tell their doctor (fear of judgement)"], [`OR ${N.nsC}`, "higher cyberchondria → more disclosure (p = 0.001)"], [N.relneg, "say searching strained trust in doctors"]].forEach(([v, l], i) => {
+[[N.dr, "delay / skip care because reassured"], [N.never, "never tell their doctor (fear of judgement)"], [N.always, "always tell their doctor"], [N.relneg, "say searching strained trust in doctors"]].forEach(([v, l], i) => {
   const x = 6.3 + (i % 2) * 1.62, y0 = 0.82 + Math.floor(i / 2) * 2.17;
   box(s, x, y0, 1.5, 2.05);
   s.addText([{ text: v, options: { bold: true, color: ORANGE, fontSize: 19, breakLine: true } }, { text: l, options: { fontSize: 10.5 } }], { x: x + 0.05, y: y0, w: 1.4, h: 2.05, align: "center", valign: "middle", margin: 0, fontFace: BODY, color: INK });
@@ -521,15 +527,15 @@ s = newSlide(3, S3 + `AI use in our sample, ${N.ai_tick} to ${N.ai}, is far high
 tag(s, "AI Chatbots & the Consultation");
 bar(s, 0.5, 0.85, 4.4, "AI chatbots", BLUE);
 box(s, 0.5, 1.19, 4.4, 3.0);
-txt(s, `• Our use **${N.ai_tick}–${N.ai}** vs ~**20%** (US 2024) and **21%** (2025 survey).\n• Young sample: AI use fell from **96%** (18–19 y) to **72%** (≥ 40 y).\n• Conversational AI may invite “**one more question**” (excessiveness, reassurance).\n• Higher trust → **fewer** multiple-doctor visits, but a trend to **delay care** (OR 1.33, p = 0.11).`, { x: 0.6, y: 1.25, w: 4.2, h: 2.9, fontSize: 13.5, paraSpaceAfter: 8 });
+txt(s, `• Our use **${N.ai_tick}–${N.ai}** vs ~**20%** (US 2024) and **21%** (2025 survey).\n• Young sample: AI use fell from **96%** (18–19 y) to **72%** (≥ 40 y).\n• Conversational AI may invite “**one more question**” (excessiveness, reassurance).`, { x: 0.6, y: 1.25, w: 4.2, h: 2.9, fontSize: 13.5, paraSpaceAfter: 8 });
 bar(s, 5.1, 0.85, 4.4, "The consultation", ORANGE);
 box(s, 5.1, 1.19, 4.4, 3.0);
-txt(s, `• Delay because reassured (**${N.dr}**): saves visits, but risks **delayed diagnosis**; seen at **all** anxiety levels.\n• **${N.never}** never disclose searches (fear of judgement).\n• Higher cyberchondria → **more** disclosure, but also **urgent visits** and a strained relationship; health anxiety → **concealment**.\n• H4 **partially** supported.`, { x: 5.2, y: 1.25, w: 4.2, h: 2.9, fontSize: 13.5, paraSpaceAfter: 8 });
+txt(s, `• Delay because reassured (**${N.dr}**): saves visits, but risks **delayed diagnosis**; seen at **all** anxiety levels.\n• **${N.never}** never disclose searches (fear of judgement).\n• Described, not tested: these behaviours show **how common** the problem is.`, { x: 5.2, y: 1.25, w: 4.2, h: 2.9, fontSize: 13.5, paraSpaceAfter: 8 });
 box(s, 0.5, 4.4, 9.0, 0.6, { fill: PALE, line: "E8C9A6", noShadow: true });
 txt(s, "**Clinical message:** ask every patient, without judgement, what they searched or asked an AI.", { x: 0.65, y: 4.4, w: 8.7, h: 0.6, fontSize: 13.5, valign: "middle", align: "center", hiColor: GREEN });
 
 // ================================================================ 29 Medical students
-s = newSlide(3, S3 + `${N.med} of our sample were medical students, a distinct group: high medical awareness, academic stress, and exposure to descriptions of serious disease. They had higher unadjusted health anxiety, but this disappeared after adjustment, because they are younger, and age was the independent factor. Their cyberchondria scores were identical to everyone else's. So medical knowledge did not protect against cyberchondria.`);
+s = newSlide(3, S3 + `${N.med} of our sample were medical students, a distinct group: high medical awareness, academic stress, and exposure to descriptions of serious disease. They had higher unadjusted health anxiety, but this disappeared after adjustment, because they are younger, and age was the independent factor. Their cyberchondria scores were identical to everyone else's. So hypothesis 3 was not supported: medical knowledge neither raised nor lowered cyberchondria.`);
 box(s, 0.6, 0.8, 5.5, 0.8);
 txt(s, `**${N.med}** of our sample were **medical students**, a distinct group:`, { x: 0.75, y: 0.85, w: 5.2, h: 0.7, fontSize: 14, valign: "middle" });
 box(s, 0.6, 1.8, 5.5, 1.3, { fill: PALE, line: "E8C9A6" });
@@ -539,9 +545,9 @@ txt(s, "Higher unadjusted health anxiety, but this **disappeared after adjustmen
 photo(s, "students_laptop.jpg", 6.45, 0.8, 3.0, 4.25);
 
 // ================================================================ 30 Limitations
-s = newSlide(3, S3 + "We have several limitations. First, the design is cross-sectional, so we cannot prove direction; the mediation is statistical, not causal. Second, the sample is online convenience and snowball, young, and heavy in medical students, so percentages cannot be generalised to all of Baghdad, although associations were consistent across subgroups. Third, the Arabic wording was ours, without formal back-translation, although reliability and means were the same in both languages. Fourth, behaviour items were single, non-validated questions. Fifth, we ran many tests without correction, so some weaker results may be due to chance.");
+s = newSlide(3, S3 + "We have several limitations. First, the design is cross-sectional, so we cannot prove which comes first. Second, the sample is online convenience and snowball, young, and heavy in medical students, so percentages cannot be generalised to all of Baghdad, although associations were consistent across subgroups. Third, the Arabic wording was ours, without formal back-translation, although reliability and means were the same in both languages. Fourth, behaviour items were single, non-validated questions. Fifth, we ran many tests without correction, so some weaker results may be due to chance.");
 tag(s, "Limitations");
-[["Cross-sectional design", "Cannot establish direction; mediation is **statistical, not causal**"],
+[["Cross-sectional design", "Cannot establish **which comes first**"],
  ["Online convenience sample", `Young, **${N.med}** medical students; percentages **not generalisable**, associations consistent across subgroups`],
  ["Arabic wording", "Team translation without formal back-translation; reliability good and **scores equal** in Arabic and English"],
  ["Single-item measures", "Behaviour, disclosure and trust items **not validated**; interpreted cautiously"],
@@ -568,13 +574,14 @@ txt(s, "• **Longitudinal** / experience-sampling studies of the cycle.\n• **
 });
 
 // ================================================================ 32 Conclusion
-s = newSlide(3, S3 + `To conclude. AI chatbots, mainly ChatGPT, are now the main source of health information before seeing a doctor in our sample. About one in five has elevated health anxiety. Health anxiety and cyberchondria are moderately linked, r = ${N.r}, compatible with a cycle. We found no reliable independent effect of AI. And searching shapes the consultation: delays, non-disclosure and strained trust. Thank you.`);
+s = newSlide(3, S3 + `To conclude. AI chatbots, mainly ChatGPT, are now the main source of health information before seeing a doctor in our sample. About one in five has elevated health anxiety. Health anxiety and cyberchondria are moderately linked, r = ${N.r}. Medical students were not at higher risk once age was considered. We found no reliable independent effect of AI. And searching shapes the consultation: delays, non-disclosure and strained trust. Thank you.`);
 s.addText("Conclusion", { x: 0.6, y: 0.5, w: 4, h: 0.5, fontFace: HEAD, fontSize: 24, bold: true, color: GREEN, margin: 0 });
 box(s, 0.6, 1.15, 8.8, 3.85);
 txt(s, [
   `• **AI chatbots** (mainly ChatGPT) are a leading source of health information: **${N.ai_tick}** ticked them (**${N.ai}** incl. named), more than search engines.`,
   `• **${N.hac}** had elevated health anxiety (SHAI ≥ 18, a screening threshold); younger people and reassurance-seekers most affected.`,
-  `• Health anxiety and cyberchondria are **moderately associated (r = ${N.r})**, mainly through excessive searching and distress, compatible with a **cycle**.`,
+  `• Health anxiety and cyberchondria are **moderately associated (r = ${N.r})**, most in excessive searching and distress.`,
+  "• **Medical students** were **not** at higher risk once age was taken into account (H3 not supported).",
   "• **No reliable independent effect of AI** beyond health anxiety.",
   `• Searching shapes the consultation: **${N.dr}** delay care when reassured, **${N.never}** never disclose searches.`,
 ].join("\n"), { x: 0.8, y: 1.25, w: 8.4, h: 3.7, fontSize: 16, paraSpaceAfter: 10 });
