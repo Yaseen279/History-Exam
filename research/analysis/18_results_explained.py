@@ -8,7 +8,7 @@ from docx import Document
 OUT, DOCX, HTML = sys.argv[1], sys.argv[2], sys.argv[3]
 import os
 FIG = os.path.abspath(f'{OUT}/figures')
-S = json.load(open(f'{OUT}/simple.json')); L = S['logit_HA']; M = {m['key']: m for m in S['mediation']}
+S = json.load(open(f'{OUT}/simple.json')); L = S['logit_HA']; MS = S['medstud']
 
 # ---------------------------------------------------------------- the thesis tables, exactly as printed
 doc = Document(DOCX)
@@ -28,7 +28,7 @@ T1, T2, T3, T4, T5 = find('Characteristic'), find('Variable'), find('Scale'), fi
 T6 = next(t for t in TB if t[0][:3] == ['Variable', 'n', 'SHAI mean ± SD'])
 T7 = next(t for t in TB if len(t[0]) > 1 and t[0][1].startswith('n/N'))
 T8 = next(t for t in TB if t[0][:2] == ['Predictor', 'B']); T9 = next(t for t in TB if t[0][:2] == ['Predictor', 'AOR'])
-T10 = find('Outcome'); T11 = find('Model')
+T10 = find('Measure')
 
 def table(rows, hi=(), cols=None, small=False):
     """Render a thesis table. hi = substrings of first-column labels to highlight."""
@@ -108,7 +108,7 @@ w('''<div style="margin-top:40mm"><p class="lead" style="letter-spacing:.12em;te
 <li>Part A · Six ideas every result uses</li><li>Part B · Which test, and why (the whole map on one page)</li>
 <li>3.1 Participants and online searching (Tables 1–2, Figures 2–3)</li><li>3.2 Levels of health anxiety and cyberchondria (Tables 3–4)</li>
 <li>3.3 The main association (Table 5, Figure 4)</li><li>3.4 Which groups differ (Tables 6–7, Figure 5)</li>
-<li>3.5 Independent predictors (Tables 8–9, Figure 6)</li><li>3.6 Behaviour and pathways (Tables 10–11, Figures 7–8)</li>
+<li>3.5 Independent predictors (Tables 8–9, Figure 6)</li><li>3.6 Medical students compared with others (Table 10)</li>
 <li>Part C · The hypotheses, with the evidence</li><li>Part D · Practice: read the row yourself (answers at the end)</li></ol></div>''')
 
 # ================================================================ Part A
@@ -143,8 +143,8 @@ w('<table class="mini"><tr><th>You want to know…</th><th>Variable types</th><t
     ('Is a yes/no outcome related to a group?', 'categorical × categorical', 'χ² (Fisher if cells small), Cramér\'s V', 'Table 7'),
     ('Which factors predict a score, together?', 'score ← many', 'Hierarchical multiple linear regression', 'Table 8'),
     ('Which factors predict a yes/no, together?', 'yes/no ← many', 'Binary logistic regression', 'Tables 9–10'),
-    ('Does part of a link pass through a middle step?', 'score → score → score', 'Mediation (Baron & Kenny) + Sobel test', 'Table 11')]) + '</table>')
-w(box('idea', 'The logic of the chapter', '<p>The chapter moves from simple to complex: <b>describe</b> (3.1–3.2) → <b>one link at a time</b> (3.3–3.4) → <b>all factors together</b> (3.5) → <b>behaviour and pathways</b> (3.6). Each step answers a question the previous one leaves open.</p>'))
+    ('Are medical students different, before and after adjustment?', 'score or yes/no × 2 groups, then ← many', 'Mann–Whitney / χ², then linear / logistic regression', 'Table 10')]) + '</table>')
+w(box('idea', 'The logic of the chapter', '<p>The chapter moves from simple to complex: <b>describe</b> (3.1–3.2) → <b>one link at a time</b> (3.3–3.4) → <b>all factors together</b> (3.5) → <b>medical students</b> (3.6). Each step answers a question the previous one leaves open.</p>'))
 w(say('All analyses were done in SPSS 26 with two-sided p &lt; 0.05. Because our scores were not normally distributed we compared groups with Mann–Whitney and Kruskal–Wallis, used χ² for categories, Pearson and Spearman for the main correlation, and multiple linear and binary logistic regression for independent effects.'))
 
 # ================================================================ 3.1
@@ -269,49 +269,37 @@ w(say('Three factors stand out: higher cyberchondria triples the odds of elevate
   q([('Why are the odds ratios so large and wide?', 'Only 57 people had elevated anxiety for 11 predictors, about 5 per variable, so the estimates are imprecise and may be overestimated. We say so in the limitations.')]))
 
 # ================================================================ 3.6
-w('<h2 class="page">3.6 Behaviour and pathways</h2>')
-w(card('Which score goes with what people do before and during the consultation (H4)?', 'Binary logistic regression, one model per behaviour, both scores in the same model', 'Each behaviour is yes/no. Putting SHAI and CSS together shows which one matters once the other is held constant.'))
-w('<h3>Table 10 · Behaviour, health anxiety and cyberchondria</h3>' + table(T10, hi=('Urgent', 'Ignore', 'Never disclose', 'Negative effect'), small=True))
-w(cols([('Events', 'how many said yes to that behaviour'), ('SHAI AOR / CSS AOR', 'odds ratio per 1 SD of each score, each adjusted for the other and for trust, AI use, age, gender, health background, chronic disease and language')]))
-w('<h4>Walk-through</h4>' + steps(['Urgent visit: CSS AOR <b>1.51</b>, p = 0.013 → 1 SD more cyberchondria = 51% higher odds of an urgent visit. SHAI 0.91, p = 0.558 → anxiety alone does not.',
-     'Ignore the symptom: CSS <b>0.65</b>, p = 0.009 → 35% lower odds: people with more cyberchondria do not ignore symptoms.',
-     'Never tell the doctor: CSS <b>0.57</b>, p &lt; 0.001 → <i>more</i> disclosure; SHAI <b>1.47</b>, p = 0.017 → more <i>hiding</i>. The two scores pull in opposite directions.',
-     'Negative effect on the relationship: CSS <b>1.35</b>, p = 0.041.',
-     'Several doctors, self-medication and delay: not significant (fear-driven delay borderline, p = 0.059).',
-     'Trust in online/AI information (in the text): fewer multiple-doctor visits, AOR 0.59, p = 0.004.']))
-w('<div class="calc">Reading an AOR below 1:  AOR 0.57  →  1 − 0.57 = 0.43  →  43% lower odds of never disclosing</div>')
-w(say('Behaviour goes with cyberchondria more than with health anxiety: higher cyberchondria goes with urgent visits, a more strained relationship and more disclosure, while health anxiety goes with hiding searches from the doctor.') +
-  trap('These p-values were not corrected for the many tests run. Say “associated with” and, for the weaker ones (0.01–0.05), “may”. Hypothesis 4 is only partly supported.'))
-w('<h3 class="page">Table 11 · Mediation (pathways)</h3>')
-w(card('Does part of the link from health anxiety to distress pass through excessive searching (H3)?', 'Mediation by linear regressions (Baron & Kenny) + Sobel test', 'Mediation asks whether a middle variable carries part of a link. Sobel tests whether that indirect part is bigger than zero.'))
-w(table(T11, small=True))
-w(cols([('a', 'predictor → mediator (health anxiety → excessive searching)'), ('b', 'mediator → outcome, with the predictor held constant'), ('Total c', 'the whole link, predictor → outcome'),
-        ('Direct c′', 'what is left of the link once the mediator is in the model'), ('Indirect a×b', 'the part that passes through the mediator; equals c − c′'), ('Sobel z, p', 'is the indirect part bigger than 0? |z| &gt; 1.96 → p &lt; 0.05'),
-        ('(SE)', 'standard error; all variables were z-scores, so coefficients are standardised')]))
-w('<h4>Walk-through: model A, step by step</h4>' + steps([
-    f'Step 1 · a: health anxiety → excessive searching = <b>{M["A"]["a"]:.2f}</b> (significant).',
-    f'Step 2 · b: excessive searching → distress, holding anxiety constant = <b>{M["A"]["b"]:.2f}</b> (significant).',
-    f'Step 3 · total c = <b>{M["A"]["c"]:.2f}</b>; direct c′ = <b>{M["A"]["c_prime"]:.2f}</b> → the link shrinks but does not disappear.',
-    f'Indirect = a × b = {M["A"]["a"]:.2f} × {M["A"]["b"]:.2f} = <b>{M["A"]["indirect"]:.2f}</b> = c − c′. Share carried: {M["A"]["indirect"]:.2f} ÷ {M["A"]["c"]:.2f} ≈ <b>35%</b>.']))
-w(f'<div class="calc">Sobel z = (a × b) / √(b²·SEa² + a²·SEb²)\n        = ({M["A"]["a"]:.3f} × {M["A"]["b"]:.3f}) / √({M["A"]["b"]:.3f}² × {M["A"]["SE_a"]:.3f}² + {M["A"]["a"]:.3f}² × {M["A"]["SE_b"]:.3f}²)\n        = {M["A"]["sobel_z"]:.2f}   → far above 1.96 → p &lt; 0.001</div>')
-w(f'<p><b>Model B</b> (anxiety → distress → reassurance seeking): total c = {M["C"]["c"]:.2f}, direct c′ = {M["C"]["c_prime"]:.2f} (not significant) → almost <b>all</b> of the link passes through distress (Sobel z = {M["C"]["sobel_z"]:.2f}).</p>'
-  f'<p><b>Reverse order</b> (searching → distress → anxiety): also significant (indirect {M["D"]["indirect"]:.2f}, z = {M["D"]["sobel_z"]:.2f}). So the data cannot tell which comes first.</p>')
-w(fig('fig8_mediation_sobel', 'Figure 7: the two mediation models drawn as path diagrams. *** p &lt; 0.001; ns = not significant.', 100))
-w(say('About a third of the link between health anxiety and distress after searching passes through excessive searching, and almost all of the link to reassurance seeking passes through distress. This fits a vicious cycle, but because the reverse order also fits, one survey cannot show which comes first. Hypothesis 3 is supported statistically, not causally.') +
-  q([('Does this prove a vicious cycle?', 'No. It is one time point, the reverse model fits too, and the mediator and outcome come from the same questionnaire. It is compatible with a cycle; only longitudinal data can show direction.'),
-     ('Why Sobel and not bootstrap?', 'Sobel is the standard test that SPSS users report with the Baron and Kenny steps; all our indirect effects were far from zero (z 4.7–6.0).')]))
-w(fig('fig5_subscales_by_HA', 'Figure 8: the four CSS dimensions by health-anxiety status (mean ± 95% CI). Biggest gaps: excessiveness 9.2 vs 11.6 and distress 6.8 vs 9.3.', 55))
+A_, C_, E_, H_h = MS['SHAI'], MS['CSS'], MS['HA_clin'], MS['CSS_high']
+def pv_(p): return '&lt; 0.001' if p < .001 else f'= {p:.3f}'
+w('<h2 class="page">3.6 Medical students compared with other participants</h2>')
+w(card('Do medical students have more health anxiety and cyberchondria than the others (H2)?', 'Mann–Whitney U and χ² (unadjusted); then multiple linear and binary logistic regression adjusted for age group, gender, chronic disease and language', 'First a simple comparison of two groups. Then adjustment, because medical students differ from the others in age, and age itself is linked to health anxiety.'))
+w('<h3>Table 10 · Medical students vs other participants</h3>' + table(T10, hi=('SHAI-14 score',)))
+w(cols([('Medical students / Others', f'mean ± SD for the scores; n (%) for the yes/no outcomes. {MS["n_med"]} medical students, {MS["n_oth"]} others.'),
+        ('p', 'unadjusted: Mann–Whitney U (scores) or χ² (yes/no)'),
+        ('Adjusted effect', 'B = how many points higher medical students score once age, gender, chronic disease and language are held constant; AOR = adjusted odds ratio for the yes/no outcomes'),
+        ('Adj. p', 'the p-value after that adjustment')]))
+w('<h4>Walk-through</h4>' + steps([
+    f'<b>SHAI, unadjusted:</b> {A_["m_med"]:.1f} vs {A_["m_oth"]:.1f}, Mann–Whitney p {pv_(A_["p_mw"])} → medical students look more health-anxious.',
+    f'<b>SHAI, adjusted:</b> B = {A_["B"]:.2f} (95% CI {A_["lo"]:.2f} to {A_["hi"]:.2f}), p {pv_(A_["p_adj"])} → the CI includes 0, so the difference is <b>no longer significant</b>.',
+    f'<b>Why it disappears:</b> medical students are younger, and younger participants have higher health anxiety (Table 6: 14.0 at 18–19 vs 10.2 at 30–39). Once age is held constant, being a medical student adds little. Age, not medicine, explained the difference.',
+    f'<b>Elevated health anxiety:</b> {E_["pct_med"]:.1f}% vs {E_["pct_oth"]:.1f}%, χ² p {pv_(E_["p_chi"])}; adjusted AOR {E_["AOR"]:.2f} ({E_["lo"]:.2f}–{E_["hi"]:.2f}), p {pv_(E_["p_adj"])} → not significant either way.',
+    f'<b>CSS:</b> {C_["m_med"]:.1f} vs {C_["m_oth"]:.1f}, p {pv_(C_["p_mw"])}; adjusted B {C_["B"]:.2f}, p {pv_(C_["p_adj"])} → <b>identical</b>. High cyberchondria {H_h["pct_med"]:.1f}% vs {H_h["pct_oth"]:.1f}%, p {pv_(H_h["p_chi"])}.']))
+w('<div class="calc">Is the adjusted SHAI difference significant?\nB = 1.23, 95% CI −0.15 to 2.60  →  the interval includes 0  →  not significant (p = 0.081)</div>')
+w(box('idea', 'Unadjusted vs adjusted: the key lesson of this table', '<p>A difference between two groups can be caused by a third variable that differs between them (here, <b>age</b>). Adjustment removes that third variable. If the difference disappears, the group itself was not the cause.</p>'))
+w(say(f'Before adjustment, medical students had higher health anxiety, {A_["m_med"]:.1f} against {A_["m_oth"]:.1f}, but after adjusting for age and other factors the difference was no longer significant, because medical students are younger. Their cyberchondria was the same as everyone else\'s. Hypothesis 2 was not supported.') +
+  trap('Do not say “medical students are more anxious”. Say “they scored higher only before adjustment; the difference reflected their younger age”.') +
+  q([('Is “medical students\' disease” real, then?', 'Not in our sample: knowing more about disease did not make students search more anxiously, but it did not protect them either. A Palestinian study with the same SHAI cut-off agrees; an Egyptian study found high cyberchondria in medical students but had no comparison group.'),
+     ('Why adjust for these four variables?', 'Age, gender, chronic disease and language can all affect health anxiety and differ between medical students and the others, so they could create a false difference.'),
+     ('Medical students were 44% of the sample. Does that bias the main result?', 'Being a medical student did not change health anxiety or cyberchondria after adjustment, so the high share of medical students is unlikely to explain the main association.')]))
 
 # ================================================================ Part C hypotheses
 w('<h2 class="page">Part C · The hypotheses, with the evidence</h2><table class="mini"><tr><th>Hypothesis</th><th>Verdict</th><th>Evidence</th></tr>' + ''.join(f'<tr><td>{a}</td><td><b>{b}</b></td><td>{c}</td></tr>' for a, b, c in [
-    ('H1 · More health anxiety → more cyberchondria, especially distress and excessiveness', 'Supported', 'r = 0.47 (0.38–0.55); excessiveness 0.46 and distress 0.45 strongest (Table 5, Figure 4)'),
-    ('H2 · Holds after adjustment', 'Supported', 'partial r = 0.48; health anxiety adds 18.4%, β = 0.48 (Table 8)'),
-    ('H3 · Excessive searching carries part of the link to distress', 'Supported statistically, not causally', 'indirect 0.16, Sobel z 5.14; reverse order also significant (Table 11, Figure 7)'),
-    ('H4 · Cyberchondria → urgent visits, several doctors, strained relationship', 'Partly supported', 'urgent visits (AOR 1.51) and strained relationship (1.35) yes; several doctors no (Table 10)')]) + '</table>')
-w(say('Hypotheses 1 and 2 were supported, hypothesis 3 statistically but not causally, and hypothesis 4 partly.'))
+    ('H1 · More health anxiety → more cyberchondria, especially distress and excessiveness, independently of other factors', 'Supported', 'r = 0.47 (0.38–0.55); excessiveness 0.46 and distress 0.45 strongest; partial r = 0.48; health anxiety adds 18.4%, β = 0.48 (Tables 5 and 8, Figure 4)'),
+    ('H2 · Medical students have higher health anxiety and cyberchondria than other participants', 'Not supported', 'SHAI higher only before adjustment (13.3 vs 11.6, p = 0.004; adjusted p = 0.081); CSS identical (28.9 vs 28.9) (Table 10)')]) + '</table>')
+w(say('Hypothesis 1 was supported: health anxiety and cyberchondria are linked, independently of other factors. Hypothesis 2 was not: medical students were not at higher risk once age was taken into account.'))
 w('<h3>The never-say list</h3><table class="mini"><tr><th>Never say</th><th>Say instead</th></tr>' + ''.join(f'<tr><td>{a}</td><td>{b}</td></tr>' for a, b in [
     ('Health anxiety causes cyberchondria', 'is associated with / is linked to'), ('19% have health anxiety disorder', '19% scored in the elevated range on a screening tool'),
-    ('AI makes people anxious', 'we found no reliable independent effect of AI use'), ('We proved a vicious cycle', 'the results are compatible with a cycle'),
+    ('AI makes people anxious', 'we found no reliable independent effect of AI use'), ('Medical students are more anxious', 'they scored higher only before adjustment for age'),
     ('Our results represent Baghdad', 'a young online convenience sample'), ('81% accuracy shows the model is good', 'the AUC of 0.83 shows good discrimination')]) + '</table>')
 
 # ================================================================ Part D practice
@@ -319,11 +307,11 @@ PR = [
  ('Table 6: social-media users SHAI 15.8 vs 11.9, p = 0.001. Interpret.', 'Social-media users have higher health anxiety; Mann–Whitney p = 0.001, so unlikely to be chance.'),
  ('Table 8: “Female B −0.05 (−1.82 to 1.72), p = 0.954.” Interpret.', 'No difference between women and men once other factors are held constant; the CI includes 0.'),
  ('Table 9: “Chronic condition AOR 1.51 (0.69–3.30).” Significant?', 'No: the CI includes 1.'),
- ('Table 10: SHAI and never disclosing: AOR 1.47, p = 0.017. Interpret.', 'Each SD more health anxiety = 47% higher odds of never telling the doctor about searches (uncorrected, so “may”).'),
+ ('Table 10: medical students SHAI B = 1.23 (−0.15 to 2.60), p = 0.081. Interpret.', 'After adjustment, medical students score 1.2 points higher, but the CI includes 0, so the difference is not significant.'),
  ('What does r² = 0.22 mean?', 'Health anxiety accounts for about 22% of the differences in cyberchondria.'),
  ('A Kruskal–Wallis p = 0.008 for SHAI by age. Which age group differs?', 'The test shows only that the groups differ overall; the means show the youngest (18–19, 14.0) highest.'),
  ('Hosmer–Lemeshow p = 0.50. Good or bad?', 'Good: we want p > 0.05; the model fits.'),
- ('Model B: c = 0.22, c′ = 0.01. What does that tell you?', 'Almost the whole link from anxiety to reassurance seeking passes through distress.'),
+ ('Why did the medical-student difference in SHAI disappear after adjustment?', 'Medical students are younger, and younger people had higher health anxiety; age explained the difference.'),
  ('Table 7: V = 0.26. How strong?', 'Small to medium (0.1 small, 0.3 medium).'),
  ('Why is age significant in Table 8 but not for CSS in Table 6?', 'Adjustment: older people have lower anxiety but similar searching; holding anxiety constant reveals their relatively higher cyberchondria.'),
 ]
@@ -335,6 +323,6 @@ w('<h3>One-page summary of numbers</h3><table class="mini"><tr><th>What</th><th>
     ('Elevated health anxiety', '19.0% (15.0–23.8); 7.3% at 22; 0.7% at 29', 'Table 4'), ('Main correlation', 'r 0.47 (0.38–0.55); ρ 0.47; partial 0.48; r² 22%', 'Table 5'),
     ('High CSS by elevated HA', '52.6% vs 23.0%; OR 3.71', 'Table 7'), ('Regression', 'R² 0.030 → 0.133 → 0.317; SHAI B 0.68, β 0.48', 'Table 8'),
     ('AI effect', '+5.33 inclusive; +1.49, p 0.21 strict', 'Table 8'), ('Logistic', 'AOR 3.12 / 3.83 / 0.61; AUC 0.83; H–L p 0.50', 'Table 9'),
-    ('Behaviour (CSS)', 'urgent 1.51; ignore 0.65; never disclose 0.57; strained 1.35', 'Table 10'), ('Mediation', 'A indirect 0.16, z 5.14; B c′ 0.01, z 5.98; reverse z 4.66', 'Table 11')]) + '</table>')
+    ('Medical students vs others', 'SHAI 13.3 vs 11.6 (p 0.004; adjusted 0.081); CSS 28.9 vs 28.9', 'Table 10'), ('Hypotheses', 'H1 supported; H2 not supported', '')]) + '</table>')
 w('</body></html>')
 open(HTML, 'w').write('\n'.join(H_)); print('wrote', HTML)
