@@ -105,7 +105,7 @@ w('''<div style="margin-top:40mm"><p class="lead" style="letter-spacing:.12em;te
 <li><b>a walk-through of real rows</b> with the numbers worked out,</li><li><b>what it means</b> in plain words, <b>what to say</b>, and <b>what you may be asked</b>.</li></ul>
 <p>Yellow rows in the tables are the rows you must know.</p>
 <h3 style="margin-top:12mm">Contents</h3><ol class="toc">
-<li>Part A · Six ideas every result uses</li><li>Part B · Which test, and why (the whole map on one page)</li>
+<li>Part A · Six ideas every result uses</li><li>Part B · Which test, and why (the whole map on one page)</li><li>The test library · every test explained in full (16 pages of tests)</li>
 <li>3.1 Participants and online searching (Tables 1–2, Figures 2–3)</li><li>3.2 Levels of health anxiety and cyberchondria (Tables 3–4)</li>
 <li>3.3 The main association (Table 5, Figure 4)</li><li>3.4 Which groups differ (Tables 6–7, Figure 5)</li>
 <li>3.5 Independent predictors (Tables 8–9, Figure 6)</li><li>3.6 Medical students compared with others (Table 10)</li>
@@ -146,6 +146,16 @@ w('<table class="mini"><tr><th>You want to know…</th><th>Variable types</th><t
     ('Are medical students different, before and after adjustment?', 'score or yes/no × 2 groups, then ← many', 'Mann–Whitney / χ², then linear / logistic regression', 'Table 10')]) + '</table>')
 w(box('idea', 'The logic of the chapter', '<p>The chapter moves from simple to complex: <b>describe</b> (3.1–3.2) → <b>one link at a time</b> (3.3–3.4) → <b>all factors together</b> (3.5) → <b>medical students</b> (3.6). Each step answers a question the previous one leaves open.</p>'))
 w(say('All analyses were done in SPSS 26 with two-sided p &lt; 0.05. Because our scores were not normally distributed we compared groups with Mann–Whitney and Kruskal–Wallis, used χ² for categories, Pearson and Spearman for the main correlation, and multiple linear and binary logistic regression for independent effects.'))
+
+# ================================================================ test library
+import pandas as pd
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from test_library import compute, library
+_d = pd.read_pickle(f'{OUT}/analysed.pkl')
+w('<h2 class="page">The test library · every test, explained in full</h2><p>For each test: what it answers, <b>its other version</b> and when you would use that instead, the assumptions, how it works step by step, a worked example with our own data, how to run and read it in SPSS, and how to report it.</p>' +
+  box('idea', 'The pairs to remember', '<p><b>t-test ↔ Mann–Whitney</b> (2 groups) · <b>ANOVA ↔ Kruskal–Wallis</b> (3+ groups) · <b>Pearson ↔ Spearman</b> (two scores) · <b>χ² ↔ Fisher</b> (categories; small counts) · <b>χ² → Cramér’s V</b> (significance → strength) · <b>linear ↔ logistic regression</b> (score ↔ yes/no outcome). The first of each pair needs normal data or large counts; the second does not.</p>'))
+for _k, (_t, _h) in enumerate(library(compute(_d), S, box, say, trap, q)):
+    w(f'<div style="page-break-inside:avoid"><h3 style="font-size:14pt">{_t}</h3>' + _h + '</div>')
 
 # ================================================================ 3.1
 w('<h2 class="page">3.1 Participants and online searching</h2>')
