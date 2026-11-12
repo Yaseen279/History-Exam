@@ -424,7 +424,7 @@ STUDENTS[3] = dict(
         ('Egyptian study size and finding?', '1435 medical students; 85.8% moderate cyberchondria'),
         ('Number of registered cyberchondria trials, and in Iraq?', 'Nine; none in Iraq'),
         ('Biggest limitation?', 'Cross-sectional design'),
-        ('Prevalence range across cut-offs?', 'About 7% to 33% (0.7% at 29)'),
+        ('Prevalence range across cut-offs?', '0.7% (at 29) to 32.7% (at 15)'),
         ('The clinical message in one sentence?', 'Ask every patient, without judgement, what they searched or asked an AI'),
     ],
 )
