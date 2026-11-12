@@ -8,8 +8,7 @@
 *   2. Open this file (File > Open > Syntax), then Run > All.
 *   3. Compare the output with the thesis tables (each section says which table it feeds).
 *      Small differences in the last decimal are normal; tell the team if anything differs more.
-*   4. Replace [XX] in Section 2.5 of the thesis with your SPSS version
-*      (Help > About in SPSS), e.g. "IBM SPSS Statistics version 26".
+*   4. The thesis states IBM SPSS Statistics version 26 (Section 2.5): run this file in version 26.
 * =====================================================================================.
 
 * ------------------------------------------------ 0. Helper variables.

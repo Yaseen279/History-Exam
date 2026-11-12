@@ -615,7 +615,7 @@ if SHORT:   # Student 2 for the short (submitted) thesis
           ('fig3_behaviours.png', 'Figure 4: behaviour after searching, disclosure, and effect on the relationship.')]
     _drop = ('What is FDR', 'Why robust (HC3)', 'What is the AUC and why corrected', 'What do CFI, RMSEA', 'Why does the SHAI fit poorly', 'What is measurement invariance', 'What does Table 13 show')
     S2['qa_own'] = [q for q in S2['qa_own'] if not q[0].startswith(_drop)] + [
-        ('Which software did you use?', 'IBM SPSS Statistics [version]; the syntax file reproduces every table (say this only after the team has run it and checked the numbers).'),
+        ('Which software did you use?', 'IBM SPSS Statistics version 26; the syntax file reproduces every table and figure.'),
         ('Why didn\'t you correct for multiple testing?', 'We used the standard p < 0.05, as most graduation theses do, and we say in the limitations that with many tests some weaker results may be chance. Our main results are p < 0.001.'),
         ('What is the AUC?', f'The area under the ROC curve: how well the model separates elevated from non-elevated anxiety. {_sl["AUC"]:.2f} is good.'),
         ('What does the Hosmer–Lemeshow test tell you?', f'Whether the logistic model fits the data. We want it non-significant: p = {_sl["HL_p"]:.2f}, so the fit is good.'),

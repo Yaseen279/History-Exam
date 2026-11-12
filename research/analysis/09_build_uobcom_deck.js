@@ -326,7 +326,7 @@ tag(s, "Statistical Analysis");
   txt(s, b, { x: x + 0.08, y: y + 0.4, w: 2.7, h: 1.1, fontSize: 12 });
 });
 box(s, 0.5, 4.5, 8.95, 0.5, { fill: PALE, line: "E8C9A6", noShadow: true });
-txt(s, "Software: **IBM SPSS Statistics** [version] · significance **p < 0.05**, two-sided", { x: 0.6, y: 4.5, w: 8.75, h: 0.5, fontSize: 12, valign: "middle" });
+txt(s, "Software: **IBM SPSS Statistics 26** · significance **p < 0.05**, two-sided", { x: 0.6, y: 4.5, w: 8.75, h: 0.5, fontSize: 12, valign: "middle" });
 
 // ================================================================ 13 Divider: Results
 divider("Results", ["Participants", "How people search", "Levels & reliability", "Health anxiety ↔ cyberchondria", "Predictors & pathways", "Behaviour & AI chatbots"], (s) => {
