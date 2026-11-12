@@ -36,7 +36,8 @@ def library(R, S, box, say, trap, q, f2=lambda x: f'{x:.2f}'):
     T = []   # (title, html)
 
     def card(title, rows, extra=''):
-        body = '<dl class="cols">' + ''.join(f'<dt>{k}</dt><dd>{v}</dd>' for k, v in rows) + '</dl>' + extra
+        MUST = ('What it answers', 'The other version', 'Our result', 'Our example', 'What it decided', 'When to use it', 'Size', 'Rules of thumb', 'Reading it', 'Why we used it')
+        body = '<dl class="cols">' + ''.join((f'<dt class="must">{k}</dt><dd><mark>{v}</mark></dd>' if k in MUST else f'<dt>{k}</dt><dd>{v}</dd>') for k, v in rows) + '</dl>' + extra
         T.append((title, body))
 
     def calc(t): return f'<div class="calc">{t}</div>'

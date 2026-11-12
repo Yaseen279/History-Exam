@@ -45,7 +45,7 @@ def table(rows, hi=(), cols=None, small=False):
 
 def fig(name, cap, w=100): return f'<figure><img src="file://{FIG}/{name}.png" style="width:{w}%"><figcaption>{cap}</figcaption></figure>'
 def box(kind, title, body): return f'<div class="box {kind}"><div class="bt">{title}</div>{body}</div>'
-def say(t): return box('say', 'Say it', f'<p>{t}</p>')
+def say(t): return box('say', 'Say it', f'<p><mark>{t}</mark></p>')
 def trap(t): return box('trap', 'Trap', f'<p>{t}</p>')
 def q(pairs): return box('ask', 'If they ask', ''.join(f'<p class="qq">{a}</p><p class="aa">{b}</p>' for a, b in pairs))
 def cols(pairs): return '<dl class="cols">' + ''.join(f'<dt>{a}</dt><dd>{b}</dd>' for a, b in pairs) + '</dl>'
@@ -77,6 +77,9 @@ figcaption { font-size: 9pt; color: #555; font-style: italic; margin-top: 3px; }
 .box { border-radius: 7px; padding: 7px 11px; margin: 8px 0; page-break-inside: avoid; }
 .box .bt { font-weight: 700; font-size: 9pt; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px; }
 .box p { margin: 2px 0 4px; }
+mark { background: #fff07a; color: inherit; padding: 0 1px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+dl.cols dt.must { color: #8a5a00; }
+.legend { display: inline-block; background: #fff07a; padding: 0 4px; }
 .say { background: #e6f2ec; border-left: 5px solid #1e7a52; } .say .bt { color: #1e7a52; }
 .trap { background: #fbecef; border-left: 5px solid #9d1c4a; } .trap .bt { color: #9d1c4a; }
 .ask { background: #eef0fb; border-left: 5px solid #3d3a9e; } .ask .bt { color: #3d3a9e; }
@@ -103,7 +106,7 @@ w('''<div style="margin-top:40mm"><p class="lead" style="letter-spacing:.12em;te
 <p style="margin-top:14mm">This guide takes Chapter 3 of the thesis one table at a time. Every table is reproduced exactly as it appears in the thesis. For each one you get:</p>
 <ul><li><b>the question</b> the table answers,</li><li><b>the test</b> that was used and <b>why that test</b>,</li><li><b>how to read every column</b>,</li>
 <li><b>a walk-through of real rows</b> with the numbers worked out,</li><li><b>what it means</b> in plain words, <b>what to say</b>, and <b>what you may be asked</b>.</li></ul>
-<p>Yellow rows in the tables are the rows you must know.</p>
+<p><span class="legend"><b>Yellow highlight = what you must know for this study.</b></span> In tables, yellow rows are the rows to know; in text, highlighted lines are the facts and sentences to learn. Everything not highlighted is background: read it once so you understand, but you do not need to memorise it.</p>
 <h3 style="margin-top:12mm">Contents</h3><ol class="toc">
 <li>Part A · Six ideas every result uses</li><li>Part B · Which test, and why (the whole map on one page)</li><li>The test library · every test explained in full (16 pages of tests)</li>
 <li>3.1 Participants and online searching (Tables 1–2, Figures 2–3)</li><li>3.2 Levels of health anxiety and cyberchondria (Tables 3–4)</li>
@@ -117,11 +120,11 @@ w('<h3>1. Two kinds of variable decide everything</h3>' + cols([
     ('Categorical', 'Groups or yes/no: gender, uses AI (yes/no), elevated health anxiety (yes/no). Described with <b>n and %</b>.'),
     ('Continuous (a score)', 'A number on a scale: SHAI-14 (0–42), CSS-12 (12–60). Described with <b>mean ± SD</b> or <b>median (IQR)</b>.')]) +
   '<p>Which test you use depends only on <b>what kind of variable you are comparing with what</b> (Part B).</p>')
-w('<h3>2. The p-value: “could this be luck?”</h3><p>Imagine there is really no difference or no link. The p-value is the chance of getting a result at least as strong as ours just by luck. If p &lt; 0.05 we call it <b>significant</b>: unlikely to be luck.</p>' +
+w('<h3>2. The p-value: “could this be luck?”</h3><p>Imagine there is really no difference or no link. The p-value is the chance of getting a result at least as strong as ours just by luck. <mark>If p &lt; 0.05 we call it <b>significant</b>: unlikely to be luck.</mark></p>' +
   box('idea', 'Example', '<p>Health anxiety and cyberchondria: r = 0.47, <b>p &lt; 0.001</b>. If there were no link, a correlation this strong in 300 people would happen less than 1 time in 1000.</p>') +
   trap('p tells you whether an effect exists, not how big or important it is. With 300 people even small effects can be significant. For size, look at r, B, β or the odds ratio.'))
 w('<h3>3. The 95% confidence interval: “how sure are we?”</h3><p>Our numbers come from 300 people, not everyone. The 95% CI is the range where the true value probably lies. Narrow = precise.</p>' +
-  box('idea', 'Two rules you will use all the time', '<p><b>Odds ratio:</b> if the CI includes <b>1</b> → not significant. Example: chronic condition AOR 1.51 (0.69–3.30) includes 1 → not significant.</p><p><b>Difference or coefficient (B):</b> if the CI includes <b>0</b> → not significant. Example: Female B −0.05 (−1.82 to 1.72) includes 0 → not significant.</p>'))
+  box('idea', 'Two rules you will use all the time', '<p><mark><b>Odds ratio:</b> if the CI includes <b>1</b> → not significant.</mark> Example: chronic condition AOR 1.51 (0.69–3.30) includes 1 → not significant.</p><p><mark><b>Difference or coefficient (B):</b> if the CI includes <b>0</b> → not significant.</mark> Example: Female B −0.05 (−1.82 to 1.72) includes 0 → not significant.</p>'))
 w('<h3>4. Effect size: “how big?”</h3>' + '<table class="mini"><tr><th>Measure</th><th>Used for</th><th>Small / medium / large</th><th>Ours</th></tr>'
   '<tr><td>r (correlation)</td><td>two scores</td><td>0.1 / 0.3 / 0.5</td><td>0.47: moderate, close to large</td></tr>'
   '<tr><td>Cramér\'s V</td><td>χ² tests</td><td>0.1 / 0.3 / 0.5</td><td>0.12–0.26: small</td></tr>'
@@ -153,7 +156,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from test_library import compute, library
 _d = pd.read_pickle(f'{OUT}/analysed.pkl')
 w('<h2 class="page">The test library · every test, explained in full</h2><p>For each test: what it answers, <b>its other version</b> and when you would use that instead, the assumptions, how it works step by step, a worked example with our own data, how to run and read it in SPSS, and how to report it.</p>' +
-  box('idea', 'The pairs to remember', '<p><b>t-test ↔ Mann–Whitney</b> (2 groups) · <b>ANOVA ↔ Kruskal–Wallis</b> (3+ groups) · <b>Pearson ↔ Spearman</b> (two scores) · <b>χ² ↔ Fisher</b> (categories; small counts) · <b>χ² → Cramér’s V</b> (significance → strength) · <b>linear ↔ logistic regression</b> (score ↔ yes/no outcome). The first of each pair needs normal data or large counts; the second does not.</p>'))
+  box('idea', 'The pairs to remember', '<p><mark><b>t-test ↔ Mann–Whitney</b> (2 groups) · <b>ANOVA ↔ Kruskal–Wallis</b> (3+ groups) · <b>Pearson ↔ Spearman</b> (two scores) · <b>χ² ↔ Fisher</b> (categories; small counts) · <b>χ² → Cramér’s V</b> (significance → strength) · <b>linear ↔ logistic regression</b> (score ↔ yes/no outcome). The first of each pair needs normal data or large counts; the second does not.</mark></p>'))
 for _k, (_t, _h) in enumerate(library(compute(_d), S, box, say, trap, q)):
     w(f'<div style="page-break-inside:avoid"><h3 style="font-size:14pt">{_t}</h3>' + _h + '</div>')
 
@@ -303,7 +306,7 @@ w(say(f'Before adjustment, medical students had higher health anxiety, {A_["m_me
      ('Medical students were 44% of the sample. Does that bias the main result?', 'Being a medical student did not change health anxiety or cyberchondria after adjustment, so the high share of medical students is unlikely to explain the main association.')]))
 
 # ================================================================ Part C hypotheses
-w('<h2 class="page">Part C · The hypotheses, with the evidence</h2><table class="mini"><tr><th>Hypothesis</th><th>Verdict</th><th>Evidence</th></tr>' + ''.join(f'<tr><td>{a}</td><td><b>{b}</b></td><td>{c}</td></tr>' for a, b, c in [
+w('<h2 class="page">Part C · The hypotheses, with the evidence</h2><table class="mini"><tr><th>Hypothesis</th><th>Verdict</th><th>Evidence</th></tr>' + ''.join(f'<tr><td>{a}</td><td><mark><b>{b}</b></mark></td><td>{c}</td></tr>' for a, b, c in [
     ('H1 · More health anxiety → more cyberchondria, especially distress and excessiveness, independently of other factors', 'Supported', 'r = 0.47 (0.38–0.55); excessiveness 0.46 and distress 0.45 strongest; partial r = 0.48; health anxiety adds 18.4%, β = 0.48 (Tables 5 and 8, Figure 4)'),
     ('H2 · Medical students have higher health anxiety and cyberchondria than other participants', 'Not supported', 'SHAI higher only before adjustment (13.3 vs 11.6, p = 0.004; adjusted p = 0.081); CSS identical (28.9 vs 28.9) (Table 10)')]) + '</table>')
 w(say('Hypothesis 1 was supported: health anxiety and cyberchondria are linked, independently of other factors. Hypothesis 2 was not: medical students were not at higher risk once age was taken into account.'))
@@ -327,7 +330,7 @@ PR = [
 ]
 w('<h2 class="page">Part D · Practice: read the row yourself</h2><p>Cover the answers (next page). Say each answer out loud in one or two sentences.</p><ol>' + ''.join(f'<li style="margin:7px 0">{a}</li>' for a, _ in PR) + '</ol>')
 w('<h3>Answers</h3><ol>' + ''.join(f'<li style="margin:6px 0">{b}</li>' for _, b in PR) + '</ol>')
-w('<h3>One-page summary of numbers</h3><table class="mini"><tr><th>What</th><th>Number</th><th>Where</th></tr>' + ''.join(f'<tr><td>{a}</td><td>{b}</td><td>{c}</td></tr>' for a, b, c in [
+w('<h3>One-page summary of numbers</h3><table class="mini"><tr><th>What</th><th>Number</th><th>Where</th></tr>' + ''.join(f'<tr><td>{a}</td><td><mark>{b}</mark></td><td>{c}</td></tr>' for a, b, c in [
     ('Participants', '300; 62.3% aged 20–29; 44.0% medical students', 'Table 1'), ('AI ticked / search engines', '78.0% (88.7% incl. named) / 56.3%', 'Table 2'),
     ('Delay when reassured / never tell', '34.7% / 31.7%', 'Table 2, Fig 3'), ('SHAI / CSS mean', '12.35 ± 5.83 / 28.86 ± 8.36', 'Table 3'), ("Cronbach's α", '0.81 / 0.86', 'Table 3'),
     ('Elevated health anxiety', '19.0% (15.0–23.8); 7.3% at 22; 0.7% at 29', 'Table 4'), ('Main correlation', 'r 0.47 (0.38–0.55); ρ 0.47; partial 0.48; r² 22%', 'Table 5'),
