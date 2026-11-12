@@ -319,6 +319,15 @@ for _s in doc.sections:
     _b.set(qn('w:val'), 'single'); _b.set(qn('w:sz'), '4'); _b.set(qn('w:space'), '4'); _b.set(qn('w:color'), '1F3B4D'); _bd.append(_b); _pPr.append(_bd)
 """
 _anc = "for s in doc.sections:\n    s.page_height"
+_META = '''
+_cp = doc.core_properties
+_cp.author = 'Abdulrahman Jamal Ghazi; Mustafa Wamedh Mustafa; Yaseen Omar Lutfi'
+_cp.last_modified_by = 'Yaseen Omar Lutfi'
+_cp.title = 'Health Anxiety, AI Chatbot Use and Cyberchondria Among Adults in Baghdad: An Online Cross-Sectional Survey'
+_cp.subject = 'Graduation research project, College of Medicine, University of Baghdad'
+_cp.comments = ''
+_cp.keywords = 'cyberchondria; health anxiety; artificial intelligence; chatbots; Iraq'
+'''
 assert _anc in code
-code = code.replace(_anc, _HDR + _anc, 1)
+code = code.replace(_anc, _HDR + _META + _anc, 1)
 exec(compile(code, '04s_build_short (assembled)', 'exec'), {'__name__': '__main__'})
