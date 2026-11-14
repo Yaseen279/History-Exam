@@ -64,18 +64,18 @@ w('''<div style="margin-top:28mm"><p class="lead" style="letter-spacing:.12em;te
 w('<h2 class="page">1 · Her corrections, and what you did with each</h2>')
 w('<p>Yellow = she rewrote it herself. Red = she asked you to do something. You keep all her yellow edits.</p>')
 w(tbl(['Section', 'What she did', 'Status'], [
-    ['1.7 → 1.6', 'Asked to <b>move</b> “Studies of medical students in the region point in different directions…” to section 1.6', 'Moved'],
-    ['2.3 Questionnaire', 'Rewrote: Arabic wording “prepared by the research team without formal back-translation or full cross-cultural adaptation”', 'Kept'],
-    ['2.4 AI-chatbot user', 'Added the full <b>inclusive vs strict</b> definition paragraph', 'Kept, but see section 2 of this guide'],
-    ['2.5 Statistics', 'Added “Cronbach’s α <b>for the full sample</b>”', 'Kept; α by language now added too'],
-    ['3.1 Behaviour', 'Wording: “the information they had found”, “A total of 34.7%…”', 'Kept'],
-    ['3.2 Levels', 'Wrote that language-specific α “were not calculated… cannot be confirmed”', '<b>Now calculated</b> → sentence replaced (section 3)'],
-    ['3.3 Correlation', '“unchanged” → “similar”; “gender” → “six”', 'Kept; “six” fixed to “sex”'],
-    ['3.5 Predictors', 'Added the AI 95% CI, the sensitivity sentence, and “57 events/11 predictors ≈ 5.2”', 'Kept; AI sentence updated (section 2)'],
-    ['3.6 Medical students', '“the same” → “similar”', 'Kept'],
-    ['4.3 AI chatbots', 'Rewrote the whole paragraph around the strict definition', 'Updated (section 2)'],
-    ['5.2 Recommendations', 'Rewrote the clinicians’ recommendation formally', 'Kept'],
-    ['Tables 3, 6, 10', 'Asked for α by language and <b>median (IQR)</b> columns', '<b>Completed</b> (section 3)'],
+    ['1.7 → 1.6', 'Asked to <b>move</b> “Studies of medical students in the region point in different directions…” to section 1.6', 'To do'],
+    ['2.3 Questionnaire', 'Rewrote: Arabic wording “prepared by the research team without formal back-translation or full cross-cultural adaptation”', 'Keep'],
+    ['2.4 AI-chatbot user', 'Added the full <b>inclusive vs strict</b> definition paragraph', 'Keep; wording depends on the AI fix (section 2)'],
+    ['2.5 Statistics', 'Added “Cronbach’s α <b>for the full sample</b>”', 'Keep; α by language ready (section 3)'],
+    ['3.1 Behaviour', 'Wording: “the information they had found”, “A total of 34.7%…”', 'Keep'],
+    ['3.2 Levels', 'Wrote that language-specific α “were not calculated… cannot be confirmed”', '<b>Numbers ready</b> → replace the sentence (section 3)'],
+    ['3.3 Correlation', '“unchanged” → “similar”; “gender” → “six”', 'Keep; fix “six” → “sex”'],
+    ['3.5 Predictors', 'Added the AI 95% CI, the sensitivity sentence, and “57 events/11 predictors ≈ 5.2”', 'Keep; AI sentence to update (section 2)'],
+    ['3.6 Medical students', '“the same” → “similar”', 'Keep'],
+    ['4.3 AI chatbots', 'Rewrote the whole paragraph around the strict definition', 'To update after her approval (section 2)'],
+    ['5.2 Recommendations', 'Rewrote the clinicians’ recommendation formally', 'Keep'],
+    ['Tables 3, 6, 10', 'Asked for α by language and <b>median (IQR)</b> columns', '<b>Numbers ready</b> (section 3), to insert'],
     ['Objective 1', 'The word “describe” in red, no note', '<b>Ask her</b> what she meant']]))
 w(box('idea', 'Three small slips in her edits (fix quietly, no need to point them out)', '<ul><li>2.4: 234 met the strict definition “<b>including</b>” 32 → should be <b>excluding</b> (266 − 32 = 234).</li><li>3.3: “age, <b>six</b>” → “age, <b>sex</b>”.</li><li>3.5: “<b>≥ 40 or older</b>” → “≥ 40” (or “40 or older”), not both.</li></ul>'))
 w(box('warn', 'Also fix before Monday: the dates', '<p>The thesis says data were collected until <b>October</b> (Abstract and 2.1). The data file shows the last response on <b>11 September 2026</b>. If she or the department opens the SPSS file, the dates must match. Change both to September.</p>'))
@@ -142,7 +142,7 @@ w('<h3>Questions she might ask about the whole study</h3>' + qa([
 
 # ---------------------------------------------------------------- checklist
 w('<h2 class="page">Checklist for Monday</h2><ul class="check">'
-  '<li>The corrected thesis file (her version with the tables completed) on your laptop or phone</li>'
+  '<li>Her version with the medians, α, moved paragraph and slips added (ask me to prepare it before Monday)</li>'
   '<li>Her original version, to show what she marked</li>'
   '<li>The SPSS file (.sav) and, if you have run it, the SPSS output (.spv)</li>'
   '<li>The numbers for the AI fix: B = 4.38, 95% CI 1.68–7.08, p = 0.002 (32 excluded: 234 vs 34)</li>'
