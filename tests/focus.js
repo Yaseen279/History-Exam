@@ -66,11 +66,10 @@ ok(!(await pg.$('.wnov')),'What\'s new does not reopen once seen');
  const past=await pg.$$('.wnup:not([open]) summary');await past[0].click();await pg.waitForTimeout(100);ok((await pg.$$eval('.wnup[open] .wnd',x=>x.length))>=8,'the past update opens with its pictures');await pg.click('.wnft [data-act=wnClose]');await pg.waitForTimeout(100);
  let pk=await pg.$('[data-act=pick][data-id=chest]');if(!pk){await pg.click('[data-act=spec][data-g=Medicine]');await pg.waitForTimeout(80)}await pg.click('[data-act=pick][data-id=chest]');await pg.waitForTimeout(150)}
 await pg.click('[data-act=infoToggle]');await pg.waitForTimeout(100);await pg.click('[data-act=stage][data-s=ddx]');await pg.waitForTimeout(150);ok(!(await pg.$('[data-b="pt.age"]')),'patient form closes when the stage changes');
-ok((await pg.$$eval('.stages button',x=>x.map(b=>b.dataset.s).join(',')))==='hist,exam,vit,ddx,rev,note','stage bar: History, Exam, Vitals, DDx, Review, Note');
+ok((await pg.$$eval('.stages button',x=>x.map(b=>b.dataset.s).join(',')))==='hist,exam,vit,ddx,note','stage bar: History, Exam, Vitals, DDx, Note (no Review)');
 await pg.click('.dxseg [data-s=web]');await pg.waitForTimeout(200);ok(!!(await pg.$('.dxseg [data-s=web][aria-pressed=true]'))&&await pg.$eval('.stages [aria-current=step]',x=>/DDx/.test(x.textContent)),'reasoning web opens inside DDx');
 await pg.click('[data-act=stage][data-s=exam]');await pg.waitForTimeout(150);
 ok(!!(await pg.$('.soonc'))&&!(await pg.$('.pk[data-act=chip]')),'Exam tab shows the maintenance notice, no exam findings');
-await pg.click('[data-act=stage][data-s=rev]');await pg.waitForTimeout(150);ok(!/Examination steps not done|Examine:/.test(await pg.evaluate(()=>document.body.innerText)),'Review has no exam items');
 const tabs=await pg.$$eval('.nav [data-act=nav]',x=>x.map(b=>b.dataset.tab).join(','));ok(tabs==='enc,log,study','bottom tabs: '+tabs);
 await pg.click('[data-act=nav][data-tab=study]');await pg.waitForTimeout(150);const nA=await pg.$$eval('details.a2',x=>x.length);ok(nA>=25,'Memory aids: '+nA+' complaint cards');
 ok(!/Exam guide|Virtual patient|Diagnosis quiz|flowchart/i.test(await pg.evaluate(()=>document.querySelector('#main').innerText)),'no exam guides, virtual patient, quiz or flowcharts in Study');
