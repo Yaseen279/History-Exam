@@ -199,6 +199,51 @@ textarea{min-height:76px;resize:vertical;line-height:1.4}
 .hcards .wnhome .grow{min-width:0}.hcards .wnhome .wnst{width:28px;height:28px}
 .wnhome.rvw{text-decoration:none;border-color:color-mix(in srgb,var(--warn) 40%,var(--line));background:var(--warn-bg)}.wnhome.rvw .wnst{background:var(--warn);color:var(--bg)}
 .wnlock body{overflow:hidden}
+.wnup{border:1px solid var(--line);border-radius:14px;background:var(--surface);margin-block-end:8px;overflow:hidden}
+.wnup>summary{list-style:none;display:flex;align-items:center;gap:10px;min-height:52px;padding:8px 12px;cursor:pointer}.wnup>summary::-webkit-details-marker{display:none}
+.wnup>summary .grow{display:flex;flex-direction:column;min-width:0}.wnup>summary b{font-size:.95rem}.wnup>summary .grow span{font-size:.74rem;color:var(--muted)}
+.wnup>summary::after{content:'';flex:none;width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .15s ease;margin-inline-end:4px}.wnup[open]>summary::after{transform:rotate(-135deg)}
+.wnup[open]>summary{border-bottom:1px solid var(--line)}
+.wnnew{flex:none;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink);background:var(--accent);padding:2px 8px;border-radius:99px}
+.wnul{margin:0;padding:10px 14px 12px 14px;list-style:none;display:flex;flex-direction:column;gap:9px}
+.wnul li{position:relative;padding-inline-start:16px;font-size:.86rem;line-height:1.42}.wnul li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.wnul li b{display:block;font-size:.9rem}
+.wnpast{margin:16px 2px 8px;font-size:.7rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+/* preview polish: tap targets and spacing */
+.hcards.one{grid-template-columns:1fr}
+.nx .stages button{min-height:42px}
+.nx .fcwhere{min-height:36px}.nx .fcpic summary{min-height:36px;display:flex;align-items:center}
+.nx .main details:not(.aidd):not(.rosd):not(.fcpic)>summary{min-height:44px;align-items:center;padding-block:10px;cursor:pointer;box-sizing:border-box}
+.dxseg{margin-block:12px 2px;width:max-content;max-width:100%}
+/* Study tab and exam maintenance (preview) */
+.stages button.soon:not([aria-current]) .sl{opacity:.55}.stages button.soon .sl::after{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--warn);margin-inline-start:5px;vertical-align:middle}
+.soonc{text-align:center;padding:28px 18px;margin-block-start:14px}.soonc h3{display:block;margin:10px 0 6px;font-size:1.15rem}.soonc p{margin:0 auto 4px;max-width:34ch;line-height:1.45}
+.soonic{display:inline-grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--warn-bg);color:var(--warn)}.soonic svg{width:28px;height:28px}
+.sthd{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-block-end:12px}.sthd h2{margin:0}
+.stseg{display:flex;padding:4px;gap:4px;background:var(--surface2);border-radius:14px;border:1px solid var(--line)}
+.stseg button{min-height:40px;padding:0 16px;border:0;border-radius:10px;background:transparent;color:var(--muted);font:inherit;font-weight:700;font-size:.9rem;cursor:pointer}
+.stseg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--sh)}
+.stbk{display:inline-flex;align-items:center;min-height:36px;padding:0 12px 0 8px;margin-block-end:10px;border:1px solid var(--line);border-radius:99px;background:var(--surface);color:var(--accent);font:inherit;font-weight:700;font-size:.84rem;cursor:pointer}
+.rftiles{display:grid;gap:8px}@media (min-width:700px){.rftiles{grid-template-columns:1fr 1fr}}
+.rftiles button{display:flex;align-items:center;gap:12px;min-height:68px;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);font:inherit;text-align:start;cursor:pointer;box-shadow:var(--sh);transition:transform .08s ease}
+.rftiles button:active{transform:scale(.98)}
+.rftiles .grow{display:flex;flex-direction:column;gap:2px;min-width:0}.rftiles b{font-size:1rem}.rftiles .grow span{font-size:.8rem;color:var(--muted);line-height:1.3}
+.rfic{flex:none;display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:var(--accent-soft);color:var(--accent)}.rfic svg{width:22px;height:22px}
+.rftiles i{flex:none;font-style:normal;font-size:1.3rem;color:var(--muted)}
+.a2f{display:flex;gap:6px;margin-block:10px 4px}.a2f .chip{min-height:36px}
+.aidd.a2{border-inline-start:4px solid hsl(var(--hue) 58% 52%);border-radius:14px;margin-block-end:8px}
+.a2top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}.a2sys{flex:none;font-size:.68rem;font-weight:700;color:hsl(var(--hue) 45% 40%);background:hsl(var(--hue) 70% 94%);padding:2px 8px;border-radius:99px}
+:root[data-theme="dark"] .a2sys{color:hsl(var(--hue) 70% 80%);background:hsl(var(--hue) 30% 20%)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .a2sys{color:hsl(var(--hue) 70% 80%);background:hsl(var(--hue) 30% 20%)}}
+.a2 .aidh{font-size:.84rem;line-height:1.35}
+.a2 .aidb{padding:10px 12px 12px}
+.a2 .aidsub{display:flex;justify-content:space-between;align-items:baseline;margin:8px 0 6px}.a2 .aidsub:first-child{margin-top:0}.a2 .aidsub span{font-weight:600;letter-spacing:0;text-transform:none;color:var(--danger);font-size:.68rem}
+.a2r{position:relative;padding:7px 0 7px 14px;border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent)}.aidsub+.a2r{border-top:0}
+.a2r::before{content:'';position:absolute;left:0;top:13px;width:8px;height:8px;border-radius:50%;background:hsl(var(--hue) 60% 50%)}
+.a2r b{display:block;font-size:.9rem}.a2r span{display:block;font-size:.84rem;color:var(--muted);line-height:1.35}.a2r em{font-style:normal;color:var(--danger);font-weight:600}
+.a2r p{margin:4px 0 0;font-size:.8rem;line-height:1.4;color:var(--ink);opacity:.8;font-style:italic}
+.a2m{padding:8px 10px;margin-block-end:6px;border-radius:10px;background:var(--warn-bg);border-inline-start:3px solid var(--warn)}.a2m b{display:block;font-size:.88rem;color:var(--warn)}.a2m span{display:block;font-size:.83rem;line-height:1.4}
+.a2soc{margin-block:8px 0}
 /* Focus interview (preview) */
 .nxb{margin-block:0 10px;padding:8px 12px;border-radius:12px;border:1.5px dashed var(--accent);background:var(--accent-soft);font-size:.8rem;line-height:1.4}
 .fc{display:flex;flex-direction:column;gap:10px;margin-block-start:10px}
@@ -8804,7 +8849,7 @@ function srcLine(on){return on?'<div class="srcln">'+srcMark(1,22)+'<span>Verifi
 /* ================= helpers ================= */
 var $=function(s,r){return (r||document).querySelector(s)};
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
-function hookHTML(id){var h=HOOKS[id];if(!h)return '';return '<div class="hook" style="margin-block:0 8px;padding:8px 12px;border-radius:10px;background:var(--accent-soft);color:var(--accent);border-inline-start:4px solid var(--accent);font-size:.95rem;line-height:1.35"><div style="font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.85">Ask by'+(h[1]==='hb'?' \u00B7 follows the handbook':h[1]?' \u00B7 standard mnemonic':'')+'</div><b>'+esc(h[0])+'</b></div>'}
+function hookHTML(id){var h=HOOKS[id];if(!h||NEXT)return '';return '<div class="hook" style="margin-block:0 8px;padding:8px 12px;border-radius:10px;background:var(--accent-soft);color:var(--accent);border-inline-start:4px solid var(--accent);font-size:.95rem;line-height:1.35"><div style="font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.85">Ask by'+(h[1]==='hb'?' \u00B7 follows the handbook':h[1]?' \u00B7 standard mnemonic':'')+'</div><b>'+esc(h[0])+'</b></div>'}
 var p2=function(n){return (n<10?'0':'')+n};
 var dstr=function(t){var d=new Date(t);return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())};
 var uid=function(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)};
@@ -8914,7 +8959,7 @@ var SCMAP={};SCORES.forEach(function(s){SCMAP[s.id]=s});
 var SURG_STEPS=true,LAYOUT_A=true,SHOW_MARKALL=false;
 var UI={tab:'enc',stage:'hist',pick:false,pickMode:'new',pq:'',logq:'',signq:'',signsys:'All',note:'sheet',infoOpen:true,
   osce:null,oscePid:'',osceMins:8,quiz:null,quizPid:'',qRecent:[],qDiff:'med',qPat:'dx',pr:'',flOpen:null,armed:null,lbOpen:false};
-if((DB.wnSeen||0)<1)UI.wnOpen=true;
+if(NEXT?(DB.wnSeen2||0)<2:(DB.wnSeen||0)<1)UI.wnOpen=true;
 function curEnc(){if(!DB.curId)return null;for(var i=0;i<DB.encs.length;i++)if(DB.encs[i].id===DB.curId)return DB.encs[i];return DRAFT&&DRAFT.id===DB.curId?DRAFT:null}
 var DRAFT=null;
 function newEnc(pid){return {id:uid(),t0:Date.now(),t:Date.now(),pid:pid,pt:{ref:'',age:'',sex:'',loc:'',occ:'',mar:'',res:'',adm:'',rel:'',hdt:'',mref:'',marr:''},dur:'',cc:'',f:{},x:{},soc:{},tx:{hpc:'',pmh:'',psh:'',dh:'',all:'',fh:'',sh:'',occ:'',ros:'',exn:'',dx:'',plan:''},v:{},sc:{},smk:{p:'',y:''},touched:false}}
@@ -9015,7 +9060,7 @@ function fitLabel(r,mx,nF,i){if(!nF)return ['Prior only','grey'];var q=r.s/mx;if
 function nextToCheck(e,r){
   var P=getP(e.pid),out=[];
   P.sections.forEach(function(sec){sec.items.forEach(function(it){
-    if(e.f[fkey(P,it)])return;var w=it.w[r.d.k];if(w>=3)out.push({it:it,w:w,kind:sec.kind})})});
+    if(e.f[fkey(P,it)]||(NEXT&&sec.kind!=='H'))return;var w=it.w[r.d.k];if(w>=3)out.push({it:it,w:w,kind:sec.kind})})});
   out.sort(function(a,b){return b.w-a.w});return out.slice(0,3);
 }
 function redFlags(e){var P=getP(e.pid),o=[];P.sections.forEach(function(s){s.items.forEach(function(it){if(it.flag&&e.f[fkey(P,it)]===1)o.push(it)})});return o}
@@ -9630,7 +9675,7 @@ function normList(){return NV.map(function(g){return '<section class="card"><h3>
 function critList(){return RG.map(function(g){return '<div class="eyebrow" style="margin-block:12px 6px">'+esc(g[0])+'</div>'+g[1].map(refAcc).join('')}).join('')}
 function viewRef(e){
   if(!UI.rtab)UI.rtab='signs';
-  var h='<div class="rgrid" role="group" aria-label="Reference section">'+RTABS.map(function(t){return '<button class="chip rt" data-act="rtab" data-v="'+t[0]+'" aria-pressed="'+(UI.rtab===t[0])+'">'+t[1]+'</button>'}).join('')+'</div>';
+  var h=NEXT?'<button class="stbk" data-act="rhub">‹ All reference</button>':'<div class="rgrid" role="group" aria-label="Reference section">'+RTABS.map(function(t){return '<button class="chip rt" data-act="rtab" data-v="'+t[0]+'" aria-pressed="'+(UI.rtab===t[0])+'">'+t[1]+'</button>'}).join('')+'</div>';
   if(UI.rtab==='signs')return h+viewSigns();
   if(UI.rtab==='scores')return h+viewScores(e);
   if(UI.rtab==='calc')return h+'<h2 style="margin-block-end:10px">Calculators</h2><p class="small muted" style="margin-block-end:10px">Type the numbers. The answer shows as you type. Check against your source if it affects care.</p>'+calcList();
@@ -9640,8 +9685,8 @@ function viewRef(e){
 }
 
 var TABS_OLD=[['enc','Encounter'],['log','Log'],['sc','Scores'],['sign','Signs'],['prac','Practice']];
-var TABS=REF_HUB?[['enc','Encounter'],['log','Log'],['ref','Reference'],['prac','Practice']]:TABS_OLD;
-IC.ref=IC.sc;
+var TABS=NEXT?[['enc','Encounter'],['log','Log'],['study','Study']]:REF_HUB?[['enc','Encounter'],['log','Log'],['ref','Reference'],['prac','Practice']]:TABS_OLD;
+IC.ref=IC.sc;IC.study=IC.sc;
 
 /* ================= views ================= */
 function moreMenu(e){
@@ -9652,14 +9697,17 @@ function render(keepScroll){
   var e=curEnc();
   var nav='<nav class="nav" aria-label="Main">'+TABS.map(function(t){return '<button data-act="nav" data-tab="'+t[0]+'"'+(UI.tab===t[0]?' aria-current="page"':'')+'>'+IC[t[0]]+'<span>'+t[1]+'</span></button>'}).join('')+'</nav>';
   var body='';
+  if(NEXT&&/^(ref|prac|sc|sign)$/.test(UI.tab))UI.tab='study';
   if(UI.tab==='enc')body=viewEnc(e);
+  else if(UI.tab==='study')body=viewStudy(e);
   else if(UI.tab==='log')body=viewLog();
   else if(UI.tab==='ref')body=viewRef(e);
   else if(UI.tab==='sc')body=viewScores(e);
   else if(UI.tab==='sign')body=viewSigns();
   else body=viewPractice();
   var bn='';
-  if(UI.tab==='ref')bn=UI.rtab==='scores'?'Calculators are aids. Check the criteria and cut-offs against your textbook or guideline before you act on a score.':UI.rtab==='signs'||!UI.rtab?'A quick reminder, not a reference. Confirm technique and meaning in your textbook or with your supervisor.':'These tables, formulas and mnemonics are written from general medical knowledge, not your handbook. Values and cut-offs differ between textbooks and labs. Check your source before you act on them.';
+  if(UI.tab==='study')bn=UI.stab==='ref'?'Scores, values and criteria here are aids from general medical knowledge. Check them against your textbook, guideline or lab report before you act.':'Memory aids are a revision tool. Compare them with your own sources.';
+  else if(UI.tab==='ref')bn=UI.rtab==='scores'?'Calculators are aids. Check the criteria and cut-offs against your textbook or guideline before you act on a score.':UI.rtab==='signs'||!UI.rtab?'A quick reminder, not a reference. Confirm technique and meaning in your textbook or with your supervisor.':'These tables, formulas and mnemonics are written from general medical knowledge, not your handbook. Values and cut-offs differ between textbooks and labs. Check your source before you act on them.';
   else if(UI.tab==='sc')bn='Calculators are aids. Check the criteria and cut-offs against your textbook or guideline before you act on a score.';
   else if(UI.tab==='sign')bn='A quick reminder, not a reference. Confirm technique and meaning in your textbook or with your supervisor.';
   else if(UI.tab==='enc'&&e&&!UI.pick&&UI.stage==='ddx')bn='The ranking is a thinking aid built from your ticks, not a diagnosis. Compare it with your own reasoning and your sources.';
@@ -9684,6 +9732,7 @@ function render(keepScroll){
 var WN_V=1;
 function wnModal(){
   if(!UI.wnOpen)return '';
+  if(NEXT)return wnLog();
   var I=function(n,t,demo,p,note){return '<section class="wni"><h3><em>'+n+'</em>'+t+'</h3>'+demo+'<p>'+p+'</p>'+(note?'<p class="muted">'+note+'</p>':'')+'</section>'};
   var hold='<div class="wnd hold" aria-hidden="true"><span class="wnrow"><span class="pk">Tearing or ripping</span></span><i class="wnf"></i><div class="wnbub"><div class="lpq">Character: tearing or ripping</div><div class="lpl yes"><b>If yes</b><span>It strongly points to <u>Aortic dissection</u>.</span></div><div class="lpl no"><b>If no</b><span>Counts a little against <u>Aortic dissection</u>, but does not rule it out.</span></div></div></div>';
   var bar='<div class="wnd bar" aria-hidden="true"><div class="wnbar"><span class="hstn">1</span><span class="hdx on"><span class="hsw"></span><span class="hdl"><span class="hch up">Stable angina<b class="harr">\u2191</b></span><span class="hch m">Aortic dissection</span><span class="hch m">Pulmonary embolism</span></span></span><span class="hnext">\u203A</span></div><span class="wnlab" style="left:16px;top:62px">\u2191 just moved up</span></div>';
@@ -9699,6 +9748,7 @@ function wnModal(){
 }
 function wnHome(){
   var un=(DB.wnSeen||0)<WN_V;
+  if(NEXT){var un2=(DB.wnSeen2||0)<WN2_V;return '<div class="hcards"><button class="wnhome" data-act="wnOpen"><span class="wnst" aria-hidden="true">✦</span><span class="grow"><b>What’s new</b><span>This update and past ones</span></span>'+(un2?'<i aria-label="New"></i>':'')+'</button><a class="wnhome rvw" href="https://t.me/YaseenOmarLutfi" target="_blank" rel="noopener" data-rv="1"><span class="wnst" aria-hidden="true">★</span><span class="grow"><b>Review the app</b><span>Your feedback shapes the next update</span></span></a></div>'}
   return '<div class="hcards"><button class="wnhome" data-act="wnOpen"><span class="wnst" aria-hidden="true">\u2726</span><span class="grow"><b>What\u2019s new</b><span>See the latest features</span></span>'+(un?'<i aria-label="New"></i>':'')+'</button>'
   +'<a class="wnhome rvw" href="https://t.me/YaseenOmarLutfi" target="_blank" rel="noopener" data-rv="1"><span class="wnst" aria-hidden="true">\u2605</span><span class="grow"><b>Review the app</b><span>Your feedback shapes the next update</span></span></a></div>';
 }
@@ -9706,6 +9756,7 @@ document.addEventListener('click',function(ev){var a=ev.target.closest&&ev.targe
 document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&UI.wnOpen)ACT.wnClose()});
 function helpPanel(){
   if(!UI.helpOpen)return '';
+  if(NEXT)return helpNext();
   var S=function(t,b,open){return '<details class="hl"'+(open?' open':'')+'><summary><b>'+t+'</b></summary><div class="hlb">'+b+'</div></details>'};
   return '<div class="card" style="padding:12px"><h3 style="margin-block-end:8px"><span>Help</span><button class="btn small" data-act="help">Close</button></h3>'
   +'<div class="compn" style="margin-block:0 10px"><p><b>Companion only.</b> Bedside H&amp;E helps you ask, examine and think in order. It is not a textbook or a guideline. Compare everything with your own sources and your supervisor, and never rely on it alone for a real patient.</p></div>'
@@ -9746,13 +9797,13 @@ function viewEnc(e){
   if(!LAYOUT_A)h+='<div style="margin-block-end:8px"><div style="margin-block-end:8px"><div class="eyebrow">'+esc(P.g)+' / '+esc(P.sys)+'</div><h2>'+esc(P.name)+'</h2>'+hookHTML(P.id)+srcLine(SRC_P[P.id])+'</div><div class="row" style="flex-wrap:wrap;gap:8px"><button class="btn small" data-act="ddxToggle" aria-pressed="'+(!DB.hideDdx)+'">DDx: '+(DB.hideDdx?'Hidden':'Shown')+'</button><button class="btn small" data-act="pickOpen" data-m="change">Change</button><button class="btn small" data-act="newEnc">New patient</button></div></div>';
   var fcOn=focusOn(P)&&UI.stage==='hist';
   if(!(fcOn&&(e.fp|0)>0))h+=infoCard(e);
-  h+='<nav class="stages" aria-label="Encounter steps">'+[['hist','History'],['exam','Exam'],['vit','Vitals'],['ddx','DDx'],['web','Web'],['rev','Review'],['note','Note']].map(function(s){var pb=s[0]==='hist'?['pgH',pr.h,pr.ht]:s[0]==='exam'?['pgE',pr.x,pr.xt]:null;return '<button data-act="stage" data-s="'+s[0]+'"'+(UI.stage===s[0]?' aria-current="step"':'')+'><span class="sl">'+s[1]+'</span>'+(pb?'<span class="sbar" aria-hidden="true"><i id="'+pb[0]+'b" style="width:'+(pb[2]?Math.round(pb[1]/pb[2]*100):0)+'%"></i></span><span class="vh" id="'+pb[0]+'">'+pb[1]+'/'+pb[2]+'</span>':'<span class="sbar none" aria-hidden="true"></span>')+'</button>'}).join('')+'</nav>';
+  h+='<nav class="stages" aria-label="Encounter steps">'+[['hist','History'],['exam','Exam'],['vit','Vitals'],['ddx','DDx'],['web','Web'],['rev','Review'],['note','Note']].filter(function(s){return !(NEXT&&s[0]==='web')}).map(function(s){var pb=s[0]==='hist'?['pgH',pr.h,pr.ht]:s[0]==='exam'?['pgE',pr.x,pr.xt]:null;if(NEXT&&s[0]==='exam')return '<button class="soon" data-act="stage" data-s="exam"'+(UI.stage==='exam'?' aria-current="step"':'')+' aria-label="Exam, under maintenance"><span class="sl">Exam</span><span class="sbar none" aria-hidden="true"></span></button>';return '<button data-act="stage" data-s="'+s[0]+'"'+(UI.stage===s[0]||(NEXT&&s[0]==='ddx'&&UI.stage==='web')?' aria-current="step"':'')+'><span class="sl">'+s[1]+'</span>'+(pb?'<span class="sbar" aria-hidden="true"><i id="'+pb[0]+'b" style="width:'+(pb[2]?Math.round(pb[1]/pb[2]*100):0)+'%"></i></span><span class="vh" id="'+pb[0]+'">'+pb[1]+'/'+pb[2]+'</span>':'<span class="sbar none" aria-hidden="true"></span>')+'</button>'}).join('')+'</nav>';
   h+=fcOn?'':'<div id="rfSlot" style="margin-block-start:12px">'+rfHTML(rf)+'</div>';
   var main='';
   if(UI.stage==='hist')main=stageHist(e,P);
   else if(UI.stage==='exam')main=stageExam(e,P);
   else if(UI.stage==='vit')main=stageVit(e,P);
-  else if(UI.stage==='ddx')main=stageDDx(e,P);
+  else if(UI.stage==='ddx'||(NEXT&&UI.stage==='web'))main=NEXT?ddxWrap(e,P):stageDDx(e,P);
   else if(UI.stage==='web')main=stageWeb(e,P);
   else if(UI.stage==='rev')main=stageReview(e,P);
   else main=stageNote(e,P);
@@ -10136,7 +10187,7 @@ function lpShow(el,html){
   b.innerHTML=html+'<div class="lpx small muted">Tap anywhere to close</div>';b.hidden=false;
   var r=el.getBoundingClientRect(),vw=window.innerWidth,vh=window.innerHeight,w=Math.min(340,vw-24);
   b.style.width=w+'px';b.style.left=Math.max(12,Math.min(vw-w-12,r.left+r.width/2-w/2))+'px';
-  var bh=b.offsetHeight,below=r.bottom+8+bh<vh-90;b.style.top=(below?r.bottom+8:Math.max(12,r.top-8-bh))+'px';
+  var bh=b.offsetHeight,below=NEXT?r.top-12-bh<8:r.bottom+8+bh<vh-90;b.style.top=(below?r.bottom+8:Math.max(8,r.top-(NEXT?12:8)-bh))+'px';
 }
 function lpHide(){var b=document.getElementById('lpb');if(b)b.hidden=true}
 var LP={t:0,fired:false,x:0,y:0};
@@ -10290,6 +10341,7 @@ function stepRefresh(e,P,st,idx){
 }
 function stepFind(P,sk){var S2=stepsFor(P)||[],r=null;S2.forEach(function(s,i){if(stepKey(P,s)===sk)r={st:s,i:i}});return r}
 function stageExam(e,P){
+  if(NEXT)return examSoon();
   var gen=[['G0','Washed hands, introduced self, took consent'],['G1','Patient positioned and exposed appropriately, chaperone offered'],['G2','Inspected the bed space and general appearance']];
   var h='<p class="tip">\u2605 = high-yield finding. Tap an abnormal finding (red). Tap again to record it as normal, a third time to clear. "Rest normal" marks everything you did not tap as normal.</p>';
   var rt=P.route;if(!rt){var SP0=stepsFor(P);if(SP0&&SP0.length>2)rt=SP0.map(function(x){return x.t}).join(' -> ')}
@@ -10313,7 +10365,7 @@ function stageVit(e,P){
    +'<div class="grid2" style="margin-block-start:10px">'+I('wt','Weight','kg','0.1')+I('ht','Height','cm')+'</div><div id="vitOut" style="margin-block-start:12px">'+vitOut(v)+'</div></section>';
   var sug=P.sc.filter(function(id){return id!=='news'&&SCMAP[id]});
   if(sug.length){h+='<h3 style="margin-block:14px 8px">Suggested scores for this presentation</h3>'+sug.map(function(id){return scoreCard(SCMAP[id],scHolder())}).join('')}
-  h+='<p class="small muted">All calculators are on the '+(REF_HUB?'Reference':'Scores')+' tab.</p>';
+  h+='<p class="small muted">All calculators are on the '+(NEXT?'Study':REF_HUB?'Reference':'Scores')+' tab.</p>';
   return h;
 }
 function vitOut(v){
@@ -10405,7 +10457,7 @@ function logList(){
   return list.map(function(e){
     var P=getP(e.pid),pr=progress(e),ds=ddxScores(e),armed=UI.armed===e.id;
     var pc=pr.ht+pr.xt?Math.round((pr.h+pr.x)/(pr.ht+pr.xt)*100):0;
-    return '<div class="logrow" style="--hue:'+sysHue(P.sys)+'"><button class="o" data-act="logOpen" data-id="'+e.id+'"><span class="av on" aria-hidden="true">'+(e.pt.ref?esc(e.pt.ref.trim().slice(0,2).toUpperCase()):IC.user)+'</span><span class="grow"><b>'+esc(e.pt.ref||'No ID')+' <span class="muted" style="font-weight:400">'+esc([e.pt.age?e.pt.age+' y':'',e.pt.sex].filter(Boolean).join(' '))+'</span></b><span class="small muted">'+esc(P.name)+' \u00B7 '+dstr(e.t)+' \u00B7 Hx '+pr.h+'/'+pr.ht+' \u00B7 Ex '+pr.x+'/'+pr.xt+'</span><span class="small dxl">'+esc(diagOf(e)||'No diagnosis yet')+'</span><span class="mbar" aria-hidden="true"><i style="width:'+pc+'%"></i></span></span></button><span class="lact"><button class="btn small" data-act="logPdf" data-id="'+e.id+'" aria-label="Save this patient as PDF">PDF</button>'+(canShare()?'<button class="btn small" data-act="logShare" data-id="'+e.id+'" aria-label="Share this patient as PDF">Share</button>':'')+'<button class="btn small'+(armed?' danger':'')+'" data-act="logDel" data-id="'+e.id+'">'+(armed?'Confirm':'Delete')+'</button></span></div>';
+    return '<div class="logrow" style="--hue:'+sysHue(P.sys)+'"><button class="o" data-act="logOpen" data-id="'+e.id+'"><span class="av on" aria-hidden="true">'+(e.pt.ref?esc(e.pt.ref.trim().slice(0,2).toUpperCase()):IC.user)+'</span><span class="grow"><b>'+esc(e.pt.ref||'No ID')+' <span class="muted" style="font-weight:400">'+esc([e.pt.age?e.pt.age+' y':'',e.pt.sex].filter(Boolean).join(' '))+'</span></b><span class="small muted">'+esc(P.name)+' \u00B7 '+dstr(e.t)+' \u00B7 '+(NEXT?'History ':'Hx ')+pr.h+'/'+pr.ht+(NEXT?'':' \u00B7 Ex '+pr.x+'/'+pr.xt)+'</span><span class="small dxl">'+esc(diagOf(e)||'No diagnosis yet')+'</span><span class="mbar" aria-hidden="true"><i style="width:'+pc+'%"></i></span></span></button><span class="lact"><button class="btn small" data-act="logPdf" data-id="'+e.id+'" aria-label="Save this patient as PDF">PDF</button>'+(canShare()?'<button class="btn small" data-act="logShare" data-id="'+e.id+'" aria-label="Share this patient as PDF">Share</button>':'')+'<button class="btn small'+(armed?' danger':'')+'" data-act="logDel" data-id="'+e.id+'">'+(armed?'Confirm':'Delete')+'</button></span></div>';
   }).join('');
 }
 
@@ -10665,14 +10717,15 @@ function stageReview(e,P){
   P.sections.forEach(function(s){
     var l=s.items.filter(function(it){return !e.f[fkey(P,it)]});
     if(!l.length)return;
+    if(NEXT&&s.kind!=='H')return;
     (s.kind==='H'?unH:unE).push({t:s.title,l:l});
     l.forEach(function(it){if(it.flag)flagMiss.push(it)});
   });
   var nH=unH.reduce(function(a,x){return a+x.l.length},0),nE=unE.reduce(function(a,x){return a+x.l.length},0);
   var pctH=pr.ht?Math.round(pr.h/pr.ht*100):0,pctE=pr.xt?Math.round(pr.x/pr.xt*100):0;
-  var nRF=P.sections.reduce(function(a,s){return a+s.items.filter(function(it){return it.flag}).length},0),aRF=nRF-flagMiss.length;
+  var nRF=P.sections.reduce(function(a,s){return a+(NEXT&&s.kind!=='H'?0:s.items.filter(function(it){return it.flag}).length)},0),aRF=nRF-flagMiss.length;
   var tile=function(lab,big,sub,pc,cls){return '<div class="stat'+(cls||'')+'"><span class="eyebrow">'+lab+'</span><b class="big">'+big+'</b><span class="mbar" aria-hidden="true"><i style="width:'+pc+'%"></i></span><span class="small muted">'+sub+'</span></div>'};
-  h+='<div class="card"><h3>How complete was this encounter?</h3><div class="stats">'+tile('History',pctH+'%',pr.h+' of '+pr.ht,pctH)+tile('Exam',pctE+'%',pr.x+' of '+pr.xt,pctE)+tile('Red flags',aRF+'/'+nRF,'asked',nRF?Math.round(aRF/nRF*100):100,nRF&&aRF<nRF?' hi':' lo')+'</div></div>';
+  h+='<div class="card"><h3>How complete was this encounter?</h3><div class="stats">'+tile('History',pctH+'%',pr.h+' of '+pr.ht,pctH)+(NEXT?'':tile('Exam',pctE+'%',pr.x+' of '+pr.xt,pctE))+tile('Red flags',aRF+'/'+nRF,'asked',nRF?Math.round(aRF/nRF*100):100,nRF&&aRF<nRF?' hi':' lo')+'</div></div>';
   var hg=histGaps(e,P);
   h+='<div class="card"><h3>Is the history complete?</h3>'+(hg.length?'<p class="small muted" style="margin-block-end:4px">A full history (college record) also needs these. Ask them before you present.</p>'+gapsHTML(hg)+'<div class="row" style="margin-block-start:8px"><button class="btn small" data-act="stage" data-s="hist">Back to the history</button></div>':'<p class="small">Characterisation, background and systems review are all covered.</p>')+'</div>';
   if(flagMiss.length)h+='<div class="alert" role="alert"><b>Red flags you have not asked about:</b><ul style="margin:4px 0 0;padding-inline-start:18px">'+flagMiss.map(function(it){return '<li>'+esc(it.t)+'</li>'}).join('')+'</ul></div>';
@@ -10689,7 +10742,7 @@ function stageReview(e,P){
     }
     h+='<div class="card"><h3>Learn the leading diagnoses</h3><p class="small muted" style="margin-block-end:8px">The features that point to each diagnosis, and whether you checked them.</p>';
     top.forEach(function(r){
-      var feats=[];P.sections.forEach(function(s){s.items.forEach(function(it){var w=it.w[r.d.k];if(w>=3)feats.push({it:it,w:w,kind:s.kind})})});
+      var feats=[];P.sections.forEach(function(s){if(NEXT&&s.kind!=='H')return;s.items.forEach(function(it){var w=it.w[r.d.k];if(w>=3)feats.push({it:it,w:w,kind:s.kind})})});
       feats.sort(function(a,b){return b.w-a.w});
       h+='<details'+(r===top[0]?' open':'')+'><summary><b>'+esc(r.d.name)+'</b></summary><div style="margin-block-start:4px">'+(feats.length?feats.slice(0,8).map(function(f){var st=e.f[fkey(P,f.it)];return '<div class="small" style="padding-block:3px"><span class="pill '+(st===1?'teal':st===-1?'grey':'amber')+'">'+(st===1?'Present':st===-1?'Absent':'Not asked')+'</span> '+esc(f.it.t)+'</div>'}).join(''):'<div class="small muted">No strongly weighted features defined.</div>')+'</div></details>';
     });
@@ -10698,7 +10751,7 @@ function stageReview(e,P){
     h+='<div class="card"><h3>Differential hidden</h3><p class="small muted" style="margin-block-end:10px">Write your own differential first. Then show it to see the leading diagnoses and the features you skipped.</p><button class="btn primary" data-act="ddxToggle">Show differential</button></div>';
   }
   h+='<div class="card"><h3>History questions not asked ('+nH+')</h3>'+(unH.length?unH.map(function(x){return '<details><summary>'+esc(x.t)+' ('+x.l.length+')</summary><ul style="margin:4px 0 0;padding-inline-start:18px">'+x.l.map(function(it){return '<li class="small">'+esc(it.t)+'</li>'}).join('')+'</ul></details>'}).join(''):'<p class="small">Everything was covered.</p>')+'</div>';
-  h+='<div class="card"><h3>Examination steps not done ('+nE+')</h3>'+(unE.length?unE.map(function(x){return '<details><summary>'+esc(x.t)+' ('+x.l.length+')</summary><ul style="margin:4px 0 0;padding-inline-start:18px">'+x.l.map(function(it){return '<li class="small">'+esc(it.t)+'</li>'}).join('')+'</ul></details>'}).join(''):'<p class="small">Everything was covered.</p>')+'</div>';
+  if(!NEXT)h+='<div class="card"><h3>Examination steps not done ('+nE+')</h3>'+(unE.length?unE.map(function(x){return '<details><summary>'+esc(x.t)+' ('+x.l.length+')</summary><ul style="margin:4px 0 0;padding-inline-start:18px">'+x.l.map(function(it){return '<li class="small">'+esc(it.t)+'</li>'}).join('')+'</ul></details>'}).join(''):'<p class="small">Everything was covered.</p>')+'</div>';
   h+='<p class="small muted">Not every item applies to every patient, so use this to learn the pattern rather than to chase 100%.</p>';
   return h;
 }
@@ -11395,7 +11448,7 @@ var ACT={
   secAll:function(t){var e=curEnc();if(!e)return;var P=getP(e.pid);UI.so=UI.so||{};P.sections.forEach(function(s){if(s.kind===t.dataset.k)UI.so[secKey(P,s)]=t.dataset.v==='1'});if(t.dataset.k==='E'){(stepsFor(P)||[]).forEach(function(x){UI.so[stepKey(P,x)]=t.dataset.v==='1'})}render(true)},
   help:function(){UI.helpOpen=!UI.helpOpen;render(true)},
   wnOpen:function(){UI.wnOpen=true;render(true)},
-  wnClose:function(){UI.wnOpen=false;if((DB.wnSeen||0)<WN_V){DB.wnSeen=WN_V;saveSoon()}render(true)},
+  wnClose:function(){UI.wnOpen=false;if(NEXT){if((DB.wnSeen2||0)<WN2_V){DB.wnSeen2=WN2_V;saveSoon()}}else if((DB.wnSeen||0)<WN_V){DB.wnSeen=WN_V;saveSoon()}render(true)},
   accent:function(){UI.stOpen=!UI.stOpen;render(true)},
   styleSet:function(t){DB.accent=t.dataset.id;applyAccent();saveSoon();UI.stOpen=false;render(true);toast('Style: '+ACCENTS[DB.accent].n)},
   theme:function(){DB.theme=DB.theme===''?'light':DB.theme==='light'?'dark':'';applyTheme();saveSoon();render(true)},
@@ -11423,7 +11476,7 @@ var ACT={
     if(el){var sst=el.previousElementSibling;while(sst&&!sst.classList.contains('sst')&&!sst.classList.contains('sech'))sst=sst.previousElementSibling;var tgt=sst||el,y=tgt.getBoundingClientRect().top+window.scrollY-90;window.scrollTo({top:y,behavior:'smooth'});var it=el.closest('.unit');if(it){it.classList.remove('pulse');void it.offsetWidth;it.classList.add('pulse')}}
   },
   infoToggle:function(){UI.infoOpen=!UI.infoOpen;render(true)},
-  stage:function(t){UI.stage=t.dataset.s;render()},
+  stage:function(t){UI.stage=t.dataset.s;if(NEXT)UI.infoOpen=false;render()},
   tri:function(t){
     var e=curEnc(),row=t.closest('[data-k]'),P=getP(e.pid),k=row.dataset.k,key=P.id+'.'+k,v=parseInt(t.dataset.v,10);
     gAnswer(e,key,v);
@@ -11708,6 +11761,7 @@ function aidsView(){
   return '<div class="srch">'+IC.search+'<input type="search" id="aq" placeholder="Search, e.g. chest pain, lump, 7 Ds" value="'+esc(UI.aq||'')+'" aria-label="Search memory aids"></div><div id="aidList">'+aidsList()+'</div>';
 }
 function aidsList(){
+  if(NEXT)return aids2List();
   var q=(UI.aq||'').toLowerCase().trim(),G=aidsGroups(),h='';
   var match=function(t){return !q||t.toLowerCase().indexOf(q)>=0};
   var fw=[{n:'SOCRATES (any pain)',h:'Site · Onset · Character · Radiation · Associated · Timing · Exacerbating and relieving · Severity',l:[]}];
@@ -11875,7 +11929,7 @@ function viewSummary(){
 /* ---------- study shortcuts (inside the ⋯ menu) ---------- */
 var GUIDE_FOR={neck:'nodes',breast:'breast',groin:'hernia',skinlump:'lump',postop:'postop',drain:'drains',acuteabd:'abd',mass:'abd',obstr:'abd',ascites:'abd',dyspep:'abd',vomit:'abd',haem:'abd',dysph:'abd'};
 function studyLinks(e){
-  if(!SRC_P[e.pid])return '';var P=getP(e.pid),g=CORE_OF[e.pid]||GUIDE_FOR[e.pid],b=[];
+  if(NEXT||!SRC_P[e.pid])return '';var P=getP(e.pid),g=CORE_OF[e.pid]||GUIDE_FOR[e.pid],b=[];
   if(P.cz&&P.cz.length)b.push('<button class="btn small" data-act="goFlow" data-id="'+e.pid+'">Flowchart</button>');
   if(g&&gById(g))b.push('<button class="btn small" data-act="goGuide" data-id="'+g+'">Exam guide</button>');
   b.push('<button class="btn small" data-act="goSum" data-id="'+e.pid+'">Summary</button>');
@@ -12068,7 +12122,7 @@ function fcBarHTML(e,P,pg,i){
   var p=pg[i],last=i===pg.length-1,none='';
   if(p.kind==='secs'&&p.secs.some(function(s){return s.mode==='pick'&&s.items.some(function(it){return !e.f[fkey(P,it)]})}))none='<button class="btn fcno" data-act="fcNone">Rest: no</button>';
   else if((p.kind==='bgs'&&bgsStatus(e,p.sec)[0]==='Not asked')||(p.kind==='ros'&&p.sys.some(function(x){return rosStatus(e,x)[0]==='Not asked'})))none='<button class="btn fcno" data-act="fcNone">All no</button>';
-  return '<button class="btn fcbk" data-act="fcGo" data-d="-1" aria-label="Back"'+(i?'':' disabled')+'>‹</button>'+none+'<button class="btn primary fcnx" data-act="'+(last?'stage':'fcGo')+'" data-d="1" data-s="exam">'+(last?'Go to the exam':'Next')+' ›</button>';
+  return '<button class="btn fcbk" data-act="fcGo" data-d="-1" aria-label="Back"'+(i?'':' disabled')+'>‹</button>'+none+'<button class="btn primary fcnx" data-act="'+(last?'stage':'fcGo')+'" data-d="1" data-s="vit">'+(last?'Finish the history':'Next')+' ›</button>';
 }
 function stageFocus(e,P){
   var pg=fcPages(e,P),i=fcIdx(e,pg),p=pg[i],S=histSteps(e,P),hue=STEP_HUE[p.st],sub=p.kind==='secs'&&p.cz==null&&p.g&&p.g!==fcTitle(P,p)?p.g:p.kind==='secs'&&p.cz!=null?'Cause '+(p.cz+1)+' of '+P.cz.length:p.kind==='chz'?'Characterise the complaint':p.kind==='bgs'?'Background (college record)':p.kind==='ros'?'Systems review':'';
@@ -12125,7 +12179,110 @@ var FC_ACT={
   }
 };
 Object.keys(FC_ACT).forEach(function(k){ACT[k]=FC_ACT[k]});
+/* ================= Study tab (preview): memory aids and reference only ================= */
+function examSoon(){
+  return '<section class="card soonc"><div class="soonic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></div><h3>The examination is under maintenance</h3><p>We are rebuilding the examination so it is as clear and reliable as the history. It will be back in a later update.</p><p class="small muted">Your history, vitals, differential and note all work as usual.</p><div class="row" style="justify-content:center;gap:8px;margin-block-start:12px"><button class="btn" data-act="stage" data-s="hist">Back to the history</button><button class="btn primary" data-act="stage" data-s="vit">Go to vitals</button></div></section>';
+}
+var REF_TILES=[['scores','Scores','Risk and severity scores that add up as you tap'],['calc','Calculators','Type the numbers, the answer shows as you type'],['norm','Normal values','Adult ranges in SI and older units'],['crit','Criteria and grades','Diagnostic criteria and grading systems'],['mnem','Mnemonics and triads','Searchable list of classic memory hooks']];
+var REF_IC={scores:'<path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/>',calc:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h0M16 12h0M8 16h2M12 16h0M16 16h0"/>',norm:'<path d="M3 12h4l2-6 4 12 2-6h6"/>',crit:'<path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/>',mnem:'<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3z"/>'};
+function viewStudy(e){
+  var t=UI.stab==='ref'?'ref':'aids';
+  var h='<div class="sthd"><h2>Study</h2><div class="stseg" role="group" aria-label="Study section"><button data-act="stab" data-v="aids" aria-pressed="'+(t==='aids')+'">Memory aids</button><button data-act="stab" data-v="ref" aria-pressed="'+(t==='ref')+'">Reference</button></div></div>';
+  if(t==='aids')return h+'<p class="small muted" style="margin-block:0 10px">The causes to think of for each complaint, a typical patient for each cause, and the key memory hooks.</p>'+aidsView();
+  if(!UI.rtab||UI.rtab==='signs')return h+'<div class="rftiles">'+REF_TILES.map(function(r){return '<button data-act="rtab" data-v="'+r[0]+'"><span class="rfic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+REF_IC[r[0]]+'</svg></span><span class="grow"><b>'+r[1]+'</b><span>'+r[2]+'</span></span><i aria-hidden="true">&rsaquo;</i></button>'}).join('')+'</div>';
+  return h+viewRef(e);
+}
+function aids2Card(o,open){
+  var P=o.P,pics=CZPIC[P.id]||{};
+  var cz=(P.cz||[]).map(function(c,i){var pic=pics[c.n];return '<div class="a2r" style="--hue:'+czHue[i%czHue.length]+'"><b>'+esc(c.n)+'</b><span>'+c.dd.map(function(k){var d=P.dmap[k];return d?(d.mnm?'<em>'+esc(d.name)+'</em>':esc(d.name)):''}).filter(Boolean).join(', ')+'</span>'+(pic?'<p>'+esc(pic)+'</p>':'')+'</div>'}).join('');
+  var aids=o.aids.filter(function(a){return !a.ex});
+  return '<details class="aidd a2" style="--hue:'+sysHue(P.sys)+'"'+(open?' open':'')+'><summary><span class="a2top"><span class="aidn">'+esc(P.name)+'</span><span class="a2sys">'+esc(P.sys)+'</span></span>'+(o.hook?'<span class="aidh">'+esc(o.hook)+'</span>':'')+'</summary><div class="aidb">'+
+    (cz?'<div class="aidsub">Causes to think of <span>red = must not miss</span></div>'+cz:'')+
+    (aids.length?'<div class="aidsub">Remember</div>'+aids.map(function(a){return '<div class="a2m"><b>'+esc(a.t)+'</b>'+(a.x?'<span>'+esc(a.x)+'</span>':'')+'</div>'}).join(''):'')+
+    '</div></details>';
+}
+function aids2List(){
+  var q=(UI.aq||'').toLowerCase().trim(),G=aidsGroups(),h='',g0=UI.ag||'All';
+  var match=function(t){return !q||t.toLowerCase().indexOf(q)>=0};
+  h+='<div class="a2f" role="group" aria-label="Filter">'+['All','Medicine','Surgery'].map(function(g){return '<button class="chip" data-act="aidG" data-g="'+g+'" aria-pressed="'+(g0===g)+'">'+g+'</button>'}).join('')+'</div>';
+  var soc=g0==='All'&&match('SOCRATES any pain site onset character radiation associated timing exacerbating relieving severity');
+  if(soc)h+='<div class="a2m a2soc"><b>SOCRATES, for any pain</b><span>Site &middot; Onset &middot; Character &middot; Radiation &middot; Associated &middot; Timing &middot; Exacerbating and relieving &middot; Severity</span></div>';
+  var n=0;
+  ['Medicine','Surgery','General'].forEach(function(g){
+    if(g0!=='All'&&g!==g0)return;
+    var l=G.per.filter(function(o){if(o.P.g!==g)return false;var txt=o.P.name+' '+o.P.sys+' '+o.hook+' '+o.aids.map(function(a){return a.t+' '+a.x}).join(' ')+' '+(o.P.cz||[]).map(function(c){return c.n+' '+c.dd.map(function(k){return (o.P.dmap[k]||{}).name}).join(' ')}).join(' ');return match(txt)}).sort(function(a,b){return a.P.name<b.P.name?-1:1});
+    if(!l.length)return;n+=l.length;
+    h+='<div class="eyebrow" style="margin-block:14px 6px">'+g+' <span class="muted">'+l.length+'</span></div>'+l.map(function(o){return aids2Card(o,!!q&&l.length<4)}).join('');
+  });
+  return n||soc?h:h+'<div class="empty">Nothing matches.</div>';
+}
+ACT.stab=function(t){UI.stab=t.dataset.v;if(UI.stab==='ref')UI.rtab=null;render()};
+ACT.rhub=function(){UI.rtab=null;render()};
+ACT.aidG=function(t){UI.ag=t.dataset.g;var l=$('#aidList');if(l)l.innerHTML=aidsList()};
+/* ---- preview: DDx with the reasoning web inside it, new help ---- */
+function ddxWrap(e,P){
+  var w=UI.stage==='web';
+  return '<div class="stseg dxseg" role="group" aria-label="How to show the differential"><button data-act="stage" data-s="ddx" aria-pressed="'+(!w)+'">Ranked list</button><button data-act="stage" data-s="web" aria-pressed="'+w+'">Reasoning web</button></div>'+(w?stageWeb(e,P):stageDDx(e,P));
+}
+function helpNext(){
+  var S=function(t,b,open){return '<details class="hl"'+(open?' open':'')+'><summary><b>'+t+'</b></summary><div class="hlb">'+b+'</div></details>'};
+  return '<div class="card" style="padding:12px"><h3 style="margin-block-end:8px"><span>Help</span><button class="btn small" data-act="help">Close</button></h3>'
+  +'<div class="compn" style="margin-block:0 10px"><p><b>Companion only.</b> Bedside H&amp;E helps you ask and think in order. It is not a textbook or a guideline. Compare everything with your own sources and your supervisor, and never rely on it alone for a real patient.</p></div>'
+  +S('Start here','<ol><li><b>Pick a complaint</b> (Medicine or Surgery, or search).</li><li>Tap <b>Add patient details</b>: initials, age, sex.</li><li><b>History</b>: one small group of questions at a time. Tap what the patient has, then <b>Next</b>.</li><li><b>DDx</b> shows the ranked diagnoses. <b>Review</b> shows what you missed. <b>Note</b> gives the case sheet.</li></ol><p class="small muted" style="margin-block-start:6px">Everything saves on this device as you go.</p>',true)
+  +S('The history, one group at a time','<ul><li>Tap an answer once for <b>yes</b>, again for <b>no</b>, a third time to <b>clear</b>.</li><li><b>Rest: no</b> marks everything you did not tap as denied and moves on.</li><li>Red <b>!</b> is a red flag. ★ is high-yield.</li><li><b>All parts</b> (top right) shows the whole history, so you can jump anywhere.</li><li>The bar at the top shows your step, your place, and the top three diagnoses so far.</li><li><b>Best next question</b> suggests the question that best separates the leading diagnoses.</li><li><b>Press and hold</b> any question to see what a yes or a no means.</li><li>Prefer one long page? Use <b>Switch to the full list view</b> under the questions.</li></ul>')
+  +S('Other tabs','<ul><li><b>Log</b>: your saved patients, and backup. Use initials only. Back up often.</li><li><b>Study</b>: memory aids for each complaint, and reference (scores, calculators, normal values, criteria, mnemonics).</li><li>The <b>examination</b> is being rebuilt and will return in a later update.</li></ul>')
+  +S('About the content','<ul><li>The <b>crest with a green tick</b> marks complaints verified against the College of Medicine (University of Baghdad) sources and Macleod’s Clinical Examination.</li><li>The rest, the diagnosis weights and the reference tables are from general medical knowledge. Check them against your textbook.</li></ul>')
+  +'</div>';
+}
+/* ---- What's new, as an update log: the newest update open on top, past updates below (preview) ---- */
+var WN2_V=2;
+var WN_LOG=[
+ {t:'The new Bedside H&E',d:'This update',l:[
+  ['History, one group at a time','No more long page. A few questions per screen, with Back, “Rest: no” and Next under your thumb.'],
+  ['Always know where you are','The top bar shows your step, your place in it, the top three diagnoses so far and any red flags. “All parts” opens a map of the whole history so you can jump anywhere.'],
+  ['Best next question','After a few answers the app suggests the one question that best separates the leading diagnoses, and says why.'],
+  ['A page for each cause','Each cause shows what it screens for and a typical patient you can open.'],
+  ['One Study tab','Practice and Reference are now one tab with two parts: Memory aids and Reference.'],
+  ['Memory aids, redesigned','Search and filter by Medicine or Surgery. Each complaint shows its causes, the must-not-miss diagnoses in red, a typical patient for each cause, and the memory hooks.'],
+  ['Reference, redesigned','Scores, calculators, normal values, criteria and mnemonics, each behind one clear tile.'],
+  ['Simpler steps','History, Exam, Vitals, DDx, Review, Note. The reasoning web now sits inside DDx.'],
+  ['Easier to tap','Rows and buttons are bigger across the app, and the patient form closes by itself when you move on.'],
+  ['Examination under maintenance','The examination is being rebuilt to the same standard and will return in a later update.'],
+  ['Prefer the old layout?','Use “Switch to the full list view” under the questions.']
+ ]},
+ {t:'Review the app',d:'7 November 2026',l:[
+  ['Tell us what to fix','A “Review the app” card on the home screen opens Telegram so you can send feedback directly.']
+ ]},
+ {t:'Cardiovascular, updated to Macleod',d:'22 October 2026',l:[
+  ['Corrected to Macleod’s Clinical Examination','Chest pain, palpitations, oedema, syncope, hypertension and leg swelling: corrected facts, a clearer order, and high-yield marks based on Macleod’s evidence.'],
+  ['“Then ask” on every complaint','After a yes, the next question to ask appears under it.'],
+  ['A typical patient for every cause','A short example patient for each cause, on every complaint.'],
+  ['General history and examination','Reordered to follow Macleod, with the college extras kept.']
+ ]},
+ {t:'A structured history for every complaint',d:'21 October 2026',l:[
+  ['The same steps everywhere','Presenting complaint, screen the causes, background, systems review, summary.'],
+  ['Describe every yes','When a symptom is present, a box opens to describe it: colour, amount, timing and so on.'],
+  ['Press and hold','Hold any question to see what a yes or a no means for the differential.']
+ ]},
+ {t:'History in numbered steps',d:'15 October 2026',l:[
+  ['Characterise, background, check','Duration, course and previous episodes for every complaint, the full background in the college order, and a check for gaps before you close.']
+ ]},
+ {t:'Content checked against the sources',d:'12–13 October 2026',l:[
+  ['Verified complaints','The crest with a green tick marks complaints checked line by line against the college sources.'],
+  ['Causes to cover','Every complaint got its list of causes and a high-yield mark on the key questions.'],
+  ['Memory aids','Fewer, grouped and explained.']
+ ]}
+];
+function wnLog(){
+  var h='<div class="wnov" role="dialog" aria-modal="true" aria-labelledby="wnt"><div class="wnbx"><div class="wnhd"><div class="grow"><div class="eyebrow">Updates</div><h2 id="wnt">What’s new</h2></div><button class="ibtn" data-act="wnClose" aria-label="Close">✕</button></div><div class="wnsc">';
+  WN_LOG.forEach(function(u,i){
+    if(i===1)h+='<div class="wnpast">Past updates</div>';
+    h+='<details class="wnup"'+(i?'':' open')+'><summary><span class="grow"><b>'+esc(u.t)+'</b><span>'+esc(u.d)+'</span></span>'+(i?'':'<span class="wnnew">New</span>')+'</summary><ul class="wnul">'+u.l.map(function(x){return '<li><b>'+esc(x[0])+'</b>'+esc(x[1])+'</li>'}).join('')+'</ul></details>';
+  });
+  return h+'</div><div class="wnft"><button class="btn primary" data-act="wnClose">Got it</button></div></div></div>';
+}
 /* ================= boot ================= */
+if(NEXT)document.documentElement.classList.add('nx');
 try{gcInit()}catch(x){}
 applyTheme();applyAccent();
 (function(){

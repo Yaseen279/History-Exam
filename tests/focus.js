@@ -41,7 +41,7 @@ await pg.fill('.fcpg textarea','Hypertension for 5 years');await pg.click('.fcnx
 let guard=0;while(await pg.$('.fcnx[data-act=fcGo]')&&guard++<80){await pg.click('.fcnx');await pg.waitForTimeout(40)}
 ok(/Summary/.test(await pg.$eval('.fcq h3',x=>x.textContent)),'reaches Summary and close');
 await pg.fill('.fcpg textarea[data-b="tx.hpc"]','Central chest pain for 2 hours');await pg.waitForTimeout(500);
-await pg.click('.fcnx');await pg.waitForTimeout(250);ok(await pg.$eval('.stages [aria-current=step]',x=>/Exam/.test(x.textContent)),'last Next goes to the exam');
+await pg.click('.fcnx');await pg.waitForTimeout(250);ok(await pg.$eval('.stages [aria-current=step]',x=>/Vitals/.test(x.textContent)),'last Next goes to vitals (exam is under maintenance)');
 await pg.click('[data-act=stage][data-s=note]');await pg.waitForTimeout(300);const note=await pg.evaluate(()=>document.body.innerText+' '+Array.from(document.querySelectorAll('textarea')).map(t=>t.value).join(' ')+' '+localStorage.getItem('bhp.next'));ok(/Hypertension for 5 years/.test(note)&&/Central chest pain for 2 hours/.test(note),'note contains what was entered in focus view');
 // resume position + list view toggle
 await pg.click('[data-act=stage][data-s=hist]');await pg.waitForTimeout(200);ok(/Summary/.test(await pg.$eval('.fcq h3',x=>x.textContent)),'returns to the same page');
@@ -59,5 +59,24 @@ if(ids){let tot=0,empty=[];for(const id of ids){if(id==='other')continue;
   let g=0;while(g++<90){tot++;const cnt=await pg.$$eval('#fcIn .pk,#fcIn .it,#fcIn textarea,#fcIn .addpain',x=>x.length);if(!cnt)empty.push(id+':'+await pg.$eval('.fcq h3',x=>x.textContent));if(!(await pg.$('.fcnx[data-act=fcGo]')))break;await pg.click('.fcnx')}
  }
  ok(empty.length===0,'all complaints walk through, '+tot+' pages, none empty '+empty.slice(0,6).join(' | '))}
+// exam under maintenance, one Study tab with only memory aids and reference
+await pg.goto(U+'/next/');await pg.waitForTimeout(150);{const nw=await pg.$('[data-act=newEnc]');if(nw)await nw.click();await pg.waitForTimeout(80);let pk=await pg.$('[data-act=pick][data-id=chest]');if(!pk){await pg.click('[data-act=spec][data-g=Medicine]');await pg.waitForTimeout(80)}await pg.click('[data-act=pick][data-id=chest]');await pg.waitForTimeout(150)}
+ok(!(await pg.$('.wnov')),'What\'s new does not reopen once seen');
+{await pg.click('[data-act=newEnc]');await pg.waitForTimeout(100);await pg.click('[data-act=wnOpen]');await pg.waitForTimeout(150);const nu=await pg.$$eval('.wnup',x=>x.length),op=await pg.$$eval('.wnup[open]',x=>x.length);ok(nu>=5&&op===1,'What\'s new lists '+nu+' updates, newest open, past ones collapsed');
+ const past=await pg.$$('.wnup:not([open]) summary');await past[1].click();await pg.waitForTimeout(100);ok((await pg.$$eval('.wnup[open] li',x=>x.length))>11,'a past update opens to show its changes');await pg.click('.wnft [data-act=wnClose]');await pg.waitForTimeout(100);
+ let pk=await pg.$('[data-act=pick][data-id=chest]');if(!pk){await pg.click('[data-act=spec][data-g=Medicine]');await pg.waitForTimeout(80)}await pg.click('[data-act=pick][data-id=chest]');await pg.waitForTimeout(150)}
+await pg.click('[data-act=infoToggle]');await pg.waitForTimeout(100);await pg.click('[data-act=stage][data-s=ddx]');await pg.waitForTimeout(150);ok(!(await pg.$('[data-b="pt.age"]')),'patient form closes when the stage changes');
+ok((await pg.$$eval('.stages button',x=>x.map(b=>b.dataset.s).join(',')))==='hist,exam,vit,ddx,rev,note','stage bar: History, Exam, Vitals, DDx, Review, Note');
+await pg.click('.dxseg [data-s=web]');await pg.waitForTimeout(200);ok(!!(await pg.$('.dxseg [data-s=web][aria-pressed=true]'))&&await pg.$eval('.stages [aria-current=step]',x=>/DDx/.test(x.textContent)),'reasoning web opens inside DDx');
+await pg.click('[data-act=stage][data-s=exam]');await pg.waitForTimeout(150);
+ok(!!(await pg.$('.soonc'))&&!(await pg.$('.pk[data-act=chip]')),'Exam tab shows the maintenance notice, no exam findings');
+await pg.click('[data-act=stage][data-s=rev]');await pg.waitForTimeout(150);ok(!/Examination steps not done|Examine:/.test(await pg.evaluate(()=>document.body.innerText)),'Review has no exam items');
+const tabs=await pg.$$eval('.nav [data-act=nav]',x=>x.map(b=>b.dataset.tab).join(','));ok(tabs==='enc,log,study','bottom tabs: '+tabs);
+await pg.click('[data-act=nav][data-tab=study]');await pg.waitForTimeout(150);const nA=await pg.$$eval('details.a2',x=>x.length);ok(nA>=25,'Memory aids: '+nA+' complaint cards');
+ok(!/Exam guide|Virtual patient|Diagnosis quiz|flowchart/i.test(await pg.evaluate(()=>document.querySelector('#main').innerText)),'no exam guides, virtual patient, quiz or flowcharts in Study');
+await pg.fill('#aq','aortic dissection');await pg.waitForTimeout(150);const nS=await pg.$$eval('details.a2',x=>x.length);ok(nS>=1&&nS<nA,'search narrows the aids to '+nS);await pg.fill('#aq','');
+await pg.click('[data-act=aidG][data-g=Surgery]');await pg.waitForTimeout(100);ok((await pg.$$eval('details.a2',x=>x.length))<nA,'Surgery filter works');
+await pg.click('[data-act=stab][data-v=ref]');await pg.waitForTimeout(150);const rt=await pg.$$eval('.rftiles button',x=>x.map(b=>b.dataset.v).join(','));ok(rt==='scores,calc,norm,crit,mnem','Reference sections: '+rt);
+for(const r of rt.split(',')){await pg.click('.rftiles [data-v='+r+']');await pg.waitForTimeout(120);const len=await pg.evaluate(()=>document.querySelector('#main').innerText.length);ok(len>400&&!!(await pg.$('[data-act=rhub]')),'Reference > '+r+' opens with content');await pg.click('[data-act=rhub]');await pg.waitForTimeout(80)}
 ok(errs.length===0,'no page errors '+errs.slice(0,3).join(' ; '));
 R.done();await b.close();s.close()})();
