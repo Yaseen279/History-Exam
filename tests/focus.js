@@ -60,7 +60,12 @@ if(ids){let tot=0,empty=[];for(const id of ids){if(id==='other')continue;
  }
  ok(empty.length===0,'all complaints walk through, '+tot+' pages, none empty '+empty.slice(0,6).join(' | '))}
 // exam under maintenance, one Study tab with only memory aids and reference
-await pg.click('[data-act=nav][data-tab=enc]').catch(()=>{});await pg.click('[data-act=stage][data-s=exam]');await pg.waitForTimeout(150);
+await pg.goto(U+'/next/');await pg.waitForTimeout(150);{const nw=await pg.$('[data-act=newEnc]');if(nw)await nw.click();await pg.waitForTimeout(80);let pk=await pg.$('[data-act=pick][data-id=chest]');if(!pk){await pg.click('[data-act=spec][data-g=Medicine]');await pg.waitForTimeout(80)}await pg.click('[data-act=pick][data-id=chest]');await pg.waitForTimeout(150)}
+ok(!(await pg.$('.wnov')),'no old What\'s new popup in the preview');
+await pg.click('[data-act=infoToggle]');await pg.waitForTimeout(100);await pg.click('[data-act=stage][data-s=ddx]');await pg.waitForTimeout(150);ok(!(await pg.$('[data-b="pt.age"]')),'patient form closes when the stage changes');
+ok((await pg.$$eval('.stages button',x=>x.map(b=>b.dataset.s).join(',')))==='hist,exam,vit,ddx,rev,note','stage bar: History, Exam, Vitals, DDx, Review, Note');
+await pg.click('.dxseg [data-s=web]');await pg.waitForTimeout(200);ok(!!(await pg.$('.dxseg [data-s=web][aria-pressed=true]'))&&await pg.$eval('.stages [aria-current=step]',x=>/DDx/.test(x.textContent)),'reasoning web opens inside DDx');
+await pg.click('[data-act=stage][data-s=exam]');await pg.waitForTimeout(150);
 ok(!!(await pg.$('.soonc'))&&!(await pg.$('.pk[data-act=chip]')),'Exam tab shows the maintenance notice, no exam findings');
 await pg.click('[data-act=stage][data-s=rev]');await pg.waitForTimeout(150);ok(!/Examination steps not done|Examine:/.test(await pg.evaluate(()=>document.body.innerText)),'Review has no exam items');
 const tabs=await pg.$$eval('.nav [data-act=nav]',x=>x.map(b=>b.dataset.tab).join(','));ok(tabs==='enc,log,study','bottom tabs: '+tabs);

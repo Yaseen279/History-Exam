@@ -199,6 +199,12 @@ textarea{min-height:76px;resize:vertical;line-height:1.4}
 .hcards .wnhome .grow{min-width:0}.hcards .wnhome .wnst{width:28px;height:28px}
 .wnhome.rvw{text-decoration:none;border-color:color-mix(in srgb,var(--warn) 40%,var(--line));background:var(--warn-bg)}.wnhome.rvw .wnst{background:var(--warn);color:var(--bg)}
 .wnlock body{overflow:hidden}
+/* preview polish: tap targets and spacing */
+.hcards.one{grid-template-columns:1fr}
+.nx .stages button{min-height:42px}
+.nx .fcwhere{min-height:36px}.nx .fcpic summary{min-height:36px;display:flex;align-items:center}
+.nx .main details:not(.aidd):not(.rosd):not(.fcpic)>summary{min-height:44px;align-items:center;padding-block:10px;cursor:pointer;box-sizing:border-box}
+.dxseg{margin-block:12px 2px;width:max-content;max-width:100%}
 /* Study tab and exam maintenance (preview) */
 .stages button.soon:not([aria-current]) .sl{opacity:.55}.stages button.soon .sl::after{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--warn);margin-inline-start:5px;vertical-align:middle}
 .soonc{text-align:center;padding:28px 18px;margin-block-start:14px}.soonc h3{display:block;margin:10px 0 6px;font-size:1.15rem}.soonc p{margin:0 auto 4px;max-width:34ch;line-height:1.45}
@@ -8833,7 +8839,7 @@ function srcLine(on){return on?'<div class="srcln">'+srcMark(1,22)+'<span>Verifi
 /* ================= helpers ================= */
 var $=function(s,r){return (r||document).querySelector(s)};
 var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
-function hookHTML(id){var h=HOOKS[id];if(!h)return '';return '<div class="hook" style="margin-block:0 8px;padding:8px 12px;border-radius:10px;background:var(--accent-soft);color:var(--accent);border-inline-start:4px solid var(--accent);font-size:.95rem;line-height:1.35"><div style="font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.85">Ask by'+(h[1]==='hb'?' \u00B7 follows the handbook':h[1]?' \u00B7 standard mnemonic':'')+'</div><b>'+esc(h[0])+'</b></div>'}
+function hookHTML(id){var h=HOOKS[id];if(!h||NEXT)return '';return '<div class="hook" style="margin-block:0 8px;padding:8px 12px;border-radius:10px;background:var(--accent-soft);color:var(--accent);border-inline-start:4px solid var(--accent);font-size:.95rem;line-height:1.35"><div style="font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.85">Ask by'+(h[1]==='hb'?' \u00B7 follows the handbook':h[1]?' \u00B7 standard mnemonic':'')+'</div><b>'+esc(h[0])+'</b></div>'}
 var p2=function(n){return (n<10?'0':'')+n};
 var dstr=function(t){var d=new Date(t);return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())};
 var uid=function(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)};
@@ -8943,7 +8949,7 @@ var SCMAP={};SCORES.forEach(function(s){SCMAP[s.id]=s});
 var SURG_STEPS=true,LAYOUT_A=true,SHOW_MARKALL=false;
 var UI={tab:'enc',stage:'hist',pick:false,pickMode:'new',pq:'',logq:'',signq:'',signsys:'All',note:'sheet',infoOpen:true,
   osce:null,oscePid:'',osceMins:8,quiz:null,quizPid:'',qRecent:[],qDiff:'med',qPat:'dx',pr:'',flOpen:null,armed:null,lbOpen:false};
-if((DB.wnSeen||0)<1)UI.wnOpen=true;
+if(!NEXT&&(DB.wnSeen||0)<1)UI.wnOpen=true;
 function curEnc(){if(!DB.curId)return null;for(var i=0;i<DB.encs.length;i++)if(DB.encs[i].id===DB.curId)return DB.encs[i];return DRAFT&&DRAFT.id===DB.curId?DRAFT:null}
 var DRAFT=null;
 function newEnc(pid){return {id:uid(),t0:Date.now(),t:Date.now(),pid:pid,pt:{ref:'',age:'',sex:'',loc:'',occ:'',mar:'',res:'',adm:'',rel:'',hdt:'',mref:'',marr:''},dur:'',cc:'',f:{},x:{},soc:{},tx:{hpc:'',pmh:'',psh:'',dh:'',all:'',fh:'',sh:'',occ:'',ros:'',exn:'',dx:'',plan:''},v:{},sc:{},smk:{p:'',y:''},touched:false}}
@@ -9731,6 +9737,7 @@ function wnModal(){
 }
 function wnHome(){
   var un=(DB.wnSeen||0)<WN_V;
+  if(NEXT)return '<div class="hcards one"><a class="wnhome rvw" href="https://t.me/YaseenOmarLutfi" target="_blank" rel="noopener" data-rv="1"><span class="wnst" aria-hidden="true">★</span><span class="grow"><b>Review the app</b><span>Your feedback shapes the next update</span></span></a></div>';
   return '<div class="hcards"><button class="wnhome" data-act="wnOpen"><span class="wnst" aria-hidden="true">\u2726</span><span class="grow"><b>What\u2019s new</b><span>See the latest features</span></span>'+(un?'<i aria-label="New"></i>':'')+'</button>'
   +'<a class="wnhome rvw" href="https://t.me/YaseenOmarLutfi" target="_blank" rel="noopener" data-rv="1"><span class="wnst" aria-hidden="true">\u2605</span><span class="grow"><b>Review the app</b><span>Your feedback shapes the next update</span></span></a></div>';
 }
@@ -9738,6 +9745,7 @@ document.addEventListener('click',function(ev){var a=ev.target.closest&&ev.targe
 document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&UI.wnOpen)ACT.wnClose()});
 function helpPanel(){
   if(!UI.helpOpen)return '';
+  if(NEXT)return helpNext();
   var S=function(t,b,open){return '<details class="hl"'+(open?' open':'')+'><summary><b>'+t+'</b></summary><div class="hlb">'+b+'</div></details>'};
   return '<div class="card" style="padding:12px"><h3 style="margin-block-end:8px"><span>Help</span><button class="btn small" data-act="help">Close</button></h3>'
   +'<div class="compn" style="margin-block:0 10px"><p><b>Companion only.</b> Bedside H&amp;E helps you ask, examine and think in order. It is not a textbook or a guideline. Compare everything with your own sources and your supervisor, and never rely on it alone for a real patient.</p></div>'
@@ -9778,13 +9786,13 @@ function viewEnc(e){
   if(!LAYOUT_A)h+='<div style="margin-block-end:8px"><div style="margin-block-end:8px"><div class="eyebrow">'+esc(P.g)+' / '+esc(P.sys)+'</div><h2>'+esc(P.name)+'</h2>'+hookHTML(P.id)+srcLine(SRC_P[P.id])+'</div><div class="row" style="flex-wrap:wrap;gap:8px"><button class="btn small" data-act="ddxToggle" aria-pressed="'+(!DB.hideDdx)+'">DDx: '+(DB.hideDdx?'Hidden':'Shown')+'</button><button class="btn small" data-act="pickOpen" data-m="change">Change</button><button class="btn small" data-act="newEnc">New patient</button></div></div>';
   var fcOn=focusOn(P)&&UI.stage==='hist';
   if(!(fcOn&&(e.fp|0)>0))h+=infoCard(e);
-  h+='<nav class="stages" aria-label="Encounter steps">'+[['hist','History'],['exam','Exam'],['vit','Vitals'],['ddx','DDx'],['web','Web'],['rev','Review'],['note','Note']].map(function(s){var pb=s[0]==='hist'?['pgH',pr.h,pr.ht]:s[0]==='exam'?['pgE',pr.x,pr.xt]:null;if(NEXT&&s[0]==='exam')return '<button class="soon" data-act="stage" data-s="exam"'+(UI.stage==='exam'?' aria-current="step"':'')+' aria-label="Exam, under maintenance"><span class="sl">Exam</span><span class="sbar none" aria-hidden="true"></span></button>';return '<button data-act="stage" data-s="'+s[0]+'"'+(UI.stage===s[0]?' aria-current="step"':'')+'><span class="sl">'+s[1]+'</span>'+(pb?'<span class="sbar" aria-hidden="true"><i id="'+pb[0]+'b" style="width:'+(pb[2]?Math.round(pb[1]/pb[2]*100):0)+'%"></i></span><span class="vh" id="'+pb[0]+'">'+pb[1]+'/'+pb[2]+'</span>':'<span class="sbar none" aria-hidden="true"></span>')+'</button>'}).join('')+'</nav>';
+  h+='<nav class="stages" aria-label="Encounter steps">'+[['hist','History'],['exam','Exam'],['vit','Vitals'],['ddx','DDx'],['web','Web'],['rev','Review'],['note','Note']].filter(function(s){return !(NEXT&&s[0]==='web')}).map(function(s){var pb=s[0]==='hist'?['pgH',pr.h,pr.ht]:s[0]==='exam'?['pgE',pr.x,pr.xt]:null;if(NEXT&&s[0]==='exam')return '<button class="soon" data-act="stage" data-s="exam"'+(UI.stage==='exam'?' aria-current="step"':'')+' aria-label="Exam, under maintenance"><span class="sl">Exam</span><span class="sbar none" aria-hidden="true"></span></button>';return '<button data-act="stage" data-s="'+s[0]+'"'+(UI.stage===s[0]||(NEXT&&s[0]==='ddx'&&UI.stage==='web')?' aria-current="step"':'')+'><span class="sl">'+s[1]+'</span>'+(pb?'<span class="sbar" aria-hidden="true"><i id="'+pb[0]+'b" style="width:'+(pb[2]?Math.round(pb[1]/pb[2]*100):0)+'%"></i></span><span class="vh" id="'+pb[0]+'">'+pb[1]+'/'+pb[2]+'</span>':'<span class="sbar none" aria-hidden="true"></span>')+'</button>'}).join('')+'</nav>';
   h+=fcOn?'':'<div id="rfSlot" style="margin-block-start:12px">'+rfHTML(rf)+'</div>';
   var main='';
   if(UI.stage==='hist')main=stageHist(e,P);
   else if(UI.stage==='exam')main=stageExam(e,P);
   else if(UI.stage==='vit')main=stageVit(e,P);
-  else if(UI.stage==='ddx')main=stageDDx(e,P);
+  else if(UI.stage==='ddx'||(NEXT&&UI.stage==='web'))main=NEXT?ddxWrap(e,P):stageDDx(e,P);
   else if(UI.stage==='web')main=stageWeb(e,P);
   else if(UI.stage==='rev')main=stageReview(e,P);
   else main=stageNote(e,P);
@@ -10346,7 +10354,7 @@ function stageVit(e,P){
    +'<div class="grid2" style="margin-block-start:10px">'+I('wt','Weight','kg','0.1')+I('ht','Height','cm')+'</div><div id="vitOut" style="margin-block-start:12px">'+vitOut(v)+'</div></section>';
   var sug=P.sc.filter(function(id){return id!=='news'&&SCMAP[id]});
   if(sug.length){h+='<h3 style="margin-block:14px 8px">Suggested scores for this presentation</h3>'+sug.map(function(id){return scoreCard(SCMAP[id],scHolder())}).join('')}
-  h+='<p class="small muted">All calculators are on the '+(REF_HUB?'Reference':'Scores')+' tab.</p>';
+  h+='<p class="small muted">All calculators are on the '+(NEXT?'Study':REF_HUB?'Reference':'Scores')+' tab.</p>';
   return h;
 }
 function vitOut(v){
@@ -10438,7 +10446,7 @@ function logList(){
   return list.map(function(e){
     var P=getP(e.pid),pr=progress(e),ds=ddxScores(e),armed=UI.armed===e.id;
     var pc=pr.ht+pr.xt?Math.round((pr.h+pr.x)/(pr.ht+pr.xt)*100):0;
-    return '<div class="logrow" style="--hue:'+sysHue(P.sys)+'"><button class="o" data-act="logOpen" data-id="'+e.id+'"><span class="av on" aria-hidden="true">'+(e.pt.ref?esc(e.pt.ref.trim().slice(0,2).toUpperCase()):IC.user)+'</span><span class="grow"><b>'+esc(e.pt.ref||'No ID')+' <span class="muted" style="font-weight:400">'+esc([e.pt.age?e.pt.age+' y':'',e.pt.sex].filter(Boolean).join(' '))+'</span></b><span class="small muted">'+esc(P.name)+' \u00B7 '+dstr(e.t)+' \u00B7 Hx '+pr.h+'/'+pr.ht+' \u00B7 Ex '+pr.x+'/'+pr.xt+'</span><span class="small dxl">'+esc(diagOf(e)||'No diagnosis yet')+'</span><span class="mbar" aria-hidden="true"><i style="width:'+pc+'%"></i></span></span></button><span class="lact"><button class="btn small" data-act="logPdf" data-id="'+e.id+'" aria-label="Save this patient as PDF">PDF</button>'+(canShare()?'<button class="btn small" data-act="logShare" data-id="'+e.id+'" aria-label="Share this patient as PDF">Share</button>':'')+'<button class="btn small'+(armed?' danger':'')+'" data-act="logDel" data-id="'+e.id+'">'+(armed?'Confirm':'Delete')+'</button></span></div>';
+    return '<div class="logrow" style="--hue:'+sysHue(P.sys)+'"><button class="o" data-act="logOpen" data-id="'+e.id+'"><span class="av on" aria-hidden="true">'+(e.pt.ref?esc(e.pt.ref.trim().slice(0,2).toUpperCase()):IC.user)+'</span><span class="grow"><b>'+esc(e.pt.ref||'No ID')+' <span class="muted" style="font-weight:400">'+esc([e.pt.age?e.pt.age+' y':'',e.pt.sex].filter(Boolean).join(' '))+'</span></b><span class="small muted">'+esc(P.name)+' \u00B7 '+dstr(e.t)+' \u00B7 History '+pr.h+'/'+pr.ht+(NEXT?'':' \u00B7 Ex '+pr.x+'/'+pr.xt)+'</span><span class="small dxl">'+esc(diagOf(e)||'No diagnosis yet')+'</span><span class="mbar" aria-hidden="true"><i style="width:'+pc+'%"></i></span></span></button><span class="lact"><button class="btn small" data-act="logPdf" data-id="'+e.id+'" aria-label="Save this patient as PDF">PDF</button>'+(canShare()?'<button class="btn small" data-act="logShare" data-id="'+e.id+'" aria-label="Share this patient as PDF">Share</button>':'')+'<button class="btn small'+(armed?' danger':'')+'" data-act="logDel" data-id="'+e.id+'">'+(armed?'Confirm':'Delete')+'</button></span></div>';
   }).join('');
 }
 
@@ -11457,7 +11465,7 @@ var ACT={
     if(el){var sst=el.previousElementSibling;while(sst&&!sst.classList.contains('sst')&&!sst.classList.contains('sech'))sst=sst.previousElementSibling;var tgt=sst||el,y=tgt.getBoundingClientRect().top+window.scrollY-90;window.scrollTo({top:y,behavior:'smooth'});var it=el.closest('.unit');if(it){it.classList.remove('pulse');void it.offsetWidth;it.classList.add('pulse')}}
   },
   infoToggle:function(){UI.infoOpen=!UI.infoOpen;render(true)},
-  stage:function(t){UI.stage=t.dataset.s;render()},
+  stage:function(t){UI.stage=t.dataset.s;if(NEXT)UI.infoOpen=false;render()},
   tri:function(t){
     var e=curEnc(),row=t.closest('[data-k]'),P=getP(e.pid),k=row.dataset.k,key=P.id+'.'+k,v=parseInt(t.dataset.v,10);
     gAnswer(e,key,v);
@@ -12200,7 +12208,23 @@ function aids2List(){
 ACT.stab=function(t){UI.stab=t.dataset.v;if(UI.stab==='ref')UI.rtab=null;render()};
 ACT.rhub=function(){UI.rtab=null;render()};
 ACT.aidG=function(t){UI.ag=t.dataset.g;var l=$('#aidList');if(l)l.innerHTML=aidsList()};
+/* ---- preview: DDx with the reasoning web inside it, new help ---- */
+function ddxWrap(e,P){
+  var w=UI.stage==='web';
+  return '<div class="stseg dxseg" role="group" aria-label="How to show the differential"><button data-act="stage" data-s="ddx" aria-pressed="'+(!w)+'">Ranked list</button><button data-act="stage" data-s="web" aria-pressed="'+w+'">Reasoning web</button></div>'+(w?stageWeb(e,P):stageDDx(e,P));
+}
+function helpNext(){
+  var S=function(t,b,open){return '<details class="hl"'+(open?' open':'')+'><summary><b>'+t+'</b></summary><div class="hlb">'+b+'</div></details>'};
+  return '<div class="card" style="padding:12px"><h3 style="margin-block-end:8px"><span>Help</span><button class="btn small" data-act="help">Close</button></h3>'
+  +'<div class="compn" style="margin-block:0 10px"><p><b>Companion only.</b> Bedside H&amp;E helps you ask and think in order. It is not a textbook or a guideline. Compare everything with your own sources and your supervisor, and never rely on it alone for a real patient.</p></div>'
+  +S('Start here','<ol><li><b>Pick a complaint</b> (Medicine or Surgery, or search).</li><li>Tap <b>Add patient details</b>: initials, age, sex.</li><li><b>History</b>: one small group of questions at a time. Tap what the patient has, then <b>Next</b>.</li><li><b>DDx</b> shows the ranked diagnoses. <b>Review</b> shows what you missed. <b>Note</b> gives the case sheet.</li></ol><p class="small muted" style="margin-block-start:6px">Everything saves on this device as you go.</p>',true)
+  +S('The history, one group at a time','<ul><li>Tap an answer once for <b>yes</b>, again for <b>no</b>, a third time to <b>clear</b>.</li><li><b>Rest: no</b> marks everything you did not tap as denied and moves on.</li><li>Red <b>!</b> is a red flag. ★ is high-yield.</li><li><b>All parts</b> (top right) shows the whole history, so you can jump anywhere.</li><li>The bar at the top shows your step, your place, and the top three diagnoses so far.</li><li><b>Best next question</b> suggests the question that best separates the leading diagnoses.</li><li><b>Press and hold</b> any question to see what a yes or a no means.</li><li>Prefer one long page? Use <b>Switch to the full list view</b> under the questions.</li></ul>')
+  +S('Other tabs','<ul><li><b>Log</b>: your saved patients, and backup. Use initials only. Back up often.</li><li><b>Study</b>: memory aids for each complaint, and reference (scores, calculators, normal values, criteria, mnemonics).</li><li>The <b>examination</b> is being rebuilt and will return in a later update.</li></ul>')
+  +S('About the content','<ul><li>The <b>crest with a green tick</b> marks complaints verified against the College of Medicine (University of Baghdad) sources and Macleod’s Clinical Examination.</li><li>The rest, the diagnosis weights and the reference tables are from general medical knowledge. Check them against your textbook.</li></ul>')
+  +'</div>';
+}
 /* ================= boot ================= */
+if(NEXT)document.documentElement.classList.add('nx');
 try{gcInit()}catch(x){}
 applyTheme();applyAccent();
 (function(){
