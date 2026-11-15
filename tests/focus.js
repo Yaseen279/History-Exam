@@ -86,6 +86,6 @@ await pg.click('[data-act=fcView][data-v="0"]');await pg.waitForTimeout(200);ok(
 await pg.click('[data-act=moreToggle]');await pg.click('.moremenu [data-act=accent]');await pg.waitForTimeout(150);await pg.click('[data-act=fsSet][data-v=xl]');await pg.waitForTimeout(200);
 ok((await pg.evaluate(()=>getComputedStyle(document.documentElement).fontSize))==='20px'&&!(await pg.evaluate(()=>document.documentElement.scrollWidth>innerWidth)),'Extra large text applies with no sideways scroll');
 await pg.waitForTimeout(500);await pg.reload();await pg.waitForTimeout(250);ok((await pg.evaluate(()=>getComputedStyle(document.documentElement).fontSize))==='20px','text size is remembered');
-await pg.click('[data-act=moreToggle]');await pg.click('.moremenu [data-act=accent]');await pg.waitForTimeout(100);await pg.click('[data-act=fsSet][data-v=m]');await pg.waitForTimeout(100);ok((await pg.evaluate(()=>getComputedStyle(document.documentElement).fontSize))==='16px','back to Normal');
+{const mt=await pg.$('[data-act=moreToggle]');if(mt){await mt.click();await pg.click('.moremenu [data-act=accent]')}else await pg.click('[data-act=accent]')}await pg.waitForTimeout(100);await pg.click('[data-act=fsSet][data-v=m]');await pg.waitForTimeout(100);ok((await pg.evaluate(()=>getComputedStyle(document.documentElement).fontSize))==='16px','back to Normal');
 ok(errs.length===0,'no page errors '+errs.slice(0,3).join(' ; '));
 R.done();await b.close();s.close()})();
