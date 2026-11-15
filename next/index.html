@@ -199,6 +199,16 @@ textarea{min-height:76px;resize:vertical;line-height:1.4}
 .hcards .wnhome .grow{min-width:0}.hcards .wnhome .wnst{width:28px;height:28px}
 .wnhome.rvw{text-decoration:none;border-color:color-mix(in srgb,var(--warn) 40%,var(--line));background:var(--warn-bg)}.wnhome.rvw .wnst{background:var(--warn);color:var(--bg)}
 .wnlock body{overflow:hidden}
+.wnup{border:1px solid var(--line);border-radius:14px;background:var(--surface);margin-block-end:8px;overflow:hidden}
+.wnup>summary{list-style:none;display:flex;align-items:center;gap:10px;min-height:52px;padding:8px 12px;cursor:pointer}.wnup>summary::-webkit-details-marker{display:none}
+.wnup>summary .grow{display:flex;flex-direction:column;min-width:0}.wnup>summary b{font-size:.95rem}.wnup>summary .grow span{font-size:.74rem;color:var(--muted)}
+.wnup>summary::after{content:'';flex:none;width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .15s ease;margin-inline-end:4px}.wnup[open]>summary::after{transform:rotate(-135deg)}
+.wnup[open]>summary{border-bottom:1px solid var(--line)}
+.wnnew{flex:none;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink);background:var(--accent);padding:2px 8px;border-radius:99px}
+.wnul{margin:0;padding:10px 14px 12px 14px;list-style:none;display:flex;flex-direction:column;gap:9px}
+.wnul li{position:relative;padding-inline-start:16px;font-size:.86rem;line-height:1.42}.wnul li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.wnul li b{display:block;font-size:.9rem}
+.wnpast{margin:16px 2px 8px;font-size:.7rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
 /* preview polish: tap targets and spacing */
 .hcards.one{grid-template-columns:1fr}
 .nx .stages button{min-height:42px}
@@ -8949,7 +8959,7 @@ var SCMAP={};SCORES.forEach(function(s){SCMAP[s.id]=s});
 var SURG_STEPS=true,LAYOUT_A=true,SHOW_MARKALL=false;
 var UI={tab:'enc',stage:'hist',pick:false,pickMode:'new',pq:'',logq:'',signq:'',signsys:'All',note:'sheet',infoOpen:true,
   osce:null,oscePid:'',osceMins:8,quiz:null,quizPid:'',qRecent:[],qDiff:'med',qPat:'dx',pr:'',flOpen:null,armed:null,lbOpen:false};
-if(!NEXT&&(DB.wnSeen||0)<1)UI.wnOpen=true;
+if(NEXT?(DB.wnSeen2||0)<2:(DB.wnSeen||0)<1)UI.wnOpen=true;
 function curEnc(){if(!DB.curId)return null;for(var i=0;i<DB.encs.length;i++)if(DB.encs[i].id===DB.curId)return DB.encs[i];return DRAFT&&DRAFT.id===DB.curId?DRAFT:null}
 var DRAFT=null;
 function newEnc(pid){return {id:uid(),t0:Date.now(),t:Date.now(),pid:pid,pt:{ref:'',age:'',sex:'',loc:'',occ:'',mar:'',res:'',adm:'',rel:'',hdt:'',mref:'',marr:''},dur:'',cc:'',f:{},x:{},soc:{},tx:{hpc:'',pmh:'',psh:'',dh:'',all:'',fh:'',sh:'',occ:'',ros:'',exn:'',dx:'',plan:''},v:{},sc:{},smk:{p:'',y:''},touched:false}}
@@ -9722,6 +9732,7 @@ function render(keepScroll){
 var WN_V=1;
 function wnModal(){
   if(!UI.wnOpen)return '';
+  if(NEXT)return wnLog();
   var I=function(n,t,demo,p,note){return '<section class="wni"><h3><em>'+n+'</em>'+t+'</h3>'+demo+'<p>'+p+'</p>'+(note?'<p class="muted">'+note+'</p>':'')+'</section>'};
   var hold='<div class="wnd hold" aria-hidden="true"><span class="wnrow"><span class="pk">Tearing or ripping</span></span><i class="wnf"></i><div class="wnbub"><div class="lpq">Character: tearing or ripping</div><div class="lpl yes"><b>If yes</b><span>It strongly points to <u>Aortic dissection</u>.</span></div><div class="lpl no"><b>If no</b><span>Counts a little against <u>Aortic dissection</u>, but does not rule it out.</span></div></div></div>';
   var bar='<div class="wnd bar" aria-hidden="true"><div class="wnbar"><span class="hstn">1</span><span class="hdx on"><span class="hsw"></span><span class="hdl"><span class="hch up">Stable angina<b class="harr">\u2191</b></span><span class="hch m">Aortic dissection</span><span class="hch m">Pulmonary embolism</span></span></span><span class="hnext">\u203A</span></div><span class="wnlab" style="left:16px;top:62px">\u2191 just moved up</span></div>';
@@ -9737,7 +9748,7 @@ function wnModal(){
 }
 function wnHome(){
   var un=(DB.wnSeen||0)<WN_V;
-  if(NEXT)return '<div class="hcards one"><a class="wnhome rvw" href="https://t.me/YaseenOmarLutfi" target="_blank" rel="noopener" data-rv="1"><span class="wnst" aria-hidden="true">★</span><span class="grow"><b>Review the app</b><span>Your feedback shapes the next update</span></span></a></div>';
+  if(NEXT){var un2=(DB.wnSeen2||0)<WN2_V;return '<div class="hcards"><button class="wnhome" data-act="wnOpen"><span class="wnst" aria-hidden="true">✦</span><span class="grow"><b>What’s new</b><span>This update and past ones</span></span>'+(un2?'<i aria-label="New"></i>':'')+'</button><a class="wnhome rvw" href="https://t.me/YaseenOmarLutfi" target="_blank" rel="noopener" data-rv="1"><span class="wnst" aria-hidden="true">★</span><span class="grow"><b>Review the app</b><span>Your feedback shapes the next update</span></span></a></div>'}
   return '<div class="hcards"><button class="wnhome" data-act="wnOpen"><span class="wnst" aria-hidden="true">\u2726</span><span class="grow"><b>What\u2019s new</b><span>See the latest features</span></span>'+(un?'<i aria-label="New"></i>':'')+'</button>'
   +'<a class="wnhome rvw" href="https://t.me/YaseenOmarLutfi" target="_blank" rel="noopener" data-rv="1"><span class="wnst" aria-hidden="true">\u2605</span><span class="grow"><b>Review the app</b><span>Your feedback shapes the next update</span></span></a></div>';
 }
@@ -10446,7 +10457,7 @@ function logList(){
   return list.map(function(e){
     var P=getP(e.pid),pr=progress(e),ds=ddxScores(e),armed=UI.armed===e.id;
     var pc=pr.ht+pr.xt?Math.round((pr.h+pr.x)/(pr.ht+pr.xt)*100):0;
-    return '<div class="logrow" style="--hue:'+sysHue(P.sys)+'"><button class="o" data-act="logOpen" data-id="'+e.id+'"><span class="av on" aria-hidden="true">'+(e.pt.ref?esc(e.pt.ref.trim().slice(0,2).toUpperCase()):IC.user)+'</span><span class="grow"><b>'+esc(e.pt.ref||'No ID')+' <span class="muted" style="font-weight:400">'+esc([e.pt.age?e.pt.age+' y':'',e.pt.sex].filter(Boolean).join(' '))+'</span></b><span class="small muted">'+esc(P.name)+' \u00B7 '+dstr(e.t)+' \u00B7 History '+pr.h+'/'+pr.ht+(NEXT?'':' \u00B7 Ex '+pr.x+'/'+pr.xt)+'</span><span class="small dxl">'+esc(diagOf(e)||'No diagnosis yet')+'</span><span class="mbar" aria-hidden="true"><i style="width:'+pc+'%"></i></span></span></button><span class="lact"><button class="btn small" data-act="logPdf" data-id="'+e.id+'" aria-label="Save this patient as PDF">PDF</button>'+(canShare()?'<button class="btn small" data-act="logShare" data-id="'+e.id+'" aria-label="Share this patient as PDF">Share</button>':'')+'<button class="btn small'+(armed?' danger':'')+'" data-act="logDel" data-id="'+e.id+'">'+(armed?'Confirm':'Delete')+'</button></span></div>';
+    return '<div class="logrow" style="--hue:'+sysHue(P.sys)+'"><button class="o" data-act="logOpen" data-id="'+e.id+'"><span class="av on" aria-hidden="true">'+(e.pt.ref?esc(e.pt.ref.trim().slice(0,2).toUpperCase()):IC.user)+'</span><span class="grow"><b>'+esc(e.pt.ref||'No ID')+' <span class="muted" style="font-weight:400">'+esc([e.pt.age?e.pt.age+' y':'',e.pt.sex].filter(Boolean).join(' '))+'</span></b><span class="small muted">'+esc(P.name)+' \u00B7 '+dstr(e.t)+' \u00B7 '+(NEXT?'History ':'Hx ')+pr.h+'/'+pr.ht+(NEXT?'':' \u00B7 Ex '+pr.x+'/'+pr.xt)+'</span><span class="small dxl">'+esc(diagOf(e)||'No diagnosis yet')+'</span><span class="mbar" aria-hidden="true"><i style="width:'+pc+'%"></i></span></span></button><span class="lact"><button class="btn small" data-act="logPdf" data-id="'+e.id+'" aria-label="Save this patient as PDF">PDF</button>'+(canShare()?'<button class="btn small" data-act="logShare" data-id="'+e.id+'" aria-label="Share this patient as PDF">Share</button>':'')+'<button class="btn small'+(armed?' danger':'')+'" data-act="logDel" data-id="'+e.id+'">'+(armed?'Confirm':'Delete')+'</button></span></div>';
   }).join('');
 }
 
@@ -11437,7 +11448,7 @@ var ACT={
   secAll:function(t){var e=curEnc();if(!e)return;var P=getP(e.pid);UI.so=UI.so||{};P.sections.forEach(function(s){if(s.kind===t.dataset.k)UI.so[secKey(P,s)]=t.dataset.v==='1'});if(t.dataset.k==='E'){(stepsFor(P)||[]).forEach(function(x){UI.so[stepKey(P,x)]=t.dataset.v==='1'})}render(true)},
   help:function(){UI.helpOpen=!UI.helpOpen;render(true)},
   wnOpen:function(){UI.wnOpen=true;render(true)},
-  wnClose:function(){UI.wnOpen=false;if((DB.wnSeen||0)<WN_V){DB.wnSeen=WN_V;saveSoon()}render(true)},
+  wnClose:function(){UI.wnOpen=false;if(NEXT){if((DB.wnSeen2||0)<WN2_V){DB.wnSeen2=WN2_V;saveSoon()}}else if((DB.wnSeen||0)<WN_V){DB.wnSeen=WN_V;saveSoon()}render(true)},
   accent:function(){UI.stOpen=!UI.stOpen;render(true)},
   styleSet:function(t){DB.accent=t.dataset.id;applyAccent();saveSoon();UI.stOpen=false;render(true);toast('Style: '+ACCENTS[DB.accent].n)},
   theme:function(){DB.theme=DB.theme===''?'light':DB.theme==='light'?'dark':'';applyTheme();saveSoon();render(true)},
@@ -12222,6 +12233,53 @@ function helpNext(){
   +S('Other tabs','<ul><li><b>Log</b>: your saved patients, and backup. Use initials only. Back up often.</li><li><b>Study</b>: memory aids for each complaint, and reference (scores, calculators, normal values, criteria, mnemonics).</li><li>The <b>examination</b> is being rebuilt and will return in a later update.</li></ul>')
   +S('About the content','<ul><li>The <b>crest with a green tick</b> marks complaints verified against the College of Medicine (University of Baghdad) sources and Macleod’s Clinical Examination.</li><li>The rest, the diagnosis weights and the reference tables are from general medical knowledge. Check them against your textbook.</li></ul>')
   +'</div>';
+}
+/* ---- What's new, as an update log: the newest update open on top, past updates below (preview) ---- */
+var WN2_V=2;
+var WN_LOG=[
+ {t:'The new Bedside H&E',d:'This update',l:[
+  ['History, one group at a time','No more long page. A few questions per screen, with Back, “Rest: no” and Next under your thumb.'],
+  ['Always know where you are','The top bar shows your step, your place in it, the top three diagnoses so far and any red flags. “All parts” opens a map of the whole history so you can jump anywhere.'],
+  ['Best next question','After a few answers the app suggests the one question that best separates the leading diagnoses, and says why.'],
+  ['A page for each cause','Each cause shows what it screens for and a typical patient you can open.'],
+  ['One Study tab','Practice and Reference are now one tab with two parts: Memory aids and Reference.'],
+  ['Memory aids, redesigned','Search and filter by Medicine or Surgery. Each complaint shows its causes, the must-not-miss diagnoses in red, a typical patient for each cause, and the memory hooks.'],
+  ['Reference, redesigned','Scores, calculators, normal values, criteria and mnemonics, each behind one clear tile.'],
+  ['Simpler steps','History, Exam, Vitals, DDx, Review, Note. The reasoning web now sits inside DDx.'],
+  ['Easier to tap','Rows and buttons are bigger across the app, and the patient form closes by itself when you move on.'],
+  ['Examination under maintenance','The examination is being rebuilt to the same standard and will return in a later update.'],
+  ['Prefer the old layout?','Use “Switch to the full list view” under the questions.']
+ ]},
+ {t:'Review the app',d:'7 November 2026',l:[
+  ['Tell us what to fix','A “Review the app” card on the home screen opens Telegram so you can send feedback directly.']
+ ]},
+ {t:'Cardiovascular, updated to Macleod',d:'22 October 2026',l:[
+  ['Corrected to Macleod’s Clinical Examination','Chest pain, palpitations, oedema, syncope, hypertension and leg swelling: corrected facts, a clearer order, and high-yield marks based on Macleod’s evidence.'],
+  ['“Then ask” on every complaint','After a yes, the next question to ask appears under it.'],
+  ['A typical patient for every cause','A short example patient for each cause, on every complaint.'],
+  ['General history and examination','Reordered to follow Macleod, with the college extras kept.']
+ ]},
+ {t:'A structured history for every complaint',d:'21 October 2026',l:[
+  ['The same steps everywhere','Presenting complaint, screen the causes, background, systems review, summary.'],
+  ['Describe every yes','When a symptom is present, a box opens to describe it: colour, amount, timing and so on.'],
+  ['Press and hold','Hold any question to see what a yes or a no means for the differential.']
+ ]},
+ {t:'History in numbered steps',d:'15 October 2026',l:[
+  ['Characterise, background, check','Duration, course and previous episodes for every complaint, the full background in the college order, and a check for gaps before you close.']
+ ]},
+ {t:'Content checked against the sources',d:'12–13 October 2026',l:[
+  ['Verified complaints','The crest with a green tick marks complaints checked line by line against the college sources.'],
+  ['Causes to cover','Every complaint got its list of causes and a high-yield mark on the key questions.'],
+  ['Memory aids','Fewer, grouped and explained.']
+ ]}
+];
+function wnLog(){
+  var h='<div class="wnov" role="dialog" aria-modal="true" aria-labelledby="wnt"><div class="wnbx"><div class="wnhd"><div class="grow"><div class="eyebrow">Updates</div><h2 id="wnt">What’s new</h2></div><button class="ibtn" data-act="wnClose" aria-label="Close">✕</button></div><div class="wnsc">';
+  WN_LOG.forEach(function(u,i){
+    if(i===1)h+='<div class="wnpast">Past updates</div>';
+    h+='<details class="wnup"'+(i?'':' open')+'><summary><span class="grow"><b>'+esc(u.t)+'</b><span>'+esc(u.d)+'</span></span>'+(i?'':'<span class="wnnew">New</span>')+'</summary><ul class="wnul">'+u.l.map(function(x){return '<li><b>'+esc(x[0])+'</b>'+esc(x[1])+'</li>'}).join('')+'</ul></details>';
+  });
+  return h+'</div><div class="wnft"><button class="btn primary" data-act="wnClose">Got it</button></div></div></div>';
 }
 /* ================= boot ================= */
 if(NEXT)document.documentElement.classList.add('nx');

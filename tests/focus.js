@@ -61,7 +61,10 @@ if(ids){let tot=0,empty=[];for(const id of ids){if(id==='other')continue;
  ok(empty.length===0,'all complaints walk through, '+tot+' pages, none empty '+empty.slice(0,6).join(' | '))}
 // exam under maintenance, one Study tab with only memory aids and reference
 await pg.goto(U+'/next/');await pg.waitForTimeout(150);{const nw=await pg.$('[data-act=newEnc]');if(nw)await nw.click();await pg.waitForTimeout(80);let pk=await pg.$('[data-act=pick][data-id=chest]');if(!pk){await pg.click('[data-act=spec][data-g=Medicine]');await pg.waitForTimeout(80)}await pg.click('[data-act=pick][data-id=chest]');await pg.waitForTimeout(150)}
-ok(!(await pg.$('.wnov')),'no old What\'s new popup in the preview');
+ok(!(await pg.$('.wnov')),'What\'s new does not reopen once seen');
+{await pg.click('[data-act=newEnc]');await pg.waitForTimeout(100);await pg.click('[data-act=wnOpen]');await pg.waitForTimeout(150);const nu=await pg.$$eval('.wnup',x=>x.length),op=await pg.$$eval('.wnup[open]',x=>x.length);ok(nu>=5&&op===1,'What\'s new lists '+nu+' updates, newest open, past ones collapsed');
+ const past=await pg.$$('.wnup:not([open]) summary');await past[1].click();await pg.waitForTimeout(100);ok((await pg.$$eval('.wnup[open] li',x=>x.length))>11,'a past update opens to show its changes');await pg.click('.wnft [data-act=wnClose]');await pg.waitForTimeout(100);
+ let pk=await pg.$('[data-act=pick][data-id=chest]');if(!pk){await pg.click('[data-act=spec][data-g=Medicine]');await pg.waitForTimeout(80)}await pg.click('[data-act=pick][data-id=chest]');await pg.waitForTimeout(150)}
 await pg.click('[data-act=infoToggle]');await pg.waitForTimeout(100);await pg.click('[data-act=stage][data-s=ddx]');await pg.waitForTimeout(150);ok(!(await pg.$('[data-b="pt.age"]')),'patient form closes when the stage changes');
 ok((await pg.$$eval('.stages button',x=>x.map(b=>b.dataset.s).join(',')))==='hist,exam,vit,ddx,rev,note','stage bar: History, Exam, Vitals, DDx, Review, Note');
 await pg.click('.dxseg [data-s=web]');await pg.waitForTimeout(200);ok(!!(await pg.$('.dxseg [data-s=web][aria-pressed=true]'))&&await pg.$eval('.stages [aria-current=step]',x=>/DDx/.test(x.textContent)),'reasoning web opens inside DDx');
