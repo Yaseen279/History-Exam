@@ -10187,7 +10187,7 @@ function lpShow(el,html){
   b.innerHTML=html+'<div class="lpx small muted">Tap anywhere to close</div>';b.hidden=false;
   var r=el.getBoundingClientRect(),vw=window.innerWidth,vh=window.innerHeight,w=Math.min(340,vw-24);
   b.style.width=w+'px';b.style.left=Math.max(12,Math.min(vw-w-12,r.left+r.width/2-w/2))+'px';
-  var bh=b.offsetHeight,below=r.bottom+8+bh<vh-90;b.style.top=(below?r.bottom+8:Math.max(12,r.top-8-bh))+'px';
+  var bh=b.offsetHeight,below=NEXT?r.top-12-bh<8:r.bottom+8+bh<vh-90;b.style.top=(below?r.bottom+8:Math.max(8,r.top-(NEXT?12:8)-bh))+'px';
 }
 function lpHide(){var b=document.getElementById('lpb');if(b)b.hidden=true}
 var LP={t:0,fired:false,x:0,y:0};
