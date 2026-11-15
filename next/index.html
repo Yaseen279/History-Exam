@@ -211,7 +211,7 @@ textarea{min-height:76px;resize:vertical;line-height:1.4}
 .wnpast{margin:16px 2px 8px;font-size:.7rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
 /* preview polish: tap targets and spacing */
 .hcards.one{grid-template-columns:1fr}
-.nx .stages button{min-height:42px}
+.nx .stages button{min-height:40px;flex:1 1 0;min-width:0}
 .nx .fcwhere{min-height:36px}.nx .fcpic summary{min-height:36px;display:flex;align-items:center}
 .nx .main details:not(.aidd):not(.rosd):not(.fcpic)>summary{min-height:44px;align-items:center;padding-block:10px;cursor:pointer;box-sizing:border-box}
 .dxseg{margin-block:12px 2px;width:max-content;max-width:100%}
@@ -249,7 +249,7 @@ textarea{min-height:76px;resize:vertical;line-height:1.4}
 .fc{display:flex;flex-direction:column;gap:10px;margin-block-start:10px}
 .fctop{position:sticky;top:calc(env(safe-area-inset-top,0px) + 57px);z-index:14;display:flex;flex-direction:column;gap:6px;padding:8px 10px;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh)}
 .fcwhere{display:flex;align-items:center;gap:8px;width:100%;padding:0;border:0;background:none;color:var(--ink);font:inherit;text-align:start;cursor:pointer}
-.fcwhere .grow{display:flex;align-items:baseline;gap:8px;min-width:0}.fcwhere .grow b{font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fcwhere .grow span{font-size:.74rem;color:var(--muted);white-space:nowrap}
+.fcwhere .grow{display:flex;align-items:baseline;gap:8px;min-width:0}.fcwhere .grow b{font-size:.86rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fcwhere .grow span{font-size:.74rem;color:var(--muted);white-space:nowrap}
 .fcall{flex:none;font-size:.72rem;font-weight:700;color:var(--sc);background:var(--sc-soft);padding:4px 9px;border-radius:99px}
 .fcseg{display:flex;gap:2px;height:5px}.fcseg i{flex:1;border-radius:3px;background:var(--line);--c:hsl(var(--sh) 62% 46%)}
 .fcseg i.ok{background:var(--c);opacity:.45}.fcseg i.past{background:var(--line)}.fcseg i.on{background:var(--c);opacity:1;flex:2.2}
@@ -257,25 +257,26 @@ textarea{min-height:76px;resize:vertical;line-height:1.4}
 .fcdx::-webkit-scrollbar{display:none}.fcdx.none,.fcdx.off{cursor:default;min-height:22px}.fcdx.off{cursor:pointer;text-decoration:underline}
 .fcdx .hch{background:var(--surface2)}.fcdx .hch.up{background:var(--ok-bg);color:var(--ok)}
 .fcrf{font-size:.76rem;line-height:1.35;color:var(--danger);background:var(--danger-bg);border-radius:8px;padding:4px 8px;max-height:3.1em;overflow:hidden}.fcrf b{text-transform:uppercase;font-size:.66rem;letter-spacing:.05em;margin-inline-end:4px}
-.fcpg{margin:0;padding:14px 14px 16px;animation:fcin .22s ease}.fcpg.bk{animation-name:fcinb}
+.fcpg{margin:0;padding:12px 12px 14px;animation:fcin .22s ease}.fcpg.bk{animation-name:fcinb}
 @keyframes fcin{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}@keyframes fcinb{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.fcpg{animation:none}}
-.fcq{margin-block-end:10px}.fcq h3{margin:0;font-size:1.22rem;line-height:1.2;font-family:var(--f-disp)}.fcq .eyebrow{font-size:.74rem;margin-block-end:2px;text-transform:uppercase;letter-spacing:.05em}
+.fcq{margin-block-end:10px}.fcq h3{margin:0;font-size:1.05rem;line-height:1.2;font-family:var(--f-disp)}.fcq .eyebrow{font-size:.74rem;margin-block-end:2px;text-transform:uppercase;letter-spacing:.05em}
 .fcpg .srow [data-act="rest"]{display:none}
 .fcpg .sst:first-child{margin-block-start:0}
-.fcpg .pk{min-height:46px;padding:8px 15px;font-size:.95rem}
-.fcpg .pks{gap:8px}
+.fcpg .pk{min-height:38px;padding:6px 12px;font-size:.86rem}
+.fcpg .pks{gap:6px}
+.fcpg .it .t{font-size:.9rem}.fcpg .seg button{min-height:38px;min-width:46px;font-size:.82rem}.fcpg .snote{font-size:.8rem}.fcpg .mn{font-size:.82rem}
 .fcdxl{margin:0 0 8px;font-size:.84rem;color:var(--muted)}.fcdxl u{color:var(--ink);text-underline-offset:2px}
 .fcpic{margin:0 0 10px;padding:8px 10px;border-radius:10px;background:var(--surface2);font-size:.84rem}.fcpic summary{cursor:pointer;font-weight:700;color:var(--sc)}.fcpic p{margin:6px 0 0;line-height:1.45}
 .fcd{border-top:0;padding-block:0}.fcd+.fcd{border-top:1px solid var(--line);margin-block-start:8px;padding-block-start:6px}
 .fcsm{padding:12px 14px;border-radius:14px;border:1.5px dashed var(--accent);background:var(--accent-soft);display:flex;flex-direction:column;gap:5px}
 .fcsmh{display:flex;justify-content:space-between;align-items:center;font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
-.fcsm b{font-size:1rem;line-height:1.3}.fcsm p{margin:0}.fcsay{font-size:.92rem;line-height:1.4;font-style:italic}
-.fcyn{margin-block-start:4px}.fcyn button{flex:1;min-height:46px;font-size:.95rem;color:var(--ink)}
+.fcsm b{font-size:.92rem;line-height:1.3}.fcsm p{margin:0}.fcsay{font-size:.92rem;line-height:1.4;font-style:italic}
+.fcyn{margin-block-start:4px}.fcyn button{flex:1;min-height:40px;font-size:.88rem;color:var(--ink)}
 .fcfoot{margin:2px 0 0;text-align:center;font-size:.78rem}
-.fcbar{position:sticky;bottom:calc(var(--navh,0px) + 8px);z-index:16;display:flex;gap:8px;padding:8px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,.14)}
-.fcbar .btn{min-height:52px;border-radius:13px;font-size:1rem}
-.fcbk{flex:0 0 52px;padding:0;font-size:1.5rem!important;line-height:1}.fcbk:disabled{opacity:.35}
+.fcbar{position:sticky;bottom:calc(var(--navh,0px) + 6px);z-index:16;display:flex;gap:6px;padding:6px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,.14)}
+.fcbar .btn{min-height:44px;border-radius:12px;font-size:.92rem}
+.fcbk{flex:0 0 44px;padding:0;font-size:1.5rem!important;line-height:1}.fcbk:disabled{opacity:.35}
 .fcno{flex:0 0 auto;padding-inline:14px;color:var(--muted)}
 .fcnx{flex:1}
 .fcmap{padding-block:8px 16px}
@@ -8858,6 +8859,7 @@ var shuffle=function(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.flo
 
 /* ================= storage ================= */
 /* Preview of the next version: served from /next/. It works on its own copy of the saved patients, so the live data is never touched. */
+var NEXT_BUILD=3;
 var NEXT=/\/next\//.test(location.pathname)||/[?&]next=1/.test(location.search);
 var KEY=NEXT?'bhp.next':'bhp.v1';
 if(NEXT)try{if(!localStorage.getItem(KEY)&&localStorage.getItem('bhp.v1'))localStorage.setItem(KEY,localStorage.getItem('bhp.v1'))}catch(e){}
@@ -9715,7 +9717,7 @@ function render(keepScroll){
   else if(UI.tab==='enc'&&e&&!UI.pick&&UI.stage==='rev')bn='Gaps are suggestions from the checklist, not a complete list. Compare with your handbook.';
   else if(UI.tab==='enc'&&e&&!UI.pick&&UI.stage==='note')bn='This note is drafted from your ticks and typing. Read it, correct it and check it against your sources before you use or submit it.';
   if(bn)body='<div class="compn"><p><b>Companion only.</b> '+bn+'</p></div>'+body;
-  if(NEXT&&UI.tab==='enc'&&(!e||UI.pick))body='<div class="nxb"><b>Preview of the next version.</b> It uses a copy of your saved patients; nothing here changes the live app.</div>'+body;
+  if(NEXT&&UI.tab==='enc'&&(!e||UI.pick))body='<div class="nxb"><b>Preview of the next version.</b> It uses a copy of your saved patients; nothing here changes the live app. <span class="muted">Build '+NEXT_BUILD+'</span></div>'+body;
   var top='<header class="top"><div class="brand">Bedside H&amp;E<small>History, examination, differential</small></div><div class="row">'+(saveOK?'':'<span class="pill red" title="Browser storage is blocked. Export your log often.">Not saving</span>')+'<button class="ibtn" data-act="help" aria-label="How to use this app" title="Help" aria-pressed="'+!!UI.helpOpen+'">'+IC.help+'</button><button class="ibtn" data-act="accent" aria-label="Change colour style" title="Colour style" aria-pressed="'+!!UI.stOpen+'">'+IC.palette+'</button><button class="ibtn" data-act="theme" aria-label="Theme: '+themeName()+'. Tap to switch" title="Theme: '+themeName()+'">'+(DB.theme==='dark'?IC.moon:DB.theme==='light'?IC.sun:IC.auto)+'</button></div></header>';
   if(LAYOUT_A&&UI.tab==='enc'&&e&&!UI.pick){
     var P0=getP(e.pid);
