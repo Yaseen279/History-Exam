@@ -1,11 +1,11 @@
-// Focus interview (the preview at /next/): flow, data isolation from the live app, and a walk through every page of every complaint.
+// The app's main flows (focus interview, Study tab, update log, text size), isolation of the /next/ preview copy from the live data, and a walk through every page of every complaint.
 // usage: node tests/focus.js
 const {serve,addHook,launch,reporter,ROOT}=require('./lib');
 (async()=>{const R=reporter(),ok=R.ok;const s=serve(ROOT,addHook),{b,ctx}=await launch();const U=s.url;const pg=await ctx.newPage();const errs=[];pg.on('pageerror',e=>errs.push(e.message));
 const closeWn=async()=>{const x=await pg.$('.wnft [data-act=wnClose]');if(x)await x.click()};
 // 1. live: make a saved patient in the live app, focus must NOT be on there
 await pg.goto(U+'/');await closeWn();await pg.click('[data-act=pick][data-id=cough]');await pg.waitForTimeout(200);
-ok(!(await pg.$('#fc')),'live app: no focus view');ok(!(await pg.$('.nxb')),'live app: no preview banner');
+ok(!!(await pg.$('#fc')),'live app: the history opens in focus view');ok(!(await pg.$('.nxb')),'live app: no preview banner');
 const c0=await pg.$('.pk[data-act=chip]');await c0.click();await pg.waitForTimeout(500);
 const live0=await pg.evaluate(()=>localStorage.getItem('bhp.v1'));ok(live0&&JSON.parse(live0).encs.length===1,'live patient saved');
 // 2. preview: gets a copy, changes stay in the copy
@@ -62,8 +62,8 @@ if(ids){let tot=0,empty=[];for(const id of ids){if(id==='other')continue;
 // exam under maintenance, one Study tab with only memory aids and reference
 await pg.goto(U+'/next/');await pg.waitForTimeout(150);{const nw=await pg.$('[data-act=newEnc]');if(nw)await nw.click();await pg.waitForTimeout(80);let pk=await pg.$('[data-act=pick][data-id=chest]');if(!pk){await pg.click('[data-act=spec][data-g=Medicine]');await pg.waitForTimeout(80)}await pg.click('[data-act=pick][data-id=chest]');await pg.waitForTimeout(150)}
 ok(!(await pg.$('.wnov')),'What\'s new does not reopen once seen');
-{await pg.click('[data-act=newEnc]');await pg.waitForTimeout(100);await pg.click('[data-act=wnOpen]');await pg.waitForTimeout(150);const nu=await pg.$$eval('.wnup',x=>x.length),op=await pg.$$eval('.wnup[open]',x=>x.length);ok(nu>=5&&op===1,'What\'s new lists '+nu+' updates, newest open, past ones collapsed');
- const past=await pg.$$('.wnup:not([open]) summary');await past[1].click();await pg.waitForTimeout(100);ok((await pg.$$eval('.wnup[open] li',x=>x.length))>11,'a past update opens to show its changes');await pg.click('.wnft [data-act=wnClose]');await pg.waitForTimeout(100);
+{await pg.click('[data-act=newEnc]');await pg.waitForTimeout(100);await pg.click('[data-act=wnOpen]');await pg.waitForTimeout(150);const nu=await pg.$$eval('.wnup',x=>x.length),op=await pg.$$eval('.wnup[open]',x=>x.length);ok(nu===2&&op===1&&(await pg.$$eval('.wnup[open] .wnd',x=>x.length))>=5,'What\'s new: this update open with pictures, the past update collapsed');
+ const past=await pg.$$('.wnup:not([open]) summary');await past[0].click();await pg.waitForTimeout(100);ok((await pg.$$eval('.wnup[open] .wnd',x=>x.length))>=8,'the past update opens with its pictures');await pg.click('.wnft [data-act=wnClose]');await pg.waitForTimeout(100);
  let pk=await pg.$('[data-act=pick][data-id=chest]');if(!pk){await pg.click('[data-act=spec][data-g=Medicine]');await pg.waitForTimeout(80)}await pg.click('[data-act=pick][data-id=chest]');await pg.waitForTimeout(150)}
 await pg.click('[data-act=infoToggle]');await pg.waitForTimeout(100);await pg.click('[data-act=stage][data-s=ddx]');await pg.waitForTimeout(150);ok(!(await pg.$('[data-b="pt.age"]')),'patient form closes when the stage changes');
 ok((await pg.$$eval('.stages button',x=>x.map(b=>b.dataset.s).join(',')))==='hist,exam,vit,ddx,rev,note','stage bar: History, Exam, Vitals, DDx, Review, Note');
@@ -78,5 +78,15 @@ await pg.fill('#aq','aortic dissection');await pg.waitForTimeout(150);const nS=a
 await pg.click('[data-act=aidG][data-g=Surgery]');await pg.waitForTimeout(100);ok((await pg.$$eval('details.a2',x=>x.length))<nA,'Surgery filter works');
 await pg.click('[data-act=stab][data-v=ref]');await pg.waitForTimeout(150);const rt=await pg.$$eval('.rftiles button',x=>x.map(b=>b.dataset.v).join(','));ok(rt==='scores,calc,norm,crit,mnem','Reference sections: '+rt);
 for(const r of rt.split(',')){await pg.click('.rftiles [data-v='+r+']');await pg.waitForTimeout(120);const len=await pg.evaluate(()=>document.querySelector('#main').innerText.length);ok(len>400&&!!(await pg.$('[data-act=rhub]')),'Reference > '+r+' opens with content');await pg.click('[data-act=rhub]');await pg.waitForTimeout(80)}
+// removed controls, text size (on the live path)
+await pg.goto(U+'/');await pg.waitForTimeout(200);{const w=await pg.$('.wnft [data-act=wnClose]');if(w)await w.click()}
+ok(!(await pg.$('.nxb')),'live app has no preview banner');
+{const nw=await pg.$('[data-act=newEnc]');if(nw){await nw.click();await pg.waitForTimeout(80)}let pk=await pg.$('[data-act=pick][data-id=cough]');if(!pk){await pg.click('[data-act=spec][data-g=Medicine]');await pg.waitForTimeout(80)}await pg.click('[data-act=pick][data-id=cough]');await pg.waitForTimeout(150)}
+ok(!(await pg.$('.pk.ot')),'no "+ Other" chip in focus view');
+await pg.click('[data-act=fcView][data-v="0"]');await pg.waitForTimeout(200);ok(!(await pg.$('[data-act=hyToggle]'))&&!(await pg.$('[data-act=covToggle]'))&&!(await pg.$('.pk.ot')),'list view has no High-yield only, Test yourself or "+ Other"');await pg.click('[data-act=fcView][data-v="1"]');await pg.waitForTimeout(150);
+await pg.click('[data-act=moreToggle]');await pg.click('.moremenu [data-act=accent]');await pg.waitForTimeout(150);await pg.click('[data-act=fsSet][data-v=xl]');await pg.waitForTimeout(200);
+ok((await pg.evaluate(()=>getComputedStyle(document.documentElement).fontSize))==='20px'&&!(await pg.evaluate(()=>document.documentElement.scrollWidth>innerWidth)),'Extra large text applies with no sideways scroll');
+await pg.waitForTimeout(500);await pg.reload();await pg.waitForTimeout(250);ok((await pg.evaluate(()=>getComputedStyle(document.documentElement).fontSize))==='20px','text size is remembered');
+await pg.click('[data-act=moreToggle]');await pg.click('.moremenu [data-act=accent]');await pg.waitForTimeout(100);await pg.click('[data-act=fsSet][data-v=m]');await pg.waitForTimeout(100);ok((await pg.evaluate(()=>getComputedStyle(document.documentElement).fontSize))==='16px','back to Normal');
 ok(errs.length===0,'no page errors '+errs.slice(0,3).join(' ; '));
 R.done();await b.close();s.close()})();
