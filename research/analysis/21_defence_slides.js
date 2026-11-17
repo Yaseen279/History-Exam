@@ -3,8 +3,12 @@ const pptxgen = require('pptxgenjs');
 const { applyTheme } = require('/root/.claude/skills/synced/25741026-d946-4dbc-8c24-ac9a6070fdfc_a0e8a8de-929a-428a-b59c-ea7dac5ee207/pptx/scripts/apply_theme.js');
 const OUT = process.argv[2], FILE = process.argv[3];
 const FIG = OUT + '/figures/', PH = OUT + '/figures/photos/';
-const THEME = { name: 'Baghdad Defence', headFontFace: 'Cambria', bodyFontFace: 'Calibri',
-  colors: { dk1: '1D2230', lt1: 'FFFFFF', dk2: '1F3B4D', lt2: 'EEF2F6', accent1: '1F3B4D', accent2: 'B4541C', accent3: '2E7D6B',
+// Design templates: navy (title bands), green (white title, ruled), burgundy (title block), paper (framed page)
+const STYLE = process.argv[4] || 'navy';
+const ST = { navy: { main: '1F3B4D', acc: 'B4541C', pale: 'EEF2F6', page: 'FFFFFF', head: 'Cambria' }, green: { main: '1E4D3A', acc: 'A8791A', pale: 'EDF3EE', page: 'FFFFFF', head: 'Cambria' },
+  burgundy: { main: '6D1F2F', acc: '2F4858', pale: 'F4EEEF', page: 'FFFFFF', head: 'Bookman Old Style' }, paper: { main: '4A3728', acc: '2E6F6B', pale: 'EAE1D0', page: 'F7F2E8', head: 'Century Schoolbook' } }[STYLE];
+const THEME = { name: 'Baghdad Defence ' + STYLE, headFontFace: ST.head, bodyFontFace: 'Calibri',
+  colors: { dk1: '1D2230', lt1: 'FFFFFF', dk2: ST.main, lt2: ST.pale, accent1: ST.main, accent2: ST.acc, accent3: '2E7D6B',
     accent4: '8A6D1F', accent5: '6A4C9C', accent6: '9D1C4A', hlink: '1F6FA0', folHlink: '6A4C9C' } };
 const pres = new pptxgen(); pres.layout = 'LAYOUT_WIDE';
 pres.theme = { headFontFace: THEME.headFontFace, bodyFontFace: THEME.bodyFontFace };
@@ -13,13 +17,16 @@ const C = pres.SchemeColor, NAVY = C.text2, ORANGE = C.accent2, INK = C.text1, W
 const HX = THEME.colors;
 const FOOT = 'College of Medicine · University of Baghdad   |   Health Anxiety, AI Chatbot Use and Cyberchondria';
 
-pres.defineSlideMaster({ title: 'Content', background: { color: WHITE }, objects: [
-  { rect: { x: 0, y: 0, w: 13.33, h: 1.05, fill: { color: NAVY } } },
-  { rect: { x: 0, y: 1.05, w: 13.33, h: 0.07, fill: { color: ORANGE } } },
-  { rect: { x: 0, y: 7.08, w: 13.33, h: 0.42, fill: { color: PALE } } },
-  { text: { text: FOOT, options: { x: 0.5, y: 7.08, w: 10.5, h: 0.42, fontSize: 11, color: NAVY, valign: 'middle', margin: 0 } } },
-  { placeholder: { options: { name: 'title', type: 'title', x: 0.5, y: 0.1, w: 12.3, h: 0.85, fontSize: 30, bold: true, color: WHITE, valign: 'middle', margin: 0 }, text: 'Title' } }],
-  slideNumber: { x: 12.1, y: 7.08, w: 0.8, h: 0.42, fontSize: 12, bold: true, color: NAVY, align: 'right' } });
+const TITLE = c => ({ placeholder: { options: { name: 'title', type: 'title', x: 0.5, y: 0.1, w: 12.3, h: 0.85, fontSize: 30, bold: true, color: c, valign: 'middle', margin: 0 }, text: 'Title' } });
+const FTXT = (c, y = 7.08) => ({ text: { text: FOOT, options: { x: 0.5, y, w: 10.5, h: 0.42, fontSize: 11, color: c, valign: 'middle', margin: 0 } } });
+const R = (x, y, w, h, color) => ({ rect: { x, y, w, h, fill: { color } } });
+const LAY = {
+  navy: { objects: [R(0, 0, 13.33, 1.05, NAVY), R(0, 1.05, 13.33, 0.07, ORANGE), R(0, 7.08, 13.33, 0.42, PALE), FTXT(NAVY), TITLE(WHITE)], num: NAVY },
+  green: { objects: [R(0, 0, 13.33, 0.14, NAVY), R(0.5, 1.02, 12.33, 0.07, ORANGE), R(0, 7.08, 13.33, 0.42, NAVY), FTXT(WHITE), TITLE(NAVY)], num: WHITE },
+  burgundy: { objects: [R(0, 0, 13.33, 1.05, NAVY), R(0, 0, 0.32, 1.05, ORANGE), R(0, 1.05, 13.33, 0.07, PALE), R(0, 7.08, 13.33, 0.42, PALE), R(0, 7.08, 0.32, 0.42, ORANGE), FTXT(NAVY), TITLE(WHITE)], num: NAVY },
+  paper: { objects: [{ rect: { x: 0.15, y: 0.12, w: 13.03, h: 7.26, fill: { type: 'none' }, line: { color: ST.main, width: 1.5 } } }, R(0.5, 1.0, 12.33, 0.04, NAVY), R(0.5, 1.07, 12.33, 0.02, NAVY), FTXT(NAVY, 6.98), TITLE(NAVY)], num: NAVY } }[STYLE];
+pres.defineSlideMaster({ title: 'Content', background: { color: ST.page }, objects: LAY.objects,
+  slideNumber: { x: 12.1, y: STYLE === 'paper' ? 6.98 : 7.08, w: 0.8, h: 0.42, fontSize: 12, bold: true, color: LAY.num, align: 'right' } });
 pres.defineSlideMaster({ title: 'Cover', background: { color: NAVY } });
 
 let SEC = '';
@@ -33,7 +40,7 @@ const bul = (s, items, x, y, w, h, fs = 18) => s.addText(items.map((t, i) => {
 const head = (s, t, x, y, w) => s.addText(t, { x, y, w, h: 0.42, fontSize: 19, bold: true, color: ORANGE, fontFace: THEME.headFontFace, isTextBox: true, margin: 0 });
 const tbl = (s, hd, rows, x, y, w, colW, fs = 14, hi = []) => s.addTable(
   [hd.map(t => ({ text: t, options: { bold: true, color: WHITE, fill: { color: NAVY } } }))].concat(rows.map((r, i) => r.map((t, j) =>
-    ({ text: String(t), options: { color: INK, bold: j === 0 || hi.includes(i), fill: { color: hi.includes(i) ? 'FFF1B8' : (i % 2 ? 'EEF2F6' : 'FFFFFF') } } })))),
+    ({ text: String(t), options: { color: INK, bold: j === 0 || hi.includes(i), fill: { color: hi.includes(i) ? 'FFF1B8' : (i % 2 ? ST.pale : 'FFFFFF') } } })))),
   { x, y, w, colW, fontSize: fs, border: { type: 'solid', pt: 0.75, color: 'B8C4CE' }, valign: 'middle', margin: [3, 6, 3, 6] });
 const stat = (s, num, label, x, y, w, h = 1.5, col = NAVY) => {
   s.addShape(pres.ShapeType.rect, { x, y, w, h, fill: { color: PALE }, line: { color: 'B8C4CE', width: 0.75 } });
