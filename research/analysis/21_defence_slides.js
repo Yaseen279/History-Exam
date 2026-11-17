@@ -126,7 +126,7 @@ s = S('Method: Design and Participants');
 s.addText('Reported according to STROBE and CHERRIES. One response per Google account; no missing data.', { x: 0.5, y: 5.85, w: 7.7, h: 0.75, fontSize: 15, italic: true, color: INK, isTextBox: true, margin: 0 });
 head(s, 'Ethical considerations', 8.6, 1.4, 4.2);
 bul(s, ['Anonymous and voluntary', 'Electronic **informed consent** before any question', 'No names, e-mails or contact details collected', 'No intervention and no patient records'], 8.6, 1.85, 4.25, 3.0, 16);
-stat(s, 'n = 300', 'adults in Baghdad, complete data', 8.6, 5.0, 4.2, 1.6);
+pic(s, PH + 'c_sunset.jpg', 8.6, 5.0, 4.2, 1.6, 'Baghdad and the Tigris (photo: Synaps, CC BY-SA 4.0)');
 
 // ---------------------------------------------------------------- 8 Questionnaire
 s = S('Method: The Questionnaire');
@@ -136,9 +136,10 @@ tbl(s, ['Part', 'Content', 'Scoring'], [
   ['3', 'Short Health Anxiety Inventory (SHAI-14)', '14 items, each 0–3; total 0–42'],
   ['4', 'Cyberchondria Severity Scale (CSS-12)', '12 items, each 1–5; total 12–60; four dimensions'],
   ['5', 'Behaviour after searching', 'Actions taken, telling the doctor, effect on the relationship']], 0.5, 1.45, 12.33, [0.9, 5.2, 6.23], 18, [2, 3]);
-head(s, 'Definitions', 0.5, 4.7, 6);
+head(s, 'Definitions', 0.5, 4.2, 6);
+pic(s, PH + 'c_bedlaptop.jpg', 8.9, 3.95, 3.93, 2.75, 'Photo: Shixart1985, CC BY 2.0');
 bul(s, ['**Elevated health anxiety:** SHAI-14 score of 18 or more (a screening result, not a diagnosis)', '**High cyberchondria:** CSS-12 score above 33 (the upper third of the sample)',
-  '**AI chatbot user:** reported using an AI chatbot for health information'], 0.5, 5.15, 12.33, 1.8, 17);
+  '**AI chatbot user:** reported using an AI chatbot for health information'], 0.5, 4.65, 8.2, 2.3, 16);
 
 // ---------------------------------------------------------------- 9 Statistics
 s = S('Method: Statistical Analysis');
@@ -185,7 +186,8 @@ tbl(s, ['Scale', 'Mean ± SD', 'Median (IQR)', 'Cronbach’s alpha'], [
   ['Excessiveness (3–15)', '9.66 ± 2.94', '10 (8–12)', '0.77'], ['Compulsion (3–15)', '5.00 ± 2.58', '4 (3–6)', '0.88'],
   ['Distress (3–15)', '7.24 ± 2.74', '7 (5–9)', '0.76'], ['Reassurance seeking (3–15)', '6.96 ± 2.81', '7 (5–9)', '0.76']], 0.5, 1.45, 8.3, [3.2, 1.8, 1.7, 1.6], 15, [0, 1]);
 stat(s, '19.0%', 'elevated health anxiety (SHAI-14 ≥ 18); 95% CI 15.0–23.8%', 9.1, 1.45, 3.73, 2.0, ORANGE);
-tbl(s, ['Cut-off', 'n', '%'], [['≥ 18', '57', '19.0'], ['≥ 22', '22', '7.3'], ['≥ 29', '2', '0.7']], 9.1, 3.65, 3.73, [1.5, 1.0, 1.23], 15);
+tbl(s, ['Cut-off', 'n', '%'], [['≥ 18', '57', '19.0'], ['≥ 22', '22', '7.3'], ['≥ 29', '2', '0.7']], 9.1, 3.55, 3.73, [1.5, 1.0, 1.23], 14);
+pic(s, PH + 'c_worried.jpg', 9.1, 5.0, 3.73, 1.9);
 bul(s, ['Both scales were **reliable**, equally in Arabic and English', 'People **search a lot** (excessiveness highest) but searching rarely disrupts daily life (compulsion lowest)',
   'About **one in five** screened in the elevated range: a screening result, **not a diagnosis**'], 0.5, 5.0, 8.3, 1.95, 16);
 
@@ -233,7 +235,8 @@ tbl(s, ['Measure', 'Medical students (n = 132)', 'Others (n = 168)', 'p', 'Adjus
   ['SHAI-14, median (IQR)', '12.5 (10–17)', '11 (7–15)', '0.004', '0.081'], ['Elevated health anxiety', '23.5%', '15.5%', '0.079', '0.238'],
   ['CSS-12, median (IQR)', '29 (23–34)', '29 (23–34)', '0.989', '0.627'], ['High cyberchondria', '28.0%', '29.2%', '0.829', '0.771']], 0.5, 1.45, 12.33, [3.4, 3.0, 2.6, 1.5, 1.83], 18, [0]);
 bul(s, ['Before adjustment, medical students had **higher health anxiety**', 'After adjusting for **age**, gender, chronic condition and language, the difference was **no longer significant**',
-  'Cyberchondria was **identical** in the two groups', 'Medical students are younger, and younger people were more health-anxious'], 0.5, 4.0, 7.9, 2.3, 16);
+  'Cyberchondria was **identical** in the two groups'], 4.35, 3.95, 4.2, 2.9, 15);
+pic(s, PH + 'c_students.jpg', 0.5, 4.0, 3.6, 2.75, 'Photo: Binil Zack, CC BY-SA 4.0');
 s.addShape(pres.ShapeType.rect, { x: 8.7, y: 4.0, w: 4.13, h: 2.75, fill: { color: ORANGE } });
 s.addText([{ text: 'H2 is not supported', options: { fontSize: 24, bold: true, breakLine: true } }, { text: 'Age, not studying medicine, explained the difference', options: { fontSize: 16 } }],
   { x: 8.85, y: 4.0, w: 3.83, h: 2.75, color: WHITE, align: 'center', valign: 'middle', isTextBox: true, margin: 0, fontFace: THEME.headFontFace });
@@ -252,11 +255,12 @@ note(s, 'First study of cyberchondria in Baghdad, and one of the few to examine 
 // ---------------------------------------------------------------- 20 Strengths & limitations
 s = S('Strengths and Limitations');
 s.addText('Strengths', { x: 0.5, y: 1.45, w: 5.9, h: 0.55, fontSize: 19, bold: true, color: WHITE, fill: { color: C.accent3 }, align: 'center', valign: 'middle', isTextBox: true, margin: 0 });
-s.addShape(pres.ShapeType.rect, { x: 0.5, y: 2.0, w: 5.9, h: 4.8, fill: { color: PALE }, line: { color: 'B8C4CE', width: 0.75 } });
-bul(s, ['Validated and reliable scales (alpha 0.81 and 0.86)', 'Questionnaire in Arabic and English', 'AI chatbots studied separately from search engines', 'Complete data, no missing answers', 'Results adjusted for confounders'], 0.65, 2.15, 5.6, 4.5, 17);
+s.addShape(pres.ShapeType.rect, { x: 0.5, y: 2.0, w: 5.9, h: 3.05, fill: { color: PALE }, line: { color: 'B8C4CE', width: 0.75 } });
+bul(s, ['Validated and reliable scales (alpha 0.81 and 0.86)', 'Questionnaire in Arabic and English', 'AI chatbots studied separately from search engines', 'Complete data, no missing answers', 'Results adjusted for confounders'], 0.65, 2.1, 5.6, 2.9, 16);
 s.addText('Limitations', { x: 6.93, y: 1.45, w: 5.9, h: 0.55, fontSize: 19, bold: true, color: WHITE, fill: { color: C.accent6 }, align: 'center', valign: 'middle', isTextBox: true, margin: 0 });
-s.addShape(pres.ShapeType.rect, { x: 6.93, y: 2.0, w: 5.9, h: 4.8, fill: { color: PALE }, line: { color: 'B8C4CE', width: 0.75 } });
-bul(s, ['**Cross-sectional:** shows association, not cause', '**Convenience online sample**, many medical students: percentages cannot be generalised', 'Arabic wording not formally back-translated', 'Self-reported answers', 'Small group of non-users of AI (n = 34)'], 7.08, 2.15, 5.6, 4.5, 17);
+s.addShape(pres.ShapeType.rect, { x: 6.93, y: 2.0, w: 5.9, h: 3.05, fill: { color: PALE }, line: { color: 'B8C4CE', width: 0.75 } });
+bul(s, ['**Cross-sectional:** shows association, not cause', '**Convenience online sample**, many medical students: percentages cannot be generalised', 'Arabic wording not formally back-translated', 'Self-reported answers', 'Small group of non-users of AI (n = 34)'], 7.08, 2.1, 5.6, 2.9, 15);
+pic(s, PH + 'c_panorama.jpg', 0.5, 5.2, 12.33, 1.55, 'Baghdad seen from the Medical City (photo: Mohammed Qays, CC BY-SA 4.0)');
 
 // ---------------------------------------------------------------- 21 Conclusions
 s = S('Conclusions');
@@ -265,7 +269,10 @@ s = S('Conclusions');
  'Medical students were not at higher risk once age was considered', 'One in three delayed care when reassured, and one in three never tell their doctor'].forEach((t, i) => { const y = 1.42 + i * 0.92;
   s.addShape(pres.ShapeType.ellipse, { x: 0.5, y: y + 0.06, w: 0.66, h: 0.66, fill: { color: i === 2 ? ORANGE : NAVY } });
   s.addText(String(i + 1), { x: 0.5, y: y + 0.06, w: 0.66, h: 0.66, fontSize: 20, bold: true, color: WHITE, align: 'center', valign: 'middle', isTextBox: true, margin: 0 });
-  s.addText(t, { x: 1.35, y, w: 11.45, h: 0.78, fontSize: 18, bold: i === 2, color: INK, fill: { color: PALE }, valign: 'middle', isTextBox: true, margin: 10 }); });
+  s.addText(t, { x: 1.35, y, w: 7.55, h: 0.78, fontSize: 16, bold: i === 2, color: INK, fill: { color: PALE }, valign: 'middle', isTextBox: true, margin: 10 }); });
+
+pic(s, PH + 'c_steth.jpg', 9.2, 1.48, 3.63, 2.5);
+pic(s, PH + 'c_google.jpg', 9.2, 4.2, 3.63, 2.5, 'Photos: Jacek Halicki (CC BY-SA 4.0); Panelxf (CC0)');
 
 // ---------------------------------------------------------------- 22 Recommendations
 s = S('Recommendations');
@@ -286,16 +293,16 @@ s.addText(['White RW, Horvitz E. Cyberchondria: studies of the escalation of med
   'Schenkel SK, et al. Conceptualizations of cyberchondria and relations to the anxiety spectrum: meta-analysis. J Med Internet Res. 2021.',
   'Ayers JW, et al. Comparing physician and AI chatbot responses to patient questions. JAMA Intern Med. 2023.', 'Österman S, et al. The 14-item Short Health Anxiety Inventory as a screening tool. 2022.']
   .map((t, i, a) => ({ text: t, options: { bullet: { type: 'number' }, paraSpaceAfter: 6, breakLine: i < a.length - 1 } })), { x: 0.5, y: 1.4, w: 12.33, h: 4.75, fontSize: 16, color: INK, valign: 'top', isTextBox: true, margin: 4 });
-s.addText('The full list of 31 references (Vancouver style) is in the thesis. Photographs: Wikimedia Commons – ChatGPT phone by Jernej Furman (CC BY 2.0); person with phone by Japanexperterna.se (CC BY-SA 2.0); University of Baghdad by alameedy (CC0) and Ahmed z1987 (CC BY-SA 4.0); doctor and patient by the National Cancer Institute (public domain); others CC0.',
+s.addText('The full list of 31 references (Vancouver style) is in the thesis. Photographs: Wikimedia Commons – ChatGPT phone by Jernej Furman (CC BY 2.0); person with phone by Japanexperterna.se (CC BY-SA 2.0); University of Baghdad by alameedy (CC0); Baghdad Medical City by MohammadHuzam and Mohammed Qays, Tigris by Synaps (CC BY-SA 4.0); medical students by Binil Zack and stethoscope by Jacek Halicki (CC BY-SA 4.0); women with laptops by Shixart1985 (CC BY 2.0); doctor and patient by the National Cancer Institute (public domain); others CC0.',
   { x: 0.5, y: 6.2, w: 12.33, h: 0.75, fontSize: 10, italic: true, color: '555555', valign: 'top', isTextBox: true, margin: 0 });
 
 // ---------------------------------------------------------------- 24 Thank you
 s = pres.addSlide({ masterName: 'Cover', sectionTitle: SEC });
 s.addImage({ path: PH + 'c_end.jpg', x: 0, y: 0, w: 13.33, h: 7.5 });
-s.addShape(pres.ShapeType.rect, { x: 0, y: 2.3, w: 13.33, h: 2.9, fill: { color: NAVY, transparency: 12 } });
-s.addText('Thank You', { x: 0.5, y: 2.5, w: 12.33, h: 1.3, fontSize: 60, bold: true, color: WHITE, align: 'center', valign: 'middle', fontFace: THEME.headFontFace, isTextBox: true, margin: 0 });
-s.addText('Questions and discussion', { x: 0.5, y: 3.85, w: 12.33, h: 0.6, fontSize: 26, italic: true, color: 'F2C9A8', align: 'center', isTextBox: true, margin: 0 });
-s.addText('College of Medicine · University of Baghdad', { x: 0.5, y: 4.5, w: 12.33, h: 0.45, fontSize: 16, color: 'D9E2EA', align: 'center', isTextBox: true, margin: 0 });
+s.addShape(pres.ShapeType.rect, { x: 0, y: 4.75, w: 13.33, h: 2.75, fill: { color: NAVY, transparency: 8 } });
+s.addText('Thank You', { x: 0.5, y: 4.85, w: 12.33, h: 1.2, fontSize: 56, bold: true, color: WHITE, align: 'center', valign: 'middle', fontFace: THEME.headFontFace, isTextBox: true, margin: 0 });
+s.addText('Questions and discussion', { x: 0.5, y: 6.05, w: 12.33, h: 0.55, fontSize: 24, italic: true, color: 'F2C9A8', align: 'center', isTextBox: true, margin: 0 });
+s.addText('Baghdad Medical City on the Tigris  ·  College of Medicine, University of Baghdad', { x: 0.5, y: 6.7, w: 12.33, h: 0.45, fontSize: 16, color: 'D9E2EA', align: 'center', isTextBox: true, margin: 0 });
 
 // pptxgenjs repeats a paragraph-properties element before later runs of a bulleted paragraph, which drops the bullet: remove the repeats
 const fixBullets = async f => { const JSZip = require('jszip'), fs = require('fs'); const z = await JSZip.loadAsync(fs.readFileSync(f));
