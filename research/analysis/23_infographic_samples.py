@@ -5,9 +5,16 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, Circle, Wedge, FancyArrowPatch, Polygon, Rectangle
 from matplotlib import font_manager as fm
 OUT = sys.argv[1]
-FONT = 'Carlito' if any('Carlito' in f.name for f in fm.fontManager.ttflist) else 'DejaVu Sans'
+PALETTE = sys.argv[2] if len(sys.argv) > 2 else 'green'
+import glob, os
+for f in glob.glob(os.path.expanduser('~/.fonts/static/*.ttf')): fm.fontManager.addfont(f)
+if PALETTE == 'slate':   # Slidesgo template: navy highlight on blue-grey, DM Sans
+    FONT = 'DMSansStatic'
+    MAIN, ACC, P1, P2, P3, INK = '#445F73', '#0E2A47', '#7D95A8', '#A9BED0', '#D6E3EE', '#505050'
+else:
+    FONT = 'Carlito' if any('Carlito' in f.name for f in fm.fontManager.ttflist) else 'DejaVu Sans'
+    MAIN, ACC, P1, P2, P3, INK = '#1E4D3A', '#C8921B', '#4F7F69', '#8DB3A0', '#C9DDD2', '#1D2230'
 plt.rcParams['font.family'] = FONT
-MAIN, ACC, P1, P2, P3, INK = '#1E4D3A', '#C8921B', '#4F7F69', '#8DB3A0', '#C9DDD2', '#1D2230'
 
 def canvas(w=10, h=6.2):
     f, a = plt.subplots(figsize=(w, h), dpi=200); a.set_xlim(0, w); a.set_ylim(0, h); a.axis('off'); a.set_aspect('equal'); return f, a
@@ -82,7 +89,7 @@ a.text(0.1, 0.35, '7.3% at a cut-off of 22   ·   0.7% at 29', fontsize=12, colo
 save(f, 'sample3_one_in_five')
 
 # ---------------------------------------------------------------- 4. the patient's path after searching
-f, a = canvas(11, 6.2)
+f, a = canvas(11.5, 6.2)
 def box(x, y, w, h, t, c, tc='white', fs=15):
     a.add_patch(FancyBboxPatch((x, y), w, h, boxstyle='round,pad=0,rounding_size=0.2', fc=c, ec='none')); a.text(x + w / 2, y + h / 2, t, ha='center', va='center', fontsize=fs, fontweight='bold', color=tc)
 box(0.1, 2.7, 1.7, 0.85, 'Symptom', MAIN)
@@ -92,10 +99,10 @@ outs = [('Delayed care: felt reassured', 34.7, ACC), ('Ignored the symptom', 30.
 ys = [5.0, 3.75, 2.5, 1.25]
 for (t, v, c), y in zip(outs, ys):
     a.add_patch(FancyArrowPatch((4.2, 3.12), (5.2, y + .35), connectionstyle='arc3,rad=0', arrowstyle='-', color=c, lw=2 + v / 4, capstyle='round'))
-    a.add_patch(FancyBboxPatch((5.2, y), 3.3, 0.7, boxstyle='round,pad=0,rounding_size=0.15', fc=c, ec='none'))
+    a.add_patch(FancyBboxPatch((5.2, y), 3.65, 0.7, boxstyle='round,pad=0,rounding_size=0.15', fc=c, ec='none'))
     a.text(5.35, y + .35, t, va='center', fontsize=12.5, fontweight='bold', color='white' if c == ACC else MAIN)
-    a.text(8.65, y + .35, f'{v}%', va='center', fontsize=22 if c == ACC else 17, fontweight='bold', color=ACC if c == ACC else P1)
-a.add_patch(FancyBboxPatch((9.0, 0.1), 1.95, 1.05, boxstyle='round,pad=0,rounding_size=0.15', fc='#F4F8F5', ec=MAIN, lw=1.5))
-a.text(9.97, 0.8, 'At the doctor', ha='center', fontsize=11, color=INK)
-a.text(9.97, 0.33, 'never told: 31.7%', ha='center', fontsize=13, fontweight='bold', color=ACC)
+    a.text(9.0, y + .35, f'{v}%', va='center', fontsize=22 if c == ACC else 17, fontweight='bold', color=ACC if c == ACC else P1)
+a.add_patch(FancyBboxPatch((9.15, 0.1), 2.25, 1.05, boxstyle='round,pad=0,rounding_size=0.15', fc='#F4F8F5', ec=MAIN, lw=1.5))
+a.text(10.27, 0.8, 'At the doctor', ha='center', fontsize=11, color=INK)
+a.text(10.27, 0.33, 'never told: 31.7%', ha='center', fontsize=13, fontweight='bold', color=ACC)
 save(f, 'sample4_path_after_search')
