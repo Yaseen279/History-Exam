@@ -225,15 +225,17 @@ for i, p in enumerate(sub.text_frame._txBody.findall(qn('a:p'))):
         for r in p.findall(qn('a:r')): _colour(r.find(qn('a:rPr')), SLATE); r.find(qn('a:rPr')).set('sz', '1100')
 order.append(s)
 
-# 2 opening: the ayah, with the photo of the worried woman
+# 2 opening: Montaigne, the chest-pain search, and the question the talk answers
 s = new_slide(None)
-rect(s, 0.79, 1.15, 4.45, 3.4, WHITE, LIGHT)
-textbox(s, 0.9, 1.3, 4.25, 1.45, 'قُلْ لَنْ يُصِيبَنَا إِلَّا مَا كَتَبَ اللَّهُ لَنَا هُوَ مَوْلَانَا ۚ وَعَلَى اللَّهِ فَلْيَتَوَكَّلِ الْمُؤْمِنُونَ', size=21, color=NAVY, bold=True, align='c', font='Arial', anchor='m', rtl=True)
-textbox(s, 0.9, 2.8, 4.25, 0.35, 'سورة التوبة، الآية 51', size=12, color=SLATE, align='c', font='Arial', rtl=True)
-line(s, 1.6, 3.25, 4.45, 3.25, color=LIGHT, w=1)
-textbox(s, 0.95, 3.35, 4.15, 1.1, '“Say: never will anything befall us except what Allah has decreed for us; He is our Protector. And upon Allah let the believers rely.”',
-        size=11, color=INK, italic=True, align='c')
+rect(s, 0.79, 1.1, 4.4, 1.55, WHITE, LIGHT)
+textbox(s, 0.92, 1.18, 4.15, 0.95, '“He who fears he shall suffer, already suffers what he fears.”', size=16, color=NAVY, italic=True, bold=True, anchor='m')
+textbox(s, 0.92, 2.15, 4.15, 0.35, 'Michel de Montaigne', size=11.5, color=SLATE)
+textbox(s, 0.79, 2.9, 4.4, 1.25, ['**OUR QUESTION**', 'Is AI protecting the patient, or inducing anxiety?'], size=16, color=WHITE, fill=NAVY, anchor='m', align='c', margin=0.12, bold_color=C('C2D6E7'), space=4)
+textbox(s, 0.79, 4.25, 4.4, 0.45, 'We answer it from our data in the discussion.', size=11.5, color=SLATE, italic=True, align='c')
 picture(s, f'{FIG}/p_hook.jpg', 5.5, 1.2, w=3.7, frame=True)
+bubble(s, 5.3, 0.95, 3.75, 'am I going to die because of my chest pain?')
+b = rect(s, 6.15, 3.75, 3.05, 0.72, NAVY, None, MSO_SHAPE.ROUNDED_RECTANGLE); b.adjustments[0] = 0.3
+textbox(s, 6.25, 3.75, 2.9, 0.72, ['**AI chatbot:**', 'Chest pain can be serious. Go to the emergency department now.'], size=10, color=WHITE, anchor='m', bold_color=C('C2D6E7'), space=1)
 order.append(s)
 
 # 4 divider 1
@@ -307,34 +309,18 @@ textbox(s, 0.79, 4.02, 6.05, 0.85, ['* **Elevated health anxiety:** SHAI-14 of 1
 picture(s, f'{FIG}/p_methods.jpg', 7.05, 1.2, h=3.4, frame=True)
 order.append(s)
 
-# choosing the statistical tests: decision tree (shown at the start of the results)
-s = stats_slide = new_slide('CHOOSING THE STATISTICAL TESTS', 'CUSTOM_8_1')
-keybox(s, 'WHAT ARE WE TESTING?', 3.6, 1.12, 2.8, 0.36, size=11)
-cols = [0.72, 2.92, 5.12, 7.32]; W = 1.95
-line(s, 5.0, 1.48, 5.0, 1.6, w=1.25); line(s, cols[0] + W / 2, 1.6, cols[3] + W / 2, 1.6, w=1.25)
-L1 = ['A score between groups', 'Two categorical variables', 'Two scores', 'Many factors together']
-L2 = ['Normal? Shapiro–Wilk: **No**', 'Expected counts ≥ 5?', 'Link between two scores', 'Type of outcome?']
-L3 = [('2 groups', '**Mann–Whitney U**', '3+ groups', '**Kruskal–Wallis H**'), ('Yes', '**Chi-square**', 'No', '**Fisher’s exact**'), (None, '**Pearson r**, confirmed by **Spearman rho**', None, None),
-      ('Score', '**Linear regression**', 'Yes / no', '**Logistic regression**')]
-L4 = ['SHAI p < 0.001, CSS p = 0.008 · replace the t-test and ANOVA · medians (IQR)', 'Strength of the link: Cramér’s V', 'Adjusted for other factors: partial correlation', 'Hierarchical linear: B, beta, R² · logistic: AOR, AUC']
-for x, a, b, c3, d in zip(cols, L1, L2, L3, L4):
-    cx = x + W / 2
-    line(s, cx, 1.6, cx, 1.72, w=1.25, arrow=True)
-    keybox(s, a, x, 1.72, W, 0.42, fill=SLATE, size=10.5)
-    line(s, cx, 2.14, cx, 2.3, w=1.25, arrow=True)
-    textbox(s, x, 2.3, W, 0.62, b, size=10, color=NAVY, align='c', fill=WHITE, line=SLATE, anchor='m', margin=0.05, italic=True)
-    line(s, cx, 2.92, cx, 3.08, w=1.25)
-    if c3[0] is None:
-        line(s, cx, 3.08, cx, 3.2, w=1.25, arrow=True)
-        textbox(s, x, 3.2, W, 0.86, c3[1], size=10.5, color=WHITE, align='c', fill=NAVY, anchor='m', bold_color=WHITE)
-    else:
-        hw = (W - 0.08) / 2
-        line(s, x + hw / 2, 3.08, x + W - hw / 2, 3.08, w=1.25)
-        for k, (lab, test) in enumerate(((c3[0], c3[1]), (c3[2], c3[3]))):
-            xx = x + k * (hw + 0.08); line(s, xx + hw / 2, 3.08, xx + hw / 2, 3.2, w=1.25, arrow=True)
-            textbox(s, xx, 3.2, hw, 0.86, [lab, test], size=9.5, color=C('D6E3EE'), align='c', fill=NAVY, anchor='m', bold_color=WHITE, space=1)
-    textbox(s, x, 4.15, W, 0.7, d, size=9.5, color=INK, align='c')
-
+# choosing the statistical tests: one table (shown at the start of the results)
+s = stats_slide = new_slide('HOW WE CHOSE THE STATISTICAL TESTS', 'CUSTOM_8_1')
+textbox(s, 0.79, 1.12, 8.43, 0.45, '**First step:** Shapiro–Wilk showed the scores were **not normally distributed** (SHAI p < 0.001; CSS p = 0.008), so groups were compared with **non-parametric** tests · SPSS 26, p < 0.05',
+        size=10.5, color=INK, fill=C('E4ECF3'), line=SLATE, anchor='m', margin=0.08)
+table(s, ['What we compared', 'Example from our study', 'Test used', 'Instead of / why'], [
+    ['A score in 2 groups', 'Health anxiety: chronic condition vs none', '**Mann–Whitney U**', 'Instead of the t-test (not normal)'],
+    ['A score in 3 or more groups', 'Health anxiety across 4 age groups', '**Kruskal–Wallis H**', 'Instead of ANOVA (not normal)'],
+    ['Two yes/no variables', 'High cyberchondria × elevated health anxiety', '**Chi-square** · Cramér’s V', 'Fisher’s exact if an expected count < 5'],
+    ['Two scores', 'SHAI-14 × CSS-12', '**Pearson r** + Spearman rho', 'Spearman confirms without normality'],
+    ['Many factors → a score', 'What predicts the CSS-12 score?', '**Linear regression** (3 blocks)', 'Shows what health anxiety adds'],
+    ['Many factors → yes/no', 'What predicts elevated health anxiety?', '**Logistic regression**', 'Adjusted odds ratios; AUC, Hosmer–Lemeshow']],
+      0.79, 1.7, 8.43, [1.85, 2.6, 2.03, 1.95], size=10, row_h=0.43)
 
 # ================================================================== PART 2 · RESULTS
 order.append(divider(43, '3', 'RESULTS', 'p_results.jpg', PRESENTER_2))
@@ -432,12 +418,13 @@ for i, (head, txt, fill) in enumerate(studies):
     textbox(s, 5.7, y + 0.01, 3.48, 0.5, [f'**{head}**', txt], size=9.5, space=0, bold_color=NAVY, anchor='m')
 order.append(s)
 
-s = new_slide('AI CHATBOTS AND THE CONSULTATION', 'CUSTOM_8_1')
-panel(s, 0.79, 1.2, 4.12, 2.35, 'AI CHATBOTS', NAVY, ['* AI use **88.7%**, far above US surveys (about 20%): a young sample', '* AI users had **higher cyberchondria (+5.33 points)**, independently of health anxiety',
-      '* A chatbot can be asked **one more question** at any hour', '* Caution: only **34 non-users**; cannot show cause'], size=11)
-panel(s, 5.1, 1.2, 4.12, 2.35, 'THE CONSULTATION', ORANGE, ['* **34.7%** delayed care because they felt reassured: fewer visits, but risk of **late diagnosis**',
-      '* **31.7%** never tell their doctor, mainly for fear of being judged', '* Open discussion strengthens the relationship; hidden searching strains it'], size=11)
-textbox(s, 0.79, 3.8, 8.43, 0.7, '**Clinical message:** ask every patient, without judgement, what they searched or asked an AI', size=12, fill=C('E4ECF3'), line=ORANGE, anchor='m', align='c', bold_color=AMBER)
+s = new_slide('IS AI PROTECTING OR INDUCING ANXIETY?', 'CUSTOM_8_1')
+card(s, 0.79, 1.15, 4.12, 2.22, 'SIGNS OF HARM', NAVY, '34:79', ['* AI users had **higher cyberchondria (+5.33 points)**, independently of health anxiety', '* A chatbot can be asked **one more question** at any hour',
+     '* **34.7%** delayed care because they felt reassured: risk of **late diagnosis**', '* **31.7%** never tell their doctor what they found'], size=10.5)
+card(s, 5.1, 1.15, 4.12, 2.22, 'SIGNS OF PROTECTION', NAVY, '34:84', ['* AI use was **not linked to elevated health anxiety** (AOR 0.61, p = 0.44)', '* **57.7%** searched to decide whether they need a doctor',
+     '* **22.0%** went for urgent care after searching', '* Chatbots are built to flag **red-flag symptoms**'], size=10.5)
+textbox(s, 0.79, 3.5, 8.43, 1.3, ['**OUR HONEST ANSWER**', 'AI goes with **more anxious, repeated searching**, but not with more health anxiety itself. One survey cannot tell whether AI induces anxiety or anxious people use AI more, and only 34 people did not use AI. Whether AI protects patients needs follow-up studies.',
+        'Clinical message: ask every patient, without judgement, what they searched or asked an AI.'], size=10.5, color=INK, fill=C('E4ECF3'), line=SLATE, margin=0.1, space=4)
 order.append(s)
 
 s = new_slide('MEDICAL STUDENTS: WHAT IT MEANS', 'CUSTOM_8_1')
@@ -473,11 +460,11 @@ order.append(s)
 s = slides[20]
 for sid in (792, 793, 794, 797, 798, 799, 804): delete(shp(s, sid))
 textbox(s, 1.5, 0.62, 7.0, 0.45, '**r = 0.47**  ·  health anxiety and cyberchondria travel together', size=15, color=SLATE, align='c', bold_color=NAVY)
-set_text(shp(s, 796), 'THANK YOU', color=NAVY); move(shp(s, 796), x=1.5, y=1.05, w=7.0, h=0.95)
-set_text(shp(s, 795), ['Questions are welcome'], size=15, color=SLATE); move(shp(s, 795), y=1.98, h=0.45)
-rect(s, 2.0, 2.55, 6.0, 1.05, WHITE, LIGHT)
-textbox(s, 2.1, 2.6, 5.8, 0.6, '“He who fears he shall suffer, already suffers what he fears.”', size=14, color=NAVY, italic=True, bold=True, align='c', anchor='m')
-textbox(s, 2.1, 3.18, 5.8, 0.35, 'Michel de Montaigne', size=11, color=SLATE, align='c')
+set_text(shp(s, 796), 'THANK YOU', color=NAVY); move(shp(s, 796), x=1.5, y=1.02, w=7.0, h=0.9)
+set_text(shp(s, 795), ['Questions are welcome'], size=15, color=SLATE); move(shp(s, 795), y=1.9, h=0.45)
+rect(s, 1.8, 2.45, 6.4, 1.3, WHITE, LIGHT)
+textbox(s, 1.9, 2.5, 6.2, 0.85, 'قُلْ لَنْ يُصِيبَنَا إِلَّا مَا كَتَبَ اللَّهُ لَنَا هُوَ مَوْلَانَا ۚ وَعَلَى اللَّهِ فَلْيَتَوَكَّلِ الْمُؤْمِنُونَ', size=17, color=NAVY, bold=True, align='c', font='Arial', anchor='m', rtl=True)
+textbox(s, 1.9, 3.33, 6.2, 0.35, 'سورة التوبة، الآية 51', size=11, color=SLATE, align='c', font='Arial', rtl=True)
 textbox(s, 1.5, 4.6, 7.0, 0.3, 'Template: Slidesgo  ·  photographs: Freepik and free stock images', size=8, color=SLATE, align='c')
 order.append(s)
 
