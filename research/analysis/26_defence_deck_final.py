@@ -225,17 +225,16 @@ for i, p in enumerate(sub.text_frame._txBody.findall(qn('a:p'))):
         for r in p.findall(qn('a:r')): _colour(r.find(qn('a:rPr')), SLATE); r.find(qn('a:rPr')).set('sz', '1100')
 order.append(s)
 
-# 2 opening: Montaigne, the chest-pain search, and the question the talk answers
+# 2 opening: Montaigne, with the headache search
 s = new_slide(None)
-rect(s, 0.79, 1.1, 4.4, 1.55, WHITE, LIGHT)
-textbox(s, 0.92, 1.18, 4.15, 0.95, '“He who fears he shall suffer, already suffers what he fears.”', size=16, color=NAVY, italic=True, bold=True, anchor='m')
-textbox(s, 0.92, 2.15, 4.15, 0.35, 'Michel de Montaigne', size=11.5, color=SLATE)
-textbox(s, 0.79, 2.9, 4.4, 1.25, ['**OUR QUESTION**', 'Is AI protecting the patient, or inducing anxiety?'], size=16, color=WHITE, fill=NAVY, anchor='m', align='c', margin=0.12, bold_color=C('C2D6E7'), space=4)
-textbox(s, 0.79, 4.25, 4.4, 0.45, 'We answer it from our data in the discussion.', size=11.5, color=SLATE, italic=True, align='c')
+rect(s, 0.79, 1.45, 4.4, 2.0, WHITE, LIGHT)
+textbox(s, 0.95, 1.55, 4.1, 1.25, '“He who fears he shall suffer, already suffers what he fears.”', size=18, color=NAVY, italic=True, bold=True, anchor='m')
+textbox(s, 0.95, 2.85, 4.1, 0.4, 'Michel de Montaigne', size=12, color=SLATE)
+textbox(s, 0.79, 3.7, 4.4, 0.5, 'Searching can help, or it can feed fear.', size=13, color=SLATE, italic=True, align='c')
 picture(s, f'{FIG}/p_hook.jpg', 5.5, 1.2, w=3.7, frame=True)
-bubble(s, 5.3, 0.95, 3.75, 'am I going to die because of my chest pain?')
-b = rect(s, 6.15, 3.75, 3.05, 0.72, NAVY, None, MSO_SHAPE.ROUNDED_RECTANGLE); b.adjustments[0] = 0.3
-textbox(s, 6.25, 3.75, 2.9, 0.72, ['**AI chatbot:**', 'Chest pain can be serious. Go to the emergency department now.'], size=10, color=WHITE, anchor='m', bold_color=C('C2D6E7'), space=1)
+bubble(s, 5.3, 0.95, 3.2, 'is my headache a stroke?')
+b = rect(s, 6.0, 3.65, 3.2, 0.85, NAVY, None, MSO_SHAPE.ROUNDED_RECTANGLE); b.adjustments[0] = 0.3
+textbox(s, 6.1, 3.65, 3.0, 0.85, ['**AI chatbot:**', 'A sudden, severe headache can be a sign of a stroke. **Call emergency services immediately.**'], size=10, color=WHITE, anchor='m', bold_color=C('C2D6E7'), space=1)
 order.append(s)
 
 # 4 divider 1
@@ -418,13 +417,12 @@ for i, (head, txt, fill) in enumerate(studies):
     textbox(s, 5.7, y + 0.01, 3.48, 0.5, [f'**{head}**', txt], size=9.5, space=0, bold_color=NAVY, anchor='m')
 order.append(s)
 
-s = new_slide('IS AI PROTECTING OR INDUCING ANXIETY?', 'CUSTOM_8_1')
-card(s, 0.79, 1.15, 4.12, 2.22, 'SIGNS OF HARM', NAVY, '34:79', ['* AI users had **higher cyberchondria (+5.33 points)**, independently of health anxiety', '* A chatbot can be asked **one more question** at any hour',
-     '* **34.7%** delayed care because they felt reassured: risk of **late diagnosis**', '* **31.7%** never tell their doctor what they found'], size=10.5)
-card(s, 5.1, 1.15, 4.12, 2.22, 'SIGNS OF PROTECTION', NAVY, '34:84', ['* AI use was **not linked to elevated health anxiety** (AOR 0.61, p = 0.44)', '* **57.7%** searched to decide whether they need a doctor',
-     '* **22.0%** went for urgent care after searching', '* Chatbots are built to flag **red-flag symptoms**'], size=10.5)
-textbox(s, 0.79, 3.5, 8.43, 1.3, ['**OUR HONEST ANSWER**', 'AI goes with **more anxious, repeated searching**, but not with more health anxiety itself. One survey cannot tell whether AI induces anxiety or anxious people use AI more, and only 34 people did not use AI. Whether AI protects patients needs follow-up studies.',
-        'Clinical message: ask every patient, without judgement, what they searched or asked an AI.'], size=10.5, color=INK, fill=C('E4ECF3'), line=SLATE, margin=0.1, space=4)
+s = new_slide('AI CHATBOTS AND THE CONSULTATION', 'CUSTOM_8_1')
+panel(s, 0.79, 1.2, 4.12, 2.35, 'AI CHATBOTS', NAVY, ['* AI use **88.7%**, far above US surveys (about 20%): a young sample', '* AI users had **higher cyberchondria (+5.33 points)**, independently of health anxiety',
+      '* A chatbot can be asked **one more question** at any hour', '* Caution: only **34 non-users**; cannot show cause'], size=11)
+panel(s, 5.1, 1.2, 4.12, 2.35, 'THE CONSULTATION', ORANGE, ['* **34.7%** delayed care because they felt reassured: fewer visits, but risk of **late diagnosis**',
+      '* **31.7%** never tell their doctor, mainly for fear of being judged', '* Open discussion strengthens the relationship; hidden searching strains it'], size=11)
+textbox(s, 0.79, 3.8, 8.43, 0.7, '**Clinical message:** ask every patient, without judgement, what they searched or asked an AI', size=12, fill=C('E4ECF3'), line=ORANGE, anchor='m', align='c', bold_color=AMBER)
 order.append(s)
 
 s = new_slide('MEDICAL STUDENTS: WHAT IT MEANS', 'CUSTOM_8_1')
