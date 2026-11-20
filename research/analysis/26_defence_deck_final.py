@@ -15,7 +15,7 @@ SRC, FIG, OUT = sys.argv[1:4]
 prs = Presentation(SRC)
 C = lambda h: RGBColor.from_string(h)
 NAVY, SLATE, STEEL, LIGHT, PALE, INK, WHITE = C('0E2A47'), C('445F73'), C('5E7A90'), C('C2D6E7'), C('F3F3F5'), C('1D2230'), C('FFFFFF')
-ORANGE, AMBER, TEAL, WINE = C('C98A2B'), C('A85A12'), C('1E5B4F'), C('7F1D3A')
+ORANGE, AMBER, TEAL, WINE = C('536F88'), C('0E2A47'), C('2B4A66'), C('5E7A90')   # theme only: navy and blue-greys
 BODY, HEAD = 'DM Sans', 'Raleway'
 slides = {int(re.search(r'(\d+)\.xml$', s.part.partname).group(1)): s for s in prs.slides}
 LAYOUT = {l.name: l for l in prs.slide_layouts}
@@ -206,52 +206,34 @@ def divider(n, num, title, photo, presenter, search=None):
 order = []
 
 # ================================================================== PART 1 · INTRODUCTION AND METHODS
-# 1 title
+# 1 title: centred
 s = slides[1]
-t = shp(s, 432); move(t, x=0.6, y=1.3, w=4.95, h=1.6)
-set_text(t, 'HEALTH ANXIETY, AI CHATBOT USE AND CYBERCHONDRIA AMONG ADULTS IN BAGHDAD', size=22, align='l', color=NAVY)
-t.text_frame._txBody.find(qn('a:bodyPr')).set('anchor', 't')
-sub = shp(s, 433); move(sub, x=0.6, y=2.95, w=4.95, h=2.0)
+picture(s, f'{FIG}/logo_uob.png', 4.08, 0.45, h=0.8); picture(s, f'{FIG}/logo_med.png', 5.12, 0.45, h=0.8)
+textbox(s, 1.5, 1.33, 7.0, 0.55, ['Ministry of Higher Education and Scientific Research', 'University of Baghdad  ·  College of Medicine'], size=11, color=NAVY, bold=True, align='c', space=1)
+t = shp(s, 432); move(t, x=0.9, y=1.95, w=8.2, h=1.15)
+set_text(t, 'HEALTH ANXIETY, AI CHATBOT USE AND CYBERCHONDRIA AMONG ADULTS IN BAGHDAD', size=24, align='c', color=NAVY)
+t.text_frame._txBody.find(qn('a:bodyPr')).set('anchor', 'ctr')
+sub = shp(s, 433); move(sub, x=1.2, y=3.12, w=7.6, h=1.75)
 set_text(sub, ['An online cross-sectional survey', 'Prepared by', '**Abdulrahman Jamal Ghazi  ·  Mustafa Wamedh Mustafa  ·  Yaseen Omar Lutfi**',
-               'Supervised by', '**Assist. Prof. Dr. Thikra Hasan Mathkor**'], size=12, align='l', color=INK, bold_color=NAVY)
+               'Supervised by', '**Assist. Prof. Dr. Thikra Hasan Mathkor**'], size=13, align='c', color=INK, bold_color=NAVY)
 for i, p in enumerate(sub.text_frame._txBody.findall(qn('a:p'))):
     ppr = p.find(qn('a:pPr')); sb = ppr.find(qn('a:spcBef'))
     if sb is not None: sb.find(qn('a:spcPts')).set('val', '700' if i in (1, 3) else '100')
     if i == 0:
-        for r in p.findall(qn('a:r')): _colour(r.find(qn('a:rPr')), AMBER); r.find(qn('a:rPr')).set('i', '1'); r.find(qn('a:rPr')).set('sz', '1400')
+        for r in p.findall(qn('a:r')): _colour(r.find(qn('a:rPr')), SLATE); r.find(qn('a:rPr')).set('i', '1'); r.find(qn('a:rPr')).set('sz', '1500')
     if i in (1, 3):
-        for r in p.findall(qn('a:r')): _colour(r.find(qn('a:rPr')), SLATE); r.find(qn('a:rPr')).set('sz', '1050')
-picture(s, f'{FIG}/logo_uob.png', 0.6, 0.38, h=0.72); picture(s, f'{FIG}/logo_med.png', 1.42, 0.38, h=0.72)
-textbox(s, 2.25, 0.42, 4.6, 0.7, ['Ministry of Higher Education and Scientific Research', 'University of Baghdad  ·  College of Medicine'], size=11, color=NAVY, bold=True, space=2)
-picture(s, f'{FIG}/p_title.jpg', 5.75, 1.55, w=3.45, frame=True)
-bubble(s, 5.5, 1.22, 3.55, 'headache for 3 days causes brain tumour')
-bubble(s, 6.75, 3.25, 2.5, 'Could my headache be serious?', dark=True)
+        for r in p.findall(qn('a:r')): _colour(r.find(qn('a:rPr')), SLATE); r.find(qn('a:rPr')).set('sz', '1100')
 order.append(s)
 
-# 2 outline with the presenter split
-s = new_slide('OUTLINE')
-for x, fill, part, head, who, items in (
-        (0.79, NAVY, 'PART 1', 'INTRODUCTION AND METHODS', PRESENTER_1, ['The question behind the study', 'Health anxiety and cyberchondria', 'The vicious cycle', 'From Dr Google to Dr ChatGPT', 'Aim and hypotheses', 'Design, questionnaire, statistics']),
-        (3.67, SLATE, 'PART 2', 'RESULTS', PRESENTER_2, ['Participants and where they search', 'Behaviour after searching', 'Levels of health anxiety', 'Main finding (H1)', 'Predictors of both conditions', 'Medical students (H2)']),
-        (6.55, ORANGE, 'PART 3', 'DISCUSSION AND CONCLUSIONS', PRESENTER_3, ['Our finding in Baghdad', 'Worldwide and regional comparison', 'AI chatbots and the consultation', 'Strengths and limitations', 'Conclusions and recommendations'])):
-    textbox(s, x, 1.25, 2.67, 0.72, [part, f'**{head}**'], size=10, color=WHITE, fill=fill, anchor='m', margin=0.1, bold_color=WHITE, space=1)
-    rect(s, x, 1.97, 2.67, 2.85, WHITE, LIGHT)
-    textbox(s, x + 0.08, 2.03, 2.5, 0.32, f'Presented by **{who}**', size=10, color=SLATE, italic=True)
-    textbox(s, x + 0.08, 2.4, 2.52, 2.4, ['* ' + i for i in items], size=10.5, space=5)
-order.append(s)
-
-# 3 opening: the question behind the study
+# 2 opening: the ayah, with the photo of the worried woman
 s = new_slide(None)
-rect(s, 0.79, 1.05, 4.35, 1.35, WHITE, LIGHT)
-textbox(s, 0.9, 1.1, 4.15, 0.8, 'مَا أَنْزَلَ اللَّهُ دَاءً إِلَّا أَنْزَلَ لَهُ شِفَاءً', size=20, color=NAVY, bold=True, align='c', font='Arial', anchor='m', rtl=True)
-textbox(s, 0.9, 1.9, 4.15, 0.4, 'صحيح البخاري', size=11, color=AMBER, align='c', font='Arial', rtl=True)
-rect(s, 0.79, 2.6, 4.35, 1.55, WHITE, LIGHT)
-textbox(s, 0.95, 2.7, 4.05, 1.0, '“He who fears he shall suffer, already suffers what he fears.”', size=15, color=NAVY, italic=True, bold=True)
-textbox(s, 0.95, 3.7, 4.05, 0.35, 'Michel de Montaigne', size=11, color=AMBER)
-textbox(s, 0.79, 4.35, 4.35, 0.5, 'Searching can help, or it can feed fear.', size=12, color=SLATE, italic=True)
+rect(s, 0.79, 1.15, 4.45, 3.4, WHITE, LIGHT)
+textbox(s, 0.9, 1.3, 4.25, 1.45, 'قُلْ لَنْ يُصِيبَنَا إِلَّا مَا كَتَبَ اللَّهُ لَنَا هُوَ مَوْلَانَا ۚ وَعَلَى اللَّهِ فَلْيَتَوَكَّلِ الْمُؤْمِنُونَ', size=21, color=NAVY, bold=True, align='c', font='Arial', anchor='m', rtl=True)
+textbox(s, 0.9, 2.8, 4.25, 0.35, 'سورة التوبة، الآية 51', size=12, color=SLATE, align='c', font='Arial', rtl=True)
+line(s, 1.6, 3.25, 4.45, 3.25, color=LIGHT, w=1)
+textbox(s, 0.95, 3.35, 4.15, 1.1, '“Say: never will anything befall us except what Allah has decreed for us; He is our Protector. And upon Allah let the believers rely.”',
+        size=11, color=INK, italic=True, align='c')
 picture(s, f'{FIG}/p_hook.jpg', 5.5, 1.2, w=3.7, frame=True)
-bubble(s, 5.3, 0.95, 3.4, 'is my chest pain a heart attack?')
-bubble(s, 6.95, 4.1, 2.2, '…but what if it is?', dark=True)
 order.append(s)
 
 # 4 divider 1
@@ -278,18 +260,7 @@ textbox(s, 0.79, 2.38, 8.43, 0.32, 'CSS-12 (CYBERCHONDRIA SEVERITY SCALE): FOUR 
 for i, (head, fill, icon, txt) in enumerate((('EXCESSIVENESS', NAVY, '34:16', 'Searching the same symptom again and again'), ('COMPULSION', ORANGE, '34:24', 'Searching interrupts work and social life'),
                                             ('DISTRESS', WINE, '34:67', 'Feeling worse, even panicking, after reading'), ('REASSURANCE', TEAL, '35:70', 'Searching leads to consulting a doctor'))):
     card(s, 0.79 + i * 2.14, 2.75, 2.01, 1.45, head, fill, icon, txt, size=11)
-textbox(s, 0.79, 4.3, 8.43, 0.45, 'Searching itself is normal: it becomes cyberchondria when it is **excessive, compulsive and distressing**.', size=11.5, color=SLATE, italic=True)
-order.append(s)
-
-# 7 the vicious cycle
-s = new_slide('THE VICIOUS CYCLE', 'CUSTOM_8_1')
-rect(s, 0.79, 1.2, 3.65, 3.5, WHITE, LIGHT)
-textbox(s, 0.88, 1.28, 3.5, 3.4, ['* Two meta-analyses: health anxiety and cyberchondria correlate at **r = 0.62–0.63**', '* Health-anxious people feel **worse** after searching; others feel **relieved**',
-        '* Dutch 4-wave panel (n = 5322): the relationship runs **both ways**', '* Reassurance gives **short relief**, so the cycle repeats'], size=11.5, space=8)
-boxes = {'top': (6.05, 1.2, 'Health anxiety', NAVY), 'right': (7.55, 2.35, 'Excessive searching', SLATE), 'bottom': (6.05, 3.5, 'Post-search distress', ORANGE), 'left': (4.55, 2.35, 'Reassurance seeking', WINE)}
-for x, y, txt, fill in boxes.values(): keybox(s, txt, x, y, 1.62, 0.62, fill=fill, size=11.5)
-line(s, 7.67, 1.51, 8.36, 2.33, arrow=True); line(s, 8.36, 2.99, 7.69, 3.8, arrow=True); line(s, 6.03, 3.8, 5.36, 2.99, arrow=True); line(s, 5.36, 2.33, 6.03, 1.51, arrow=True)
-textbox(s, 4.55, 4.3, 4.62, 0.35, 'Proposed cycle (cognitive-behavioural model)', size=10.5, color=SLATE, italic=True, align='c')
+textbox(s, 0.79, 4.28, 8.43, 0.55, ['Searching itself is normal: it becomes cyberchondria when it is **excessive, compulsive and distressing**.', 'Two meta-analyses link it strongly with health anxiety (**r = 0.62–0.63**), and the two may **feed each other**.'], size=11, color=SLATE, italic=True, space=2)
 order.append(s)
 
 # 8 from Dr Google to Dr ChatGPT
@@ -299,7 +270,7 @@ panel(s, 0.79, 1.2, 4.35, 2.62, 'WHAT CHANGES WITH AI CHATBOTS?', NAVY, ['* **Fl
 picture(s, f'{FIG}/p_robot.jpg', 5.45, 1.25, w=3.72, frame=True)
 bubble(s, 5.3, 3.55, 3.35, 'I feel tired and my hands shake. Is it serious?')
 textbox(s, 0.79, 4.1, 8.43, 0.68, '**The gap:** no cyberchondria data from Baghdad  ·  AI chatbots rarely studied separately from search engines  ·  mixed evidence on medical students',
-        size=11.5, color=INK, fill=C('FBF1E3'), line=ORANGE, anchor='m', margin=0.1, bold_color=AMBER)
+        size=11.5, color=INK, fill=C('E4ECF3'), line=ORANGE, anchor='m', margin=0.1, bold_color=AMBER)
 order.append(s)
 
 # 9 aim and hypotheses
@@ -336,8 +307,8 @@ textbox(s, 0.79, 4.02, 6.05, 0.85, ['* **Elevated health anxiety:** SHAI-14 of 1
 picture(s, f'{FIG}/p_methods.jpg', 7.05, 1.2, h=3.4, frame=True)
 order.append(s)
 
-# 13 choosing the statistical tests: decision tree
-s = new_slide('CHOOSING THE STATISTICAL TESTS', 'CUSTOM_8_1')
+# choosing the statistical tests: decision tree (shown at the start of the results)
+s = stats_slide = new_slide('CHOOSING THE STATISTICAL TESTS', 'CUSTOM_8_1')
 keybox(s, 'WHAT ARE WE TESTING?', 3.6, 1.12, 2.8, 0.36, size=11)
 cols = [0.72, 2.92, 5.12, 7.32]; W = 1.95
 line(s, 5.0, 1.48, 5.0, 1.6, w=1.25); line(s, cols[0] + W / 2, 1.6, cols[3] + W / 2, 1.6, w=1.25)
@@ -363,10 +334,11 @@ for x, a, b, c3, d in zip(cols, L1, L2, L3, L4):
             xx = x + k * (hw + 0.08); line(s, xx + hw / 2, 3.08, xx + hw / 2, 3.2, w=1.25, arrow=True)
             textbox(s, xx, 3.2, hw, 0.86, [lab, test], size=9.5, color=C('D6E3EE'), align='c', fill=NAVY, anchor='m', bold_color=WHITE, space=1)
     textbox(s, x, 4.15, W, 0.7, d, size=9.5, color=INK, align='c')
-order.append(s)
+
 
 # ================================================================== PART 2 · RESULTS
 order.append(divider(43, '3', 'RESULTS', 'p_results.jpg', PRESENTER_2))
+order.append(stats_slide)
 
 s = new_slide('PARTICIPANTS AND WHERE THEY SEARCH')
 for (x, y, num, lab) in ((0.79, 1.25, '300', 'adults, complete data'), (2.47, 1.25, '62.3%', 'aged 20–29'), (0.79, 2.42, '56.3%', 'female'), (2.47, 2.42, '44.0%', 'medical students')):
@@ -441,11 +413,11 @@ for (fx, fy, bx, by, bw, txt) in ((0.21, 0.36, 0.75, 3.35, 2.2, '**USA:** about 
     rect(s, px - 0.06, py - 0.06, 0.12, 0.12, ORANGE, None, MSO_SHAPE.OVAL)
     textbox(s, bx, by, bw, 0.5, txt, size=9.5, fill=WHITE, line=LIGHT, margin=0.06, anchor='m')
 textbox(s, 6.65, 1.2, 2.57, 0.5, 'CORRELATION: HEALTH ANXIETY ↔ CYBERCHONDRIA', size=10, color=NAVY, bold=True)
-for i, (lab, v, fill) in enumerate((('Meta-analysis, 2019', 0.62, STEEL), ('Meta-analysis, 2021', 0.63, STEEL), ('Our study', 0.47, ORANGE))):
+for i, (lab, v, fill) in enumerate((('Meta-analysis, 2019', 0.62, STEEL), ('Meta-analysis, 2021', 0.63, STEEL), ('Our study', 0.47, NAVY))):
     y = 1.85 + i * 0.68
     textbox(s, 6.65, y, 2.57, 0.28, lab, size=10, color=INK)
     rect(s, 6.65, y + 0.28, 2.1 * v / 0.63, 0.28, fill); textbox(s, 6.65 + 2.1 * v / 0.63 + 0.04, y + 0.26, 0.5, 0.3, f'{v:.2f}', size=10.5, color=NAVY, bold=True)
-textbox(s, 6.65, 3.95, 2.57, 0.9, ['**Why weaker?**', 'Low, narrow health anxiety · confident internet users · the short CSS-12'], size=10, fill=C('FBF1E3'), line=ORANGE, margin=0.07, bold_color=AMBER)
+textbox(s, 6.65, 3.95, 2.57, 0.9, ['**Why weaker?**', 'Low, narrow health anxiety · confident internet users · the short CSS-12'], size=10, fill=C('E4ECF3'), line=ORANGE, margin=0.07, bold_color=AMBER)
 order.append(s)
 
 s = new_slide('COMPARISON WITH REGIONAL STUDIES')
@@ -466,7 +438,7 @@ panel(s, 0.79, 1.2, 4.12, 2.35, 'AI CHATBOTS', NAVY, ['* AI use **88.7%**, far a
       '* A chatbot can be asked **one more question** at any hour', '* Caution: only **34 non-users**; cannot show cause'], size=11)
 panel(s, 5.1, 1.2, 4.12, 2.35, 'THE CONSULTATION', ORANGE, ['* **34.7%** delayed care because they felt reassured: fewer visits, but risk of **late diagnosis**',
       '* **31.7%** never tell their doctor, mainly for fear of being judged', '* Open discussion strengthens the relationship; hidden searching strains it'], size=11)
-textbox(s, 0.79, 3.8, 8.43, 0.7, '**Clinical message:** ask every patient, without judgement, what they searched or asked an AI', size=12, fill=C('FBF1E3'), line=ORANGE, anchor='m', align='c', bold_color=AMBER)
+textbox(s, 0.79, 3.8, 8.43, 0.7, '**Clinical message:** ask every patient, without judgement, what they searched or asked an AI', size=12, fill=C('E4ECF3'), line=ORANGE, anchor='m', align='c', bold_color=AMBER)
 order.append(s)
 
 s = new_slide('STRENGTHS AND LIMITATIONS', 'CUSTOM_8_1')
@@ -493,10 +465,12 @@ order.append(s)
 
 s = slides[20]
 for sid in (792, 793, 794, 797, 798, 799, 804): delete(shp(s, sid))
-textbox(s, 1.5, 0.7, 7.0, 0.9, 'r = 0.47', size=44, color=AMBER, bold=True, align='c', font=BODY)
-textbox(s, 1.5, 1.55, 7.0, 0.4, 'Health anxiety and cyberchondria travel together.', size=14, color=INK, align='c', italic=True)
-set_text(shp(s, 796), 'THANK YOU', color=NAVY); move(shp(s, 796), x=1.5, y=2.05, w=7.0, h=0.9)
-set_text(shp(s, 795), ['Questions are welcome'], size=15, color=SLATE); move(shp(s, 795), y=2.95, h=0.45)
+textbox(s, 1.5, 0.62, 7.0, 0.45, '**r = 0.47**  ·  health anxiety and cyberchondria travel together', size=15, color=SLATE, align='c', bold_color=NAVY)
+set_text(shp(s, 796), 'THANK YOU', color=NAVY); move(shp(s, 796), x=1.5, y=1.05, w=7.0, h=0.95)
+set_text(shp(s, 795), ['Questions are welcome'], size=15, color=SLATE); move(shp(s, 795), y=1.98, h=0.45)
+rect(s, 2.0, 2.55, 6.0, 1.05, WHITE, LIGHT)
+textbox(s, 2.1, 2.6, 5.8, 0.6, '“He who fears he shall suffer, already suffers what he fears.”', size=14, color=NAVY, italic=True, bold=True, align='c', anchor='m')
+textbox(s, 2.1, 3.18, 5.8, 0.35, 'Michel de Montaigne', size=11, color=SLATE, align='c')
 textbox(s, 1.5, 4.6, 7.0, 0.3, 'Template: Slidesgo  ·  photographs: Freepik and free stock images', size=8, color=SLATE, align='c')
 order.append(s)
 
