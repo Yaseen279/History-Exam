@@ -308,18 +308,34 @@ textbox(s, 0.79, 4.02, 6.05, 0.85, ['* **Elevated health anxiety:** SHAI-14 of 1
 picture(s, f'{FIG}/p_methods.jpg', 7.05, 1.2, h=3.4, frame=True)
 order.append(s)
 
-# choosing the statistical tests: one table (shown at the start of the results)
-s = stats_slide = new_slide('HOW WE CHOSE THE STATISTICAL TESTS', 'CUSTOM_8_1')
-textbox(s, 0.79, 1.12, 8.43, 0.45, '**First step:** Shapiro–Wilk showed the scores were **not normally distributed** (SHAI p < 0.001; CSS p = 0.008), so groups were compared with **non-parametric** tests · SPSS 26, p < 0.05',
-        size=10.5, color=INK, fill=C('E4ECF3'), line=SLATE, anchor='m', margin=0.08)
-table(s, ['What we compared', 'Example from our study', 'Test used', 'Instead of / why'], [
-    ['A score in 2 groups', 'Health anxiety: chronic condition vs none', '**Mann–Whitney U**', 'Instead of the t-test (not normal)'],
-    ['A score in 3 or more groups', 'Health anxiety across 4 age groups', '**Kruskal–Wallis H**', 'Instead of ANOVA (not normal)'],
-    ['Two yes/no variables', 'High cyberchondria × elevated health anxiety', '**Chi-square** · Cramér’s V', 'Fisher’s exact if an expected count < 5'],
-    ['Two scores', 'SHAI-14 × CSS-12', '**Pearson r** + Spearman rho', 'Spearman confirms without normality'],
-    ['Many factors → a score', 'What predicts the CSS-12 score?', '**Linear regression** (3 blocks)', 'Shows what health anxiety adds'],
-    ['Many factors → yes/no', 'What predicts elevated health anxiety?', '**Logistic regression**', 'Adjusted odds ratios; AUC, Hosmer–Lemeshow']],
-      0.79, 1.7, 8.43, [1.85, 2.6, 2.03, 1.95], size=10, row_h=0.43)
+# choosing the statistical tests: decision tree (shown at the start of the results)
+s = stats_slide = new_slide('CHOOSING THE STATISTICAL TESTS', 'CUSTOM_8_1')
+keybox(s, 'WHAT ARE WE TESTING?', 3.6, 1.12, 2.8, 0.36, size=11)
+cols = [0.72, 2.92, 5.12, 7.32]; W = 1.95
+line(s, 5.0, 1.48, 5.0, 1.6, w=1.25); line(s, cols[0] + W / 2, 1.6, cols[3] + W / 2, 1.6, w=1.25)
+L1 = ['A score between groups', 'Two categorical variables', 'Two scores', 'Many factors together']
+L2 = ['Normal? Shapiro–Wilk: **No**', 'Expected counts ≥ 5?', 'Link between two scores', 'Type of outcome?']
+L3 = [('2 groups', '**Mann–Whitney U**', '3+ groups', '**Kruskal–Wallis H**'), ('Yes', '**Chi-square**', 'No', '**Fisher’s exact**'), (None, '**Pearson r**, confirmed by **Spearman rho**', None, None),
+      ('Score', '**Linear regression**', 'Yes / no', '**Logistic regression**')]
+L4 = ['SHAI p < 0.001, CSS p = 0.008 · replace the t-test and ANOVA · medians (IQR)', 'Strength of the link: Cramér’s V', 'Adjusted for other factors: partial correlation', 'Hierarchical linear: B, beta, R² · logistic: AOR, AUC']
+for x, a, b, c3, d in zip(cols, L1, L2, L3, L4):
+    cx = x + W / 2
+    line(s, cx, 1.6, cx, 1.72, w=1.25, arrow=True)
+    keybox(s, a, x, 1.72, W, 0.42, fill=SLATE, size=10.5)
+    line(s, cx, 2.14, cx, 2.3, w=1.25, arrow=True)
+    textbox(s, x, 2.3, W, 0.62, b, size=10, color=NAVY, align='c', fill=WHITE, line=SLATE, anchor='m', margin=0.05, italic=True)
+    line(s, cx, 2.92, cx, 3.08, w=1.25)
+    if c3[0] is None:
+        line(s, cx, 3.08, cx, 3.2, w=1.25, arrow=True)
+        textbox(s, x, 3.2, W, 0.86, c3[1], size=10.5, color=WHITE, align='c', fill=NAVY, anchor='m', bold_color=WHITE)
+    else:
+        hw = (W - 0.08) / 2
+        line(s, x + hw / 2, 3.08, x + W - hw / 2, 3.08, w=1.25)
+        for k, (lab, test) in enumerate(((c3[0], c3[1]), (c3[2], c3[3]))):
+            xx = x + k * (hw + 0.08); line(s, xx + hw / 2, 3.08, xx + hw / 2, 3.2, w=1.25, arrow=True)
+            textbox(s, xx, 3.2, hw, 0.86, [lab, test], size=9.5, color=C('D6E3EE'), align='c', fill=NAVY, anchor='m', bold_color=WHITE, space=1)
+    textbox(s, x, 4.15, W, 0.7, d, size=9.5, color=INK, align='c')
+
 
 # ================================================================== PART 2 · RESULTS
 order.append(divider(43, '3', 'RESULTS', 'p_results.jpg', PRESENTER_2))
@@ -334,7 +350,26 @@ textbox(s, 0.79, 3.6, 3.26, 0.95, ['* **63.3%** health-related background', '* *
 pic = picture(s, f'{FIG}/sample1_phone_tools.png', 4.4, 1.2, h=3.6)
 order.append(s)
 
-s = new_slide('WHAT PEOPLE DID AFTER SEARCHING'); pic = picture(s, f'{FIG}/sample4_path_after_search.png', 0, 1.25, h=3.55); pic.left = int((prs.slide_width - pic.width) / 2); order.append(s)
+s = new_slide('WHAT PEOPLE DID AFTER SEARCHING', 'CUSTOM_8_1')
+def bars(slide, x, y, w, rows, top=None, bar_w=None):
+    """Label above a bar; the first row (the key finding) in navy, the rest in grey-blue."""
+    top = top or max(v for _, v in rows); bw = bar_w or (w - 0.65)
+    for k, (lab, v) in enumerate(rows):
+        yy = y + k * 0.47
+        textbox(slide, x, yy, w, 0.24, lab, size=9.5, color=INK, margin=0.02)
+        rect(slide, x, yy + 0.24, max(0.04, bw * v / top), 0.17, NAVY if k == 0 else C('8FA6BA'))
+        textbox(slide, x + bw * v / top + 0.04, yy + 0.19, 0.6, 0.26, f'{v:.1f}%', size=9.5, color=NAVY, bold=k == 0, margin=0.01)
+for x, w, title, icon, rows in ((0.79, 3.0, 'WHAT THEY DID', '34:16', [('Delayed or skipped care: felt reassured', 34.7), ('Ignored the symptom', 30.0), ('Visited several doctors', 25.3),
+                                                                     ('Sought urgent care', 22.0), ('Took medicine on their own', 21.3), ('Delayed care: too frightened', 8.7)]),
+                                (3.92, 2.6, 'TOLD THE DOCTOR?', '35:70', [('Never (fear of being judged)', 31.7), ('Sometimes', 41.3), ('Always', 27.0)]),
+                                (6.65, 2.57, 'THE RELATIONSHIP', '36:88', [('Significantly reduced trust', 12.7), ('Somewhat complicated', 22.0), ('No negative effect', 65.3)])):
+    card(s, x, 1.15, w, 3.65, title, NAVY, icon, '', size=10)
+    bars(s, x + 0.1, 1.72, w - 0.2, rows, top=70 if 'RELATION' in title else (45 if 'DOCTOR' in title else 40))
+for x, w, num, lab in ((3.92, 2.6, '31.7%', 'never tell their doctor what they found'), (6.65, 2.57, '34.7%', 'said searching complicated the relationship or reduced trust')):
+    line(s, x + 0.25, 3.28, x + w - 0.25, 3.28, color=LIGHT, w=1)
+    textbox(s, x + 0.1, 3.35, w - 0.2, 0.62, num, size=28, color=NAVY, bold=True, align='c', anchor='m')
+    textbox(s, x + 0.1, 3.95, w - 0.2, 0.7, lab, size=10.5, color=INK, align='c')
+order.append(s)
 
 s = new_slide('LEVELS OF HEALTH ANXIETY')
 pic = picture(s, f'{FIG}/sample3_one_in_five.png', 0, 1.25, w=7.2); pic.left = int((prs.slide_width - pic.width) / 2)
