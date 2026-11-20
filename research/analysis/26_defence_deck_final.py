@@ -115,6 +115,12 @@ def panel(slide, x, y, w, h, title, fill, items, size=10.5):
     rect(slide, x, y + 0.32, w, h - 0.32, WHITE, LIGHT)
     textbox(slide, x + 0.06, y + 0.38, w - 0.12, h - 0.42, items, size=size)
 
+def card(slide, x, y, w, h, title, fill, icon, items, size=11):
+    textbox(slide, x, y, w, 0.46, title, size=11.5, color=WHITE, bold=True, fill=fill, anchor='m', margin=0.08).text_frame.margin_left = Inches(0.52)
+    rect(slide, x + 0.09, y + 0.06, 0.34, 0.34, WHITE, None, MSO_SHAPE.OVAL); place_icon(slide, icon, x + 0.26, y + 0.23, 0.23)
+    rect(slide, x, y + 0.46, w, h - 0.46, WHITE, LIGHT)
+    textbox(slide, x + 0.07, y + 0.52, w - 0.14, h - 0.56, items, size=size, space=3)
+
 def picture(slide, path, x, y, w=None, h=None, frame=False):
     kw = {}
     if w: kw['width'] = Inches(w)
@@ -253,25 +259,26 @@ order.append(divider(4, '1', 'INTRODUCTION', 'p_intro.jpg', PRESENTER_1, 'rash o
 
 # 5 health anxiety
 s = new_slide('HEALTH ANXIETY', 'CUSTOM_8_1')
-panel(s, 0.79, 1.2, 4.12, 2.1, 'DEFINITION AND MODEL', NAVY, ['* Persistent worry about **having or getting a serious illness**', '* A **spectrum**: everyday worry → illness anxiety disorder (DSM-5-TR)',
-      '* Misreading normal sensations → anxiety → **checking and reassurance** → short relief → worry returns'])
-panel(s, 5.1, 1.2, 4.12, 2.1, 'BURDEN', ORANGE, ['* About **6%** of the population, up to **20%** of hospital outpatients', '* Costly: **unnecessary medical visits**',
-      '* Iraq, COVID-19 online survey (n = 1591): **49.5%** screened positive'])
-panel(s, 0.79, 3.45, 8.43, 1.35, 'HOW WE MEASURED IT', SLATE, ['* **SHAI-14** (Short Health Anxiety Inventory): 14 items, each 0–3, total **0–42**; validated in clinical and general samples',
-      '* **18 or more** = elevated health anxiety: a screening threshold, **not a diagnosis**'])
+panel(s, 0.79, 1.2, 2.62, 2.15, 'DEFINITION AND MODEL', NAVY, ['* Persistent worry about **having or getting a serious illness**', '* A **spectrum**: everyday worry → illness anxiety disorder',
+      '* Misread sensations → **checking and reassurance** → short relief → worry returns'], size=10)
+panel(s, 3.53, 1.2, 2.62, 2.15, 'BURDEN', ORANGE, ['* About **6%** of the population, up to **20%** of outpatients', '* Costly: **unnecessary medical visits**',
+      '* Iraq, COVID-19 survey (n = 1591): **49.5%** screened positive'], size=10)
+panel(s, 0.79, 3.48, 5.36, 1.3, 'HOW WE MEASURED IT', SLATE, ['* **SHAI-14**: 14 items, each 0–3, total **0–42**; validated in clinical and general samples',
+      '* **18 or more** = elevated health anxiety: a screening threshold, **not a diagnosis**'], size=10.5)
+picture(s, f'{FIG}/p_ha.jpg', 6.42, 1.25, w=2.75, frame=True)
 order.append(s)
 
 # 6 cyberchondria
 s = new_slide('CYBERCHONDRIA', 'CUSTOM_8_1')
-rect(s, 0.79, 1.18, 8.43, 1.02, WHITE, LIGHT)
-textbox(s, 0.87, 1.22, 8.3, 0.95, ['**Definition:** excessive or repeated online health searching that **increases, rather than relieves, distress** (Starcevic and Berle, 2013)',
-        'Search logs: searches for harmless symptoms often **escalate to rare, serious diagnoses** (White and Horvitz, 2009)'], size=11)
-textbox(s, 0.79, 2.3, 8.43, 0.32, 'CSS-12 (CYBERCHONDRIA SEVERITY SCALE): FOUR DIMENSIONS, 3 ITEMS EACH, TOTAL 12–60', size=11, color=NAVY, bold=True)
-for i, (head, fill, txt) in enumerate((('EXCESSIVENESS', NAVY, 'Searching the same symptom again and again'), ('COMPULSION', ORANGE, 'Searching interrupts work and social life'),
-                                      ('DISTRESS', WINE, 'Feeling worse, even panicking, after reading'), ('REASSURANCE', TEAL, 'Searching leads to consulting a doctor'))):
-    x = 0.79 + i * 2.14
-    bar_header(s, x, 2.68, 2.01, head, fill); rect(s, x, 3.0, 2.01, 1.0, WHITE, LIGHT); textbox(s, x + 0.06, 3.06, 1.9, 0.9, txt, size=11)
-textbox(s, 0.79, 4.15, 8.43, 0.5, 'Searching itself is normal: it becomes cyberchondria when it is **excessive, compulsive and distressing**.', size=11.5, color=SLATE, italic=True)
+rect(s, 0.79, 1.18, 5.95, 1.08, WHITE, LIGHT)
+textbox(s, 0.87, 1.22, 5.8, 1.0, ['**Definition:** excessive or repeated online health searching that **increases, rather than relieves, distress** (Starcevic and Berle, 2013)',
+        'Searches for harmless symptoms often **escalate to rare, serious diagnoses** (White and Horvitz, 2009)'], size=10.5)
+picture(s, f'{FIG}/p_cyber.jpg', 6.95, 1.2, w=2.25, frame=True)
+textbox(s, 0.79, 2.38, 8.43, 0.32, 'CSS-12 (CYBERCHONDRIA SEVERITY SCALE): FOUR DIMENSIONS, 3 ITEMS EACH, TOTAL 12–60', size=11, color=NAVY, bold=True)
+for i, (head, fill, icon, txt) in enumerate((('EXCESSIVENESS', NAVY, '34:16', 'Searching the same symptom again and again'), ('COMPULSION', ORANGE, '34:24', 'Searching interrupts work and social life'),
+                                            ('DISTRESS', WINE, '34:67', 'Feeling worse, even panicking, after reading'), ('REASSURANCE', TEAL, '35:70', 'Searching leads to consulting a doctor'))):
+    card(s, 0.79 + i * 2.14, 2.75, 2.01, 1.45, head, fill, icon, txt, size=11)
+textbox(s, 0.79, 4.3, 8.43, 0.45, 'Searching itself is normal: it becomes cyberchondria when it is **excessive, compulsive and distressing**.', size=11.5, color=SLATE, italic=True)
 order.append(s)
 
 # 7 the vicious cycle
@@ -296,39 +303,37 @@ textbox(s, 0.79, 4.1, 8.43, 0.68, '**The gap:** no cyberchondria data from Baghd
 order.append(s)
 
 # 9 aim and hypotheses
-s = slides[8]
-set_text(shp(s, 538), 'AIM AND HYPOTHESES', color=NAVY)
-for h, b, ht, bt in ((539, 534, 'AIM', 'To study how health anxiety relates to cyberchondria in adults in Baghdad, with a focus on **AI chatbots** and **medical students**'),
-                     (541, 535, 'OBJECTIVES', ['1. Describe online and AI health searching', '2. Measure both conditions and their link', '3. Compare medical students with others']),
-                     (540, 536, 'H1: PRIMARY', 'More health anxiety goes with more cyberchondria, **even after accounting for age, sex, background and digital habits**. Tested by correlation and regression'),
-                     (542, 537, 'H2: SECONDARY', 'Medical students have **higher** health anxiety and cyberchondria (“medical student syndrome”). Tested before and after adjusting for age')):
-    set_text(shp(s, h), ht, size=13.5, color=NAVY); set_text(shp(s, b), bt, size=10.5, color=INK, bold_color=NAVY); move(shp(s, b), h=1.2)
-reicon(s, (547, 555, 563, 570), ((544, '34:27'), (543, '36:60'), (546, '34:35'), (545, '35:15')))
+s = new_slide('AIM AND HYPOTHESES', 'CUSTOM_8_1')
+card(s, 0.79, 1.15, 4.12, 1.55, 'AIM', NAVY, '34:27', 'To study how health anxiety relates to cyberchondria in adults in Baghdad, with a focus on **AI chatbots** and **medical students**', size=11.5)
+card(s, 5.1, 1.15, 4.12, 1.55, 'OBJECTIVES', SLATE, '36:60', ['1. Describe online and AI health searching', '2. Measure both conditions and their link', '3. Compare medical students with others'], size=11)
+card(s, 0.79, 2.88, 4.12, 1.9, 'H1: PRIMARY HYPOTHESIS', TEAL, '34:35', ['More health anxiety goes with more cyberchondria, **even after accounting for age, sex, background and digital habits**',
+     'Tested by correlation and hierarchical regression'], size=11)
+card(s, 5.1, 2.88, 4.12, 1.9, 'H2: SECONDARY HYPOTHESIS', WINE, '35:15', ['Medical students have **higher** health anxiety and cyberchondria (“medical student syndrome”)',
+     'Tested before and after adjusting for age'], size=11)
 order.append(s)
 
 # 10 divider 2
 order.append(divider(42, '2', 'METHODS', 'p_methods.jpg', PRESENTER_1))
 
 # 11 study design
-s = slides[9]
-set_text(shp(s, 580), 'STUDY DESIGN', color=NAVY)
-for h, b, ht, bt in ((585, 581, 'DESIGN', 'Analytical cross-sectional online survey (STROBE, CHERRIES)'), (586, 582, 'SETTING', 'Baghdad · Google Form in Arabic and English'),
-                     (587, 588, 'SAMPLING', 'Convenience and snowball, through social-media groups'), (590, 583, 'PARTICIPANTS', '300 adults aged 18 or older (194 needed) · no missing data'),
-                     (591, 584, 'TOOLS', 'SHAI-14 for health anxiety · CSS-12 for cyberchondria'), (592, 589, 'ETHICS', 'Electronic informed consent · anonymous and voluntary')):
-    set_text(shp(s, h), ht, size=13, color=NAVY); set_text(shp(s, b), bt, size=10.5, color=INK)
-reicon(s, (596, 604, 612, 615, 630, 637), ((603, '36:59'), (602, '34:1'), (601, '36:98'), (595, '36:82'), (594, '35:98'), (593, '36:52')))
+s = new_slide('STUDY DESIGN', 'CUSTOM_8_1')
+for i, (head, fill, icon, txt) in enumerate((('DESIGN', NAVY, '36:59', 'Analytical cross-sectional online survey, reported by STROBE and CHERRIES'), ('SETTING', SLATE, '34:1', 'Baghdad · Google Form in Arabic and English'),
+                                            ('SAMPLING', ORANGE, '36:98', 'Convenience and snowball, through social-media and messaging groups'), ('PARTICIPANTS', TEAL, '36:82', '**300 adults** aged 18 or older (194 needed) · no missing data'),
+                                            ('TOOLS', NAVY, '35:98', '**SHAI-14** for health anxiety · **CSS-12** for cyberchondria · own questions'), ('ETHICS', WINE, '36:52', 'Electronic informed consent · anonymous and voluntary · no names collected'))):
+    card(s, 0.79 + (i % 3) * 2.865, 1.15 + (i // 3) * 1.83, 2.7, 1.7, head, fill, icon, txt, size=11)
 order.append(s)
 
 # 12 questionnaire
 s = new_slide('THE QUESTIONNAIRE', 'CUSTOM_8_1')
 table(s, ['Part', 'Content', 'Scoring'], [
-    ['1', 'Consent and socio-demographic data', 'Age, gender, education, study or work, chronic condition'],
-    ['2', 'Online health-information seeking', 'Tools used, main AI chatbot, motives, trust (1–5)'],
-    ['3', 'Short Health Anxiety Inventory (SHAI-14)', '14 items, each 0–3; total 0–42'],
-    ['4', 'Cyberchondria Severity Scale (CSS-12)', '12 items, each 1–5; total 12–60; four dimensions'],
-    ['5', 'Behaviour after searching', 'Actions taken, telling the doctor, effect on the relationship']], 0.79, 1.25, 8.43, [0.6, 3.5, 4.33], size=11, hi=(2, 3), row_h=0.38)
-textbox(s, 0.79, 3.72, 8.43, 1.05, ['* **Elevated health anxiety:** SHAI-14 of 18 or more (a screening cut-off, not a diagnosis)', '* **High cyberchondria:** CSS-12 above 33 (the upper third)',
-                                    '* **Reliability:** Cronbach’s alpha 0.81 (SHAI-14) and 0.86 (CSS-12), the same in Arabic and English'], size=11)
+    ['1', 'Consent and socio-demographics', 'Age, gender, education, work, chronic condition'],
+    ['2', 'Online health-information seeking', 'Tools, main AI chatbot, motives, trust (1–5)'],
+    ['3', 'SHAI-14 (health anxiety)', '14 items, each 0–3; total 0–42'],
+    ['4', 'CSS-12 (cyberchondria)', '12 items, each 1–5; total 12–60; four dimensions'],
+    ['5', 'Behaviour after searching', 'Actions, telling the doctor, the relationship']], 0.79, 1.2, 6.05, [0.5, 2.55, 3.0], size=10.5, hi=(2, 3), row_h=0.4)
+textbox(s, 0.79, 4.02, 6.05, 0.85, ['* **Elevated health anxiety:** SHAI-14 of 18 or more (screening, not diagnosis)', '* **High cyberchondria:** CSS-12 above 33 (the upper third)',
+                                   '* **Reliability:** alpha 0.81 and 0.86, the same in Arabic and English'], size=10, space=2)
+picture(s, f'{FIG}/p_methods.jpg', 7.05, 1.2, h=3.4, frame=True)
 order.append(s)
 
 # 13 choosing the statistical tests: decision tree
@@ -464,31 +469,26 @@ panel(s, 5.1, 1.2, 4.12, 2.35, 'THE CONSULTATION', ORANGE, ['* **34.7%** delayed
 textbox(s, 0.79, 3.8, 8.43, 0.7, '**Clinical message:** ask every patient, without judgement, what they searched or asked an AI', size=12, fill=C('FBF1E3'), line=ORANGE, anchor='m', align='c', bold_color=AMBER)
 order.append(s)
 
-s = slides[44]
-set_text(shp(s, 481), 'STRENGTHS AND LIMITATIONS', color=NAVY); set_text(shp(s, 484), 'STRENGTHS', size=14, color=TEAL); set_text(shp(s, 480), 'LIMITATIONS', size=14, color=WINE)
-set_text(shp(s, 483), ['Validated, reliable scales (alpha 0.81 and 0.86)', 'Arabic and English versions', 'AI chatbots studied separately', 'Complete data; adjusted models'], size=12.5, color=INK)
-set_text(shp(s, 482), ['Cross-sectional: association, not cause', 'Convenience online sample: cannot generalise', 'No formal back-translation; self-report', 'Small non-AI group (34)'], size=12.5, color=INK)
-for sid in (483, 482): move(shp(s, sid), x=None, h=2.1)
-reicon(s, (485, 493), ((478, '34:84'), (479, '34:79')))
+s = new_slide('STRENGTHS AND LIMITATIONS', 'CUSTOM_8_1')
+card(s, 0.79, 1.2, 4.12, 2.75, 'STRENGTHS', TEAL, '34:84', ['* Validated, reliable scales (alpha **0.81** and **0.86**)', '* Arabic and English versions, equally reliable',
+     '* **AI chatbots** studied separately from search engines', '* Complete data: **no missing answers**', '* Results **adjusted** for confounders'], size=12)
+card(s, 5.1, 1.2, 4.12, 2.75, 'LIMITATIONS', WINE, '34:79', ['* **Cross-sectional:** association, not cause', '* **Convenience online sample:** percentages cannot be generalised',
+     '* No formal back-translation; self-reported answers', '* Small non-AI group (**34**); 57 events in the logistic model'], size=12)
+keybox(s, 'Despite these limits: the first Baghdad data on health anxiety, cyberchondria and AI chatbots', 0.79, 4.1, 8.43, 0.6, fill=NAVY, size=12)
 order.append(s)
 
-s = slides[46]
-set_text(shp(s, 580), 'CONCLUSIONS', color=NAVY)
-for h, b, ht, bt in ((585, 581, 'AI IS THE MAIN SOURCE', '88.7% used AI chatbots, mainly ChatGPT'), (586, 582, 'ONE IN FIVE', '19.0% had elevated health anxiety on screening'),
-                     (587, 588, 'H1 SUPPORTED', 'Health anxiety and cyberchondria are linked (r = 0.47), independently'), (590, 583, 'AI AND CYBERCHONDRIA', 'AI users had higher cyberchondria (+5.33 points)'),
-                     (591, 584, 'H2 NOT SUPPORTED', 'Medical students were not at higher risk once age was considered'), (592, 589, 'SEARCHING SHAPES CARE', '34.7% delayed care when reassured; 31.7% never tell their doctor')):
-    set_text(shp(s, h), ht, size=12, color=NAVY); set_text(shp(s, b), bt, size=10.5, color=INK)
-reicon(s, (596, 604, 612, 615, 630, 637), ((603, '34:19'), (602, '36:82'), (601, '21:47'), (595, '35:76'), (594, '35:15'), (593, '35:70')))
+s = new_slide('CONCLUSIONS', 'CUSTOM_8_1')
+for i, (head, fill, icon, txt) in enumerate((('AI IS THE MAIN SOURCE', NAVY, '34:19', '**88.7%** used AI chatbots, mainly ChatGPT'), ('ONE IN FIVE', ORANGE, '36:82', '**19.0%** had elevated health anxiety on screening'),
+                                            ('H1 SUPPORTED', TEAL, '21:47', 'Health anxiety and cyberchondria are linked (**r = 0.47**), independently of other factors'), ('AI AND CYBERCHONDRIA', SLATE, '35:76', 'AI users had higher cyberchondria (**+5.33 points**)'),
+                                            ('H2 NOT SUPPORTED', WINE, '35:15', 'Medical students were not at higher risk once **age** was considered'), ('SEARCHING SHAPES CARE', NAVY, '35:70', '**34.7%** delayed care when reassured; **31.7%** never tell their doctor'))):
+    card(s, 0.79 + (i % 3) * 2.865, 1.15 + (i // 3) * 1.83, 2.7, 1.7, head, fill, icon, txt, size=11.5)
 order.append(s)
 
-s = slides[45]
-set_text(shp(s, 538), 'RECOMMENDATIONS', color=NAVY)
-for h, b, ht, bt in ((539, 534, 'CLINICIANS', 'Ask every patient, without judgement, what they searched or asked an AI, and what they found'),
-                     (541, 535, 'MEDICAL EDUCATION', 'Teach digital and AI health literacy; treat repeated searching as a sign of health anxiety'),
-                     (540, 536, 'MINISTRY OF HEALTH', 'Arabic health-literacy campaigns and reliable Arabic sources for symptom advice'),
-                     (542, 537, 'RESEARCH AND AI DEVELOPERS', 'Longitudinal studies with random samples; AI answers that avoid escalating to rare diagnoses')):
-    set_text(shp(s, h), ht, size=13, color=NAVY); set_text(shp(s, b), bt, size=11, color=INK)
-reicon(s, (547, 555, 563, 570), ((544, '35:70'), (543, '35:15'), (546, '35:83'), (545, '35:58')))
+s = new_slide('RECOMMENDATIONS', 'CUSTOM_8_1')
+for i, (head, fill, icon, txt) in enumerate((('CLINICIANS', NAVY, '35:70', 'Ask every patient, without judgement, what they searched or asked an AI'), ('MEDICAL EDUCATION', TEAL, '35:15', 'Teach digital and AI health literacy; see repeated searching as a sign of health anxiety'),
+                                            ('MINISTRY OF HEALTH', ORANGE, '35:83', 'Arabic health-literacy campaigns and reliable Arabic symptom sources'), ('RESEARCH AND AI', WINE, '35:58', 'Longitudinal studies, random samples; AI answers that avoid escalating to rare diagnoses'))):
+    card(s, 0.79 + (i % 2) * 2.9, 1.15 + (i // 2) * 1.83, 2.78, 1.7, head, fill, icon, txt, size=10.5)
+picture(s, f'{FIG}/p_rec.jpg', 6.65, 1.2, h=3.55, frame=True)
 order.append(s)
 
 s = slides[20]

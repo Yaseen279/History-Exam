@@ -43,8 +43,9 @@ for (lab, v, c, ic), (x, y) in zip(tiles, pos):
         for dx in (-.16, 0, .16): a.add_patch(Circle((cx + dx, cy + .05), .045, fc=c, ec='none'))
     elif ic == 'search':
         a.add_patch(Circle((cx - .06, cy + .07), .22, fc='none', ec='white', lw=4)); a.plot([cx + .09, cx + .3], [cy - .09, cy - .3], color='white', lw=5, solid_capstyle='round')
-    elif ic == 'med' and PALETTE == 'slate':   # crescent
-        a.add_patch(Circle((cx - .03, cy), .3, fc='white', ec='none')); a.add_patch(Circle((cx + .1, cy + .07), .25, fc=c, ec='none'))
+    elif ic == 'med' and PALETTE == 'slate':   # red crescent emblem on a white tile
+        a.add_patch(FancyBboxPatch((x, y + 0.75), 1.16, 1.16, boxstyle='round,pad=0,rounding_size=0.22', fc='white', ec=P2, lw=1.5))
+        a.add_patch(Circle((cx - .04, cy), .34, fc='#D52B1E', ec='none')); a.add_patch(Circle((cx + .1, cy), .28, fc='white', ec='none'))
     elif ic == 'med':
         a.add_patch(Rectangle((cx - .09, cy - .3), .18, .6, fc='white', ec='none')); a.add_patch(Rectangle((cx - .3, cy - .09), .6, .18, fc='white', ec='none'))
     else:
