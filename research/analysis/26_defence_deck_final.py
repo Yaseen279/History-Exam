@@ -181,10 +181,12 @@ def table(slide, header, rows, x, y, w, colw, size=10, hi=(), row_h=0.3):
             c = tbl.cell(i, j); c.margin_left = c.margin_right = Inches(0.07); c.margin_top = c.margin_bottom = Inches(0.03)
             c.vertical_anchor = MSO_ANCHOR.MIDDLE; c.fill.solid()
             c.fill.fore_color.rgb = NAVY if i == 0 else (C('E4ECF3') if (i - 1) in hi else WHITE)
-            p = c.text_frame.paragraphs[0]; c.text_frame.word_wrap = True
-            for txt, b in runs_of(str(val)):
+            c.text_frame.word_wrap = True
+            for li, line in enumerate(str(val).split('\v')):
+              p = c.text_frame.paragraphs[0] if li == 0 else c.text_frame.add_paragraph()
+              for txt, b in runs_of(line):
                 run = p.add_run(); run.text = txt; f = run.font; f.size = Pt(size); f.name = BODY
-                f.bold = i == 0 or b or j == 0 or (i - 1) in hi; f.color.rgb = WHITE if i == 0 else (NAVY if (j == 0 or b or (i - 1) in hi) else INK)
+                f.bold = (i == 0 or b or (j == 0 and li == 0) or ((i - 1) in hi and li == 0)); f.color.rgb = WHITE if i == 0 else (NAVY if (j == 0 or b or (i - 1) in hi) else INK)
             tcPr = c._tc.get_or_add_tcPr()
             for k, tag in enumerate(('a:lnL', 'a:lnR', 'a:lnT', 'a:lnB')):
                 ln = etree.Element(qn(tag)); ln.set('w', '9525'); sf = etree.SubElement(ln, qn('a:solidFill')); etree.SubElement(sf, qn('a:srgbClr')).set('val', 'A9BCCB'); tcPr.insert(k, ln)
@@ -373,8 +375,8 @@ order.append(s)
 
 s = new_slide('LEVELS OF HEALTH ANXIETY')
 pic = picture(s, f'{FIG}/sample3_one_in_five.png', 0, 1.25, w=7.2); pic.left = int((prs.slide_width - pic.width) / 2)
-table(s, ['Scale', 'Mean ± SD', 'Median (IQR)', 'Cronbach’s alpha'], [['SHAI-14 (0–42)', '12.35 ± 5.83', '12 (8–16)', '0.81'], ['CSS-12 (12–60)', '28.86 ± 8.36', '29 (23–34)', '0.86']],
-      1.4, 4.1, 7.2, [2.1, 1.7, 1.7, 1.7], size=10.5, row_h=0.27)
+table(s, ['Scale', 'Mean ± SD', 'Median (IQR)', 'Cronbach’s alpha', 'α Arabic / English'], [['SHAI-14 (0–42)', '12.35 ± 5.83', '12 (8–16)', '0.81', '0.81 / 0.81'], ['CSS-12 (12–60)', '28.86 ± 8.36', '29 (23–34)', '0.86', '0.86 / 0.88']],
+      1.1, 4.1, 7.8, [1.9, 1.4, 1.4, 1.5, 1.6], size=10.5, row_h=0.27)
 order.append(s)
 
 s = new_slide('MAIN FINDING (H1)')
@@ -404,12 +406,12 @@ order.append(s)
 
 s = new_slide('MEDICAL STUDENTS VS OTHERS (H2)', 'CUSTOM_8_1')
 table(s, ['Measure', 'Medical students (n = 132)', 'Others (n = 168)', 'p', 'Adjusted p'], [
-    ['SHAI-14, median (IQR)', '12.5 (10–17)', '11 (7–15)', '0.004', '0.081'], ['Elevated health anxiety', '23.5%', '15.5%', '0.079', '0.238'],
-    ['CSS-12, median (IQR)', '29 (23–34)', '29 (23–34)', '0.989', '0.627'], ['High cyberchondria', '28.0%', '29.2%', '0.829', '0.771']],
-      0.79, 1.25, 8.43, [2.3, 2.05, 1.75, 1.0, 1.33], size=11, hi=(0,), row_h=0.36)
-textbox(s, 0.79, 3.25, 5.1, 1.5, ['* Before adjustment, medical students had **higher health anxiety**', '* After adjusting for **age**, sex, chronic condition and language, the difference was **no longer significant**',
+    ['SHAI-14 score\v   mean ± SD\v   median (IQR)', '\v13.3 ± 5.8\v12.5 (10–17)', '\v11.6 ± 5.7\v11 (7–15)', '0.004', '0.081'], ['Elevated health anxiety, n (%)', '31 (23.5%)', '26 (15.5%)', '0.079', '0.238'],
+    ['CSS-12 score\v   mean ± SD\v   median (IQR)', '\v28.9 ± 8.1\v29 (23–34)', '\v28.9 ± 8.6\v29 (23–34)', '0.989', '0.627'], ['High cyberchondria, n (%)', '37 (28.0%)', '49 (29.2%)', '0.829', '0.771']],
+      0.79, 1.15, 8.43, [2.3, 2.05, 1.75, 1.0, 1.33], size=10, hi=(0,), row_h=0.3)
+textbox(s, 0.79, 3.6, 5.1, 1.3, ['* Before adjustment, medical students had **higher health anxiety**', '* After adjusting for **age**, sex, chronic condition and language, the difference was **no longer significant**',
                                   '* Cyberchondria was **identical**'], size=11)
-keybox(s, ['H2 NOT SUPPORTED', 'Age, not studying medicine, explained the difference'], 6.1, 3.35, 3.12, 1.1, size=11, fill=WINE)
+keybox(s, ['H2 NOT SUPPORTED', 'Age, not studying medicine, explained the difference'], 6.1, 3.65, 3.12, 1.1, size=11, fill=WINE)
 order.append(s)
 
 # ================================================================== PART 3 · DISCUSSION AND CONCLUSIONS
