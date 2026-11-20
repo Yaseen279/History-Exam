@@ -22,7 +22,8 @@ def bump(shape, d):
     for r in shape._element.iter(qn('a:endParaRPr')):
         if r.get('sz'): r.set('sz', str(int(int(r.get('sz')) + d * 100)))
 
-# slide 4: photo left as it is (the students will choose one)
+# slide 4: the students' chosen photo (worried man at his laptop)
+s = S[3]; swap(s, next(sh for sh in s.shapes if sh.shape_type == 13), f'{FIG}/ha_photo.jpg')
 
 # slide 6: "Dr ChatGPT" -> "Dr AI" in the title only
 for sh in S[5].shapes:
@@ -46,7 +47,6 @@ def box(x, y, w, h, parts, size, fill, color, line=None):
             r = p.add_run(); r.text = t; r.font.size = Pt(size); r.font.name = 'DM Sans'; r.font.bold = k % 2 == 1
             r.font.color.rgb = color if fill != WHITE or k % 2 == 0 else NAVY
 WHITE = RGBColor.from_string('FFFFFF')
-box(0.79, 2.95, 4.35, 1.1, ['**About 1 in 3** of these ChatGPT users **changed their medication or asked for a referral** based on its answers (US survey)'], 11.5, WHITE, INK, line=RGBColor.from_string('C2D6E7'))
 box(0.79, 4.22, 8.43, 0.6, ['**The open question:** do chatbots calm worry with reassuring answers, or feed it by always being there for one more question?'], 12, NAVY, WHITE)
 
 # slide 8: phone with the real questionnaire in the empty picture frame
