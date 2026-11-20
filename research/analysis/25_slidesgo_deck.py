@@ -250,17 +250,7 @@ keybox(s, 'H1 SUPPORTED', 5.55, 4.45, 3.65, 0.36, size=11)
 order.append(s)
 
 s = new_slide('WHAT PREDICTS CYBERCHONDRIA?')
-cd = CategoryChartData(); cd.categories = ['1. Who you are', '2. + How you search', '3. + Health anxiety']; cd.add_series('R² (%)', (3.0, 13.3, 31.7))
-gf = s.shapes.add_chart(XL_CHART_TYPE.COLUMN_CLUSTERED, Inches(0.79), Inches(1.2), Inches(3.9), Inches(3.55), cd); ch = gf.chart
-ch.has_legend = False; ch.has_title = True; ch.chart_title.text_frame.text = 'Variance explained (R², %)'
-tr = ch.chart_title.text_frame.paragraphs[0].runs[0].font; tr.size = Pt(11); tr.name = BODY; tr.color.rgb = NAVY; tr.bold = True
-pl = ch.plots[0]; pl.gap_width = 70; pl.has_data_labels = True; dl = pl.data_labels; dl.number_format = '0.0"%"'; dl.number_format_is_linked = False
-dl.position = XL_LABEL_POSITION.OUTSIDE_END; dl.font.size = Pt(11); dl.font.bold = True; dl.font.color.rgb = NAVY; dl.font.name = BODY
-for i, pt in enumerate(pl.series[0].points):
-    pt.format.fill.solid(); pt.format.fill.fore_color.rgb = NAVY if i == 2 else STEEL
-va = ch.value_axis; va.maximum_scale = 40; va.minimum_scale = 0; va.has_major_gridlines = True; va.major_gridlines.format.line.color.rgb = RGBColor.from_string('E3EAF0')
-va.tick_labels.font.size = Pt(9); va.tick_labels.font.color.rgb = GREY; va.tick_labels.font.name = BODY; va.format.line.fill.background()
-ca = ch.category_axis; ca.tick_labels.font.size = Pt(9); ca.tick_labels.font.color.rgb = GREY; ca.tick_labels.font.name = BODY
+picture(s, f'{FIG}/r2_blocks.png', 0.79, 1.25, h=3.45)
 table(s, ['Predictor (final model)', 'B (95% CI)', 'Beta', 'p'], [
     ['Health anxiety (per point)', '0.68 (0.53–0.84)', '0.48', '< 0.001'], ['AI chatbot user', '5.33 (2.57–8.09)', '0.20', '< 0.001'],
     ['Age 30–39 (vs 20–29)', '6.27 (2.42–10.11)', '0.19', '0.001'], ['Age 40 or older', '3.98 (0.16–7.80)', '0.15', '0.041'],
@@ -307,10 +297,6 @@ order.append(s)
 
 s = slides[46]
 set_text(shp(s, 580), 'CONCLUSIONS')
-for g in (596, 604, 612, 615, 630, 637): delete(shp(s, g))
-for circ, n in zip((603, 602, 601, 595, 594, 593), '123456'):
-    c = shp(s, circ); tf = c.text_frame; tf.text = n; r = tf.paragraphs[0].runs[0]; r.font.size = Pt(16); r.font.bold = True; r.font.color.rgb = NAVY; r.font.name = HEAD
-    tf.paragraphs[0].alignment = PP_ALIGN.CENTER; tf.vertical_anchor = MSO_ANCHOR.MIDDLE
 for h, b, ht, bt in ((585, 581, 'AI IS THE MAIN SOURCE', '88.7% used AI chatbots, mainly ChatGPT'), (586, 582, 'ONE IN FIVE', '19.0% had elevated health anxiety on screening'),
                      (587, 588, 'H1 SUPPORTED', 'Health anxiety and cyberchondria are linked (r = 0.47), independently'), (590, 583, 'AI AND CYBERCHONDRIA', 'AI users had higher cyberchondria (+5.33 points)'),
                      (591, 584, 'H2 NOT SUPPORTED', 'Medical students were not at higher risk once age was considered'), (592, 589, 'SEARCHING SHAPES CARE', '34.7% delayed care when reassured; 31.7% never tell their doctor')):
@@ -329,9 +315,38 @@ order.append(s)
 s = slides[20]
 set_text(shp(s, 796), 'THANK YOU'); move(shp(s, 796), x=1.5, w=7.0); set_text(shp(s, 795), ['Questions and discussion'], size=16); move(shp(s, 795), y=2.15)
 for sid in (792, 793, 794, 797, 798, 799, 804): delete(shp(s, sid))
-textbox(s, 1.5, 4.55, 7.0, 0.4, 'Photographs: Wikimedia Commons (ChatGPT phone: Jernej Furman, CC BY 2.0; person with phone: Japanexperterna.se, CC BY-SA 2.0; '
-        'University of Baghdad: alameedy, CC0; medical students: Binil Zack, CC BY-SA 4.0; doctor and patient: National Cancer Institute, public domain)', size=7, color=SLATE, align='c')
+textbox(s, 1.5, 4.6, 7.0, 0.3, 'Photographs: Freepik, from the Slidesgo template; ChatGPT phone: Jernej Furman, CC BY 2.0 (Wikimedia Commons)', size=7.5, color=SLATE, align='c')
 order.append(s)
+
+
+# ------------------------------------------------------------------ icons: the template's own icon sets, matched to each topic
+import json
+ICON_ID = json.load(open(f'{FIG}/icon_index.json'))      # "slide:index" -> shape id on the template's icon slides
+def place_icon(slide, key, cx, cy, size=0.36):
+    n, _ = key.split(':'); src = shp(slides[int(n)], ICON_ID[key])._element
+    el = copy.deepcopy(src)
+    if 'r:embed' in etree.tostring(el).decode(): raise ValueError(key)
+    for clr in el.iter(qn('a:schemeClr')):                # icon-slide colours -> the colour of the template's in-slide icons
+        if clr.get('val') in ('dk2', 'dk1', 'accent1', 'accent2'): clr.set('val', 'lt1')
+    for clr in el.iter(qn('a:srgbClr')): clr.set('val', 'FFFFFF') if clr.get('val') == '0E2A47' else None
+    xf = el.find('.//' + qn('a:xfrm')); ext = xf.find(qn('a:ext')); off = xf.find(qn('a:off'))
+    w, h = int(ext.get('cx')), int(ext.get('cy')); k = Inches(size) / max(w, h); nw, nh = int(w * k), int(h * k)
+    ext.set('cx', str(nw)); ext.set('cy', str(nh)); off.set('x', str(int(Inches(cx) - nw / 2))); off.set('y', str(int(Inches(cy) - nh / 2)))
+    nid = max(int(e.get('id')) for e in slide.shapes._spTree.iter(qn('p:cNvPr'))) + 1
+    for e in el.iter(qn('p:cNvPr')): e.set('id', str(nid)); nid += 1
+    slide.shapes._spTree.append(el)
+def centre(slide, sid):
+    c = shp(slide, sid); return (c.left + c.width / 2) / 914400, (c.top + c.height / 2) / 914400
+def reicon(slide, old_groups, pairs):
+    for g in old_groups: delete(shp(slide, g))
+    for circle, key in pairs: place_icon(slide, key, *centre(slide, circle))
+reicon(slides[6], (485, 493), ((478, '21:47'), (479, '35:76')))                                  # health anxiety: brain ? · cyberchondria: phone with cross
+reicon(slides[44], (485, 493), ((478, '34:84'), (479, '34:79')))                                 # strengths: tick · limitations: warning
+reicon(slides[7], (512, 516, 525), ((511, '34:1'), (510, '34:19'), (509, '35:15')))              # no local data: map pin · AI: chat bubble · students: cap
+reicon(slides[8], (547, 555, 563, 570), ((544, '34:27'), (543, '36:60'), (546, '34:35'), (545, '35:15')))      # aim: target · objectives: checklist · H1: rising chart · H2: cap
+reicon(slides[45], (547, 555, 563, 570), ((544, '35:70'), (543, '35:15'), (546, '35:83'), (545, '35:58')))     # clinicians · education · ministry · research
+reicon(slides[9], (596, 604, 612, 615, 630, 637), ((603, '36:59'), (602, '34:1'), (601, '36:98'), (595, '36:82'), (594, '35:98'), (593, '36:52')))   # design
+reicon(slides[46], (596, 604, 612, 615, 630, 637), ((603, '34:19'), (602, '36:82'), (601, '21:47'), (595, '35:76'), (594, '35:15'), (593, '35:70')))  # conclusions
 
 # ------------------------------------------------------------------ keep only these slides, in this order
 lst = prs.slides._sldIdLst; ids = {s.slide_id: e for e in lst for s in [None] if False}

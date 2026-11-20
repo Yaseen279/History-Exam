@@ -18,7 +18,7 @@ plt.rcParams['font.family'] = FONT
 
 def canvas(w=10, h=6.2):
     f, a = plt.subplots(figsize=(w, h), dpi=200); a.set_xlim(0, w); a.set_ylim(0, h); a.axis('off'); a.set_aspect('equal'); return f, a
-def save(f, n): f.savefig(f'{OUT}/{n}.png', dpi=200, bbox_inches='tight', facecolor='white', pad_inches=0.15); plt.close(f); print('wrote', n)
+def save(f, n): f.savefig(f'{OUT}/{n}.png', dpi=200, bbox_inches='tight', pad_inches=0.15, **(({'facecolor': (1, 1, 1, 0.82)} if 'cycle' in n else {'transparent': True}) if PALETTE == 'slate' else {'facecolor': 'white'})); plt.close(f); print('wrote', n)
 
 # ---------------------------------------------------------------- 1. phone with app tiles
 f, a = canvas(10, 6.4)
