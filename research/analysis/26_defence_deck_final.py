@@ -108,7 +108,7 @@ def rect(slide, x, y, w, h, fill=WHITE, line=None, shape=MSO_SHAPE.RECTANGLE, lw
     return r
 
 def bar_header(slide, x, y, w, text, fill, h=0.32, size=11):
-    return textbox(slide, x, y, w, h, text, size=size, color=WHITE, bold=True, fill=fill, anchor='m', margin=0.08)
+    return textbox(slide, x, y, w, h, text, size=size, color=WHITE, bold=True, fill=NAVY, anchor='m', margin=0.08)
 
 def panel(slide, x, y, w, h, title, fill, items, size=10.5):
     bar_header(slide, x, y, w, title, fill)
@@ -116,7 +116,7 @@ def panel(slide, x, y, w, h, title, fill, items, size=10.5):
     textbox(slide, x + 0.06, y + 0.38, w - 0.12, h - 0.42, items, size=size)
 
 def card(slide, x, y, w, h, title, fill, icon, items, size=11):
-    textbox(slide, x, y, w, 0.46, title, size=11.5, color=WHITE, bold=True, fill=fill, anchor='m', margin=0.08).text_frame.margin_left = Inches(0.52)
+    textbox(slide, x, y, w, 0.46, title, size=11.5, color=WHITE, bold=True, fill=NAVY, anchor='m', margin=0.08).text_frame.margin_left = Inches(0.52)
     rect(slide, x + 0.09, y + 0.06, 0.34, 0.34, WHITE, None, MSO_SHAPE.OVAL); place_icon(slide, icon, x + 0.26, y + 0.23, 0.23)
     rect(slide, x, y + 0.46, w, h - 0.46, WHITE, LIGHT)
     textbox(slide, x + 0.07, y + 0.52, w - 0.14, h - 0.56, items, size=size, space=3)
@@ -139,7 +139,7 @@ def bubble(slide, x, y, w, text, dark=False, h=0.42):
         textbox(slide, x + 0.42, y, w - 0.5, h, text, size=10.5, color=INK, anchor='m')
 
 def keybox(slide, text, x, y, w, h=0.42, fill=NAVY, size=11):
-    return textbox(slide, x, y, w, h, text, size=size, color=WHITE, bold=True, align='c', fill=fill, anchor='m', margin=0.06)
+    return textbox(slide, x, y, w, h, text, size=size, color=WHITE, bold=True, align='c', fill=NAVY, anchor='m', margin=0.06)
 
 def place_icon(slide, key, cx, cy, size=0.36, colour=None):
     n, _ = key.split(':'); el = copy.deepcopy(shp(slides[int(n)], ICON_ID[key])._element)
@@ -395,12 +395,12 @@ order.append(s)
 # ================================================================== PART 3 · DISCUSSION AND CONCLUSIONS
 order.append(divider(47, '4', 'DISCUSSION', 'p_discussion.jpg', PRESENTER_3, 'So, is searching the problem, or the anxiety?'))
 
-s = new_slide('OUR FINDING IN BAGHDAD')
-rect(s, 0.79, 1.3, 5.0, 2.9, WHITE, LIGHT)
-textbox(s, 0.92, 1.4, 4.75, 2.75, ['To our knowledge, the **first study** to apply the CSS-12 in **Baghdad**, and among the first to examine **AI chatbots separately** from search engines.',
-        'Health anxiety and cyberchondria were **moderately associated (r = 0.47)**, independently of all other measured factors.', '**H1 supported  ·  H2 not supported**'], size=13, space=10)
-picture(s, f'{FIG}/map_iraq.png', 6.25, 1.05, h=3.25)
-textbox(s, 6.0, 4.3, 3.2, 0.5, 'n = 300  ·  r = 0.47', size=18, color=AMBER, bold=True, align='c', font=BODY)
+s = new_slide('WHAT OUR MAIN FINDING MEANS', 'CUSTOM_8_1')
+picture(s, f'{FIG}/map_iraq.png', 0.7, 1.15, h=2.85)
+textbox(s, 0.75, 4.05, 3.0, 0.75, ['**First CSS-12 study in Baghdad**', 'n = 300  ·  r = 0.47'], size=12, color=SLATE, align='c', space=2)
+card(s, 3.95, 1.15, 5.27, 1.12, 'H1 SUPPORTED', NAVY, '21:47', 'Health anxiety and cyberchondria were **moderately linked (r = 0.47)**, independently of all other factors; health anxiety was the **strongest predictor** (+18.4%)', size=10.5)
+card(s, 3.95, 2.38, 5.27, 1.12, 'MOSTLY SEARCHING MORE AND FEELING WORSE', NAVY, '34:16', 'Strongest links with **excessive searching (0.46)** and **distress after searching (0.45)**; weakest with compulsion (0.25) and reassurance seeking (0.24)', size=10.5)
+card(s, 3.95, 3.61, 5.27, 1.12, 'FITS THE COGNITIVE MODEL', NAVY, '34:27', 'Worry drives searching, searching feeds worry. **One survey cannot show which comes first**; the Dutch panel suggests both ways', size=10.5)
 order.append(s)
 
 s = new_slide('COMPARISON WITH WORLDWIDE STUDIES')
@@ -423,14 +423,14 @@ order.append(s)
 s = new_slide('COMPARISON WITH REGIONAL STUDIES')
 mp = picture(s, f'{FIG}/map_region.png', 0.75, 1.2, h=3.55, frame=True); RW = mp.width / 914400
 px, py = 0.75 + 0.318 * RW, 1.2 + 0.245 * 3.55
-rect(s, px - 0.05, py - 0.05, 0.1, 0.1, WINE, None, MSO_SHAPE.OVAL); textbox(s, px - 0.95, py - 0.13, 0.88, 0.26, 'Palestine', size=9, color=WINE, bold=True, align='r')
+rect(s, px - 0.05, py - 0.05, 0.1, 0.1, NAVY, None, MSO_SHAPE.OVAL); textbox(s, px - 0.95, py - 0.13, 0.88, 0.26, 'Palestine', size=9, color=NAVY, bold=True, align='r')
 studies = [('IRAQ · COVID-19 survey', '49.5% screened positive for health anxiety (different tool)', ORANGE), ('SAUDI ARABIA · Jeddah', 'Cyberchondria common in adults', SLATE),
            ('SAUDI ARABIA · primary care', '“Dr Google” use linked with health anxiety', SLATE), ('LEBANON', 'Arabic CSS-12 validated: same four dimensions as ours', NAVY),
            ('EGYPT · 1435 medical students', '85.8% had moderate cyberchondria', NAVY), ('PALESTINE', 'Health anxiety least common in medical students', WINE)]
 for i, (head, txt, fill) in enumerate(studies):
     y = 1.2 + i * 0.6
-    rect(s, 5.55, y, 0.08, 0.52, fill); rect(s, 5.63, y, 3.59, 0.52, WHITE, LIGHT)
-    textbox(s, 5.7, y + 0.01, 3.48, 0.5, [f'**{head}**', txt], size=9.5, space=0, bold_color={str(ORANGE): AMBER, str(SLATE): NAVY}.get(str(fill), fill), anchor='m')
+    rect(s, 5.55, y, 0.08, 0.52, NAVY); rect(s, 5.63, y, 3.59, 0.52, WHITE, LIGHT)
+    textbox(s, 5.7, y + 0.01, 3.48, 0.5, [f'**{head}**', txt], size=9.5, space=0, bold_color=NAVY, anchor='m')
 order.append(s)
 
 s = new_slide('AI CHATBOTS AND THE CONSULTATION', 'CUSTOM_8_1')
@@ -439,6 +439,14 @@ panel(s, 0.79, 1.2, 4.12, 2.35, 'AI CHATBOTS', NAVY, ['* AI use **88.7%**, far a
 panel(s, 5.1, 1.2, 4.12, 2.35, 'THE CONSULTATION', ORANGE, ['* **34.7%** delayed care because they felt reassured: fewer visits, but risk of **late diagnosis**',
       '* **31.7%** never tell their doctor, mainly for fear of being judged', '* Open discussion strengthens the relationship; hidden searching strains it'], size=11)
 textbox(s, 0.79, 3.8, 8.43, 0.7, '**Clinical message:** ask every patient, without judgement, what they searched or asked an AI', size=12, fill=C('E4ECF3'), line=ORANGE, anchor='m', align='c', bold_color=AMBER)
+order.append(s)
+
+s = new_slide('MEDICAL STUDENTS: WHAT IT MEANS', 'CUSTOM_8_1')
+card(s, 0.79, 1.15, 6.1, 1.6, 'WHAT WE FOUND', NAVY, '35:15', ['* Higher health anxiety **only before adjustment** (p = 0.004 → 0.081)', '* **Age explained it:** medical students were younger, and younger people were more anxious',
+     '* Cyberchondria was **identical** (median 29 vs 29)'], size=10.5)
+card(s, 0.79, 2.88, 6.1, 1.25, 'COMPARED WITH OTHER STUDIES', NAVY, '36:59', ['* **Palestine:** health anxiety least common in medical students: agrees with us', '* **Egypt:** 85.8% moderate cyberchondria: different tool, no comparison group'], size=10.5)
+keybox(s, 'Medical knowledge neither increased nor protected against cyberchondria', 0.79, 4.25, 6.1, 0.52, size=11)
+picture(s, f'{FIG}/p_students.jpg', 7.05, 1.2, h=3.55, frame=True)
 order.append(s)
 
 s = new_slide('STRENGTHS AND LIMITATIONS', 'CUSTOM_8_1')
