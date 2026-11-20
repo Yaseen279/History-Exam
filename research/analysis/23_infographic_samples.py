@@ -10,7 +10,7 @@ import glob, os
 for f in glob.glob(os.path.expanduser('~/.fonts/static/*.ttf')): fm.fontManager.addfont(f)
 if PALETTE == 'slate':   # Slidesgo template: navy highlight on blue-grey, DM Sans
     FONT = 'DMSansStatic'
-    MAIN, ACC, P1, P2, P3, INK = '#445F73', '#0E2A47', '#7D95A8', '#A9BED0', '#D6E3EE', '#505050'
+    MAIN, ACC, P1, P2, P3, INK = '#445F73', '#0E2A47', '#5E7A90', '#7F98AD', '#B6C8D7', '#1D2230'
 else:
     FONT = 'Carlito' if any('Carlito' in f.name for f in fm.fontManager.ttflist) else 'DejaVu Sans'
     MAIN, ACC, P1, P2, P3, INK = '#1E4D3A', '#C8921B', '#4F7F69', '#8DB3A0', '#C9DDD2', '#1D2230'
@@ -31,12 +31,20 @@ pos = [(3.72, 3.3), (5.12, 3.3), (3.72, 1.0), (5.12, 1.0)]
 for (lab, v, c, ic), (x, y) in zip(tiles, pos):
     a.add_patch(FancyBboxPatch((x, y + 0.75), 1.16, 1.16, boxstyle='round,pad=0,rounding_size=0.22', fc=c, ec='none'))
     cx, cy = x + 0.58, y + 1.33
-    if ic == 'ai':
+    if ic == 'ai' and PALETTE == 'slate':   # robot
+        a.add_patch(FancyBboxPatch((cx - .28, cy - .24), .56, .42, boxstyle='round,pad=0,rounding_size=0.1', fc='white', ec='none'))
+        for dx in (-.12, .12): a.add_patch(Circle((cx + dx, cy - .02), .065, fc=c, ec='none'))
+        a.add_patch(Rectangle((cx - .1, cy - .16), .2, .035, fc=c, ec='none'))
+        a.plot([cx, cx], [cy + .18, cy + .3], color='white', lw=3, solid_capstyle='round'); a.add_patch(Circle((cx, cy + .33), .05, fc='white', ec='none'))
+        for dx in (-.35, .29): a.add_patch(Rectangle((cx + dx, cy - .1), .06, .16, fc='white', ec='none'))
+    elif ic == 'ai':
         a.add_patch(FancyBboxPatch((cx - .34, cy - .18), .68, .45, boxstyle='round,pad=0,rounding_size=0.1', fc='white', ec='none'))
         a.add_patch(Polygon([(cx - .2, cy - .18), (cx - .3, cy - .36), (cx - .02, cy - .18)], fc='white', ec='none'))
         for dx in (-.16, 0, .16): a.add_patch(Circle((cx + dx, cy + .05), .045, fc=c, ec='none'))
     elif ic == 'search':
         a.add_patch(Circle((cx - .06, cy + .07), .22, fc='none', ec='white', lw=4)); a.plot([cx + .09, cx + .3], [cy - .09, cy - .3], color='white', lw=5, solid_capstyle='round')
+    elif ic == 'med' and PALETTE == 'slate':   # crescent
+        a.add_patch(Circle((cx - .03, cy), .3, fc='white', ec='none')); a.add_patch(Circle((cx + .1, cy + .07), .25, fc=c, ec='none'))
     elif ic == 'med':
         a.add_patch(Rectangle((cx - .09, cy - .3), .18, .6, fc='white', ec='none')); a.add_patch(Rectangle((cx - .3, cy - .09), .6, .18, fc='white', ec='none'))
     else:
@@ -44,15 +52,17 @@ for (lab, v, c, ic), (x, y) in zip(tiles, pos):
             a.add_patch(Circle((cx + dx, cy + .12 * s), .09 * s, fc='white', ec='none')); a.add_patch(Wedge((cx + dx, cy - .22), .2 * s, 0, 180, fc='white', ec='none'))
     a.text(x + 0.58, y + 0.5, f'{v}%', ha='center', va='center', fontsize=17, fontweight='bold', color=ACC if c == ACC else MAIN)
     a.text(x + 0.58, y + 0.18, lab, ha='center', va='center', fontsize=9.5, color=INK)
-a.text(0.1, 4.9, 'AI chatbots', fontsize=26, fontweight='bold', color=ACC)
-a.text(0.1, 4.35, 'were the most used', fontsize=17, color=MAIN)
-a.text(0.1, 3.9, 'source of health', fontsize=17, color=MAIN)
-a.text(0.1, 3.45, 'information', fontsize=17, color=MAIN)
-a.text(0.1, 2.4, 'ChatGPT 59.3%\nGemini 23.7%', fontsize=14, color=INK, linespacing=1.6)
+if PALETTE != 'slate': a.text(0.1, 4.9, 'AI chatbots', fontsize=26, fontweight='bold', color=ACC)
+if PALETTE != 'slate': a.text(0.1, 4.35, 'were the most used', fontsize=17, color=MAIN)
+if PALETTE != 'slate': a.text(0.1, 3.9, 'source of health', fontsize=17, color=MAIN)
+if PALETTE != 'slate': a.text(0.1, 3.45, 'information', fontsize=17, color=MAIN)
+if PALETTE != 'slate': a.text(0.1, 2.4, 'ChatGPT 59.3%\nGemini 23.7%', fontsize=14, color=INK, linespacing=1.6)
 a.text(7.0, 4.6, '88.7%', fontsize=40, fontweight='bold', color=ACC)
 a.text(7.05, 4.1, 'used AI chatbots', fontsize=14, color=INK)
 a.text(7.05, 3.1, 'vs 56.3%', fontsize=22, fontweight='bold', color=P1)
 a.text(7.05, 2.7, 'used search engines', fontsize=14, color=INK)
+if PALETTE == 'slate': a.text(7.05, 2.25, 'Main chatbot:\nChatGPT 59.3%\nGemini 23.7%', va='top', fontsize=14, color=INK, linespacing=1.6, fontweight='bold')
+if PALETTE == 'slate': a.set_xlim(3.1, 10.0)
 save(f, 'sample1_phone_tools')
 
 # ---------------------------------------------------------------- 2. vicious circle of the CSS-12 dimensions
@@ -100,7 +110,7 @@ ys = [5.0, 3.75, 2.5, 1.25]
 for (t, v, c), y in zip(outs, ys):
     a.add_patch(FancyArrowPatch((4.2, 3.12), (5.2, y + .35), connectionstyle='arc3,rad=0', arrowstyle='-', color=c, lw=2 + v / 4, capstyle='round'))
     a.add_patch(FancyBboxPatch((5.2, y), 3.65, 0.7, boxstyle='round,pad=0,rounding_size=0.15', fc=c, ec='none'))
-    a.text(5.35, y + .35, t, va='center', fontsize=12.5, fontweight='bold', color='white' if c == ACC else MAIN)
+    a.text(5.35, y + .35, t, va='center', fontsize=12.5, fontweight='bold', color='white' if (c == ACC or PALETTE == 'slate') else MAIN)
     a.text(9.0, y + .35, f'{v}%', va='center', fontsize=22 if c == ACC else 17, fontweight='bold', color=ACC if c == ACC else P1)
 a.add_patch(FancyBboxPatch((9.15, 0.1), 2.25, 1.05, boxstyle='round,pad=0,rounding_size=0.15', fc='#F4F8F5', ec=MAIN, lw=1.5))
 a.text(10.27, 0.8, 'At the doctor', ha='center', fontsize=11, color=INK)
