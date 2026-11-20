@@ -1,0 +1,7 @@
+# Raw/row-level participant data is kept out of the repository
+output/analysed.pkl
+*.xlsx.raw
+__pycache__/
+
+# participant-level SPSS data stays out of the repository
+output/spss/*.sav

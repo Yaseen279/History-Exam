@@ -1,0 +1,170 @@
+<title>Student 2 Sprint Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&display=swap">
+<style>
+/* Layout: a single phone-width reading column; sticky top bar (menu, block, Read / Cards); one page at a time with a thumb-height Next bar. */
+:root {
+  --bg: #f4f3ef; --surface: #ffffff; --ink: #1b1a2e; --muted: #5d5b72; --line: #dcdae4;
+  --accent: #3d3a9e; --accent-ink: #ffffff; --hot: #c2410c; --hot-bg: #fdeee5;
+  --say-bg: #eceafb; --trap-bg: #fbe9ee; --trap: #9d1c4a; --tip-bg: #e9f4ee; --tip: #1f6b45;
+  --f-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif; --f-head: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #12111c; --surface: #1c1b2a; --ink: #ebeaf5; --muted: #a6a4bd; --line: #2f2d42;
+  --accent: #9b97ff; --accent-ink: #12111c; --hot: #ff9a5c; --hot-bg: #2c1c12;
+  --say-bg: #24224a; --trap-bg: #321823; --trap: #ff8fb3; --tip-bg: #15291f; --tip: #7fd6a6; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #12111c; --surface: #1c1b2a; --ink: #ebeaf5; --muted: #a6a4bd; --line: #2f2d42;
+  --accent: #9b97ff; --accent-ink: #12111c; --hot: #ff9a5c; --hot-bg: #2c1c12;
+  --say-bg: #24224a; --trap-bg: #321823; --trap: #ff8fb3; --tip-bg: #15291f; --tip: #7fd6a6; color-scheme: dark }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font: 1.07rem/1.6 var(--f-body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+.wrap { max-width: 42rem; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 7.5rem; }
+header.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
+.bar .in { max-width: 42rem; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: .5rem; display: flex; align-items: center; gap: .6rem; }
+.menu { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 12px; width: 2.75rem; height: 2.75rem; font-size: 1.2rem; cursor: pointer; flex: none; }
+.brand { flex: 1; min-width: 0; font: 800 1rem/1.15 var(--f-head); }
+.brand small { display: block; font: 400 .8rem var(--f-body); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tabs { display: flex; background: var(--bg); border-radius: 999px; padding: 3px; gap: 2px; flex: none; }
+.tabs a { text-decoration: none; color: var(--muted); font: 600 .95rem var(--f-head); padding: .4rem .85rem; border-radius: 999px; min-height: 2.5rem; display: flex; align-items: center; }
+.tabs a[aria-current="page"] { background: var(--accent); color: var(--accent-ink); }
+.prog { height: 4px; background: var(--line); } .prog i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .3s; }
+.pg { padding-top: 1rem; }
+.eyebrow { font: 700 .76rem var(--f-head); letter-spacing: .08em; text-transform: uppercase; color: var(--hot); }
+h2 { font: 800 1.55rem/1.2 var(--f-head); margin: .25rem 0 .8rem; text-wrap: balance; }
+h1 { font: 800 1.7rem/1.15 var(--f-head); margin: 1.1rem 0 .3rem; }
+p { margin: .35rem 0 .75rem; } ul, ol { padding-left: 1.2rem; margin: .3rem 0 .9rem; } li { margin: .3rem 0; }
+.say { background: var(--say-bg); border-radius: 12px; padding: .65rem .85rem; } .say::before { content: "Say it: "; font-weight: 700; color: var(--accent); }
+.trap { background: var(--trap-bg); border-radius: 12px; padding: .65rem .85rem; } .trap::before { content: "Trap: "; font-weight: 700; color: var(--trap); }
+.tip { background: var(--tip-bg); border-radius: 12px; padding: .65rem .85rem; } .tip b { color: var(--tip); }
+.small { font-size: .9rem; color: var(--muted); }
+.nums { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; margin: .7rem 0 1rem; }
+.nums div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: .55rem .7rem; min-width: 0; }
+.nums b { display: block; font: 800 1.35rem/1.2 var(--f-head); color: var(--accent); font-variant-numeric: tabular-nums; }
+.nums span { font-size: .85rem; color: var(--muted); line-height: 1.3; display: block; }
+.tw { overflow-x: auto; margin: .6rem 0 1rem; } table { border-collapse: collapse; width: 100%; font-size: .93rem; }
+th, td { text-align: left; vertical-align: top; padding: .5rem .45rem; border-bottom: 1px solid var(--line); }
+th { font: 700 .78rem var(--f-head); text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+img.fig { display: block; width: 100%; height: auto; border-radius: 10px; background: #fff; margin: .4rem 0 .7rem; cursor: zoom-in; }
+.stat, .qa { border: 1px solid var(--line); background: var(--surface); border-radius: 14px; padding: .7rem .9rem; margin: .7rem 0; }
+.stat > b { font: 700 1.05rem var(--f-head); color: var(--accent); }
+.stat .ex { font-size: .93rem; color: var(--muted); margin-bottom: 0; } .stat .say { margin-bottom: 0; }
+.qa .q { font-weight: 700; margin: 0 0 .3rem; } .qa .a { margin: 0; }
+ol.quiz { padding-left: 1.4rem; } ol.quiz li { margin: .6rem 0; }
+ol.quiz summary { cursor: pointer; font-weight: 700; padding: .35rem 0; min-height: 2.4rem; }
+ol.quiz details p { background: var(--tip-bg); border-radius: 10px; padding: .5rem .75rem; margin: .2rem 0 .4rem; }
+ul.never li { margin: .55rem 0; }
+.pager { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; display: flex; gap: .6rem; background: var(--surface); border-top: 1px solid var(--line);
+  padding: .6rem max(16px, env(safe-area-inset-right, 0px)) calc(.6rem + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.pager button { border: 0; border-radius: 16px; font: 800 1.25rem var(--f-head); min-height: 4rem; cursor: pointer; }
+#back { width: 4.2rem; background: var(--bg); color: var(--ink); font: 700 1.9rem/1 var(--f-body); } #back:disabled { opacity: .35; }
+#next { flex: 1; background: var(--accent); color: var(--accent-ink); } #next small { display: block; font: 400 .8rem var(--f-body); opacity: .85; }
+.sheet { position: fixed; inset: 0; z-index: 15; background: rgba(0,0,0,.45); display: flex; align-items: flex-end; }
+.sheet-in { background: var(--surface); width: 100%; max-height: 85%; overflow: auto; border-radius: 18px 18px 0 0;
+  padding: 1rem max(16px, env(safe-area-inset-right, 0px)) calc(1rem + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.sheet-hd { display: flex; justify-content: space-between; align-items: center; margin-bottom: .4rem; }
+.sheet-hd button, .sub button { font: 600 .95rem var(--f-head); border: 1px solid var(--line); background: none; color: var(--ink); border-radius: 999px; padding: .5rem 1rem; min-height: 2.6rem; cursor: pointer; }
+#toc { list-style: none; padding: 0; margin: 0; }
+#toc button { width: 100%; text-align: left; display: flex; gap: .7rem; align-items: center; padding: .85rem .4rem; border: 0; border-bottom: 1px solid var(--line); background: none; color: var(--ink); font: 600 1rem var(--f-head); min-height: 3.3rem; cursor: pointer; }
+#toc .k { min-width: 1.5rem; color: var(--hot); font-weight: 800; } #toc .m { margin-left: auto; color: var(--muted); font: 400 .85rem var(--f-body); white-space: nowrap; }
+#toc .here { background: var(--say-bg); }
+.zoom { position: fixed; inset: 0; z-index: 20; background: rgba(0,0,0,.92); overflow: auto; padding: calc(env(safe-area-inset-top, 0px) + 3.5rem) max(12px, env(safe-area-inset-right, 0px)) 2rem max(12px, env(safe-area-inset-left, 0px)); }
+.zoom img { width: 230%; max-width: none; background: #fff; border-radius: 6px; }
+.zoom button { position: fixed; top: calc(env(safe-area-inset-top, 0px) + .6rem); right: max(12px, env(safe-area-inset-right, 0px)); font: 700 1rem var(--f-head); padding: .6rem 1rem; border-radius: 999px; border: 0; background: #fff; color: #111; min-height: 2.75rem; }
+.fc { width: 100%; border: 0; padding: 0; background: none; cursor: pointer; display: block; color: inherit; font: inherit; text-align: left; margin-top: 1rem; }
+.fc .face { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 1.3rem 1.2rem; min-height: 18rem; display: flex; flex-direction: column; gap: .8rem; }
+.fc .lab { font: 700 .78rem var(--f-head); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.fc .qq { font: 800 1.35rem/1.3 var(--f-head); text-wrap: balance; }
+.fc .aa { font-size: 1.15rem; border-top: 1px dashed var(--line); padding-top: .8rem; }
+.fc .hint { margin-top: auto; color: var(--muted); font-size: .9rem; }
+.ctrl { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-top: .8rem; }
+.ctrl button { font: 700 1.05rem var(--f-head); padding: 1rem; border-radius: 14px; border: 0; min-height: 3.6rem; cursor: pointer; }
+.again { background: var(--trap-bg); color: var(--trap); } .got { background: var(--accent); color: var(--accent-ink); }
+.sub { display: flex; justify-content: space-between; align-items: center; gap: .6rem; margin-top: .8rem; color: var(--muted); font-size: .92rem; flex-wrap: wrap; }
+.empty { text-align: center; padding: 2rem 1rem; background: var(--surface); border-radius: 18px; border: 1px solid var(--line); margin-top: 1rem; }
+:focus-visible { outline: 3px solid var(--hot); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<header class="bar"><div class="in">
+  <button type="button" class="menu" id="menu" aria-label="Blocks">☰</button>
+  <div class="brand">Student 2 · Sprint<small id="sub">2.5-hour plan</small></div>
+  <nav class="tabs" aria-label="Mode"><a href="#read" id="t-read">Read</a><a href="#cards" id="t-cards">Cards</a></nav>
+</div><div class="prog" aria-hidden="true"><i id="pbar"></i></div></header>
+
+<main class="wrap">
+  <section id="v-read">__PAGES__</section>
+  <section id="v-cards" hidden><h1>Flashcards</h1><p class="small">Answer out loud, tap the card, then “Got it” or “Again”.</p><div id="cardbox"></div></section>
+</main>
+<nav class="pager" id="pager" aria-label="Page controls"><button type="button" id="back" aria-label="Previous page">‹</button><button type="button" id="next">Next</button></nav>
+<div class="sheet" id="sheet" hidden><div class="sheet-in"><div class="sheet-hd"><b>Jump to a block</b><button type="button" id="sclose">Close</button></div><ol id="toc"></ol></div></div>
+<div class="zoom" id="zoom" hidden><button type="button" id="zclose">Close</button><img id="zimg" alt="Enlarged figure"></div>
+
+<script>
+const BLOCKS = __BLOCKS__, CARDS = __CARDS__, KEY = 'stu2-sprint-v1';
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const get = (k, d) => { try { const v = localStorage.getItem(KEY + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } };
+const put = (k, v) => { try { localStorage.setItem(KEY + k, JSON.stringify(v)); } catch (e) {} };
+const pages = $$('.pg'); let pi = Math.min(pages.length - 1, Math.max(0, get('page', 0))), mode = 'read', known = get('known', []);
+const bname = k => k === '0' ? 'Start' : `Block ${k} · ${BLOCKS.find(b => b.k === k).t}`;
+function paint() {
+  const r = mode === 'cards' ? known.length / CARDS.length : (pi + 1) / pages.length;
+  $('#pbar').style.width = (r * 100).toFixed(1) + '%';
+  const blk = pages[pi].dataset.b, b = BLOCKS.find(x => x.k === blk);
+  $('#sub').textContent = mode === 'cards' ? `${known.length} of ${CARDS.length} cards known` : (b ? `Block ${b.k} of 5 · about ${b.m} min · page ${pi + 1}/${pages.length}` : `Start · page ${pi + 1}/${pages.length}`);
+}
+function show(k) {
+  pi = Math.min(pages.length - 1, Math.max(0, k)); pages.forEach((p, i) => p.hidden = i !== pi); put('page', pi);
+  $('#back').disabled = pi === 0;
+  const nx = pages[pi + 1];
+  $('#next').innerHTML = !nx ? 'Go to the flashcards' : (nx.dataset.b !== pages[pi].dataset.b ? `Next<small>${bname(nx.dataset.b)}</small>` : 'Next');
+  paint(); window.scrollTo(0, 0);
+}
+$('#next').addEventListener('click', () => { if (pi === pages.length - 1) { location.hash = 'cards'; return; } show(pi + 1); });
+$('#back').addEventListener('click', () => show(pi - 1));
+let sx = null;
+$('#v-read').addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+$('#v-read').addEventListener('touchend', e => { if (sx === null || e.target.closest('.tw')) return; const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 70) show(pi + (dx < 0 ? 1 : -1)); sx = null; }, { passive: true });
+document.addEventListener('keydown', e => { if (mode === 'read' && $('#sheet').hidden && $('#zoom').hidden) { if (e.key === 'ArrowRight') show(pi + 1); if (e.key === 'ArrowLeft') show(pi - 1); } });
+$('#menu').addEventListener('click', () => {
+  const cur = pages[pi].dataset.b;
+  $('#toc').innerHTML = [{ k: '0', t: 'Start: can you do it in 2.5 hours?', m: '', first: 0 }, ...BLOCKS].map(b => `<li><button type="button" data-p="${b.first}" class="${b.k === cur ? 'here' : ''}"><span class="k">${b.k === '0' ? '•' : b.k}</span><span>${b.t}</span><span class="m">${b.m ? b.m + ' min' : ''}</span></button></li>`).join('')
+    + `<li><button type="button" data-c="1"><span class="k">★</span><span>Flashcards (${CARDS.length})</span><span class="m">15 min</span></button></li>`;
+  $$('#toc button').forEach(x => x.addEventListener('click', () => { $('#sheet').hidden = true; if (x.dataset.c) { location.hash = 'cards'; return; } if (mode !== 'read') location.hash = 'read'; show(+x.dataset.p); }));
+  $('#sheet').hidden = false;
+});
+$('#sclose').addEventListener('click', () => { $('#sheet').hidden = true; });
+$('#sheet').addEventListener('click', e => { if (e.target.id === 'sheet') $('#sheet').hidden = true; });
+$$('img.fig').forEach(im => { const o = () => { $('#zimg').src = im.src; $('#zoom').hidden = false; }; im.addEventListener('click', o); im.addEventListener('keydown', e => { if (e.key === 'Enter') o(); }); });
+$('#zclose').addEventListener('click', () => { $('#zoom').hidden = true; });
+
+let pile = [], flipped = false;
+const esc = s => s.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
+function build() { pile = CARDS.map((c, i) => i).filter(i => !known.includes(i)); for (let i = pile.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [pile[i], pile[j]] = [pile[j], pile[i]]; } flipped = false; draw(); }
+function draw() {
+  const box = $('#cardbox');
+  if (!pile.length) { box.innerHTML = `<div class="empty"><h2>All ${CARDS.length} cards known</h2><p>Do one timed run of your slides, then rest.</p><div class="sub" style="justify-content:center"><button type="button" id="reset">Start the cards again</button></div></div>`;
+    $('#reset').addEventListener('click', () => { known = []; put('known', known); paint(); build(); }); return; }
+  const c = CARDS[pile[0]];
+  box.innerHTML = `<button type="button" class="fc" id="fc" aria-label="Flashcard, tap to show the answer"><div class="face"><div class="lab">${CARDS.length - pile.length + 1} of ${CARDS.length}</div><div class="qq">${esc(c.q)}</div>${flipped ? `<div class="aa">${esc(c.a)}</div>` : '<div class="hint">Say the answer out loud, then tap.</div>'}</div></button>
+  <div class="ctrl"><button type="button" class="again" id="again">Again</button><button type="button" class="got" id="got">${flipped ? 'Got it' : 'Show answer'}</button></div>
+  <div class="sub"><span>${pile.length} left</span><button type="button" id="shuf">Shuffle</button></div>`;
+  $('#fc').addEventListener('click', () => { flipped = !flipped; draw(); });
+  $('#again').addEventListener('click', () => { pile.push(pile.shift()); flipped = false; draw(); });
+  $('#got').addEventListener('click', () => { if (!flipped) { flipped = true; draw(); return; } known.push(pile.shift()); put('known', known); paint(); flipped = false; draw(); });
+  $('#shuf').addEventListener('click', build);
+}
+let lock = null;
+async function wake() { try { if ('wakeLock' in navigator && !lock) { lock = await navigator.wakeLock.request('screen'); lock.addEventListener('release', () => { lock = null; }); } } catch (e) {} }
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') wake(); });
+function route() {
+  mode = location.hash === '#cards' ? 'cards' : 'read';
+  $('#v-read').hidden = mode !== 'read'; $('#v-cards').hidden = mode !== 'cards'; $('#pager').hidden = mode !== 'read';
+  $('#t-read').setAttribute('aria-current', mode === 'read' ? 'page' : 'false'); $('#t-cards').setAttribute('aria-current', mode === 'cards' ? 'page' : 'false');
+  wake(); if (mode === 'cards') { build(); paint(); window.scrollTo(0, 0); } else show(pi);
+}
+window.addEventListener('hashchange', route); route();
+</script>
