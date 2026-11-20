@@ -59,7 +59,7 @@ replace(para(38, 'without reliable evidence'), ', without reliable evidence that
         ', and their use was associated with higher cyberchondria', 'Abstract, conclusion')
 p78 = para(78, 'two definitions'); start = p78.text.index('AI-chatbot use was operationalised')
 replace(p78, p78.text[start:], 'a participant who reported using an AI chatbot (for example, ChatGPT or Gemini) to look for health information (n = 266, 88.7%); '
-        'the remaining 34 participants were classified as non-users.', '2.4 Definitions, AI-chatbot user')
+        'the remaining 34 participants did not use AI chatbots.', '2.4 Definitions, AI-chatbot user')
 replace(para(82, "for the full sample"), 'for the full sample.', 'for the full sample and for each language version.', '2.5 Statistical analysis, alpha by language')
 p99 = para(99, 'language-specific'); s99 = p99.text.index('However, language-specific')
 replace(p99, p99.text[s99:], 'Internal consistency was similar in the two language versions (SHAI-14: α = 0.81 in both Arabic and English; '
