@@ -22,8 +22,7 @@ def bump(shape, d):
     for r in shape._element.iter(qn('a:endParaRPr')):
         if r.get('sz'): r.set('sz', str(int(int(r.get('sz')) + d * 100)))
 
-# slide 4: worried woman at her laptop instead of the neck-pain photo
-s = S[3]; swap(s, next(sh for sh in s.shapes if sh.shape_type == 13), f'{FIG}/ha_opt1.jpg')
+# slide 4: photo left as it is (the students will choose one)
 
 # slide 6: "Dr ChatGPT" -> "Dr AI" in the title only
 for sh in S[5].shapes:
@@ -32,6 +31,23 @@ for sh in S[5].shapes:
             for r in p.runs:
                 if 'CHATGPT' in r.text and 'DR' in r.text.upper(): r.text = r.text.replace('“DR CHATGPT”', '“DR AI”').replace('"DR CHATGPT"', '"DR AI"').replace('DR CHATGPT', 'DR AI')
 print('slide 6 title:', S[5].shapes.title.text_frame.text)
+
+# slide 6: fill the empty lower half with the thesis's own points (section 1.5)
+s = S[5]
+def box(x, y, w, h, parts, size, fill, color, line=None):
+    b = s.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h)); tf = b.text_frame; tf.word_wrap = True; tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+    for m in ('margin_left', 'margin_right', 'margin_top', 'margin_bottom'): setattr(tf, m, Inches(0.1))
+    b.fill.solid(); b.fill.fore_color.rgb = fill
+    if line is not None: b.line.color.rgb = line; b.line.width = Pt(1)
+    for i, ln in enumerate(parts):
+        p = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
+        for k, t in enumerate(ln.split('**')):
+            if not t: continue
+            r = p.add_run(); r.text = t; r.font.size = Pt(size); r.font.name = 'DM Sans'; r.font.bold = k % 2 == 1
+            r.font.color.rgb = color if fill != WHITE or k % 2 == 0 else NAVY
+WHITE = RGBColor.from_string('FFFFFF')
+box(0.79, 2.95, 4.35, 1.1, ['**About 1 in 3** of these ChatGPT users **changed their medication or asked for a referral** based on its answers (US survey)'], 11.5, WHITE, INK, line=RGBColor.from_string('C2D6E7'))
+box(0.79, 4.22, 8.43, 0.6, ['**The open question:** do chatbots calm worry with reassuring answers, or feed it by always being there for one more question?'], 12, NAVY, WHITE)
 
 # slide 8: phone with the real questionnaire in the empty picture frame
 s = S[7]; ph = next(sh for sh in s.shapes if sh.is_placeholder and sh.placeholder_format.idx == 3)
