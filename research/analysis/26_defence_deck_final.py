@@ -422,8 +422,7 @@ order.append(s)
 
 s = new_slide('COMPARISON WITH REGIONAL STUDIES')
 mp = picture(s, f'{FIG}/map_region.png', 0.75, 1.2, h=3.55, frame=True); RW = mp.width / 914400
-px, py = 0.75 + 0.318 * RW, 1.2 + 0.245 * 3.55
-rect(s, px - 0.05, py - 0.05, 0.1, 0.1, NAVY, None, MSO_SHAPE.OVAL); textbox(s, px - 0.95, py - 0.13, 0.88, 0.26, 'Palestine', size=9, color=NAVY, bold=True, align='r')
+# Palestine is drawn whole on the map itself (27_region_map.py)
 studies = [('IRAQ · COVID-19 survey', '49.5% screened positive for health anxiety (different tool)', ORANGE), ('SAUDI ARABIA · Jeddah', 'Cyberchondria common in adults', SLATE),
            ('SAUDI ARABIA · primary care', '“Dr Google” use linked with health anxiety', SLATE), ('LEBANON', 'Arabic CSS-12 validated: same four dimensions as ours', NAVY),
            ('EGYPT · 1435 medical students', '85.8% had moderate cyberchondria', NAVY), ('PALESTINE', 'Health anxiety least common in medical students', WINE)]
